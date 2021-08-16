@@ -1,0 +1,66 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+
+    <!-- PageTopBar -->
+
+    <!-- Group call details -->
+
+    <!-- SlidingMenu. -->
+
+    <!-- register -->
+
+    <!-- totok global text size v2.3 -->
+
+    <!-- totok list item dimens -->
+
+    <!-- totok button dimens -->
+
+    <!-- offline doodle editor -->
+
+    <!-- offline message -->
+
+    <!-- v3.3 -->
+
+    <!-- new conversation -->
+    <!-- conversation sticker -->
+
+    <!--app update -->
+
+    <!-- sticker shop -->
+
+    <!--MD Start-->
+
+    <!--Common Text Size -->
+    <dimen name="yc_text_size_12sp_H1">12sp</dimen>
+
+    <!--CommonDialog-->
+
+    <!--List-->
+
+    <!-- giphy -->
+
+    <!-- alarm event -->
+
+    <!-- Login And Register  -->
+
+    <dimen name="yc_mtrl_call_incall_switch_action_margin_left_right">33dp</dimen>
+
+    <dimen name="yc_mtrl_call_drawable_padding">6dp</dimen>
+    <dimen name="dimen_17sp">17sp</dimen>
+
+
+    <!-- Voice Message -->
+    <!-- Voice Message End-->
+
+    <!--full screen ad MV-->
+
+    <!--full screen ad FB-->
+
+    <!-- Main discovery -->
+
+    <integer name="emoji_grid_column_count">7</integer>
+    <integer name="emoji_grid_raw_count">3</integer>
+    <dimen name="fab_margin">16dp</dimen>
+</resources>

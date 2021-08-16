@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingTop="30dp"
+    android:paddingBottom="30dp">
+
+    <TextView
+        android:id="@+id/textview2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#efefef"
+        android:padding="20dp"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="asjndjasnd"
+        android:textColor="#000000"
+        android:textSize="50sp"
+        android:visibility="gone" />
+
+    <com.zhaoyuntao.androidutils.component.ZButton
+        android:id="@+id/zbutton"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="30dp"
+        app:ZButton_color_back="#ff0000"
+        app:ZButton_color_border="#ff0000"
+        app:ZButton_radius="20dp"
+        app:ZButton_text_center="click"
+        app:ZButton_textcolor="#ffffff"
+        app:ZButton_textsize="50sp"
+        app:ZButton_wavecolor="#ff6677" />
+
+</LinearLayout>

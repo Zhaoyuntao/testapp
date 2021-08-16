@@ -1,0 +1,5 @@
+include ':MyJava'
+include ':diffComparator'
+include ':excelReader'
+include ':app', ':mylibrary'
+rootProject.name='test3app'

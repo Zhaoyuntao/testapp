@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#f2f2f7"
+    tools:context=".activity.MainActivity6_pay">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.test.test3app.pay.PaymentCell
+                android:id="@+id/pay1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <com.test.test3app.pay.PaymentCell
+                android:id="@+id/pay2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <com.test.test3app.pay.PaymentCell
+                android:id="@+id/pay3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <com.test.test3app.pay.PaymentCell
+                android:id="@+id/pay4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="3">
+
+        <Button
+            android:id="@+id/m1"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_columnWeight="1"
+            android:padding="0dp"
+            android:text="bubble"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/m2"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_columnWeight="1"
+            android:padding="0dp"
+            android:text="record"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/m3"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_columnWeight="1"
+            android:padding="0dp"
+            android:text="sms"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/m4"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_columnWeight="1"
+            android:padding="0dp"
+            android:text="group tips"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/m5"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_columnWeight="1"
+            android:padding="0dp"
+            android:text="takephoto"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/m6"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_columnWeight="1"
+            android:padding="0dp"
+            android:text="pay"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/m7"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_columnWeight="1"
+            android:padding="0dp"
+            android:text="recyclerView"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/m8"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_columnWeight="1"
+            android:padding="0dp"
+            android:text="permission"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/m9"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_columnWeight="1"
+            android:padding="0dp"
+            android:text="openGL"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/m91"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_columnWeight="1"
+            android:padding="0dp"
+            android:text="Qmoji"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/m92"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_columnWeight="1"
+            android:padding="0dp"
+            android:text="huawei meeting"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/m93"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_columnWeight="1"
+            android:padding="0dp"
+            android:text="threadPool"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/m94"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_columnWeight="1"
+            android:padding="0dp"
+            android:text="wallpaper"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/m95"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_columnWeight="1"
+            android:padding="0dp"
+            android:text="textview"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/m96"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_columnWeight="1"
+            android:padding="0dp"
+            android:text="faceview"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/m97"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_columnWeight="1"
+            android:padding="0dp"
+            android:text="spannable"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/m98"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_columnWeight="1"
+            android:padding="0dp"
+            android:text="stickerReply"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/m99"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_columnWeight="1"
+            android:padding="0dp"
+            android:text="dark mode"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/m990"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_columnWeight="1"
+            android:padding="0dp"
+            android:text="ndk"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/m991"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_columnWeight="1"
+            android:padding="0dp"
+            android:text="calculate"
+            android:visibility="gone" />
+    </GridLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

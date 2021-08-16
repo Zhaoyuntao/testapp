@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ff8850</color>
+    <color name="colorPrimaryDark">#ff574B</color>
+    <color name="colorPrimaryDark2">#55ff574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary_night">#00ff00</color>
+    <color name="colorPrimaryDark_night">#003300</color>
+    <color name="colorPrimaryDark2_night">#55003300</color>
+    <color name="colorAccent_night">#004400</color>
+
+    <color name="white">#ffffffff</color>
+
+    <!-- Color for group call details -->
+    <!-- Zayhu call activity -->
+
+    <!-- totok global color v2.3 -->
+
+    <!-- totok list item colors -->
+
+    <!-- totok button colors -->
+
+    <!--  MD Start-->
+
+    <!-- Style Colors -->
+
+    <!-- Buttons -->
+    <!-- Blue raised button -->
+    <!-- Red button -->
+    <!-- Green button -->
+
+    <!-- Yellow button -->
+
+    <!--Selectable Widget-->
+
+    <!-- Common Snackbar-->
+
+    <!-- Common Dialog-->
+
+    <!-- Selectable Itme Background-->
+
+    <!-- giphy -->
+
+    <!-- event -->
+
+    <!-- Group Call Detail-->
+
+    <!-- contact select -->
+
+    <!--  MD End-->
+    <color name="yc_color_1CC964_CPN">#4378F2</color>
+    <color name="yc_color_808080_CMG">#808080</color>
+    <color name="yc_color_1CC964_CPN_10">#1E4378F2</color>
+    <color name="yc_color_3DBA46_CPP">#275edb</color>
+    <color name="color_countrycode">#808080</color>
+    <color name="color_phonenumber">#141414</color>
+    <color name="yc_color_4378F2_CPN">#4378F2</color>
+    <color name="yc_color_4378F2_CPN_10">#1E4378F2</color>
+    <color name="yc_color_275edb_CPP">#275edb</color>
+
+    <!--  Main Color  -->
+    <color name="color_main_blue_275edb">#275edb</color>
+    <color name="color_main_blue_80275edb">#80275edb</color>
+    <color name="color_main_blue_dark">#173eab</color>
+    <color name="color_main_blue_dark_99275edb">#99275edb</color>
+    <color name="color_main_blue_light_800092FF">#800092FF</color>
+    <color name="color_main_blue_light_00b4ff">#00b4ff</color>
+    <color name="color_main_blue_light_55aaaaff">#55aaaaff</color>
+    <color name="color_main_blue_light_2">#aaaaff</color>
+    <color name="color_main_blue_light_3">#fafaff</color>
+    <color name="color_main_red_e4281d">#e4281d</color>
+    <color name="color_main_orange_db5e27">#db5e27</color>
+    <color name="color_main_orange_ff732e">#ff732e</color>
+    <color name="color_main_orange_80ff732e">#80ff732e</color>
+    <color name="color_main_orange_dark_db5e27">#99db5e27</color>
+    <!--  Bubble Color  -->
+    <color name="color_bubble_me">#d9e4fc</color>
+    <color name="color_bubble_other">#f2f2f7</color>
+    <color name="color_bubble_me_high_light">#ebebff</color>
+    <color name="color_bubble_other_high_light">#cccccc</color>
+
+    <!--  White  -->
+    <color name="color_main_white_ffffff">#ffffff</color>
+    <color name="color_main_white_f0f0f0">#f0f0f0</color>
+    <color name="color_main_white_e0e0e0">#e0e0e0</color>
+    <color name="color_main_white_cccccc">#cccccc</color>
+    <color name="color_main_white_b0b0b0">#b0b0b0</color>
+    <color name="color_main_white_808080">#808080</color>
+    <color name="color_main_white_efefef">#efefef</color>
+    <color name="color_main_white_f8f8f8">#f8f8f8</color>
+
+    <!--  Text Color  -->
+    <color name="color_text_e0e0e0">#e0e0e0</color>
+    <color name="color_text_808080">#808080</color>
+    <color name="color_text_414141">#414141</color>
+    <color name="color_text_4b4b4b">#4b4b4b</color>
+    <color name="color_text_262626">#262626</color>
+    <color name="color_text_141414">#141414</color>
+    <color name="color_text_e4281d">#e4281d</color>
+
+    <!--  Black  -->
+    <color name="color_main_black_12">#1F000000</color>
+    <color name="color_main_black_20">#33000000</color>
+    <color name="color_main_black_26">#42000000</color>
+    <color name="color_main_black_30">#4D000000</color>
+    <color name="color_main_black_35">#59000000</color>
+    <color name="color_main_black_40">#66000000</color>
+    <color name="color_main_black_50">#80000000</color>
+    <color name="color_main_black_60">#99000000</color>
+    <color name="color_main_black_70">#B2000000</color>
+    <color name="color_main_black_000000">#000000</color>
+    <color name="color_main_black_979797">#979797</color>
+    <color name="color_main_black_EFEFF4">#EFEFF4</color>
+
+
+    <!--  default face  #6B71DB, #C06BD8, #CD4E39, #00AD96, #F6AB0F -->
+    <!--  default face  #6B71DB, #C06BD8, #CD4E39, #00AD96, #F6AB0F -->
+    <color name="color_default_face_0">#6B71DB</color>
+    <color name="color_default_face_1">#C06BD8</color>
+    <color name="color_default_face_2">#CD4E39</color>
+    <color name="color_default_face_3">#00AD96</color>
+    <color name="color_default_face_4">#F6AB0F</color>
+
+    <color name="color_transparent">#00000000</color>
+
+    <color name="yc_color_FFFA00">#FFFA00</color>
+    <color name="yc_color_000000_CB">#000000</color>
+
+    <color name="yc_color_4B4B4B_CDG">#4B4B4B</color>
+
+    <color name="common_dialog_ok_btn_textcolor_normal">#ffffff</color>
+    <color name="common_dialog_ok_btn_textcolor_pressed">#7fffffff</color>
+    <color name="common_dialog_ok_btn_textcolor_disable">#bdbdbd</color>
+    <color name="common_dialog_cancel_btn_textcolor_normal">#9b9b9b</color>
+    <color name="common_dialog_cancel_btn_textcolor_pressed">#bdbdbd</color>
+    <color name="common_dialog_cancel_btn_textcolor_disable">#bdbdbd</color>
+
+    <color name="common_dialog_title_textcolor">#9b9b9b</color>
+    <color name="common_dialog_message_textcolor">#000000</color>
+
+    <!-- Hex transparency
+        100% — FF
+        95% — F2
+        90% — E6
+        87% — DE
+        85% — D9
+        80% — CC
+        75% — BF
+        70% — B3
+        65% — A6
+        60% — 99
+        55% — 8C
+        54% — 8A
+        50% — 80
+        45% — 73
+        40% — 66
+        35% — 59
+        30% — 4D
+        26% — 42
+        25% — 40
+        22% — 39
+        21% — 36
+        20% — 33
+        15% — 26
+        14% — 24
+        13% －21
+        12% — 1F
+        10% — 1A
+        5% — 0D
+        0% — 00
+    -->
+
+    <!-- Primary colors -->
+    <color name="yc_color_FFB224_C1">#FFB224</color>
+    <color name="yc_color_dfdfdf">#dfdfdf</color>
+
+    <!-- Primary colors -->
+
+    <!-- Accent colors -->
+    <color name="yc_color_0092FF_C3">#0092FF</color>
+    <color name="yc_color_0092FF_C3_95">#F20092FF</color>
+
+    <!-- Secondary colors -->
+    <color name="yc_color_FF1744_C8">#FF1744</color>
+
+    <!-- Additional colors -->
+    <color name="yc_color_33180A_C10">#33180A</color>
+    <color name="yc_color_806E66_C11">#806E66</color>
+    <color name="yc_color_B2A7A1_C12">#B2A7A1</color>
+    <color name="yc_color_EBEBEB_C14">#EBEBEB</color>
+    <color name="yc_color_000000_C15">#000000</color>
+
+    <color name="yc_color_FFEA00">#FFEA00</color>
+    <color name="yc_color_1E569B">#1E569B</color>
+    <color name="yc_color_2A9202">#2A9202</color>
+    <color name="yc_color_40ADFF">#40ADFF</color>
+    <color name="yc_color_FFE7EC">#FFE7EC</color>
+    <color name="yc_color_F2F0F0">#F2F0F0</color>
+    <color name="yc_color_F0F0F0">#F0F0F0</color>
+    <color name="yc_color_F2F0ED">#F2F0ED</color>
+    <color name="yc_color_6A5951">#6A5951</color>
+    <color name="yc_color_F2EDEB">#F2EDEB</color>
+    <color name="yc_color_E5E5E5">#E5E5E5</color>
+    <color name="yc_color_EFEFEF">#efefef</color>
+    <color name="yc_color_white_C14">@android:color/white</color>
+    <color name="yc_color_black">@android:color/black</color>
+    <color name="yc_color_transparent">@android:color/transparent</color>
+    <color name="yc_color_CCEBEBEB">#CCEBEBEB</color>
+
+    <color name="yc_color_F8F8F8_C15">#F8F8F8</color>
+    <color name="yc_color_F5F8F8">#F5F8F8</color>
+    <color name="yc_color_E6153B_C16">#E6153B</color>
+
+    <!-- Transparency colors -->
+    <color name="yc_color_black_12">#1F000000</color>
+    <color name="yc_color_black_20">#33000000</color>
+    <color name="yc_color_black_26">#42000000</color>
+    <color name="yc_color_black_30">#4D000000</color>
+    <color name="yc_color_black_35">#59000000</color>
+    <color name="yc_color_black_40">#66000000</color>
+    <color name="yc_color_black_50">#80000000</color>
+    <color name="yc_color_black_60">#99000000</color>
+    <color name="yc_color_black_70">#B2000000</color>
+    <color name="yc_color_FFB224_C1_26">#42FFB224</color>
+    <color name="yc_color_FF1744_C8_50">#80FF1744</color>
+    <color name="yc_color_FF1744_C8_20">#33FF1744</color>
+    <color name="yc_color_00C853_C5_20">#3300C853</color>
+    <color name="yc_color_B2A7A1_C12_40">#66B2A7A1</color>
+    <color name="yc_color_B2A7A1_C12_20">#33B2A7A1</color>
+    <color name="yc_color_white_C14_90">#E6FFFFFF</color>
+    <color name="yc_color_white_C14_70">#B3FFFFFF</color>
+    <color name="yc_color_white_C14_30">#4DFFFFFF</color>
+    <color name="yc_color_white_C14_26">#42FFFFFF</color>
+    <color name="yc_color_white_C14_20">#33FFFFFF</color>
+    <color name="yc_color_white_C14_15">#26FFFFFF</color>
+    <color name="yc_color_white_C14_12">#1FFFFFFF</color>
+    <color name="yc_color_white_C14_10">#1AFFFFFF</color>
+    <color name="yc_color_black_C9_90">#E6000000</color>
+    <color name="yc_color_black_C9_80">#CC000000</color>
+    <color name="yc_color_black_C6_59">#8099705c</color>
+    <color name="yc_color_black_C9_12">#1E000000</color>
+    <color name="yc_color_black_C9_26">#43000000</color>
+    <color name="yc_color_C9_90">#E6262626</color>
+    <color name="yc_color_FFA424_C2_40">#66FFA424</color>
+    <color name="yc_color_262626_C9_12">#1F262626</color>
+    <color name="yc_color_262626">#262626</color>
+    <color name="yc_color_0092FF_C3_26">#420092FF</color>
+    <color name="yc_color_0092FF_C3_50">#800092FF</color>
+    <color name="yc_color_806E66_C11_10">#1A806E66</color>
+
+    <color name="yc_color_1A1A1A">#1A1A1A</color>
+    <color name="yc_color_e0e0e0">#e0e0e0</color>
+
+    <color name="yc_text_url_color">#FF005EDE</color>
+    <color name="yc_color_B3B3B3">#B3B3B3</color>
+    <color name="yc_color_0060FF">#0060FF</color>
+
+    <color name="yc_color_FFD800_CYN">#FFD800</color>
+    <color name="yc_color_FF3B30_CRN">#FF3B30</color>
+    <color name="yc_color_FFFFFF_CW">#FFFFFF</color>
+    <color name="yc_color_F8F8F8_CLBG">#F8F8F8</color>
+    <color name="yc_color_EFEFF4_CBG">#EFEFF4</color>
+    <color name="yc_color_CCCCCC_CLG">#CCCCCC</color>
+    <color name="yc_color_1CC964_CGN">#1CC964</color>
+    <color name="yc_color_595959">#595959</color>
+    <color name="yc_color_DEDEDE">#DEDEDE</color>
+    <color name="yc_color_FFEFEFF4">#FFEFEFF4</color>
+
+    <color name="totok_color_808080_CMG_30">#4D808080</color>
+    <color name="totok_color_4378F2_CPN_30">#4D4378F2</color>
+    <color name="totok_color_FFFFFF_CW_30">#4DFFFFFF</color>
+
+    <color name="percentageFillColor">#14b9d6</color>
+    <color name="percentageUnfilledColor">#00ffffff</color>
+    <color name="percentageTextBackground">#323a45</color>
+    <color name="percentageTextColor">#ffffff</color>
+    <color name="yc_color_000000_CB_50">#80000000</color>
+    <color name="yc_color_000000_CB_30">#4D000000</color>
+    <color name="yc_color_000000_CB_40">#66000000</color>
+    <color name="yc_color_000000_CB_10">#1A000000</color>
+    <color name="yc_color_F8F8F8_CLBG_95">#F2F8F8F8</color>
+    <color name="yc_color_4378F2_CPN_20">#334378F2</color>
+    <color name="yc_color_808080_CMG_70">#B3808080</color>
+
+    <!--register page phone number-->
+    <color name="red">#900</color>
+    <color name="black">#ff000000</color>
+    <color name="black_50_per_transparent">#7f000000</color>
+    <color name="light_gray">#cccccc</color>
+    <color name="grass_green">#ff00b4ff</color>
+    <color name="totok_page_bar_bkg">#FFFFFF</color>
+    <color name="totok_msg_text_color">#412d2f</color>
+    <color name="totok_list_item_dividor_color">#dfdfdf</color>
+    <color name="totok_list_item_text_color">@color/totok_contact_select_item_color</color>
+    <color name="totok_main_empty_text">#d6dee7</color>
+    <color name="totok_regist_bkg_color">#fffddd</color>
+    <color name="totok_already_add_yellow">#ff9800</color>
+    <color name="totok_doodle_topbar">#ff272726</color>
+    <color name="totok_doodle_med_buttonbar">#ff272726</color>
+    <color name="totok_doodle_bottom_layout">#ff212120</color>
+    <color name="totok_doodle_canvas">#fff0f0f0</color>
+    <color name="totok_doodle_message_list_view">#00000000</color>
+    <color name="totok_doodle_backgournd_picker_text_color">#b1b1b1</color>
+    <color name="totok_doodle_backgournd_picker_selected_color">#ff9800</color>
+    <color name="totok_doodle_send_button_color">#ffb145</color>
+    <color name="totok_offline_msg_text_box_color">#4d272726</color>
+
+    <!-- Color for group call details -->
+    <!-- Zayhu call activity -->
+
+    <!-- totok global color v2.3 -->
+    <color name="totok_color_global_yellow_normal">@color/yc_color_4378F2_CPN</color>
+    <color name="totok_color_global_c1_white">#ffffff</color>
+    <color name="totok_color_global_c1_white_alpha20">#33ffffff</color>
+    <color name="totok_color_global_c2_gray">#f8f8f8</color>
+    <color name="totok_color_global_c3_gray">#f0f0f0</color>
+    <color name="totok_color_global_c4_gray">#bdbdbd</color>
+    <color name="totok_color_paint_call_bottom_bg_normal">@color/yc_color_000000_CB</color>
+    <color name="totok_color_paint_call_bottom_bg_pressed">#202020</color>
+    <color name="totok_color_global_white_alpha62">#AAFFFFFF</color>
+
+    <!-- totok list item colors -->
+    <color name="totok_list_item_header_textcolor">@color/yc_color_4B4B4B_CDG</color>
+    <color name="totok_list_item_top_textcolor">@color/totok_contact_select_item_color</color>
+    <color name="totok_list_item_bottom_textcolor">#9b9b9b</color>
+    <color name="totok_list_item_right_textcolor">#9b9b9b</color>
+
+    <!-- totok button colors -->
+    <color name="totok_gray_btn_textcolor_normal">#9b9b9b</color>
+    <color name="totok_gray_btn_textcolor_pressed">#bdbdbd</color>
+    <color name="totok_gray_btn_textcolor_disable">#bdbdbd</color>
+    <color name="totok_yellow_btn_textcolor_normal">#ffffff</color>
+    <color name="totok_yellow_btn_textcolor_pressed">#7fffffff</color>
+    <color name="totok_yellow_btn_textcolor_disable">#bdbdbd</color>
+
+    <color name="totok_facebook_login_button_textcolor_normal">#3b5998</color>
+    <color name="totok_facebook_login_button_textcolor_pressed">#23407e</color>
+
+    <color name="totok_page_top_bar_text_default_color">@color/yc_color_000000_CB</color>
+
+    <color name="totok_conversation_common_background_dark">#e8e9eb</color>
+    <color name="totok_conversation_common_background_light">#fcfcff</color>
+    <color name="tt_conversation_cell_user_name_text_color">@color/yc_color_4B4B4B_CDG</color>
+    <color name="totok_conversation_in_call_tips_text_color">#808080</color>
+    <color name="totok_conversation_message_more_textcolor_normal">#FFFFB244</color>
+    <color name="totok_conversation_message_more_textcolor_pressed">#FFA200</color>
+    <color name="totok_conversation_message_time_color">#999999</color>
+
+    <color name="totok_conversation_draft_text_color">#FF3C3C</color>
+    <color name="totok_conversation_name_card_text_color">@color/yc_color_4378F2_CPN</color>
+
+    <color name="totok_computer_login_close_text_color">#000000</color>
+    <color name="totok_computer_login_hint1_text_color">#9b9b9b</color>
+    <color name="totok_computer_login_hint3_text_color">#ff3c3c</color>
+    <color name="totok_computer_login_background_color">#f0f0f0</color>
+
+    <color name="conversation_sticker_btn_background">#f0f0f2</color>
+    <color name="conversation_sticker_bottombar_devider">#d7d7d9</color>
+    <color name="conversation_dynamic_menu_normal_textcolor">#ff262626</color>
+    <color name="conversation_dynamic_menu_pressed_textcolor">#ff808080</color>
+    <color name="conversation_multi_richurl_expand_item_normal_bg">#fffcfeff</color>
+    <color name="conversation_multi_richurl_expand_item_pressed_bg">#ffd9dadb</color>
+
+    <color name="conversation_giffy_hotwords_devider">#e3e4e6</color>
+    <color name="conversation_inputbar_top_line">#e8e9eb</color>
+
+    <color name="giffy_search_fragment_grid_item_background_color1">#81E1CE</color>
+    <color name="giffy_search_fragment_grid_item_background_color2">#AD87D2</color>
+    <color name="giffy_search_fragment_grid_item_background_color3">#63ca85</color>
+    <color name="giffy_search_fragment_grid_item_background_color4">#F3A533</color>
+    <color name="giffy_search_fragment_grid_item_background_color5">#F35A4E</color>
+    <color name="giffy_search_fragment_grid_item_background_color6">#2D98B6</color>
+    <color name="sticker_favorite_manager_recyclerview_background_color">@color/yc_color_F2EDEB
+    </color>
+
+    <color name="sticker_progress_button_background_color_gray">@color/yc_color_CCCCCC_CLG</color>
+    <color name="sticker_progress_button_background_color_yellow">#0092ff</color>
+    <color name="sticker_progress_button_background_color_yellow_pressed">#0080e0</color>
+
+    <color name="sticker_store_image_background_color">#bdbebf</color>
+
+    <!--  MD Start-->
+    <color name="yc_mtrl_color_status_bar">@color/yc_color_4B4B4B_CDG</color>
+    <color name="yc_mtrl_color_primary">@color/yc_color_F8F8F8_CLBG</color>
+    <color name="yc_mtrl_color_no_primary">@color/yc_color_4378F2_CPN</color>
+    <color name="yc_mtrl_color_accent">@color/yc_color_white_C14</color>
+    <color name="yc_mtrl_status_bar_color">@color/yc_mtrl_color_accent</color>
+
+    <color name="yc_mtrl_main_tip_bar_background">@color/yc_color_FFE7EC</color>
+    <color name="yc_mtrl_main_multi_login_tip_bar_background">@color/yc_color_F8F8F8_CLBG</color>
+
+    <!-- Style Colors -->
+
+    <!-- Buttons -->
+    <color name="yc_mtrl_btn_text_color_disabled">@color/yc_color_black_26</color>
+    <!-- Blue raised button -->
+    <color name="yc_mtrl_blue_raised_btn_color_accent">@color/yc_color_0092FF_C3</color>
+    <color name="yc_mtrl_blue_raised_btn_text_color_normal">@color/yc_color_white_C14</color>
+    <!-- Red button -->
+    <color name="yc_mtrl_red_btn_text_color_normal">@color/yc_color_FF3B30_CRN</color>
+    <color name="yc_mtrl_red_btn_high_light_color">@color/yc_color_FF1744_C8_20</color>
+    <!-- Green button -->
+    <color name="yc_mtrl_green_btn_text_color_normal">@color/yc_mtrl_color_no_primary</color>
+    <color name="yc_mtrl_green_btn_high_light_color">@color/yc_color_00C853_C5_20</color>
+    <color name="yc_mtrl_green_btn_stroke_color">@color/yc_mtrl_color_no_primary</color>
+
+    <!-- Yellow button -->
+    <color name="yc_mtrl_yellow_btn_high_light_color">@color/yc_color_FFA424_C2_40</color>
+    <color name="yc_mtrl_yellow_btn_stroke_color">@color/yc_mtrl_color_no_primary</color>
+
+    <!--Selectable Widget-->
+    <color name="yc_selectable_widget_uncheck_border_color">@color/yc_color_000000_CB</color>
+
+    <!-- Common Snackbar-->
+    <color name="yc_common_snackbar_action_text_color">@color/yc_mtrl_color_no_primary</color>
+
+    <!-- Common Dialog-->
+    <color name="yc_common_dialog_title_textcolor">@color/yc_color_000000_CB</color>
+    <color name="yc_common_dialog_message_textcolor">@color/yc_color_4B4B4B_CDG</color>
+    <color name="yc_common_dialog_cancel_btn_bg_highlight_color">@color/yc_color_CCCCCC_CLG</color>
+    <color name="yc_common_dialog_default_btn_bg_highlight_color">@color/yc_color_FF1744_C8_50
+    </color>
+    <color name="yc_common_dialog_cancel_btn_normal_bg_color">@color/yc_color_white_C14</color>
+    <color name="yc_common_dialog_default_btn_normal_bg_color">@color/yc_color_white_C14</color>
+
+    <!-- Selectable Itme Background-->
+    <color name="yc_item_bg_color">@color/yc_color_white_C14</color>
+    <drawable name="yc_item_bg_highlight_color">@color/yc_color_F8F8F8_C15</drawable>
+
+    <!-- giphy -->
+    <color name="yc_conversation_giphy_hotwords_item_back_color_normal">
+        @color/yc_color_B2A7A1_C12_20
+    </color>
+    <color name="yc_conversation_giphy_hotwords_item_back_color_pressed">
+        @color/yc_color_B2A7A1_C12_40
+    </color>
+    <color name="yc_conversation_giphy_hotwords_item_text_color">@color/yc_color_4B4B4B_CDG</color>
+    <color name="totok_conversation_text_default_color">@color/yc_mtrl_color_no_primary</color>
+    <color name="totok_conversation_long_click_preview_text_color">@color/yc_color_CCCCCC_CLG
+    </color>
+    <color name="totok_conversation_preview_grid_back_color">#f5f5f5</color>
+    <color name="totok_conversation_new_message_tips_back_color">#0092ff</color>
+    <color name="totok_conversation_downloaded_package_text_color">@color/yc_color_white_C14
+    </color>
+
+    <!-- event -->
+    <color name="totok_alarm_event_input_name_text_color">@color/yc_color_000000_CB</color>
+    <color name="totok_alarm_event_input_name_text_hint_color">@color/yc_color_CCCCCC_CLG</color>
+    <color name="totok_alarm_event_uncoming_event_background_color">#0092ff</color>
+    <color name="totok_alarm_event_complete_event_background_color">#b3a7a1</color>
+
+    <!-- Group Call Detail-->
+    <drawable name="yc_group_call_detail_enter_btn_normal">@color/yc_mtrl_color_no_primary
+    </drawable>
+    <drawable name="yc_group_call_detail_enter_btn_pressed">@color/yc_color_3DBA46_CPP</drawable>
+
+    <!-- contact select -->
+    <color name="totok_contact_select_item_color">@color/yc_color_000000_CB</color>
+
+    <color name="yc_mtrl_item_sub_header_text_color">@color/yc_mtrl_color_no_primary</color>
+
+    <color name="yc_mtrl_add_friend_search_background">@color/yc_color_F2F0ED</color>
+
+    <color name="yc_mtrl_colored_ripple_color">@color/yc_color_white_C14_30</color>
+    <color name="yc_mtrl_blue_colored_button_background_disable">@color/yc_color_black_12</color>
+    <color name="yc_mtrl_blue_colored_button_text_color_normal">@color/yc_color_white_C14</color>
+    <color name="yc_mtrl_blue_colored_button_text_color_disable">@color/yc_color_black_26</color>
+
+    <color name="yc_mtrl_red_colored_button_background_pressed">#FC5457</color>
+    <color name="yc_mtrl_red_colored_button_background_normal">@color/yc_color_FF3B30_CRN</color>
+    <color name="yc_mtrl_red_colored_button_background_disable">@color/yc_color_black_12</color>
+    <color name="yc_mtrl_red_colored_button_text_color_normal">@color/yc_color_white_C14</color>
+    <color name="yc_mtrl_red_colored_button_text_color_disable">@color/yc_color_black_26</color>
+
+    <color name="yc_mtrl_blue_frame_ripple_color">#90CAF9</color>
+    <color name="yc_mtrl_blue_frame_button_text_color_disable">@color/yc_color_black_26</color>
+    <color name="yc_mtrl_blue_frame_button_background_normal">@color/yc_color_0092FF_C3</color>
+    <color name="yc_mtrl_blue_frame_button_background_pressed">#90CAF9</color>
+
+    <color name="yc_mtrl_yellow_frame_ripple_color">#FFF176</color>
+    <color name="yc_mtrl_yellow_frame_button_text_color_normal">@color/yc_mtrl_color_no_primary
+    </color>
+    <color name="yc_mtrl_yellow_frame_button_text_color_disable">@color/yc_color_black_26</color>
+    <color name="yc_mtrl_yellow_frame_button_background_normal">@color/yc_mtrl_color_no_primary
+    </color>
+    <color name="yc_mtrl_yellow_frame_button_background_pressed">#FFF176</color>
+
+    <color name="yc_mtrl_yellow_borderless_ripple_color">#FFF176</color>
+    <color name="yc_mtrl_yellow_borderless_button_text_color_normal">
+        @color/yc_mtrl_color_no_primary
+    </color>
+    <color name="yc_mtrl_yellow_borderless_button_background_normal">@color/yc_color_white_C14
+    </color>
+    <color name="yc_mtrl_yellow_borderless_button_background_pressed">#FFF176</color>
+
+    <color name="yc_mtrl_doodle_ripple_color_for_black_background">#aaaaaa</color>
+
+    <color name="yc_mtrl_list_item_background_ripple">@color/yc_color_F8F8F8_CLBG</color>
+    <color name="yc_mtrl_list_item_background_disabled">@color/yc_color_transparent</color>
+    <color name="yc_mtrl_list_item_background_pressed">@color/yc_color_262626_C9_12</color>
+
+    <color name="yc_mtrl_conversation_alarm_strong_color">#d9d9d9</color>
+
+    <color name="yc_mtrl_common_page_status_bar_color">@color/yc_color_black</color>
+
+    <drawable name="yc_preview_edit_tv_back_icon_bg_normal">@color/yc_color_transparent</drawable>
+    <color name="yc_preview_edit_tv_back_icon_ripple_color">@color/yc_color_white_C14_26</color>
+
+    <color name="yc_sticker_cell_mask_background_color">#b27e7e7f</color>
+    <!--  MD End-->
+
+    <color name="yc_notification_thumbnail_bg_color">#ccff90</color>
+
+    <color name="totok_color_global_c10_alpha70">#C233180A</color>
+
+    <color name="yc_mtrl_list_top_item_background_pressed">@color/yc_color_262626_C9_12</color>
+    <color name="yc_mtrl_list_top_item_background_normal">@color/yc_color_F8F8F8_CLBG</color>
+
+    <color name="tt_wt_assets_f0f0f0">#f0f0f0</color>
+
+    <color name="yc_discovery_viewpager_lcell_perc_color">#b2a7a1</color>
+
+    <color name="yc_donate_animate_color">#ccffb224</color>
+    <color name="yc_resident_notification_tips_bar_text_color">@color/yc_color_FF3B30_CRN</color>
+    <color name="yc_resident_notification_tips_bar_background">@color/yc_color_FFE7EC</color>
+
+    <color name="yc_gray">#E4E4E4</color>
+
+    <color name="yc_forward_determine">@color/yc_color_4378F2_CPN</color>
+    <color name="yc_forward_determine_default">#cccccc</color>
+
+    <color name="audio_choose_output_device_gray">#EFEFF4</color>
+
+    <color name="call_video_thumbnail_backgound_color">#80000000</color>
+
+    <color name="call_video_full_backgound_color">#4B4B4B</color>
+    <color name="call_video_button_turn_on_color">#4378f2</color>
+
+</resources>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#000000">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="144dp"
+        android:layout_gravity="center_horizontal|top">
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="236dp"
+            android:layout_height="236dp"
+            android:layout_gravity="center_horizontal"
+            android:background="#00000000">
+            <com.test.test3app.CircleView
+                android:id="@+id/circleview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            <com.zhaoyuntao.androidutils.component.ZButton
+                android:id="@+id/success"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:ZButton_color_back="#00000000"
+                android:visibility="gone"
+                app:ZButton_img_back="@drawable/success"/>
+            <com.zhaoyuntao.androidutils.component.ZButton
+                android:id="@+id/failed"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:ZButton_color_back="#00000000"
+                android:visibility="gone"
+                app:ZButton_img_back="@drawable/failed"/>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/textview_start"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:text="Put your face inside the circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:visibility="gone"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:id="@+id/textview_inprocess"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:text="Recognizing..."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:visibility="visible"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:id="@+id/textview_failed"
+            android:textColor="#ff3b30"
+            android:textSize="20sp"
+            android:text="Face recognition failed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:visibility="gone"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:id="@+id/textview_success"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:text="Recognition done!"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+
+
+    <com.zhaoyuntao.androidutils.component.ZButton
+        android:id="@+id/button_again"
+        android:layout_width="196dp"
+        android:layout_height="44dp"
+        app:ZButton_color_back="#00000000"
+        app:ZButton_textsize="20sp"
+        app:ZButton_textcolor="#c29964"
+        app:ZButton_color_back_click="#222222"
+        app:ZButton_radius="22dp"
+        app:ZButton_w_border="2dp"
+        app:ZButton_text_center="Try again"
+        app:ZButton_color_border="#c29964"
+        android:layout_marginBottom="100dp"
+        android:layout_gravity="center_horizontal|bottom"/>
+</FrameLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="string_error_join_meeting_empty_meeting_id">Meeting ID can\'t be empty</string>
+	<string name="string_meeting_already_on_a_call">Meeting in progress, cannot join a new meeting</string>
+	<string name="string_meeting_create_call_failed">Call failed. Please try later</string>
+	<string name="string_meeting_create_call_cancelled">Call cancelled</string>
+	<string name="string_meeting_setting_open_camera">Turn on the Camera</string>
+	<string name="string_meeting_setting_open_camera_subtitle">Enter the meeting and turn on the camera</string>
+	<string name="string_meeting_setting_open_mic">Turn on the Microphone</string>
+	<string name="string_meeting_setting_open_mic_subtitle">Enter the meeting and turn on the microphone</string>
+	<string name="string_meeting_subject">\'s meeting</string>
+	<string name="string_meeting_copy_success">Copied</string>
+	<string name="string_meeting_not_connect_click_call">Call failed, please try later</string>
+	<string name="string_meeting_not_connect_click_new_meeting">Failed to join meeting, please try again later</string>
+	<string name="string_meeting_not_connect_click_meeting_cell">Failed to join meeting, please try again later</string>
+	<string name="string_meeting_in_progress_click_new_meeting">Meeting in progress, cannot join a new meeting</string>
+
+
+
+
+
+
+
+
+<!-- ===================================[all:14,correct:14,error:0]=================================== -->
+
+
+
+
+
+
+
+</resources>

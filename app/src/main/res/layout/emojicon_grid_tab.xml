@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2013 Klamr. All rights reserved.
+  ~
+  ~ This software is the confidential and proprietary information of Klamr or one of its
+  ~ subsidiaries. You shall not disclose this confidential information and shall use it only in
+  ~ accordance with the terms of the license agreement or other applicable agreement you entered into
+  ~ with Klamr.
+  ~
+  ~ KLAMR MAKES NO REPRESENTATIONS OR WARRANTIES ABOUT THE SUITABILITY OF THE SOFTWARE, EITHER
+  ~ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT. KLAMR SHALL NOT BE LIABLE FOR ANY LOSSES
+  ~ OR DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR
+  ~ ITS DERIVATIVES.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/emoji_grid_pager"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+    </android.support.v4.view.ViewPager>
+
+    <com.rockerhieu.emojicon.PointView
+        android:id="@+id/emoji_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="20dp" >
+    </com.rockerhieu.emojicon.PointView>
+
+</FrameLayout>

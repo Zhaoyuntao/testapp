@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="string_meeting_new_meeting">New Meeting</string>
+	<string name="string_meeting_join_a_meeting">Join</string>
+	<string name="string_meeting_title_bar_new_meeting">New Meeting</string>
+	<string name="string_meeting_title_bar_join_meeting">Join a Meeting</string>
+	<string name="string_meeting_start_meeting">Start Meeting</string>
+	<string name="string_meeting_join_meeting">Join</string>
+	<string name="string_meeting_setting_video">Video Call</string>
+	<string name="string_meeting_setting_audio">Audio Call</string>
+	<string name="string_meeting_select_member_title">Contacts</string>
+	<string name="string_meeting_select_member_ok">Invite</string>
+	<string name="string_meeting_create_fail">Failed to create a meeting</string>
+	<string name="string_meeting_create_cancel">The create meeting operation has been cancelled</string>
+	<string name="string_meeting_join_fail">Failed to join the meeting</string>
+	<string name="string_meeting_join_cancel">The join meeting operation has been cancelled</string>
+	<string name="string_meeting_subject_hint_create_meeting">Meeting Subject</string>
+	<string name="string_meeting_id_join_meeting">Meeting ID</string>
+	<string name="string_meeting_name_join_meeting">Your Name</string>
+	<string name="string_meeting_password_join_meeting">Meeting Password</string>
+	<string name="string_meeting_empty_members">You do not have any contacts</string>
+	<string name="string_meeting_title_connecting">Connecting…</string>
+	<string name="string_meeting_title_disconnect">Disconnected</string>
+
+
+
+
+
+
+
+
+<!-- ===================================[all:21,correct:21,error:0]=================================== -->
+
+
+
+
+
+
+
+</resources>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="string_someone_reference_you">[@ you]</string>
+	<string name="string_conversation_subject_title_name_card">[Name Card]</string>
+	<string name="string_file_message_subject_title">[File]</string>
+	<string name="string_audio_message_subject_title">[Audio]</string>
+	<string name="string_picture_message_subject_title">[Picture]</string>
+	<string name="chat_conversation_system_notification_clear_message">You cleared all chat history</string>
+	<string name="chat_conversation_system_notification_delete_message">%1$s delete a message</string>
+	<string name="chat_conversation_image_too_large_tips">Failed to send, image is too large</string>
+	<string name="chat_conversation_system_notification_unknown">Unknown event</string>
+	<string name="chat_conversation_system_notification_someone_join_group">%1$s invited %2$s to this channel</string>
+	<string name="chat_conversation_system_notification_someone_leave_group">%1$s left this channel</string>
+	<string name="chat_conversation_system_notification_someone_removed_group">%1$s has removed %2$s from this channel</string>
+	<string name="chat_conversation_system_notification_group_create">%1$s created this channel</string>
+	<string name="chat_conversation_system_notification_group_dissolved">%1$s deleted this channel</string>
+	<string name="chat_conversation_system_notification_you_are_friend_now">%1$s is in your contacts list now</string>
+	<string name="chat_conversation_system_notification_group_owner_change">%1$s has assigned %2$s as the channel admin</string>
+	<string name="chat_conversation_system_notification_group_name_change">%1$s changed the channel name to %2$s</string>
+	<string name="string_meeting_id">Meeting ID: %1$s</string>
+	<string name="string_meeting_password">Password: %1$s</string>
+	<string name="string_call_record_caller_outgoing">[Outgoing Call]</string>
+	<string name="string_call_record_answer_incoming">[Incoming Call]</string>
+	<string name="string_call_record_caller_missed">[Your call was missed]</string>
+	<string name="string_call_record_anwser_missed">[You missed a call]</string>
+	<string name="string_call_record_caller_rejected">[Your call was rejected]</string>
+	<string name="string_call_record_answer_rejected">[You rejected a call]</string>
+
+
+
+
+
+
+
+
+<!-- ===================================[all:25,correct:25,error:0]=================================== -->
+
+
+
+
+
+
+
+</resources>

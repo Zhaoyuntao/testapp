@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="main_tab_chat">Chats</string>
+	<string name="main_tab_meeting">Meetings</string>
+	<string name="main_tab_contacts">Contacts</string>
+	<string name="main_tab_setting">Settings</string>
+	<string name="error_http_update_status">Please check your network connection and try again</string>
+	<string name="error_change_phone_user_is_not_exist">User does not exist</string>
+	<string name="error_change_phone_verify_code_limitation">Frequent request, retry later.</string>
+	<string name="error_change_phone_wrong_password">Request too frequently, please try again later</string>
+	<string name="error_change_phone_new_phone_number_exist">This number has already been registered</string>
+	<string name="error_change_phone_last_update_too_short">Request too frequently, please try again later</string>
+	<string name="error_unexpected_error">Unknown error</string>
+	<string name="error_http_incorrect_password">Incorrect password, please try again</string>
+	<string name="error_http_no_user">Email address is invalid or not registered</string>
+	<string name="error_http_old_password">Incorrect old passoord, please try again</string>
+	<string name="contact_add_errordialog_verlow_msg">Incompatible version, update to continue</string>
+	<string name="contact_add_errordialog_relogin_msg">Network error, please sign in again</string>
+	<string name="contact_add_errordialog_ssl_error_msg">Network is not secure, please switch to another network and try again</string>
+	<string name="contact_add_errordialog_server_failed">Failed to connect, please try again later</string>
+	<string name="error_400_group_setting_group_transfer">Channel number incorrect</string>
+	<string name="error_404_group_setting_group_transfer">Channel does not exist</string>
+	<string name="error_720_group_setting_group_transfer">You cannot transfer ownership to a banned user</string>
+	<string name="error_803_group_setting_group_transfer">You can transfer ownership to a channel member only</string>
+	<string name="error_807_group_set">Neither channel owner nor channel admin</string>
+	<string name="error_818_group_set">Selected user is banned</string>
+	<string name="error_819_group">Selected users include channel owner or admin</string>
+	<string name="error_832_group_setting_group_transfer">You are not the channel owner</string>
+	<string name="error_group_set_fail_not_group_admin">You are not the channel admin</string>
+	<string name="user_status_available">Available</string>
+	<string name="user_status_away">Away</string>
+	<string name="user_status_meeting">In a Meeting</string>
+	<string name="user_status_online">Online</string>
+	<string name="user_status_offline">Offline</string>
+	<string name="user_status_leave">Leave</string>
+
+
+
+
+
+
+
+
+<!-- ===================================[all:33,correct:33,error:0]=================================== -->
+
+
+
+
+
+
+
+</resources>

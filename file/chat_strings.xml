@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="chat_message_alarm_name">Event</string>
+	<string name="chat_event_group_created">Channel created</string>
+	<string name="chat_event_group_created_description_for_card">Invite More Friends</string>
+	<string name="chat_main_page_invite_by_friend">Invite</string>
+	<string name="chat_contact_recommend_button_title">RECOMMEND</string>
+	<string name="chat_contact_add_button_verfiy_add">Accept</string>
+	<string name="chat_conversation_unknown_type_message_tips">Incompatible message type</string>
+	<string name="chat_conversation_file_msg_pick_file">Select Files</string>
+	<string name="chat_conversation_camera_button_text">Camera</string>
+	<string name="chat_conversation_album_button_text">Pictures</string>
+	<string name="chat_conversation_file_msg_head">File</string>
+	<string name="chat_save_picture_fail">Failed to save</string>
+	<string name="chat_select_picture_over_range">The file exceeds 1G limit</string>
+	<string name="chat_conversation_file_msg_open_by_explorer">File saved to path:</string>
+	<string name="chat_conversation_message_send_vcard">Contacts</string>
+	<string name="chat_conversation_create_new_title">New Chat</string>
+	<string name="chat_conversation_forward_select_contact_title">Forward</string>
+	<string name="chat_message_forwarded">Forwarded</string>
+	<string name="chat_conversation_forward_select_contact_confirm">Send</string>
+	<string name="chat_conversation_forward_select_contact_over_range">You can select up to 20 conversations at a time</string>
+	<string name="chat_conversation_pick_namecard_title">Send Name Card</string>
+	<string name="chat_conversation_search_hint">Search...</string>
+	<string name="chat_conversation_group_edit_title">Edit</string>
+	<string name="chat_conversation_contant_add">Add a Contact</string>
+	<string name="chat_conversation_contact_empty_desc">You don't have any contacts, please add a contact first</string>
+	<string name="chat_conversation_forward_select_contact_empty_desc">You do not have any contacts</string>
+	<string name="chat_conversation_group_edit_save">Save</string>
+	<string name="chat_conversation_group_edit_name_limit">%d/40</string>
+	<string name="chat_conversation_group_edit_desc_limit">%d/500</string>
+	<string name="chat_conversation_group_name">Channel Name</string>
+	<string name="chat_conversation_group_desc">Description</string>
+	<string name="chat_contact_create_channel">Next</string>
+	<string name="chat_conversation_group_create">Create a Channel</string>
+	<string name="chat_conversation_group_create_fail">Failed to create channel, Please try again</string>
+	<string name="chat_conversation_main_draft">[Draft]</string>
+	<string name="blue_conversation_input_hint">Message here</string>
+	<string name="blue_conversation_input_hint_block">You are blocked by the contact</string>
+	<string name="blue_conversation_input_hint_delete">Please add this contact first</string>
+	<string name="chat_conversation_fragment_title">Chats</string>
+	<string name="chat_conversation_dialog_video">Start with Video</string>
+	<string name="chat_conversation_dialog_voice">Start with Voice</string>
+	<string name="chat_conversation_clip_board">Copied</string>
+	<string name="chat_delete_message">Delete Message</string>
+	<string name="chat_copy_message">Copy Message</string>
+	<string name="chat_forword_message">Forward Message</string>
+	<string name="chatmute_notifications">Mute Notifications</string>
+	<string name="chat_pin_to_top">Pin to Top</string>
+	<string name="chat_edit">Edit</string>
+	<string name="chat_setting_files">Files</string>
+	<string name="chat_setting_photos">Photos</string>
+	<string name="chat_setting_links">Links</string>
+	<string name="chat_clear_chat_history">Clear Chat History</string>
+	<string name="chet_clear_chat_desc">All messages, files, and related information in this chat will be deleted permanently. This action cannot be undone. Are you sure?</string>
+	<string name="chat_block_contact">Block Contact</string>
+	<string name="chat_unblock_contact">Unblock Contact</string>
+	<string name="chat_leave_channel">Leave Channel</string>
+	<string name="chat_save">Save</string>
+	<string name="chat_channel_name">Channel Name</string>
+	<string name="chat_channel_name_num">0/30</string>
+	<string name="chat_message_copy">Copy</string>
+	<string name="chat_search_category_header_week">This week</string>
+	<string name="chat_search_category_header_month">This month</string>
+	<string name="chat_search_category_header_month_placeholder">%1$s-%2$s</string>
+	<string name="chat_search_empty">No items</string>
+	<string name="chat_search_test_text">Default string</string>
+	<string name="chat_search">Search</string>
+	<string name="chat_members">Members</string>
+	<string name="chat_group_manage_add_member_menu_title">Add Members</string>
+	<string name="chat_group_manage_del_member_menu_title">Remove Members</string>
+	<string name="chat_group_member_search_empty_tips">No channel members found</string>
+	<string name="chat_group_select_at_contact">Select Mentioned Contacts</string>
+	<string name="chat_group_select_at_all">All</string>
+	<string name="chat_group_at_msg_title">Someone @ you</string>
+	<string name="chat_group_all_member">All Members</string>
+	<string name="chat_search_empty_tips">No results</string>
+	<string name="chat_conversation_file_msg_failed_create_folder">Failed to create folder, out of disk space</string>
+	<string name="chat_conversation_file_msg_download_pool_full">Pending...</string>
+	<string name="chat_conversation_file_msg_file_not_found">File does not exist</string>
+	<string name="copy_success">Copied</string>
+	<string name="chat_add_members">Add Members</string>
+	<string name="recent_title">Recent</string>
+	<string name="other_title">Other</string>
+	<string name="owner">Owner</string>
+	<string name="all_members_title">All Members (%1$s)</string>
+	<string name="chat_remove_from_channel">Remove from Channel</string>
+	<string name="cha_view_profile">View Profile</string>
+	<string name="dialog_remove_title">Remove %1$s</string>
+	<string name="dialog_remove_desc">After removing, <b <font color=\'#141414\'>%1$s </font></b> will not receive messages from this channel. Confirm to remove?</string>
+	<string name="dialog_remove_cancel">Cancel</string>
+	<string name="remove">Remove</string>
+	<string name="dialog_block_title">Block Contact</string>
+	<string name="dialog_block_desc">After blocking, <b <font color=\'#141414\'>%1$s </font></b> will not be able to contact you. Confirm to block?</string>
+	<string name="dialog_leave_title">Leave Channel</string>
+	<string name="dialog_leave_desc">After leaving, you will no longer receive messages from this channel. Confirm to leave?</string>
+	<string name="leave">Leave</string>
+	<string name="clear">Clear</string>
+	<string name="chat_conversation_new_messages_title">New Messages</string>
+	<string name="chat_notification_channel_title_message">Messages</string>
+	<string name="chat_notification_channel_title_group_message">Groups</string>
+	<string name="chat_notify_hidden_message">You got a Matrx message</string>
+	<string name="string_meeting_join_call_failed">Failed to join meeting, please try again later</string>
+	<string name="string_meeting_join_call_failed_closed">Meeting ended</string>
+	<string name="string_meeting_join_call_cancelled">Join meeting cancelled</string>
+	<string name="string_cell_conversation_sender_name_me">Me</string>
+	<string name="string_meeting_group_dialog_title">Invite All Members?</string>
+	<string name="string_meeting_group_dialog_message">Start a meeting and invite all channel members?</string>
+	<string name="string_meeting_group_dialog_too_many_members_title">Send Invitation</string>
+	<string name="string_meeting_group_dialog_too_many_members_message">Channel members exceeds the meeting participants limit, they can join by meeting invitation only.</string>
+	<string name="string_conversation_unblock">Unblock</string>
+	<string name="string_name_card_cell_view_contact">VIEW CONTACT</string>
+	<string name="string_main_conversation_empty_view_part0">To start a new chat, tap the \'</string>
+	<string name="string_main_conversation_empty_view_part2"># \' on the bottom and select a contact</string>
+	<string name="string_draft_message_subject_title">[Draft]:</string>
+	<string name="block_by_other_hint_text">You are blocked by the contact</string>
+	<string name="delete_by_other_hint_text">Please add this contact first</string>
+	<string name="block_by_self_hint_text">Unblock contact to start a meeting</string>
+	<string name="string_conversation_setting_page_mute_result">Muted</string>
+	<string name="string_conversation_setting_page_unmute_result">Unmuted</string>
+	<string name="string_conversation_setting_page_pin_result">Pinned</string>
+	<string name="string_conversation_setting_page_unpin_result">Unpinned</string>
+	<string name="string_cell_meeting_empty_password">None</string>
+	<string name="string_cell_meeting_expired">Expired</string>
+	<string name="string_cell_meeting_title_meeting_id">Meeting ID: %1$s</string>
+	<string name="string_cell_meeting_title_meeting_password">Password: %1$s</string>
+	<string name="string_cell_meeting_title_meeting_start_time">Start at %1$s</string>
+	<string name="string_cell_meeting_join_meeting">Join Meeting</string>
+	<string name="string_toast_click_audio_conversation">Hold to record, release to send</string>
+	<string name="added">Added</string>
+	<string name="no_description">No description</string>
+	<string name="chat_conversation_file_msg_no_picker">Install \'File Manager\' first</string>
+
+
+
+
+
+
+
+
+<!-- ===================================[all:130,correct:130,error:0]=================================== -->
+
+
+
+
+
+
+
+</resources>

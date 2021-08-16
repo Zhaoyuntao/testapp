@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="string_start_page_login">Sign In</string>
+	<string name="user_ui_main_no_network_tips">No network connection</string>
+	<string name="settings_item_notify_chats_name">CHATS</string>
+	<string name="settings_item_private_chats_name">Private Chats</string>
+	<string name="settings_item_vibration_name">Vibration</string>
+	<string name="settings_item_ringtions_name">Ringtones</string>
+	<string name="settings_notification_tone_none">None</string>
+	<string name="settings_notification_channel_tone_title">Default</string>
+	<string name="settings_item_channels_name">Channels</string>
+	<string name="settings_item_notifycations_name">Notifications</string>
+	<string name="settings_item_privacy_name">Privacy</string>
+	<string name="settings_item_help_name">Help</string>
+	<string name="settings_item_notifications">Notifications</string>
+	<string name="settings_item_meeting_name">Meetings</string>
+	<string name="settings_item_help">Help & Feedback</string>
+	<string name="settings_item_about_name">About</string>
+	<string name="settings_send_feed_back_tips">If you need technical support, please visit Support.\n If you have issues running the app, please use Report an Issue.\n If you have request, comments or suggestions, please share with us and we will review them within 48 hours.</string>
+	<string name="settings_send_feed_back">Send Feedback</string>
+	<string name="settings_send_feed_back_content_less_tips">Please write at least 8 words</string>
+	<string name="settings_send_feed_back_hint">Please describe your problem in detail, and add screenshots or photos (optional)</string>
+	<string name="settings_item_share">Tell Others about Matrx</string>
+	<string name="report_issue_max_num">Up to 3 pictures can be selected at a time</string>
+	<string name="user_ui_contacts">Contacts</string>
+	<string name="add_channel_title">Join a Public Channel</string>
+	<string name="search_by_email_info">Email Address</string>
+	<string name="search_by_email">Email</string>
+	<string name="search_by_phone_info">Add by Phone Number</string>
+	<string name="search_by_phone">Phone</string>
+	<string name="contact_add_button_add">Add</string>
+	<string name="contact_search_button_add">Add</string>
+	<string name="contact_add_button_already_request">Added</string>
+	<string name="contact_add_button_already_send">Request sent</string>
+	<string name="contact_add_button_already_send_friend_request">Sent</string>
+	<string name="contact_add_button_verfiy_add">Accept</string>
+	<string name="contact_add_button_resent">Resend</string>
+	<string name="contact_add_block_by_other">Blocked by the contact</string>
+	<string name="contact_invite_success">Invite successfully</string>
+	<string name="contact_create_channel">Next</string>
+	<string name="contact_create_channel_length">%s/40</string>
+	<string name="contact_create_channel_length_limted">0/40</string>
+	<string name="contact_create_channel_select_members">Invite Members</string>
+	<string name="contact_select_conversation_join_group_empty_desc">You do not have any contacts, please add a contact first</string>
+	<string name="contact_add_contact">Add a Contact</string>
+	<string name="contact_seach_text">Search Contacts</string>
+	<string name="channel_seach_text">Search Channel</string>
+	<string name="user_contact_login">Sign In</string>
+	<string name="user_forgot_password">Forgot Password</string>
+	<string name="user_forgot_password_hint">Reset password via email</string>
+	<string name="user_email_hint">Email Address</string>
+	<string name="user_next">Next</string>
+	<string name="user_dialog_forgot_password_title">Reset Password Email Sent</string>
+	<string name="user_dialog_forgot_password_desc">An email has been sent to <b <font color=\'#141414\'>%1$s</font></b>, please follow the instructions to verify your account or reset password.</string>
+	<string name="user_dialog_registered_title">Email Has Been Signed Up</string>
+	<string name="user_dialog_registered_desc">An email has been sent to <b color=\'#141414\'>%1$s</b>, please follow the instructions to verify your account or reset password.</string>
+	<string name="user_dialog_back_to_login">Back to Sign In</string>
+	<string name="user_dialog_open_email">Open Email</string>
+	<string name="your_email_address">Your Email Address</string>
+	<string name="email_hint_1">By tapping ‘Next’, you agree to the\u0020</string>
+	<string name="email_hint_2">Terms of Service</string>
+	<string name="email_hint_3">\u0020and\u0020</string>
+	<string name="email_hint_4">Privacy Policy</string>
+	<string name="user_email_error">Email Error</string>
+	<string name="user_your_name">Enter your name</string>
+	<string name="first_name">First Name</string>
+	<string name="last_name">Last Name</string>
+	<string name="set_password">Set Password</string>
+	<string name="password_requirement">Requirements:</string>
+	<string name="password_requirement1">• At least 8 characters</string>
+	<string name="password_requirement2">• At least 1 uppercase letters (A-Z)</string>
+	<string name="password_requirement3">• At least 1 lowercase letters (a-z)</string>
+	<string name="password_requirement4">• At least 1 numuber (0-9)</string>
+	<string name="set_password_error">Please include uppercase(A-Z), lowercase letters(a-z) and numeric characters(0-9) in your password</string>
+	<string name="user_done">Done</string>
+	<string name="user_resend">Resend Code</string>
+	<string name="check_you_mailbox">Verification Code</string>
+	<string name="email_open_error">No email app found</string>
+	<string name="user_reset">Reset</string>
+	<string name="old_new_passwod_same_error">Your new password must be different from your previous password</string>
+	<string name="remove">Remove</string>
+	<string name="start_meeting">Meet</string>
+	<string name="user_copy">Copied</string>
+	<string name="user_detail_option_failed">Failed to block contact, check your connection and try again later</string>
+	<string name="audio_call">Audio Call</string>
+	<string name="message">Chat</string>
+	<string name="profile_photo">Profile Photo</string>
+	<string name="name">Name</string>
+	<string name="Email">Email</string>
+	<string name="change_password">Change Password</string>
+	<string name="log_out">Sign Out</string>
+	<string name="log_out_dialog_title">Sign Out from This Device</string>
+	<string name="log_out_dialog_desc">After signing out, you will not receive messages and meeting invitation from this device. Sign out now?</string>
+	<string name="old_pwd">Old password</string>
+	<string name="new_pwd">New password</string>
+	<string name="confirm_pwd">Confirm password</string>
+	<string name="save">Save</string>
+	<string name="update_status">Update Status</string>
+	<string name="update_your_status">Update your status</string>
+	<string name="my_profile">My Profile</string>
+	<string name="edit_name">Edit Name</string>
+	<string name="baseui_view_photo">View Photo</string>
+	<string name="baseui_take_photo">Take Photo</string>
+	<string name="baseui_select_from_gallery">Select from Gallery</string>
+	<string name="set_face_toast_operation_failed">Failed to set</string>
+	<string name="new_pwd_not_match">New passwords do not match, please try again</string>
+	<string name="change_password_success">Password changed successfully, please keep it safe and private</string>
+	<string name="check_you_mailbox_hint">A verification code has been sent to <b <font color=\'#141414\'>%1$s </font></b>. You may need to check your spam folder.</string>
+	<string name="share_matrx_text">Let’s meet and chat seamlessly on Matrx. Get it now at https://matrx.io/download</string>
+	<string name="title_licenses">Licenses</string>
+	<string name="help_center">Help Center</string>
+	<string name="help_report">Report an Issue</string>
+	<string name="help_send">Send Feedback</string>
+	<string name="teams_of_service">Terms of Service</string>
+	<string name="private_policy">Privacy Policy</string>
+	<string name="user_block_string_title">Block %s</string>
+	<string name="user_block_string">Do you want to block %s from contacting you?</string>
+	<string name="user_delete_string_title">Delete %s</string>
+	<string name="user_delete_contact">Delete Contact</string>
+	<string name="user_block_contact">Block Contact</string>
+	<string name="user_unblock_contact">Unblock Contact</string>
+	<string name="user_delete_string">You will remove %s from your contacts list. All your chat history with %s will be deleted on all devices. Confirm to remove?</string>
+	<string name="add_contact_title">Add Contact</string>
+	<string name="add_contact_self">You just tried to add yourself.</string>
+	<string name="contact_add_self">Self</string>
+	<string name="contact_add">Add</string>
+	<string name="contact_request_sent">Request Sent</string>
+	<string name="contact_accept">Accept</string>
+	<string name="contact_chat">Chat</string>
+	<string name="contact_search_invitation">Send Invitation</string>
+	<string name="contact_not_exist">Contact does not exist</string>
+	<string name="contacts_all_contacts">All Contacts</string>
+	<string name="contacts_all_channels">All Channels</string>
+	<string name="enter_email_address">Enter Email Address</string>
+	<string name="name_your_channel">Name your channel</string>
+	<string name="your_channels_will_apear_here">What’s a Channel?</string>
+	<string name="user_empty_channel_one">1. Channel is a user group where you can work with others.</string>
+	<string name="user_empty_channel_two">2. You can chat and start meetings with others in any channel.</string>
+	<string name="user_empty_channel_three">3. You can view and manage all the files shared inside any channel.</string>
+	<string name="your_contacts_will_apear_here">Your contacts will apear here</string>
+	<string name="contact_requests">Contact Requests</string>
+	<string name="channel_name">Channel Name</string>
+	<string name="user_create_a_channel">Create a Channel</string>
+	<string name="public_channel">Public Channel</string>
+	<string name="anyone_in_your_organization_can_join">Anyone in your organization can join</string>
+	<string name="user_add_friend_msg">Hello</string>
+	<string name="about_app_update_dialog_no_update">It is the latest version</string>
+	<string name="about_version_update">Version Update</string>
+	<string name="about_app_update_dialog_has_update">Update to enjoy new features</string>
+	<string name="contact_request">Contact Requests</string>
+	<string name="string_contacts_request_hint">Contact requests you sent or received will appear here</string>
+	<string name="string_app_update_download_start">Starting download</string>
+	<string name="string_app_update_download_failed">Failed to download</string>
+	<string name="string_app_update_download_already_in_process">Downloading</string>
+	<string name="string_app_update_notice_mobile_network">You are currently using mobile data. Continue to download anyway?</string>
+	<string name="user_email_cannot_be_empty">Email can\'t be empty!</string>
+	<string name="user_password_cannot_be_empty">Password can\'t be empty!</string>
+
+
+
+
+
+
+
+
+<!-- ===================================[all:155,correct:155,error:0]=================================== -->
+
+
+
+
+
+
+
+</resources>

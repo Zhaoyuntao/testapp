@@ -1,0 +1,5 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/totok_call_phone_brush_action_alpha20" android:state_enabled="false" />
+    <item android:drawable="@drawable/totok_call_phone_brush_action_selected" android:state_selected="true"/>
+    <item android:drawable="@drawable/totok_call_phone_brush_action_normal"/>
+</selector>

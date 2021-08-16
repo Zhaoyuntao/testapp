@@ -1,0 +1,67 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="zbutton_bottom">
+        <item name="ZButton_textcolor">#000000</item>
+        <item name="ZButton_w_space">20dp</item>
+        <item name="ZButton_percent_bitmap_center">0.6</item>
+        <item name="android:layout_height">114dp</item>
+        <item name="ZButton_textsize">14sp</item>
+    </style>
+
+    <style name="mypopwindow_anim_style">
+        <item name="android:windowEnterAnimation">@anim/popshow_anim</item>
+        <!-- 指定显示的动画xml -->
+        <item name="android:windowExitAnimation">@anim/pophidden_anim</item>
+        <!-- 指定消失的动画xml -->
+    </style>
+
+    <style name="YCCheckbox">
+        <item name="colorControlNormal">@color/yc_color_4B4B4B_CDG</item>
+        <item name="colorControlActivated">@color/yc_mtrl_color_no_primary</item>
+        <item name="colorControlHighlight">@color/yc_selectable_widget_highlight_color</item>
+    </style>
+
+    <!-- Theme styles -->
+    <style name="YCBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize theme here. -->
+
+        <!--   your app branding color for the app bar -->
+        <item name="colorPrimary">@color/yc_mtrl_color_primary</item>
+        <!--   darker variant for the status bar and contextual app bars -->
+        <item name="colorPrimaryDark">@color/yc_mtrl_color_status_bar</item>
+        <!--   theme UI controls like checkboxes and text fields -->
+        <item name="colorAccent">@color/yc_mtrl_color_accent</item>
+
+        <!-- change the normal state of unchecked checkboxes, etc. -->
+        <!--<item name="colorControlNormal">@color/colorControlNormal</item>-->
+        <!-- overrides colorAccent on activated/checked UI controls -->
+        <!--<item name="colorControlActivated">@color/colorControlActivated</item>-->
+        <!-- controls the ripple coloring -->
+        <!--<item name="colorControlHighlight">@color/colorControlHighlight</item>-->
+
+    </style>
+
+    <style name="YCAppTheme" parent="YCBaseTheme">
+        <!-- To set a custom color for the status bar, use the android:statusBarColor attribute when you extend the material theme.
+        By default, android:statusBarColor inherits the value of android:colorPrimaryDark. -->
+        <item name="android:windowTranslucentStatus">false</item>
+    </style>
+
+    <style name="background">
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+    <style name="textView">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+    <style name="button" parent="textView">
+        <item name="android:background">@drawable/selector_button</item>
+    </style>
+</resources>

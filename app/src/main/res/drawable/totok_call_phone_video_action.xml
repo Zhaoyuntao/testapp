@@ -1,0 +1,5 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/totok_call_phone_video_alpha20" android:state_enabled="false" />
+    <item android:drawable="@drawable/totok_call_phone_video_192_pressed" android:state_selected="true"/>
+    <item android:drawable="@drawable/totok_call_phone_video_192_normal"/>
+</selector>

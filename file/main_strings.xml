@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="user_join_meeting">Join Meeting</string>
+	<string name="user_sign_up">Sign Up</string>
+	<string name="user_login">Sign In</string>
+	<string name="user_login_on_other_device">Your account has been signed in on another device. Please reset your password if you didn\’t grant the access.</string>
+
+
+
+
+
+
+
+
+<!-- ===================================[all:4,correct:4,error:0]=================================== -->
+
+
+
+
+
+
+
+</resources>

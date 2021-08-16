@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#f0f0f0" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp">
+
+        <TextView
+            android:id="@+id/button1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#00000000"
+            android:gravity="center"
+            android:text="ADD MEMBERS"
+            android:textAlignment="center"
+            android:textColor="@color/yc_color_1CC964_CPN"
+            android:textDirection="locale"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/button2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_huawei_meeting_button_bottom_blue_round_corner"
+            android:gravity="center"
+            android:text="CREATE"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textDirection="locale"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/button3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_huawei_meeting_button_bottom_blue_round_corner"
+            android:gravity="center"
+            android:text="JOIN BY ID"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textDirection="locale"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

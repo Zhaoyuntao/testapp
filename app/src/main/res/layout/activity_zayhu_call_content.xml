@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="#1f1f1f">
+    <FrameLayout
+        android:id="@+id/container_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:id="@+id/blurFaceContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:orientation="vertical">
+        <com.zhaoyuntao.androidutils.component.ZButton
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:ZButton_radius="40dp"
+            android:layout_marginBottom="20dp"
+            app:ZButton_img_back="@drawable/abc"/>
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Taogehenshuai"
+            android:layout_marginBottom="7dp"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Taogehenshuai"
+            android:textColor="#ffffff"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sessionInfo"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
+    <com.zhaoyuntao.androidutils.component.ZButton
+        android:id="@+id/sessionInfo2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:ZButton_color_border="#ffffff"
+        app:ZButton_color_back="#00000000"
+        app:ZButton_w_border="1px"
+        app:ZButton_radius="2dp"
+        android:gravity="center">
+    </com.zhaoyuntao.androidutils.component.ZButton>
+
+    <ImageView
+        android:id="@+id/abc"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="60dp"
+        android:layout_marginTop="30dp"
+        android:onClick="close"
+        android:src="@drawable/totok_call_hangup_normal" />
+
+</LinearLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="string_dialog_permission_not_now">NOT NOW</string>
+	<string name="string_dialog_permission_continue">CONTINUE</string>
+	<string name="string_dialog_permission_settings">SETTINGS</string>
+	<string name="string_permission_phone_state">Please allow %1$s to receive calls so that we can automatically confirm your phone number.</string>
+	<string name="string_permission_camera">Please allow %1$s to access camera and storage so that you can capture and save photos and videos.</string>
+	<string name="string_permission_camera_always_deny">Please allow %1$s to access camera and storage so that you can capture and save photos and videos. Tap Settings > Permissions, and turn Camera and Storage on.</string>
+	<string name="string_permission_location">Please allow %1$s to access location so that you can share your location and join instant group.</string>
+	<string name="string_permission_location_always_deny">Please allow %1$s to access location so that you can share your location and join instant group. Tap Settings > Permissions, and turn Location on.</string>
+	<string name="string_permission_audio">Please allow %1$s to access your microphone so that you can make calls and send voice messages. All your messages and calls are heavily encrypted.</string>
+	<string name="string_permission_audio_always_deny">Please allow %1$s to access your microphone so that you’re able to make calls and send voice messages. Tap Settings > Permissions, and turn Microphone on.</string>
+	<string name="string_permission_external_storage">Please allow %1$s to access storage so that you can send and save photos, videos, files, and other media.</string>
+	<string name="string_permission_external_storage_always_deny">Please allow %1$s to access storage so that you can send and save photos, videos, files, and other media. Tap Settings > Permissions, and turn Storage on.</string>
+	<string name="string_permission_contacts">Please allow %1$s to access your contacts so that you can connect with your contacts across all your devices.</string>
+	<string name="string_permission_contacts_always_deny">To help you connect with friends and family, allow %1$s to access your contacts. Your contacts will be continuously synced with %2$s\'s heavily encrypted cloud servers. Tap Settings > Permissions, and turn Contacts on.</string>
+	<string name="string_permission_calendar">Please allow %1$s to access calendar so that you can sync events to your calendar.</string>
+	<string name="string_permission_calender_always_deny">Please allow %1$s to access calendar so that you can sync events to your calendar. Tap Settings > Permissions, and turn Calendar on.</string>
+	<string name="string_permission_take_video">Please allow %1$s to access your camera, microphone, and storage so that you can capture photos, take videos with sound, and save them. </string>
+	<string name="string_permission_take_video_always_deny">Please allow %1$s to access your camera, microphone, and storage so that you can capture photos, take videos with sound, and save them. Tap Settings > Permissions, and turn Camera, Microphone, and Storage on.</string>
+	<string name="string_permission_video_call">Please allow %1$s to access your camera and microphone so that you can make video calls.</string>
+	<string name="string_permission_video_call_always_deny">Please allow %1$s to access your camera and microphone so that you can make video calls. Tap Settings > Permissions, and turn Camera and Microphone on.</string>
+	<string name="string_permission_camera_and_external_storage">Please allow %1$s to access camera and storage so that you can capture and save photos and videos.</string>
+	<string name="string_permission_camera_and_external_storage_always_deny">Please allow %1$s to access camera and storage so that you can capture and save photos and videos. Tap Settings > Permissions, and turn Camera and Storage on.</string>
+
+
+
+
+
+
+
+
+<!-- ===================================[all:22,correct:22,error:0]=================================== -->
+
+
+
+
+
+
+
+</resources>

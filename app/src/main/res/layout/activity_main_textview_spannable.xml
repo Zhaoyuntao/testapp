@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity_97_textview_spannable">
+
+    <com.test.test3app.textview_spannable.BlueTextView
+        android:id="@+id/textview"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:layout_gravity="center"
+        android:background="#ffeeff"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="@color/color_main_black_000000"
+        android:textSize="20sp" />
+</FrameLayout>

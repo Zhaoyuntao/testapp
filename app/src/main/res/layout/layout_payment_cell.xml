@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="20dp">
+
+    <TextView
+        android:id="@+id/time_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="7dp"
+        android:text="10/17/2019"
+        android:textColor="#b0b0b0"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:id="@+id/body"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:background="@drawable/selector_pay_cell"
+        android:elevation="1dp"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingTop="6dp"
+        android:paddingEnd="16dp"
+        android:focusable="true">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center_vertical|start"
+            android:text="Recharger"
+            android:textAlignment="viewStart"
+            android:textDirection="locale"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:id="@+id/content_type_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="19dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/numbers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="bottom"
+                android:paddingBottom="2dp"
+                android:text="500.00"
+                android:textColor="#030303"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:typeface="sans" />
+
+            <TextView
+                android:id="@+id/unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/numbers"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@+id/numbers"
+                android:text="AED"
+                android:textColor="#030303"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <FrameLayout
+            android:id="@+id/content_type_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingBottom="19dp">
+
+            <TextView
+                android:id="@+id/head_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Payment password changed successfully."
+                android:textSize="17sp"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="6dp"
+            android:background="#efeff4" />
+
+        <TextView
+            android:id="@+id/view_detail"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:drawableEnd="@drawable/view_detail_arrow"
+            android:gravity="start|center_vertical"
+            android:text="View Details"
+            android:textAlignment="viewStart"
+            android:textColor="#4b4b4b"
+            android:textDirection="locale"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+</LinearLayout>

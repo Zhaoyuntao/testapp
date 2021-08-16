@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="blue_user_core_feedback_name">Customer Service</string>
+	<string name="blue_user_core_team_name">Team Matrx</string>
+	<string name="blue_user_core_gift_notify_name">Gift Notifications</string>
+	<string name="blue_user_core_nearby_name">Nearby</string>
+	<string name="blue_user_core_group_notification_title">Channel Notifications</string>
+	<string name="blue_user_core_group_msg_not_belong">You are not a channel member</string>
+	<string name="blue_user_core_contact_add_error_dialog_relogin_msg">Network error, please sign in again</string>
+	<string name="blue_user_core_group_setting_no_disturb_no_network">Failed to set up</string>
+	<string name="blue_user_core_contact_profile_your_contact">Contacts</string>
+	<string name="blue_user_core_contact_profile_peer_contact">From contacts</string>
+	<string name="blue_user_core_main_tab_title_contacts">Contacts</string>
+	<string name="blue_user_core_main_tab_title_group">Channels</string>
+	<string name="blue_user_core_contact_recommend_friend_to_you_hint">%1$s recommended some contacts to you</string>
+	<string name="blue_user_core_addBy_friend_invite">Contacts Invitation</string>
+	<string name="blue_user_core_mtrl_profile_fragment_banned_time_day">d</string>
+	<string name="blue_user_core_mtrl_profile_fragment_banned_time_hour">h</string>
+	<string name="blue_user_core_mtrl_profile_fragment_banned_time_minute">min</string>
+	<string name="blue_user_core_mtrl_profile_fragment_banned_time_days">d</string>
+	<string name="blue_user_core_mtrl_profile_fragment_banned_time_hours">h</string>
+	<string name="blue_user_core_mtrl_profile_fragment_banned_time_minutes">min</string>
+	<string name="blue_user_core_mtrl_profile_fragment_banned_time_end">%1$s unbanned</string>
+	<string name="blue_user_core_chat_hall_counting_day">%1$s day(s)</string>
+	<string name="blue_user_core_string_time_am">AM</string>
+	<string name="blue_user_core_string_time_pm">PM</string>
+	<string name="time_today">Today</string>
+	<string name="time_yesterday">Yesterday</string>
+	<string name="contact_profile_request_be_friend">You got a contact request</string>
+	<string name="blue_user_core_main_call_log_month">Jan</string>
+	<string name="blue_user_core_main_call_log_month">Feb</string>
+	<string name="blue_user_core_main_call_log_month">Mar</string>
+	<string name="blue_user_core_main_call_log_month">Apr</string>
+	<string name="blue_user_core_main_call_log_month">May</string>
+	<string name="blue_user_core_main_call_log_month">Jun</string>
+	<string name="blue_user_core_main_call_log_month">Jul</string>
+	<string name="blue_user_core_main_call_log_month">Aug</string>
+	<string name="blue_user_core_main_call_log_month">Sep</string>
+	<string name="blue_user_core_main_call_log_month">Oct</string>
+	<string name="blue_user_core_main_call_log_month">Nov</string>
+	<string name="blue_user_core_main_call_log_month">Dec</string>
+
+
+
+
+
+
+
+
+<!-- ===================================[all:40,correct:39,error:1]=================================== -->
+
+
+
+
+
+
+
+	<string name="blue_user_core_blue_wt"></string>
+</resources>

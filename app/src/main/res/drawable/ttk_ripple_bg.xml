@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/yc_mtrl_doodle_ripple_color_for_black_background" >
+    <item android:id="@android:id/mask"
+        android:drawable="@drawable/ttk_ripple_bg_shape" />
+</ripple>

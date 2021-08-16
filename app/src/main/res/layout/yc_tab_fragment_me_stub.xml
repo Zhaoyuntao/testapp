@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:overScrollMode="never"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#16152c"
+        android:orientation="vertical">
+
+        <com.zhaoyuntao.androidutils.component.ZButton
+            android:layout_width="match_parent"
+            android:layout_height="177dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            app:ZButton_color_back="#dbecf2"
+            app:ZButton_radius="10dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="19dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/bitmap" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="start|center_vertical"
+                            android:text="UAE Identity Card"
+                            android:textColor="#80000000"
+                            android:textSize="13sp" />
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="@drawable/flag" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#ffffff" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingTop="19dp"
+                        android:paddingBottom="19dp">
+
+                        <com.zhaoyuntao.androidutils.component.ZButton
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            app:ZButton_radius="36dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="19dp"
+                            app:ZButton_style_img_back="clip"
+                            app:ZButton_img_back="@drawable/photo" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Hazza AI Mansouri"
+                                android:textColor="#e6000000"
+                                android:textSize="20sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="745-1234-1234567-1"
+                                android:textColor="#66000000"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="17dp"
+                    android:text="VIEW MORE DETAILS"
+                    android:textColor="#c29964"
+                    android:textSize="13sp" />
+            </FrameLayout>
+
+        </com.zhaoyuntao.androidutils.component.ZButton>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fffffe"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingTop="19dp"
+            android:paddingBottom="29dp">
+
+            <com.zhaoyuntao.androidutils.component.ZButton
+                android:layout_width="127dp"
+                android:layout_height="72dp"
+                android:layout_marginEnd="10dp"
+                app:ZButton_style_img_back="clip"
+                app:ZButton_img_back="@drawable/pic_10" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="UAE in Global"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Competitiveness Report 2019"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="09 Oct 2019"
+                    android:textColor="#808080"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#f0f0f0"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="16dp"
+                    android:paddingTop="13dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="13dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:text="Public Services"
+                        android:textColor="#4b4b4b"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:text="MORE"
+                        android:textColor="#c29964"
+                        android:textSize="14sp" />
+
+                </FrameLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#f0f0f0" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.zhaoyuntao.androidutils.component.ZButton
+                        android:id="@+id/button_1"
+                        style="@style/zbutton_bottom"
+                        android:layout_width="0dp"
+                        android:layout_height="114dp"
+                        android:layout_weight="1"
+                        app:ZButton_img_center="@drawable/pic_1"
+                        app:ZButton_text_center="EID" />
+
+                    <ImageView
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="#f0f0f0" />
+
+                    <com.zhaoyuntao.androidutils.component.ZButton
+                        android:id="@+id/button_2"
+                        style="@style/zbutton_bottom"
+                        android:layout_width="0dp"
+                        android:layout_height="114dp"
+                        android:layout_weight="1"
+                        app:ZButton_img_center="@drawable/pic_2"
+                        app:ZButton_text_center="New Passport" />
+
+                    <ImageView
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="#f0f0f0" />
+
+                    <com.zhaoyuntao.androidutils.component.ZButton
+                        android:id="@+id/button_3"
+                        style="@style/zbutton_bottom"
+                        android:layout_width="0dp"
+                        android:layout_height="114dp"
+                        android:layout_weight="1"
+                        app:ZButton_img_center="@drawable/pic_3"
+                        app:ZButton_text_center="Visa" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#f0f0f0" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.zhaoyuntao.androidutils.component.ZButton
+                        android:id="@+id/button_4"
+                        style="@style/zbutton_bottom"
+                        android:layout_width="0dp"
+                        android:layout_height="114dp"
+                        android:layout_weight="1"
+                        app:ZButton_img_center="@drawable/pic_4"
+                        app:ZButton_text_center="Family Book" />
+
+                    <ImageView
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="#f0f0f0" />
+
+                    <com.zhaoyuntao.androidutils.component.ZButton
+                        android:id="@+id/button_5"
+                        style="@style/zbutton_bottom"
+                        android:layout_width="0dp"
+                        android:layout_height="114dp"
+                        android:layout_weight="1"
+                        app:ZButton_img_center="@drawable/pic_5"
+                        app:ZButton_text_center="E-gate" />
+
+                    <ImageView
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="#f0f0f0" />
+
+                    <com.zhaoyuntao.androidutils.component.ZButton
+                        android:id="@+id/button_6"
+                        style="@style/zbutton_bottom"
+                        android:layout_width="0dp"
+                        android:layout_height="114dp"
+                        android:layout_weight="1"
+                        app:ZButton_img_center="@drawable/pic_6"
+                        app:ZButton_text_center="E-form" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#f0f0f0" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.zhaoyuntao.androidutils.component.ZButton
+                        android:id="@+id/button_7"
+                        style="@style/zbutton_bottom"
+                        android:layout_width="0dp"
+                        android:layout_height="114dp"
+                        android:layout_weight="1"
+                        app:ZButton_img_center="@drawable/pic_7"
+                        app:ZButton_text_center="Contact Us" />
+
+                    <ImageView
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="#f0f0f0" />
+
+                    <com.zhaoyuntao.androidutils.component.ZButton
+                        android:id="@+id/button_8"
+                        style="@style/zbutton_bottom"
+                        android:layout_width="0dp"
+                        android:layout_height="114dp"
+                        android:layout_weight="1"
+                        app:ZButton_img_center="@drawable/pic_8"
+                        app:ZButton_text_center="Complaints" />
+
+                    <ImageView
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="#f0f0f0" />
+
+                    <com.zhaoyuntao.androidutils.component.ZButton
+                        android:id="@+id/button_9"
+                        style="@style/zbutton_bottom"
+                        android:layout_width="0dp"
+                        android:layout_height="114dp"
+                        android:layout_weight="1"
+                        app:ZButton_img_center="@drawable/pic_9"
+                        app:ZButton_text_center="Poll Archive" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>

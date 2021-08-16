@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="yesterday">Yesterday</string>
+	<string name="today">Today</string>
+	<string name="formation_counting_day">%1$s day(s)</string>
+	<string name="formation_duration">%1$s:%2$s:%3$s</string>
+	<string name="formation_today_time">%1$s:%2$s</string>
+	<string name="formation_week">%1$s</string>
+	<string name="formation_someday">%1$s/%2$s/%3$s</string>
+	<string name="formation_someday_without_year">%1$s/%2$s</string>
+	<string name="string_time_am">AM</string>
+	<string name="string_time_pm">PM</string>
+	<string name="string_week_1">Sunday</string>
+	<string name="string_week_2">Monday</string>
+	<string name="string_week_3">Tuesday</string>
+	<string name="string_week_4">Wednesday</string>
+	<string name="string_week_5">Thursday</string>
+	<string name="string_week_6">Friday</string>
+	<string name="string_week_7">Saturday</string>
+	<string name="saving_image">Saving image</string>
+	<string name="network_error">Network error, please try again later</string>
+	<string name="week_array">Sun</string>
+	<string name="week_array">Mon</string>
+	<string name="week_array">Tue</string>
+	<string name="week_array">Wed</string>
+	<string name="week_array">Thu</string>
+	<string name="week_array">Fri</string>
+	<string name="week_array">Sat</string>
+	<string name="month_array">Jan</string>
+	<string name="month_array">Feb</string>
+	<string name="month_array">Mar</string>
+	<string name="month_array">Apr</string>
+	<string name="month_array">May</string>
+	<string name="month_array">Jun</string>
+	<string name="month_array">Jul</string>
+	<string name="month_array">Aug</string>
+	<string name="month_array">Sep</string>
+	<string name="month_array">Oct</string>
+	<string name="month_array">Nov</string>
+	<string name="month_array">Dec</string>
+
+
+
+
+
+
+
+
+<!-- ===================================[all:38,correct:38,error:0]=================================== -->
+
+
+
+
+
+
+
+</resources>

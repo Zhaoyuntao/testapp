@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottomBarLayout"
+    android:background="@drawable/session_ctrl_video_call_bottom_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingBottom="16dp">
+
+    <TextView
+        android:id="@+id/btn_mute"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@null"
+        android:drawablePadding="@dimen/yc_mtrl_call_drawable_padding"
+        android:drawableTop="@drawable/zayhu_fragment_video_call_mute_selector"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="Mute"
+        android:textColor="@color/yc_color_white_C14_70"
+        android:textSize="@dimen/yc_text_size_12sp_H1" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        />
+
+    <TextView
+        android:id="@+id/btn_facing"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@null"
+        android:drawablePadding="@dimen/yc_mtrl_call_drawable_padding"
+        android:drawableTop="@drawable/zayhu_fragment_video_call_facing_selector"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="Switch"
+        android:textColor="@color/yc_color_white_C14_70"
+        android:textSize="@dimen/yc_text_size_12sp_H1" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        />
+
+    <TextView
+        android:id="@+id/btn_beauty"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@null"
+        android:drawablePadding="@dimen/yc_mtrl_call_drawable_padding"
+        android:drawableTop="@drawable/zayhu_video_call_beauty_drawable"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="Retouch"
+        android:textColor="@color/yc_color_white_C14_70"
+        android:textSize="@dimen/yc_text_size_12sp_H1" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+    />
+
+    <TextView
+        android:id="@+id/btn_qmoji"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@null"
+        android:drawablePadding="@dimen/yc_mtrl_call_drawable_padding"
+        android:drawableTop="@drawable/zayhu_video_call_beauty_drawable"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="Qmoji"
+        android:textColor="@color/yc_color_white_C14_70"
+        android:textSize="@dimen/yc_text_size_12sp_H1" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        />
+
+    <TextView
+        android:id="@+id/btn_hangup"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@null"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:text="Hang up"
+        android:drawableTop="@drawable/zayhu_video_call_hangup_drawable"
+        android:drawablePadding="@dimen/yc_mtrl_call_drawable_padding"
+        android:textSize="@dimen/yc_text_size_12sp_H1"
+        android:textColor="@color/yc_color_white_C14_70" />
+
+</LinearLayout>

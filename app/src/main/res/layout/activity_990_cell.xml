@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e9e9e9"
+    android:orientation="vertical"
+    android:padding="25dp">
+
+    <com.test.test3app.textview.BubbleView
+        android:id="@+id/bubble1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/red"
+            android:text="hello, world"
+            android:textColor="@color/white" />
+
+        <com.test.test3app.textview.ConversationTextView
+            android:id="@+id/ztextview1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </com.test.test3app.textview.BubbleView>
+
+    <com.test.test3app.textview.BubbleView
+        android:id="@+id/bubble2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+
+        >
+
+        <com.test.test3app.textview.ConversationTextView
+            android:id="@+id/ztextview2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </com.test.test3app.textview.BubbleView>
+
+    <com.test.test3app.textview.BubbleView
+        android:id="@+id/bubble3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/red"
+            android:text="hello, world"
+            android:textColor="@color/white" />
+
+        <com.test.test3app.textview.ConversationTextView
+            android:id="@+id/ztextview3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </com.test.test3app.textview.BubbleView>
+
+    <com.test.test3app.textview.BubbleView
+        android:id="@+id/bubble4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+
+        >
+
+        <com.test.test3app.textview.ConversationTextView
+            android:id="@+id/ztextview4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </com.test.test3app.textview.BubbleView>
+
+    <com.test.test3app.textview.BubbleView
+        android:id="@+id/bubble5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+
+        >
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/a1566817163926" />
+
+    </com.test.test3app.textview.BubbleView>
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <EditText
+        android:id="@+id/edit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom"
+        android:background="@color/blue"
+        android:textColor="@color/white" />
+</LinearLayout>

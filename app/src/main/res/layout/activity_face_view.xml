@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="#ff8844"
+    android:gravity="center"
+    android:orientation="horizontal"
+    tools:context=".activity.MainActivity2_record">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="3dp"
+        android:orientation="vertical">
+
+        <com.test.test3app.faceview.BlueFaceView
+            android:id="@+id/faceView1"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/abc"
+            app:BlueFaceView_firstName="A" />
+
+        <com.test.test3app.faceview.BlueFaceView
+            android:id="@+id/faceView2"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            app:BlueFaceView_firstName="B" />
+
+        <com.test.test3app.faceview.BlueFaceView
+            android:id="@+id/faceView5"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/abc"
+            app:BlueFaceView_firstName="C"
+            app:BlueFaceView_useCircleBackground="true" />
+
+        <com.test.test3app.faceview.BlueFaceView
+            android:id="@+id/faceView7"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            app:BlueFaceView_firstName="D"
+            app:BlueFaceView_lastName="D"
+            app:BlueFaceView_useCircleBackground="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:elevation="3dp"
+        android:orientation="vertical">
+
+        <com.test.test3app.faceview.BlueFaceView
+            android:id="@+id/faceView3"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/abc"
+            app:BlueFaceView_firstName="A"
+            app:BlueFaceView_supportStatus="true"
+            app:BlueFaceView_statusDrawable="@drawable/status_user_online_meeting" />
+
+        <com.test.test3app.faceview.BlueFaceView
+            android:id="@+id/faceView4"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            android:elevation="4dp"
+            app:BlueFaceView_firstName="B"
+            app:BlueFaceView_supportStatus="true"
+            app:BlueFaceView_statusColor="@color/color_main_red_e4281d"
+            app:BlueFaceView_useRoundBreach="true" />
+
+        <com.test.test3app.faceview.BlueFaceView
+            android:id="@+id/faceView6"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            android:elevation="4dp"
+            android:src="@drawable/abc"
+            app:BlueFaceView_firstName="C"
+            app:BlueFaceView_supportStatus="true"
+            app:BlueFaceView_statusColor="@color/color_main_red_e4281d"
+            app:BlueFaceView_useCircleBackground="true"
+            app:BlueFaceView_useRoundBreach="true" />
+
+        <com.test.test3app.faceview.BlueFaceView
+            android:id="@+id/faceView8"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:elevation="4dp"
+            app:BlueFaceView_firstName="D"
+            app:BlueFaceView_lastName="D"
+            app:BlueFaceView_supportStatus="true"
+            app:BlueFaceView_statusColor="@color/color_main_red_e4281d"
+            app:BlueFaceView_useCircleBackground="true"
+            app:BlueFaceView_statusDrawable="@drawable/status_user_online_meeting"
+            />
+    </LinearLayout>
+
+</LinearLayout>

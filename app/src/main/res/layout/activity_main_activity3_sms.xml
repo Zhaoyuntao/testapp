@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ff0000"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingTop="50dp"
+    tools:context=".activity.MainActivity3_sms">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginBottom="50dp"
+        android:background="#ffffff">
+
+        <com.test.test3app.smsview.PhoneNumberView
+            android:id="@+id/phonenumber"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginStart="51dp"
+            android:layout_marginEnd="51dp"
+            app:number_bold="true"
+            app:number_textsize_max="20sp"
+            app:number_textsize_min="10sp" />
+
+    </FrameLayout>
+
+
+    <com.test.test3app.smsview.VerificationCodeView
+        android:id="@+id/verify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#ffffff"
+        app:verify_child_height="50dp"
+        app:verify_child_width="20dp"
+        app:verify_color_border_focus="@drawable/verification_edit_bg_focus"
+        app:verify_color_border_normal="@drawable/verification_edit_bg_normal"
+        app:verify_count="6"
+        app:verify_inputType="number"
+        app:verify_textsize="30sp" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ok" />
+
+    <Button
+        android:id="@+id/buttonfocus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="focus" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:text="18210597531"
+        android:autoLink="phone"/>
+</LinearLayout>

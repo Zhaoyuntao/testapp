@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity91_Qmoji">
+
+
+    <include
+        layout="@layout/layoutbar_qmoji"
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:layout_gravity="bottom" />
+
+    <com.test.test3app.qmoji.QmojiSelectView
+        android:id="@+id/qmojiSelectView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/abc"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="80sp" />
+</FrameLayout>
