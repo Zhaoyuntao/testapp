@@ -9,6 +9,7 @@ import com.test.test3app.BaseActivity;
 import com.test.test3app.R;
 import com.zhaoyuntao.androidutils.tools.S;
 
+
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
@@ -38,7 +39,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         registerListener(R.id.m990);
         registerListener(R.id.m991);
 
-        onClick(findViewById(R.id.m990));
+        onClick(findViewById(R.id.m3));
     }
 
     private void registerListener(@IdRes int viewId) {

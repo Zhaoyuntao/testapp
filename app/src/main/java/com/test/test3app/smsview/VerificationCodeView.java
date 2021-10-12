@@ -1,25 +1,15 @@
-/*
- * Copyright (C) 2013 UCWeb Inc. All rights reserved
- * 本代码版权归UC优视科技所有。
- * UC游戏交易平台为优视科技（UC）旗下的手机游戏交易平台产品
- *
- *
- */
-
 package com.test.test3app.smsview;
 
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.text.method.PasswordTransformationMethod;
+import android.text.method.KeyListener;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -28,23 +18,25 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import androidx.core.content.ContextCompat;
+
 import com.test.test3app.R;
 import com.test.test3app.utils.BitmapUtils;
 import com.test.test3app.utils.InputMethodUtils;
+import com.zhaoyuntao.androidutils.tools.S;
 
 import java.util.regex.Pattern;
 
-
+/**
+ * created by zhaoyuntao
+ * on 2019-10-25
+ * description:
+ */
 public class VerificationCodeView extends LinearLayout {
-    private final static String TYPE_NUMBER = "number";
-    private final static String TYPE_TEXT = "text";
-    private final static String TYPE_PASSWORD = "password";
-    private final static String TYPE_PHONE = "phone";
 
     private int childCount;
     private int textWidth = 120;
     private int textHeight = 120;
-    private String inputType = TYPE_NUMBER;
     private Drawable colorBorderChoose;
     private Drawable colorBorderNormal;
 
@@ -55,9 +47,7 @@ public class VerificationCodeView extends LinearLayout {
     private int margin_child_start;
     private int margin_child_end;
 
-    private float textsize;
-
-    private Paint paint;
+    private float textSize;
 
     public VerificationCodeView(Context context) {
         super(context);
@@ -76,9 +66,9 @@ public class VerificationCodeView extends LinearLayout {
 
     private void init(AttributeSet attrs) {
         setGravity(Gravity.CENTER);
-        textsize = 20;
+        setLayoutDirection(LAYOUT_DIRECTION_LTR);
+        textSize = 20;
         childCount = 4;
-        inputType = TYPE_NUMBER;
         textWidth = BitmapUtils.dip2px(getContext(), 40);
         textHeight = BitmapUtils.dip2px(getContext(), 50);
         if (attrs != null) {
@@ -86,13 +76,9 @@ public class VerificationCodeView extends LinearLayout {
             childCount = typedArray.getInt(R.styleable.VerificationCodeView_verify_count, 4);
             colorBorderChoose = typedArray.getDrawable(R.styleable.VerificationCodeView_verify_color_border_focus);
             colorBorderNormal = typedArray.getDrawable(R.styleable.VerificationCodeView_verify_color_border_normal);
-            inputType = typedArray.getString(R.styleable.VerificationCodeView_verify_inputType);
-            if (TextUtils.isEmpty(inputType)) {
-                inputType = TYPE_NUMBER;
-            }
             textWidth = (int) typedArray.getDimension(R.styleable.VerificationCodeView_verify_child_width, textWidth);
             textHeight = (int) typedArray.getDimension(R.styleable.VerificationCodeView_verify_child_height, textHeight);
-            textsize = BitmapUtils.px2sp(getContext(), typedArray.getDimension(R.styleable.VerificationCodeView_verify_textsize, BitmapUtils.sp2px(getContext(), textsize)));
+            textSize = BitmapUtils.px2sp(getContext(), typedArray.getDimension(R.styleable.VerificationCodeView_verify_textsize, BitmapUtils.sp2px(getContext(), textSize)));
             typedArray.recycle();
         }
 
@@ -112,68 +98,39 @@ public class VerificationCodeView extends LinearLayout {
             } else {
                 editText.setClickable(false);
             }
-            editText.setOnKeyListener(new OnKeyListener() {
-                @Override
-                public boolean onKey(View v, int keyCode, KeyEvent event) {
-                    if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DEL) {
-                        if (TextUtils.isEmpty(editText.getText())) {
-                            backForward((Integer) editText.getTag());
-                        } else {
-                            editText.setText(null);
-                        }
-                        return true;
-                    }
-                    return false;
-                }
-            });
             editText.setOnLongClickListener(new OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
                     ClipboardManager clip = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
                     if (clip != null && !TextUtils.isEmpty(clip.getText())) {
                         String content = clip.getText().toString().trim();
-                        if (inputType == TYPE_NUMBER) {
-                            if (Pattern.matches("[0-9]{" + childCount + "}", content)) {
-                                VerificationCodeView.this.setVerificationCode(content);
-                            }
-                        } else {
-                            if (Pattern.matches("[0-9a-zA-Z]{" + childCount + "}", content)) {
-                                VerificationCodeView.this.setVerificationCode(content);
-                            }
+                        if (Pattern.matches("[0-9]{" + childCount + "}", content)) {
+                            VerificationCodeView.this.setVerificationCode(content);
                         }
                     }
                     return true;
                 }
             });
             editText.setClickable(TextUtils.isEmpty(editText.getText()));
-            LayoutParams layoutParams = new LayoutParams(textWidth, textHeight);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(textWidth, textHeight);
             layoutParams.setMarginStart(margin_child_start);
             layoutParams.setMarginEnd(margin_child_end);
             layoutParams.setMargins(margin_child_start, margin_child_top, margin_child_end, margin_child_bottom);
             layoutParams.gravity = Gravity.CENTER;
             editText.setLayoutParams(layoutParams);
-            editText.setTextSize(textsize);
+            editText.setTextSize(textSize);
             editText.setTag(i);
-            editText.setTextColor(Color.BLACK);
+            editText.setTextColor(ContextCompat.getColor(getContext(), R.color.color_grey_10));
             editText.setCursorVisible(false);
             editText.setGravity(Gravity.CENTER);
             editText.setPadding(0, 0, 0, 0);
             setBackgroundStyle(editText, false);
             editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(1)});
 
-            if (TYPE_NUMBER.equals(inputType)) {
-                editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-            } else if (TYPE_PASSWORD.equals(inputType)) {
-                editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
-            } else if (TYPE_TEXT.equals(inputType)) {
-                editText.setInputType(InputType.TYPE_CLASS_TEXT);
-            } else if (TYPE_PHONE.equals(inputType)) {
-                editText.setInputType(InputType.TYPE_CLASS_PHONE);
-
-            }
             editText.setId(i);
             editText.setEms(1);
-            editText.addTextChangedListener(new TextWatcher() {
+            final int index = i;
+            TextWatcher textWatcher = new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 }
@@ -184,11 +141,54 @@ public class VerificationCodeView extends LinearLayout {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    if (TextUtils.isEmpty(s)) {
-                    } else {
-                        next((Integer) editText.getTag());
+                    if (!TextUtils.isEmpty(s)) {
+                        next(index);
                     }
                     checkAndCommit();
+                }
+            };
+            editText.addTextChangedListener(textWatcher);
+            editText.setTag(textWatcher);
+            editText.setKeyListener(new KeyListener() {
+                @Override
+                public int getInputType() {
+                    return InputType.TYPE_CLASS_NUMBER;
+                }
+
+                @Override
+                public boolean onKeyDown(View view, Editable text, int keyCode, KeyEvent event) {
+                    return false;
+                }
+
+                @Override
+                public boolean onKeyUp(View view, Editable text, int keyCode, KeyEvent event) {
+                    S.s("key:" + keyCode);
+                    if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                        if (index == childCount - 1) {
+                            checkAndCommit();
+                        } else {
+                            next(index);
+                        }
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_DEL) {
+                        if (TextUtils.isEmpty(editText.getText())) {
+                            clearPrevious(index);
+                        } else {
+                            editText.setText("");
+                        }
+                        return true;
+                    }
+                    return false;
+                }
+
+                @Override
+                public boolean onKeyOther(View view, Editable text, KeyEvent event) {
+                    return false;
+                }
+
+                @Override
+                public void clearMetaKeyState(View view, Editable content, int states) {
+
                 }
             });
             editText.setOnFocusChangeListener(new OnFocusChangeListener() {
@@ -201,31 +201,23 @@ public class VerificationCodeView extends LinearLayout {
         }
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return false;
-    }
-
-    private void backForward(int index) {
+    private void clearPrevious(int index) {
         if (index > 0) {
             index--;
         } else {
             index = 0;
         }
+
         EditText editText = (EditText) getChildAt(index);
-        EditText editTextLastEmpty = editText;
-        editText.setText(null);
-        while (TextUtils.isEmpty(editText.getText())) {
-            editTextLastEmpty = editText;
-            if (index > 0) {
-                index--;
-                editText = (EditText) getChildAt(index);
-            } else {
-                editTextLastEmpty = (EditText) getChildAt(0);
-                break;
-            }
-        }
-        editTextLastEmpty.requestFocus();
+        editText.removeTextChangedListener((TextWatcher) editText.getTag());
+        editText.requestFocus();
+        editText.setText("");
+        editText.addTextChangedListener((TextWatcher) editText.getTag());
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return false;
     }
 
     public void requestInputFocus() {
@@ -258,22 +250,33 @@ public class VerificationCodeView extends LinearLayout {
     }
 
     private void next(int index) {
+//        S.sd("next:" + index);
         if (index < (childCount - 1)) {
             index++;
         } else {
             index = childCount - 1;
         }
-
         EditText editText = (EditText) getChildAt(index);
         while (!TextUtils.isEmpty(editText.getText())) {
-            if (index < childCount - 1) {
-                index++;
-                editText = (EditText) getChildAt(index);
-            } else {
-                editText = (EditText) getChildAt(childCount - 1);
+            if (index > (childCount - 1)) {
                 break;
             }
+            editText = (EditText) getChildAt(index);
+            index++;
         }
+
+        editText.requestFocus();
+    }
+
+    private void previous(int index) {
+        S.s("previous:" + index);
+        if (index > 0) {
+            index--;
+        } else {
+            index = 0;
+        }
+
+        EditText editText = (EditText) getChildAt(index);
         editText.requestFocus();
     }
 

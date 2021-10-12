@@ -36,7 +36,7 @@
         android:layout_gravity="center"
         android:background="#ffffff"
         app:verify_child_height="50dp"
-        app:verify_child_width="20dp"
+        app:verify_child_width="40dp"
         app:verify_color_border_focus="@drawable/verification_edit_bg_focus"
         app:verify_color_border_normal="@drawable/verification_edit_bg_normal"
         app:verify_count="6"
@@ -51,7 +51,7 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ok" />
+        android:text="clear" />
 
     <Button
         android:id="@+id/buttonfocus"

@@ -40,12 +40,10 @@ public class MainActivity3_sms extends BaseActivity {
                 verificationCodeView.clearFocus();
                 verificationCodeView.closeIntputMethod();
                 T.t(activity(), "ok:" + content);
-                button.setEnabled(true);
             }
 
             @Override
             public void onInput() {
-                button.setEnabled(false);
             }
         });
 

@@ -1,5 +1,8 @@
 package com.test.test3app.activity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -7,7 +10,9 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -16,6 +21,7 @@ import android.widget.TextView;
 import com.test.test3app.BaseActivity;
 import com.test.test3app.R;
 import com.test.test3app.textview.ZTestTextView;
+import com.zhaoyuntao.androidutils.component.ZDialog;
 import com.zhaoyuntao.androidutils.tools.T;
 
 public class MainActivity_95_textview extends BaseActivity {
@@ -28,6 +34,12 @@ public class MainActivity_95_textview extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_95_textview);
+        findViewById(R.id.imageview).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                T.t(activity(),"clicked image view");
+            }
+        });
         editText = findViewById(R.id.edit);
         SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder("abcdefg ");
         spannableStringBuilder.setSpan(new ForegroundColorSpan(Color.RED), 0, 7, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -62,12 +74,37 @@ public class MainActivity_95_textview extends BaseActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder("abcdefg ");
-                spannableStringBuilder.setSpan(new ForegroundColorSpan(Color.RED), 0, 7, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                editText.removeTextChangedListener(textWatcher);
-                editText.append(spannableStringBuilder);
-                T.t(activity(), editText.isEnabled());
-                editText.addTextChangedListener(textWatcher);
+//                SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder("abcdefg ");
+//                spannableStringBuilder.setSpan(new ForegroundColorSpan(Color.RED), 0, 7, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//                editText.removeTextChangedListener(textWatcher);
+//                editText.append(spannableStringBuilder);
+//                T.t(activity(), editText.isEnabled());
+//                editText.addTextChangedListener(textWatcher);
+//                AlertDialog.Builder builder = new AlertDialog.Builder(activity());
+//                builder.setTitle("hello");
+//                builder.setMessage("hello");
+//                builder.setPositiveButton(android.R.string.ok, new AlertDialog.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                    }
+//                });
+//                builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+//                    @Override
+//                    public void onCancel(DialogInterface dialog) {
+//                        dialog.dismiss();
+//                    }
+//                });
+//                builder.setCancelable(true);
+//                builder.create();
+//                builder.show();
+
+                ZDialog dialog=new ZDialog(activity());
+                dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                dialog.setTitle("hello");
+                dialog.setGravity(Gravity.CENTER);
+                dialog.show();
+
             }
         });
 //        zTextView.setText(text);

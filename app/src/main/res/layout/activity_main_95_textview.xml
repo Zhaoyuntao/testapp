@@ -1,33 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/red"
+    android:orientation="vertical"
     android:padding="30dp"
     tools:context=".activity.MainActivity_95_textview">
-
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="100dp"
+        android:background="#ff9988"
+        android:text="disable" />
     <LinearLayout
         android:id="@+id/abc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
-            android:singleLine="true"
             android:layout_height="wrap_content"
             android:background="#ff0000"
+            android:singleLine="true"
+            android:text="text:"
             android:textColor="#ffffff"
-            android:textSize="50sp"
-            android:text="text:"/>
+            android:textSize="30sp" />
+
         <com.test.test3app.textview.ZTestTextView
             android:id="@+id/text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffffff"
-            android:textSize="50sp" />
+            android:textSize="30sp" />
     </LinearLayout>
 
     <EditText
@@ -35,15 +44,15 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
         android:background="#ffffff" />
 
-    <Button
-        android:id="@+id/button"
-        android:text="disable"
-        android:background="#ff9988"
-        android:layout_gravity="center_vertical"
-        android:layout_marginBottom="100dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-</FrameLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageview"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="@color/grass_green"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        android:src="@drawable/a1566817163926" />
+</LinearLayout>
