@@ -1,29 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/red"
     tools:context=".activity.MainActivity_94_wallpaper">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/red" />
+
+    <com.test.test3app.wallpaper.AdapterImageView
+        android:id="@+id/wall"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="56dp"
+        android:layout_weight="1"
+        android:scaleType="centerCrop"
+        android:src="@drawable/aaaaa" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="10dp"
+        android:layout_marginTop="56dp"
         android:orientation="vertical">
-        <ImageView
-            android:background="@color/red"
+
+        <com.test.test3app.wallpaper.AnimateImageView
+            android:id="@+id/image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:background="#88000000"
+            android:src="@drawable/a1" />
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="40dp"/>
-        <com.test.test3app.wallpaper.AdapterImageView
-            android:id="@+id/wall"
-            android:layout_width="match_parent"
-            android:src="@drawable/aaaaa"
-            android:scaleType="centerCrop"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Hello"
+            android:textColor="@color/white"
+            android:textSize="50dp" />
+
         <EditText
             android:layout_width="match_parent"
-            android:background="#f0f0f0"
-            android:layout_height="40dp"/>
+            android:layout_height="40dp"
+            android:background="#f0f0f0" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Hello" />
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#f0f0f0" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:text="Hello"
+            android:textColor="@color/white"
+            android:textSize="50dp" />
     </LinearLayout>
 </FrameLayout>

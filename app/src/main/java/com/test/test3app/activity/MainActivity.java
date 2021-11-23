@@ -38,8 +38,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         registerListener(R.id.m99);
         registerListener(R.id.m990);
         registerListener(R.id.m991);
+        registerListener(R.id.m992);
 
-        onClick(findViewById(R.id.m3));
+        onClick(findViewById(R.id.m94));
     }
 
     private void registerListener(@IdRes int viewId) {
@@ -92,6 +93,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             goToActivity(MainActivity_990_cell.class);
         } else if (v.getId() == R.id.m991) {
             goToActivity(MainActivity_991_calculate.class);
+        } else if (v.getId() == R.id.m992) {
+            goToActivity(MainActivity_992_drawerLayout.class);
         }
     }
 }

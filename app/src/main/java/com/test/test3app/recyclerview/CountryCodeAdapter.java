@@ -32,7 +32,14 @@ public class CountryCodeAdapter extends RecyclerView.Adapter<CountryCodeAdapter.
         this.mList.addAll(list);
         notifyDataSetChanged();
     }
-    int i=0;
+
+    public void addData(CountryCodeBean countryCodeBean) {
+        this.mList.add(countryCodeBean);
+        notifyItemInserted(0);
+    }
+
+    int i = 0;
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -44,7 +51,7 @@ public class CountryCodeAdapter extends RecyclerView.Adapter<CountryCodeAdapter.
     @Override
     public void onViewRecycled(@NonNull ViewHolder holder) {
         final CountryCodeBean countryCodeBean = mList.get(holder.getAdapterPosition());
-        S.e("[" + holder.getAdapterPosition() + "]-- onViewRecycled:" + countryCodeBean.getCountryName() + "               " + holder.itemView.findViewById(R.id.country_code_name));
+//        S.e("[" + holder.getAdapterPosition() + "]-- onViewRecycled:" + countryCodeBean.getCountryName() + "               " + holder.itemView.findViewById(R.id.country_code_name));
     }
 
     @Override
@@ -77,13 +84,19 @@ public class CountryCodeAdapter extends RecyclerView.Adapter<CountryCodeAdapter.
         });
         holder.countryCodeIcon.setImageResource(countryCodeBean.getDrawableId());
         holder.countryCodeName.setText(countryCodeBean.getCountryName());
-        S.s("["+position+"]onBindViewHolder:" + countryCodeBean.getCountryName());
+        S.s("onBindViewHolder 1:" + countryCodeBean.getCountryName());
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull List payloads) {
-//        S.s("onBindViewHolder2");
+        S.s("onBindViewHolder 2:" + payloads);
         onBindViewHolder(holder, position);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        S.s("getItemViewType:" + position);
+        return super.getItemViewType(position);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.test.test3app;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
@@ -12,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 public class BaseActivity extends AppCompatActivity {
 
-    protected Context activity() {
+    protected Activity activity() {
         return this;
     }
 

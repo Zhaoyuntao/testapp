@@ -5,7 +5,7 @@ plugins {
 android {
 
     defaultConfig {
-        applicationId "com.test.test3app"
+        applicationId 'com.test.test4app'
         minSdk 21
         versionCode 1
         versionName "1.0"

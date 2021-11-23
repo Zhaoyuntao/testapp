@@ -10,16 +10,18 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:name="com.test.test3app.appbase.ZApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name="com.test.test3app.appbase.ZApplication"
+        android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.Test3app"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name="com.test.test3app.activity.MainActivity"
             android:configChanges="orientation|screenSize"
+            android:theme="@style/Theme.AppCompat"
             android:screenOrientation="sensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,7 +38,7 @@
         <activity android:name="com.test.test3app.activity.MainActivity_97_textview_spannable" />
         <activity
             android:name="com.test.test3app.activity.MainActivity_94_wallpaper"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name="com.test.test3app.activity.MainActivity_95_textview" />
         <activity android:name="com.test.test3app.activity.MainActivity93_threadPool" />
         <activity android:name="com.test.test3app.activity.MainActivity91_Qmoji" />
@@ -52,21 +54,23 @@
         <activity android:name="com.test.test3app.activity.MainActivity2_record" />
         <activity android:name="com.test.test3app.activity.MainActivity_96_faceview" />
         <activity android:name="com.test.test3app.activity.MainActivity_991_calculate" />
+        <activity android:name="com.test.test3app.activity.MainActivity_992_drawerLayout" android:theme="@style/Theme.AppCompat"/>
         <activity
             android:name="com.test.test3app.MainActivity_inputbar"
             android:windowSoftInputMode="adjustPan" />
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-7084074281104788~2199438140" />
 
         <provider
             android:name="com.test.test3app.MyContentProvider"
-            android:authorities="com.test.myProvider"
+            android:authorities="${applicationId}.myProvider"
             android:enabled="true"
             android:exported="true" />
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.test.photo"
+            android:authorities="${applicationId}.photo"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

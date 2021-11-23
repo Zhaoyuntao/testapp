@@ -29,7 +29,6 @@ public class MainActivity7_recyclerView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_activity7_recycler_view);
 
-
         //country code
         recyclerView = findViewById(R.id.country_code_list);
         mList = new ArrayList<>();
@@ -64,6 +63,17 @@ public class MainActivity7_recyclerView extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new ItemDivider(RecyclerView.VERTICAL));
+
+        findViewById(R.id.text).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CountryCodeBean uae = new CountryCodeBean();
+                uae.setCountryCode(971);
+                uae.setDrawableId(R.drawable.country_ar);
+                uae.setCountryName("UAE:" + System.currentTimeMillis());
+                adapter.addData(uae);
+            }
+        });
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.test.test3app.activity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.test.test3app.BaseActivity;
 import com.test.test3app.R;
@@ -20,15 +22,26 @@ public class MainActivity_94_wallpaper extends BaseActivity {
 
         adapterImageView=findViewById(R.id.wall);
 
-        GifDrawable gifDrawable=null;
-        GifDrawableBuilder builder = new GifDrawableBuilder();
+        ImageView imageView=findViewById(R.id.image);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            boolean a=false;
+            @Override
+            public void onClick(View v) {
+                a=!a;
+                imageView.setImageResource(a?R.drawable.a1:R.drawable.a2);
+            }
+        });
 
-        try {
-            gifDrawable = builder.from(getResources(),R.raw.bbbb).setRenderingTriggeredOnDraw(true).build();
-            adapterImageView.setImageDrawable(gifDrawable);
-        } catch (Exception e) {
-            e.printStackTrace();
-            S.e(e);
-        }
+
+//        GifDrawable gifDrawable=null;
+//        GifDrawableBuilder builder = new GifDrawableBuilder();
+//
+//        try {
+//            gifDrawable = builder.from(getResources(),R.raw.bbbb).setRenderingTriggeredOnDraw(true).build();
+//            adapterImageView.setImageDrawable(gifDrawable);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            S.e(e);
+//        }
     }
 }
