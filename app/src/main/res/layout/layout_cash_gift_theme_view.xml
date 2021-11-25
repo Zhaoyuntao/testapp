@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintDimensionRatio="264:384"
+    android:background="@color/orange">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/skin_image_view_view_pager_cash_gift_theme"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/png_skin_cash_not_opend_green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="264:384"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="#ffffff" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_line_view_pager_item_cash_gift"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.735" />
+
+    <FrameLayout
+        android:id="@+id/container_open_button_cash_gift"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/guide_line_view_pager_item_cash_gift"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="@+id/skin_image_view_view_pager_cash_gift_theme"
+        app:layout_constraintStart_toStartOf="@+id/skin_image_view_view_pager_cash_gift_theme"
+        app:layout_constraintTop_toTopOf="@+id/guide_line_view_pager_item_cash_gift"
+        app:layout_constraintWidth_percent="0.33">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/button_image_view_view_pager_cash_gift_theme"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/png_skin_button_green" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/button_text_view_view_pager_cash_gift_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="2dp"
+            android:gravity="center"
+            android:text="Open"
+            android:textAllCaps="true"
+            android:textColor="@color/orange"
+            android:textSize="14dp" />
+    </FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

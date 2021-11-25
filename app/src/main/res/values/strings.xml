@@ -47,4 +47,16 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name="cash_theme_name_normal">Best Wishes</string>
+    <string name="cash_theme_name_green">Emerald Dreams</string>
+    <string name="cash_theme_name_red">Eternal Love</string>
+    <string name="cash_theme_name_blue">Forever Royalty</string>
+    <string name="cash_theme_name_yellow">Friendship</string>
+
+    <string name="string_subject_cash_gift_theme_normal">Best wishes to you!</string>
+    <string name="string_subject_cash_gift_theme_green">Turn your dreams into reality!</string>
+    <string name="string_subject_cash_gift_theme_red">I love you!</string>
+    <string name="string_subject_cash_gift_theme_blue">May your life be filled with health and wealth!</string>
+    <string name="string_subject_cash_gift_theme_yellow">Thanks for being a great friend!</string>
 </resources>

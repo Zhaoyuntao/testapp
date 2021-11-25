@@ -39,8 +39,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         registerListener(R.id.m990);
         registerListener(R.id.m991);
         registerListener(R.id.m992);
+        registerListener(R.id.m993);
+        registerListener(R.id.m994);
 
-        onClick(findViewById(R.id.m94));
+        onClick(findViewById(R.id.m994));
     }
 
     private void registerListener(@IdRes int viewId) {
@@ -95,6 +97,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             goToActivity(MainActivity_991_calculate.class);
         } else if (v.getId() == R.id.m992) {
             goToActivity(MainActivity_992_drawerLayout.class);
+        } else if (v.getId() == R.id.m993) {
+            goToActivity(MainActivity_993_pulldown.class);
+        } else if (v.getId() == R.id.m994) {
+            goToActivity(MainActivity_994_gallery_pager.class);
         }
     }
 }

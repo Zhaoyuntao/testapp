@@ -197,6 +197,22 @@
             android:padding="0dp"
             android:text="drawer"
             android:visibility="gone" />
+        <Button
+            android:id="@+id/m993"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_columnWeight="1"
+            android:padding="0dp"
+            android:text="pull down"
+            android:visibility="gone" />
+        <Button
+            android:id="@+id/m994"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_columnWeight="1"
+            android:padding="0dp"
+            android:text="gallery view"
+            android:visibility="gone" />
     </GridLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

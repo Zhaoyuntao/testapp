@@ -68,4 +68,7 @@
         <attr name="BlueFaceView_useCircleBackground" format="boolean" />
         <attr name="BlueFaceView_useRoundBreach" format="boolean" />
     </declare-styleable>
+    <declare-styleable name="PullLoadMoreView">
+        <attr name="top_background_color" format="color" />
+    </declare-styleable>
 </resources>

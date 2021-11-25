@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_background">#f8eddd</color>
+    <!--  Normal  -->
+    <color name="theme_text_color_normal">#b74200</color>
+    <color name="theme_text_back_color_normal">#fdce8e</color>
+    <color name="theme_border_color_normal">#fdce8e</color>
+    <!--  Blue  -->
+    <color name="theme_text_color_blue">#ffcc80</color>
+    <color name="theme_text_back_color_blue">#034f79</color>
+    <color name="theme_border_color_blue">#ffcc80</color>
+    <!--  Green  -->
+    <color name="theme_text_color_green">#ffffff</color>
+    <color name="theme_text_back_color_green">#19676d</color>
+    <color name="theme_border_color_green">#fff3e0</color>
+    <!--  Yellow  -->
+    <color name="theme_text_color_yellow">#ef6c00</color>
+    <color name="theme_text_back_color_yellow">#fff3e0</color>
+    <color name="theme_border_color_yellow">#fb8c00</color>
+    <!--  Red  -->
+    <color name="theme_text_color_red">#fff3e0</color>
+    <color name="theme_text_back_color_red">#f94679</color>
+    <color name="theme_border_color_red">#fff3e0</color>
+</resources>
