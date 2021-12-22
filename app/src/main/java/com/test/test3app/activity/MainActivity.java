@@ -42,7 +42,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         registerListener(R.id.m993);
         registerListener(R.id.m994);
 
-        onClick(findViewById(R.id.m994));
+        onClick(findViewById(R.id.m94));
     }
 
     private void registerListener(@IdRes int viewId) {

@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
+import com.zhaoyuntao.androidutils.tools.S;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,14 +42,19 @@ public class CommonAdapter extends ListAdapter<CommonBean, CommonHolder> {
         submitList(list);
     }
 
+    private int index;
+
     @NonNull
     @Override
     public CommonHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new CommonHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_recycler_view2, parent, false));
+//        S.s("onCreateViewHolder:" + index++);
+        return new CommonHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_recycler_view, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull CommonHolder holder, int position) {
+//        S.s("onBindViewHolder:" + position);
+        holder.itemView.setTag("position:"+position+" "+getCurrentList().get(position).content);
         holder.textView.setText(getCurrentList().get(position).content);
     }
 }

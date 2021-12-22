@@ -22,6 +22,7 @@ class CashGiftHolder extends RecyclerView.ViewHolder {
     }
 
     public void set(CashGiftThemeBean cashGiftThemeBean){
+        itemView.setTag(cashGiftThemeBean.getName());
         ImageView background = itemView.findViewById(R.id.skin_image_view_view_pager_cash_gift_theme);
         ImageView button = itemView.findViewById(R.id.button_image_view_view_pager_cash_gift_theme);
         TextView buttonText = itemView.findViewById(R.id.button_text_view_view_pager_cash_gift_theme);

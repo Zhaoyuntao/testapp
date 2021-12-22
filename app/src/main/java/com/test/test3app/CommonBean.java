@@ -8,4 +8,5 @@ package com.test.test3app;
 public class CommonBean {
     public int id;
     public String content;
+    public int resId;
 }

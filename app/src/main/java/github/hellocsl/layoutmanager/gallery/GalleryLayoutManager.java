@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE;
 
 import com.test.test3app.BuildConfig;
+import com.zhaoyuntao.androidutils.tools.S;
 
 /**
  * A custom LayoutManager to build a {@link android.widget.Gallery} or a {@link ViewPager}like {@link RecyclerView} and
@@ -168,6 +169,7 @@ public class GalleryLayoutManager extends RecyclerView.LayoutManager implements 
 
         if (mItemTransformer != null) {
             View child;
+            S.s("getChildCount:"+getChildCount());
             for (int i = 0; i < getChildCount(); i++) {
                 child = getChildAt(i);
                 mItemTransformer.transformItem(this, child, calculateToCenterFraction(child, scrollDelta));
@@ -406,6 +408,7 @@ public class GalleryLayoutManager extends RecyclerView.LayoutManager implements 
 
         if (mItemTransformer != null) {
             View child;
+            S.s("getChildCount:"+getChildCount());
             for (int i = 0; i < getChildCount(); i++) {
                 child = getChildAt(i);
                 mItemTransformer.transformItem(this, child, calculateToCenterFraction(child, scrollDelta));

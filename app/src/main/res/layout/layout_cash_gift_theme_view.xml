@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layout_constraintDimensionRatio="264:384"
-    android:background="@color/orange">
+    android:maxWidth="264dp"
+    android:layout_height="match_parent"
+    app:layout_constraintDimensionRatio="264:384">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/skin_image_view_view_pager_cash_gift_theme"

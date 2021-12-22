@@ -5,6 +5,8 @@ import android.view.View;
 
 import androidx.annotation.RequiresApi;
 
+import com.zhaoyuntao.androidutils.tools.S;
+
 import github.hellocsl.layoutmanager.gallery.GalleryLayoutManager;
 
 /**
@@ -18,17 +20,21 @@ public class ScaleTransformer implements GalleryLayoutManager.ItemTransformer {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void transformItem(GalleryLayoutManager layoutManager, View item, float fraction) {
-        float maxScaleValue = 1;
-        float minScaleValue = 0.5f;
+        float maxScaleValue = 2;
+        float minScaleValue = 1f;
         if (fraction < 0.5f) {
             item.setTranslationZ(10);
         } else {
-            item.setTranslationZ(0);
+            item.setTranslationZ(9);
         }
         item.setPivotX(item.getWidth() / 2.0f);
         item.setPivotY(item.getHeight() / 2.0f);
         float scale = (maxScaleValue - minScaleValue) * (1 - Math.abs(fraction)) + minScaleValue;
+        if(layoutManager.getPosition(item)==0){
+            S.s("scale:"+scale);
+        }
         item.setScaleX(scale);
+
         item.setScaleY(scale);
     }
 }

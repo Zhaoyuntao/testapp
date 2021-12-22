@@ -63,4 +63,6 @@
     <integer name="emoji_grid_column_count">7</integer>
     <integer name="emoji_grid_raw_count">3</integer>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
 </resources>

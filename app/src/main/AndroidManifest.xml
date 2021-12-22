@@ -11,7 +11,7 @@
 
     <application
         android:name=".appbase.ZApplication"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/aaaaaicon"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -39,7 +39,7 @@
         <activity android:name=".activity.MainActivity_97_textview_spannable" />
         <activity
             android:name=".activity.MainActivity_94_wallpaper"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".activity.MainActivity_95_textview" />
         <activity android:name=".activity.MainActivity93_threadPool" />
         <activity android:name=".activity.MainActivity91_Qmoji" />
@@ -67,6 +67,10 @@
         <activity
             android:name=".MainActivity_inputbar"
             android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".layoutmanager.GalleryActivity" />
+        <activity android:name=".layoutmanager.TanTanAvatarActivity" />
+        <activity android:name=".layoutmanager.LoopGalleryActivity" />
+
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
