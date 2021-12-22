@@ -72,82 +72,123 @@
                 android:id="@+id/scale"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:padding="20dp"
                 android:layout_gravity="bottom"
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <com.test.test3app.wallpaper.AnimateViewGroup
-                    android:id="@+id/image1"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+<!--                <com.test.test3app.wallpaper.AnimateViewGroup-->
+<!--                    android:id="@+id/image1"-->
+<!--                    android:layout_width="80dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_margin="20dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:text="A"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="30sp">-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="80dp"-->
+<!--                        android:layout_height="80dp"-->
+<!--                        android:src="@drawable/shape_circle" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Hello"-->
+<!--                        android:textColor="#444444" />-->
+<!--                </com.test.test3app.wallpaper.AnimateViewGroup>-->
+
+<!--                <com.test.test3app.wallpaper.AnimateViewGroup-->
+<!--                    android:id="@+id/image2"-->
+<!--                    android:layout_width="80dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_margin="20dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:text="A"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="30sp">-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="80dp"-->
+<!--                        android:layout_height="80dp"-->
+<!--                        android:src="@drawable/shape_circle" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Hello"-->
+<!--                        android:textColor="#444444" />-->
+<!--                </com.test.test3app.wallpaper.AnimateViewGroup>-->
+
+
+<!--                <com.test.test3app.wallpaper.AnimateViewGroup-->
+<!--                    android:id="@+id/image3"-->
+<!--                    android:layout_width="80dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_margin="20dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:text="A"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="30sp">-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="80dp"-->
+<!--                        android:layout_height="80dp"-->
+<!--                        android:src="@drawable/shape_circle" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Hello"-->
+<!--                        android:textColor="#444444" />-->
+<!--                </com.test.test3app.wallpaper.AnimateViewGroup>-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:src="@drawable/abc"
                     android:layout_margin="20dp"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:text="A"
-                    android:textColor="@color/white"
-                    android:textSize="30sp">
-
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:src="@drawable/shape_circle" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hello"
-                        android:textColor="#444444" />
-                </com.test.test3app.wallpaper.AnimateViewGroup>
-
-                <com.test.test3app.wallpaper.AnimateViewGroup
-                    android:id="@+id/image2"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_height="match_parent"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:src="@drawable/abc"
                     android:layout_margin="20dp"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:text="A"
-                    android:textColor="@color/white"
-                    android:textSize="30sp">
-
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:src="@drawable/shape_circle" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hello"
-                        android:textColor="#444444" />
-                </com.test.test3app.wallpaper.AnimateViewGroup>
-
-
-                <com.test.test3app.wallpaper.AnimateViewGroup
-                    android:id="@+id/image3"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_height="match_parent"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:src="@drawable/abc"
                     android:layout_margin="20dp"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:text="A"
-                    android:textColor="@color/white"
-                    android:textSize="30sp">
-
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:src="@drawable/shape_circle" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hello"
-                        android:textColor="#444444" />
-                </com.test.test3app.wallpaper.AnimateViewGroup>
+                    android:layout_height="match_parent"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:src="@drawable/abc"
+                    android:layout_margin="20dp"
+                    android:layout_height="match_parent"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:src="@drawable/abc"
+                    android:layout_margin="20dp"
+                    android:layout_height="match_parent"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:src="@drawable/abc"
+                    android:layout_margin="20dp"
+                    android:layout_height="match_parent"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:src="@drawable/abc"
+                    android:layout_margin="20dp"
+                    android:layout_height="match_parent"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:src="@drawable/abc"
+                    android:layout_margin="20dp"
+                    android:layout_height="match_parent"/>
 
             </com.test.test3app.wallpaper.RippleFrameLayout>
         </FrameLayout>

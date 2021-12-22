@@ -65,24 +65,24 @@ public class MainActivity_94_wallpaper extends BaseActivity {
                 rippleFrameLayout.setVisibility(rippleFrameLayout.getVisibility() != View.VISIBLE ? View.VISIBLE : View.GONE);
             }
         });
-
-        findViewById(R.id.image1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                v.setVisibility(rippleFrameLayout.getVisibility() != View.VISIBLE ? View.VISIBLE : View.GONE);
-            }
-        });
-        findViewById(R.id.image2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                v.setVisibility(rippleFrameLayout.getVisibility() != View.VISIBLE ? View.VISIBLE : View.GONE);
-            }
-        });
-        findViewById(R.id.image3).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                v.setVisibility(rippleFrameLayout.getVisibility() != View.VISIBLE ? View.VISIBLE : View.GONE);
-            }
-        });
+//
+//        findViewById(R.id.image1).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                v.setVisibility(rippleFrameLayout.getVisibility() != View.VISIBLE ? View.VISIBLE : View.GONE);
+//            }
+//        });
+//        findViewById(R.id.image2).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                v.setVisibility(rippleFrameLayout.getVisibility() != View.VISIBLE ? View.VISIBLE : View.GONE);
+//            }
+//        });
+//        findViewById(R.id.image3).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                v.setVisibility(rippleFrameLayout.getVisibility() != View.VISIBLE ? View.VISIBLE : View.GONE);
+//            }
+//        });
     }
 }
