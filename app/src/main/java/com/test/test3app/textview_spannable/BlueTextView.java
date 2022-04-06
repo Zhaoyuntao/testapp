@@ -41,7 +41,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.emoji.widget.EmojiTextViewHelper;
 
 import com.test.test3app.R;
-import com.test.test3app.threadpool.Utilities;
+import com.test.test3app.threadpool.ResourceUtils;
 import com.test.test3app.utils.RTLUtils;
 import com.zhaoyuntao.androidutils.tools.S;
 
@@ -176,7 +176,7 @@ public class BlueTextView extends AppCompatTextView {
         //搜索高亮显示
         SpannableStringBuilder spannableString = new SpannableStringBuilder(text);
         if (mList != null && !mList.isEmpty()) {
-            int color = Utilities.getApplicationContext().getResources().getColor(R.color.yc_color_FFFA00);
+            int color = ResourceUtils.getApplicationContext().getResources().getColor(R.color.yc_color_FFFA00);
             spannableString.setSpan(new ForegroundColorSpan(Color.RED),
                     0, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 

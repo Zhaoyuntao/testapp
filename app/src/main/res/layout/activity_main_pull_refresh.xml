@@ -1,64 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.test.test3app.scrollView.ScrollerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/pullLoadMoreView"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#99ff99"
+    android:orientation="vertical">
 
-    <!--    <androidx.core.widget.NestedScrollView-->
-    <!--        android:id="@+id/nestedScrollview"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent">-->
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recy"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <com.test.test3app.scrollView.SlideLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:text="Hello"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="#FF9999"
+            android:gravity="center"
+            android:text="\?"
             android:textColor="@color/white"
-            android:textSize="50sp" />
-    </LinearLayout>
+            android:textSize="20sp" />
 
-    <androidx.drawerlayout.widget.DrawerLayout
+        <TextView
+            android:id="@+id/slayouttext"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="#ff0000"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </com.test.test3app.scrollView.SlideLayout>
+
+    <EditText
+        android:id="@+id/edittext_slide"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/red"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="#ff9900"
-                android:gravity="center"
-                android:text="Title"
-                android:textColor="@color/white"
-                android:textSize="30sp" />
-
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewpager2"
-                android:layout_width="match_parent"
-                android:background="@color/black"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
-        </LinearLayout>
-
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/nv_main"
-            android:layout_width="320dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="#ff00ff" />
-
-    </androidx.drawerlayout.widget.DrawerLayout>
-
-    <!--    </androidx.core.widget.NestedScrollView>-->
-
-</com.test.test3app.scrollView.ScrollerLayout>
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:textSize="20sp" />
+</LinearLayout>

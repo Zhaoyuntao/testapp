@@ -83,7 +83,7 @@ public class ThreadManager {
     private static void showActvieCount(String tag) {
         if (BuildConfig.DEBUG) {
             String tmp = TAG + " " + tag;
-            boolean isApp = ProcessUtils.getProcessName().equals(Utilities.getApplicationContext());
+            boolean isApp = ProcessUtils.getProcessName().equals(ResourceUtils.getApplicationContext());
             Log.i(tmp, "io thread active count:" + getActiveCount(io) + "  " + getPoolSize(io) + " " + isApp);
             Log.i(tmp, "scheduleIo thread active count:" + getActiveCount(scheduleIo) + "  " + getPoolSize(scheduleIo) + " " + isApp);
             Log.i(tmp, "cache thread active count:" + getActiveCount(cache) + "  " + getPoolSize(cache) + " " + isApp);

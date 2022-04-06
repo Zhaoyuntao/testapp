@@ -3,22 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.test.test3app">
 
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".appbase.ZApplication"
-        android:icon="@drawable/aaaaaicon"
+        android:icon="@drawable/anime_girl"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/anime_girl"
         android:supportsRtl="true"
         android:theme="@style/Theme.Test3app"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713"/>
         <activity
             android:name=".activity.MainActivity"
             android:configChanges="orientation|screenSize"
@@ -36,6 +39,7 @@
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".activity.MainActivity_99_dark_mode" />
         <activity android:name=".activity.MainActivity_98_sticker_reply" />
+        <activity android:name=".activity.MainActivity_996_expand" />
         <activity android:name=".activity.MainActivity_97_textview_spannable" />
         <activity
             android:name=".activity.MainActivity_94_wallpaper"
@@ -47,7 +51,7 @@
         <activity android:name=".activity.MainActivity92_huawei_meeting" />
         <activity android:name=".activity.MainActivity9_openGL" />
         <activity android:name=".activity.MainActivity8_permission" />
-        <activity android:name=".activity.MainActivity7_recyclerView" />
+        <activity android:name=".activity.MainActivity7_ListView" />
         <activity android:name=".activity.MainActivity6_pay" />
         <activity android:name=".activity.MainActivity5_takephoto" />
         <activity android:name=".activity.MainActivity4_grouptips" />
@@ -55,8 +59,14 @@
         <activity android:name=".activity.MainActivity2_record" />
         <activity android:name=".activity.MainActivity_96_faceview" />
         <activity android:name=".activity.MainActivity_991_calculate" />
+        <activity android:name=".activity.MainActivity_997_cameraWallpaper" />
+        <activity android:name=".activity.MainActivity_998_nest" />
         <activity
             android:name=".activity.MainActivity_994_gallery_pager"
+            android:theme="@style/Theme.AppCompat" />
+        <activity
+            android:name=".activity.MainActivity_995_popwindow"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/Theme.AppCompat" />
         <activity
             android:name=".activity.MainActivity_992_drawerLayout"
@@ -70,11 +80,6 @@
         <activity android:name=".layoutmanager.GalleryActivity" />
         <activity android:name=".layoutmanager.TanTanAvatarActivity" />
         <activity android:name=".layoutmanager.LoopGalleryActivity" />
-
-
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-7084074281104788~2199438140" />
 
         <provider
             android:name=".MyContentProvider"

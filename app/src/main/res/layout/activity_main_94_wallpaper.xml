@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,9 +8,11 @@
     tools:context=".activity.MainActivity_94_wallpaper">
 
     <TextView
+        android:id="@+id/actionbar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="@color/red" />
+
 
     <com.test.test3app.wallpaper.AdapterImageView
         android:id="@+id/wall"
@@ -44,155 +47,78 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <com.test.test3app.recyclerview.ScaleFrameLayout
+
+                <com.test.test3app.recyclerview.ChatView
+                    android:id="@+id/recycler_view1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_weight="1" />
 
-                    <com.test.test3app.recyclerview.ChatView
-                        android:id="@+id/recycler_view1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </com.test.test3app.recyclerview.ScaleFrameLayout>
 
-                <com.test.test3app.recyclerview.ScaleFrameLayout
+                <com.test.test3app.recyclerview.ChatView
+                    android:id="@+id/recycler_view2"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="1px"
-                    android:layout_weight="1">
-
-                    <com.test.test3app.recyclerview.ChatView
-                        android:id="@+id/recycler_view2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </com.test.test3app.recyclerview.ScaleFrameLayout>
+                    android:layout_weight="1" />
             </LinearLayout>
 
-            <com.test.test3app.wallpaper.RippleFrameLayout
-                android:id="@+id/scale"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:padding="20dp"
-                android:layout_gravity="bottom"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-<!--                <com.test.test3app.wallpaper.AnimateViewGroup-->
-<!--                    android:id="@+id/image1"-->
-<!--                    android:layout_width="80dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:layout_margin="20dp"-->
-<!--                    android:gravity="center"-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:text="A"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textSize="30sp">-->
-
-<!--                    <ImageView-->
-<!--                        android:layout_width="80dp"-->
-<!--                        android:layout_height="80dp"-->
-<!--                        android:src="@drawable/shape_circle" />-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="Hello"-->
-<!--                        android:textColor="#444444" />-->
-<!--                </com.test.test3app.wallpaper.AnimateViewGroup>-->
-
-<!--                <com.test.test3app.wallpaper.AnimateViewGroup-->
-<!--                    android:id="@+id/image2"-->
-<!--                    android:layout_width="80dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:layout_margin="20dp"-->
-<!--                    android:gravity="center"-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:text="A"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textSize="30sp">-->
-
-<!--                    <ImageView-->
-<!--                        android:layout_width="80dp"-->
-<!--                        android:layout_height="80dp"-->
-<!--                        android:src="@drawable/shape_circle" />-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="Hello"-->
-<!--                        android:textColor="#444444" />-->
-<!--                </com.test.test3app.wallpaper.AnimateViewGroup>-->
-
-
-<!--                <com.test.test3app.wallpaper.AnimateViewGroup-->
-<!--                    android:id="@+id/image3"-->
-<!--                    android:layout_width="80dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:layout_margin="20dp"-->
-<!--                    android:gravity="center"-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:text="A"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textSize="30sp">-->
-
-<!--                    <ImageView-->
-<!--                        android:layout_width="80dp"-->
-<!--                        android:layout_height="80dp"-->
-<!--                        android:src="@drawable/shape_circle" />-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="Hello"-->
-<!--                        android:textColor="#444444" />-->
-<!--                </com.test.test3app.wallpaper.AnimateViewGroup>-->
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:src="@drawable/abc"
-                    android:layout_margin="20dp"
-                    android:layout_height="match_parent"/>
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:src="@drawable/abc"
-                    android:layout_margin="20dp"
-                    android:layout_height="match_parent"/>
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:src="@drawable/abc"
-                    android:layout_margin="20dp"
-                    android:layout_height="match_parent"/>
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:src="@drawable/abc"
-                    android:layout_margin="20dp"
-                    android:layout_height="match_parent"/>
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:src="@drawable/abc"
-                    android:layout_margin="20dp"
-                    android:layout_height="match_parent"/>
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:src="@drawable/abc"
-                    android:layout_margin="20dp"
-                    android:layout_height="match_parent"/>
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:src="@drawable/abc"
-                    android:layout_margin="20dp"
-                    android:layout_height="match_parent"/>
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:src="@drawable/abc"
-                    android:layout_margin="20dp"
-                    android:layout_height="match_parent"/>
-
-            </com.test.test3app.wallpaper.RippleFrameLayout>
         </FrameLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:autoLink="web"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="https://botim.me/oa/chat/?oaid=18XQCMSI&amp;mode=keyboard"
+            android:textColor="@color/red"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:autoLink="web"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="https://botim.me/oa/chat/?oaid=18XQCMSI&amp;mode=menu"
+            android:textColor="@color/red"
+            android:textSize="20sp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:background="#00ff00">
+
+            <TextView
+                android:id="@+id/testtest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#ff0000"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="ajksndjkasbdjak"
+                android:textColor="#ffffff"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/test3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/test3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="#0000ff"
+                android:src="@drawable/ic_messages_delete"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@+id/testtest"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -200,20 +126,22 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/testtest2"
                 android:layout_width="0dp"
                 android:layout_height="80dp"
+
                 android:layout_weight="1"
                 android:background="#f0f0f0" />
 
             <TextView
                 android:id="@+id/show"
                 android:layout_width="80dp"
-                android:layout_marginStart="10dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:textSize="20sp"
+                android:layout_marginStart="10dp"
                 android:background="#000000"
-                android:text="show" />
+                android:gravity="center"
+                android:text="show"
+                android:textSize="20sp" />
         </LinearLayout>
 
 

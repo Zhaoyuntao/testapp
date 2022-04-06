@@ -11,7 +11,7 @@
     <color name="color_grey_10">#000000</color>
 
     <color name="white">#ffffffff</color>
-
+    <color name="colorFocused">#bbdefb</color>
     <!-- Color for group call details -->
     <!-- Zayhu call activity -->
 
@@ -75,10 +75,14 @@
     <color name="color_main_orange_80ff732e">#80ff732e</color>
     <color name="color_main_orange_dark_db5e27">#99db5e27</color>
     <!--  Bubble Color  -->
-    <color name="color_bubble_me">#d9e4fc</color>
-    <color name="color_bubble_other">#f2f2f7</color>
-    <color name="color_bubble_me_high_light">#ebebff</color>
-    <color name="color_bubble_other_high_light">#cccccc</color>
+    <color name="color_bubble_me">#02463f</color>
+    <color name="color_bubble_me_press">#212e36</color>
+    <color name="color_bubble_other">#02463f</color>
+    <color name="color_bubble_other_press">#212e36</color>
+    <color name="color_bubble_high_light">#33141414</color>
+    <color name="color_bubble_me_high_light">#C0E0F0</color>
+    <color name="color_bubble_other_high_light">#f0f0f0</color>
+    <color name="color_bubble_file_loading_bg_4d275edb">#4d275edb</color>
 
     <!--  White  -->
     <color name="color_main_white_ffffff">#ffffff</color>

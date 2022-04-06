@@ -57,7 +57,7 @@ public class ChatView extends RecyclerView {
     private void init() {
         layoutManager = new ChatViewLayoutManager(getContext());
         layoutManager.setReverseLayout(true);
-        layoutManager.setStackFromEnd(false);
+        layoutManager.setStackFromEnd(true);
         setLayoutManager(layoutManager);
         scrollListeners = new ArrayList<>(2);
         gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
@@ -413,14 +413,14 @@ public class ChatView extends RecyclerView {
 //                layoutManager.setStackFromEnd(false);
 //            }
 //        }
-        if (force) {
-            post(new Runnable() {
-                @Override
-                public void run() {
-                    layoutManager.scrollToLastPosition();
-                }
-            });
-        }
+//        if (force) {
+//            post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    layoutManager.scrollToLastPosition();
+//                }
+//            });
+//        }
     }
 
     public interface ScrollListener {

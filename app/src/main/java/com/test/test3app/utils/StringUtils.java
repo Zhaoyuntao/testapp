@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 
 import com.test.test3app.Hanzi2Pinyin;
-import com.test.test3app.threadpool.Utilities;
+import com.test.test3app.threadpool.ResourceUtils;
 
 import java.text.BreakIterator;
 import java.util.HashMap;
@@ -187,7 +187,7 @@ public class StringUtils {
     public static int matchStringWithPinyin(String srcString, String descString) {
         int similarity = matchString(srcString, descString);
         if (similarity == 0) {
-            similarity = matchString(srcString, Hanzi2Pinyin.getInstance(Utilities.getApplicationContext()).getAsString(descString));
+            similarity = matchString(srcString, Hanzi2Pinyin.getInstance(ResourceUtils.getApplicationContext()).getAsString(descString));
             if (similarity > 0) {
                 similarity += 10000;
             }

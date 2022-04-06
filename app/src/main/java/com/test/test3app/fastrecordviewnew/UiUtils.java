@@ -5,7 +5,7 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
-import com.test.test3app.threadpool.Utilities;
+import com.test.test3app.threadpool.ResourceUtils;
 import com.test.test3app.utils.BitmapUtils;
 
 /**
@@ -29,7 +29,7 @@ public class UiUtils {
     public static float getDensity() {
         if (sDensity == 0f) {
             DisplayMetrics dm = new DisplayMetrics();
-            ((WindowManager) Utilities.getApplicationContext().getSystemService(Context.WINDOW_SERVICE))
+            ((WindowManager) ResourceUtils.getApplicationContext().getSystemService(Context.WINDOW_SERVICE))
                     .getDefaultDisplay().getMetrics(dm);
             sDensity = dm.density;
         }

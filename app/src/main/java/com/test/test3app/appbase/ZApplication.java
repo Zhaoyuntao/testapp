@@ -8,8 +8,9 @@ import androidx.emoji.text.EmojiCompat;
 import androidx.emoji.text.FontRequestEmojiCompatConfig;
 
 import com.test.test3app.R;
+import com.test.test3app.a.TestExceptionHandler;
 import com.test.test3app.fastrecordviewnew.UiUtils;
-import com.test.test3app.threadpool.Utilities;
+import com.test.test3app.threadpool.ResourceUtils;
 
 /**
  * created by zhaoyuntao
@@ -21,7 +22,9 @@ public class ZApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Utilities.setContext(this.getApplicationContext());
+        Thread.UncaughtExceptionHandler defaultUncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
+        Thread.setDefaultUncaughtExceptionHandler(new TestExceptionHandler(defaultUncaughtExceptionHandler));
+        ResourceUtils.setContext(this.getApplicationContext());
         UiUtils.application = this;
         initEmojiCompat();
     }

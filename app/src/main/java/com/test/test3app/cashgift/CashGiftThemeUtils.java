@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 
 import com.test.test3app.R;
-import com.test.test3app.threadpool.Utilities;
+import com.test.test3app.threadpool.ResourceUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,75 +22,75 @@ public class CashGiftThemeUtils {
         CashGiftThemeBean cashGiftThemeBean = new CashGiftThemeBean(theme);
         switch (theme) {
             case CashGiftThemes.THEME_1_BLUE:
-                cashGiftThemeBean.setName(Utilities.getString(R.string.cash_theme_name_blue));
+                cashGiftThemeBean.setName(ResourceUtils.getString(R.string.cash_theme_name_blue));
                 cashGiftThemeBean.setSkinCellRes(R.drawable.png_cash_gift_skin_blue);
                 cashGiftThemeBean.setSkinNotOpenRes(R.drawable.png_skin_cash_not_opend_blue);
                 cashGiftThemeBean.setSkinOpenRes(R.drawable.png_skin_cash_opened_blue);
                 cashGiftThemeBean.setSkinPreviewRes(R.drawable.svg_preview_back_blue);
                 cashGiftThemeBean.setSkinPreviewIconRes(R.drawable.png_preview_icon_blue);
                 cashGiftThemeBean.setButtonRes(R.drawable.png_skin_button_blue);
-                cashGiftThemeBean.setBorderColor(Utilities.getColor(R.color.theme_border_color_blue));
-                cashGiftThemeBean.setTextColor(Utilities.getColor(R.color.theme_text_color_blue));
-                cashGiftThemeBean.setTextBackgroundColor(Utilities.getColor(R.color.theme_text_back_color_blue));
+                cashGiftThemeBean.setBorderColor(ResourceUtils.getColor(R.color.theme_border_color_blue));
+                cashGiftThemeBean.setTextColor(ResourceUtils.getColor(R.color.theme_text_color_blue));
+                cashGiftThemeBean.setTextBackgroundColor(ResourceUtils.getColor(R.color.theme_text_back_color_blue));
                 cashGiftThemeBean.setSkinBackgroundRes(R.drawable.png_skin_background_detail_blue);
-                cashGiftThemeBean.setMessage(Utilities.getString(R.string.string_subject_cash_gift_theme_blue));
+                cashGiftThemeBean.setMessage(ResourceUtils.getString(R.string.string_subject_cash_gift_theme_blue));
                 break;
             case CashGiftThemes.THEME_2_RED:
-                cashGiftThemeBean.setName(Utilities.getString(R.string.cash_theme_name_red));
+                cashGiftThemeBean.setName(ResourceUtils.getString(R.string.cash_theme_name_red));
                 cashGiftThemeBean.setSkinCellRes(R.drawable.png_cash_gift_skin_red);
                 cashGiftThemeBean.setSkinNotOpenRes(R.drawable.png_skin_cash_not_opend_red);
                 cashGiftThemeBean.setSkinOpenRes(R.drawable.png_skin_cash_opened_red);
                 cashGiftThemeBean.setSkinPreviewRes(R.drawable.svg_preview_back_red);
                 cashGiftThemeBean.setSkinPreviewIconRes(R.drawable.png_preview_icon_red);
                 cashGiftThemeBean.setButtonRes(R.drawable.png_skin_button_red);
-                cashGiftThemeBean.setBorderColor(Utilities.getColor(R.color.theme_border_color_red));
-                cashGiftThemeBean.setTextColor(Utilities.getColor(R.color.theme_text_color_red));
-                cashGiftThemeBean.setTextBackgroundColor(Utilities.getColor(R.color.theme_text_back_color_red));
+                cashGiftThemeBean.setBorderColor(ResourceUtils.getColor(R.color.theme_border_color_red));
+                cashGiftThemeBean.setTextColor(ResourceUtils.getColor(R.color.theme_text_color_red));
+                cashGiftThemeBean.setTextBackgroundColor(ResourceUtils.getColor(R.color.theme_text_back_color_red));
                 cashGiftThemeBean.setSkinBackgroundRes(R.drawable.png_skin_background_detail_red);
-                cashGiftThemeBean.setMessage(Utilities.getString(R.string.string_subject_cash_gift_theme_red));
+                cashGiftThemeBean.setMessage(ResourceUtils.getString(R.string.string_subject_cash_gift_theme_red));
                 break;
             case CashGiftThemes.THEME_3_YELLOW:
-                cashGiftThemeBean.setName(Utilities.getString(R.string.cash_theme_name_yellow));
+                cashGiftThemeBean.setName(ResourceUtils.getString(R.string.cash_theme_name_yellow));
                 cashGiftThemeBean.setSkinCellRes(R.drawable.png_cash_gift_skin_yellow);
                 cashGiftThemeBean.setSkinNotOpenRes(R.drawable.png_skin_cash_not_opend_yellow);
                 cashGiftThemeBean.setSkinOpenRes(R.drawable.png_skin_cash_opened_yellow);
                 cashGiftThemeBean.setSkinPreviewRes(R.drawable.svg_preview_back_yellow);
                 cashGiftThemeBean.setSkinPreviewIconRes(R.drawable.png_preview_icon_yellow);
                 cashGiftThemeBean.setButtonRes(R.drawable.png_skin_button_yellow);
-                cashGiftThemeBean.setBorderColor(Utilities.getColor(R.color.theme_border_color_yellow));
-                cashGiftThemeBean.setTextColor(Utilities.getColor(R.color.theme_text_color_yellow));
-                cashGiftThemeBean.setTextBackgroundColor(Utilities.getColor(R.color.theme_text_back_color_yellow));
+                cashGiftThemeBean.setBorderColor(ResourceUtils.getColor(R.color.theme_border_color_yellow));
+                cashGiftThemeBean.setTextColor(ResourceUtils.getColor(R.color.theme_text_color_yellow));
+                cashGiftThemeBean.setTextBackgroundColor(ResourceUtils.getColor(R.color.theme_text_back_color_yellow));
                 cashGiftThemeBean.setSkinBackgroundRes(R.drawable.png_skin_background_detail_yellow);
-                cashGiftThemeBean.setMessage(Utilities.getString(R.string.string_subject_cash_gift_theme_yellow));
+                cashGiftThemeBean.setMessage(ResourceUtils.getString(R.string.string_subject_cash_gift_theme_yellow));
                 break;
             case CashGiftThemes.THEME_4_GREEN:
-                cashGiftThemeBean.setName(Utilities.getString(R.string.cash_theme_name_green));
+                cashGiftThemeBean.setName(ResourceUtils.getString(R.string.cash_theme_name_green));
                 cashGiftThemeBean.setSkinCellRes(R.drawable.png_cash_gift_skin_green);
                 cashGiftThemeBean.setSkinNotOpenRes(R.drawable.png_skin_cash_not_opend_green);
                 cashGiftThemeBean.setSkinOpenRes(R.drawable.png_skin_cash_opened_green);
                 cashGiftThemeBean.setSkinPreviewRes(R.drawable.svg_preview_back_green);
                 cashGiftThemeBean.setSkinPreviewIconRes(R.drawable.png_preview_icon_green);
                 cashGiftThemeBean.setButtonRes(R.drawable.png_skin_button_green);
-                cashGiftThemeBean.setBorderColor(Utilities.getColor(R.color.theme_border_color_green));
-                cashGiftThemeBean.setTextColor(Utilities.getColor(R.color.theme_text_color_green));
-                cashGiftThemeBean.setTextBackgroundColor(Utilities.getColor(R.color.theme_text_back_color_green));
+                cashGiftThemeBean.setBorderColor(ResourceUtils.getColor(R.color.theme_border_color_green));
+                cashGiftThemeBean.setTextColor(ResourceUtils.getColor(R.color.theme_text_color_green));
+                cashGiftThemeBean.setTextBackgroundColor(ResourceUtils.getColor(R.color.theme_text_back_color_green));
                 cashGiftThemeBean.setSkinBackgroundRes(R.drawable.png_skin_background_detail_green);
-                cashGiftThemeBean.setMessage(Utilities.getString(R.string.string_subject_cash_gift_theme_green));
+                cashGiftThemeBean.setMessage(ResourceUtils.getString(R.string.string_subject_cash_gift_theme_green));
                 break;
             case CashGiftThemes.THEME_0_NORMAL:
             default:
-                cashGiftThemeBean.setName(Utilities.getString(R.string.cash_theme_name_normal));
+                cashGiftThemeBean.setName(ResourceUtils.getString(R.string.cash_theme_name_normal));
                 cashGiftThemeBean.setSkinCellRes(R.drawable.png_cash_gift_skin_normal);
                 cashGiftThemeBean.setSkinNotOpenRes(R.drawable.png_skin_cash_not_opend_normal);
                 cashGiftThemeBean.setSkinOpenRes(R.drawable.png_skin_cash_opened_normal);
                 cashGiftThemeBean.setSkinPreviewRes(R.drawable.svg_preview_back_normal);
                 cashGiftThemeBean.setSkinPreviewIconRes(R.drawable.png_preview_icon_normal);
                 cashGiftThemeBean.setButtonRes(R.drawable.png_skin_button_normal);
-                cashGiftThemeBean.setBorderColor(Utilities.getColor(R.color.theme_border_color_normal));
-                cashGiftThemeBean.setTextColor(Utilities.getColor(R.color.theme_text_color_normal));
-                cashGiftThemeBean.setTextBackgroundColor(Utilities.getColor(R.color.theme_text_back_color_normal));
+                cashGiftThemeBean.setBorderColor(ResourceUtils.getColor(R.color.theme_border_color_normal));
+                cashGiftThemeBean.setTextColor(ResourceUtils.getColor(R.color.theme_text_color_normal));
+                cashGiftThemeBean.setTextBackgroundColor(ResourceUtils.getColor(R.color.theme_text_back_color_normal));
                 cashGiftThemeBean.setSkinBackgroundRes(R.drawable.png_skin_background_detail_normal);
-                cashGiftThemeBean.setMessage(Utilities.getString(R.string.string_subject_cash_gift_theme_normal));
+                cashGiftThemeBean.setMessage(ResourceUtils.getString(R.string.string_subject_cash_gift_theme_normal));
                 break;
         }
         return cashGiftThemeBean;

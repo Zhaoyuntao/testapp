@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.selection.ItemDetailsLookup;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -11,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * on 25/11/2021
  * description:
  */
-class CommonHolder extends RecyclerView.ViewHolder {
+public class CommonHolder extends RecyclerView.ViewHolder {
     public TextView textView;
 
     public CommonHolder(@NonNull View itemView) {

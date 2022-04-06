@@ -38,7 +38,7 @@ public class ProcessUtils {
             return sMyProcessName;
         }
 
-        final Context appCxt = Utilities.getApplicationContext();
+        final Context appCxt = ResourceUtils.getApplicationContext();
         if (appCxt == null) {
             return "unknown";
         }

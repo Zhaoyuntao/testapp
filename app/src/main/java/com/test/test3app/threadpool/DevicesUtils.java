@@ -140,7 +140,7 @@ public class DevicesUtils {
     private static boolean lowRamDevice() {
         if (sLowRamDevice == null) {
             if (kitkatDevices()) {
-                ActivityManager am = (ActivityManager) Utilities.getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+                ActivityManager am = (ActivityManager) ResourceUtils.getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
                 sLowRamDevice = am.isLowRamDevice();
             } else {
                 sLowRamDevice = false;
@@ -179,9 +179,9 @@ public class DevicesUtils {
                 }
             } catch (Exception e) {
             } finally {
-                Utilities.silentlyClose(inStream);
-                Utilities.silentlyClose(inReader);
-                Utilities.silentlyClose(inBuffer);
+                ResourceUtils.silentlyClose(inStream);
+                ResourceUtils.silentlyClose(inReader);
+                ResourceUtils.silentlyClose(inBuffer);
             }
         }
 
@@ -196,7 +196,7 @@ public class DevicesUtils {
 
     public static int getHeapSize() {
         if (sHeapSize <= 0) {
-            ActivityManager am = (ActivityManager) Utilities.getApplicationContext().getSystemService(
+            ActivityManager am = (ActivityManager) ResourceUtils.getApplicationContext().getSystemService(
                     Context.ACTIVITY_SERVICE);
             sHeapSize = am.getMemoryClass();
             S.s("heapSize=" + sHeapSize);
@@ -337,7 +337,7 @@ public class DevicesUtils {
     private static String sMainIMEI = null;
     public static String getIMEI() {
         if (sMainIMEI == null || sMainIMEI.length() < 4) {
-            TelephonyManager tm = (TelephonyManager) Utilities.getApplicationContext().getSystemService(
+            TelephonyManager tm = (TelephonyManager) ResourceUtils.getApplicationContext().getSystemService(
                     Context.TELEPHONY_SERVICE);
 
             try {
@@ -354,7 +354,7 @@ public class DevicesUtils {
     private static String sMainIMSI = null;
     public static String getIMSI() {
         if (sMainIMSI == null || sMainIMSI.length() < 4) {
-            TelephonyManager tm = (TelephonyManager) Utilities.getApplicationContext().getSystemService(
+            TelephonyManager tm = (TelephonyManager) ResourceUtils.getApplicationContext().getSystemService(
                     Context.TELEPHONY_SERVICE);
 
             try {
@@ -385,7 +385,7 @@ public class DevicesUtils {
     private static String sPhoneNumber = null;
     public static String getPhoneNumber() {
         if (TextUtils.isEmpty(sPhoneNumber)) {
-            TelephonyManager tm = (TelephonyManager) Utilities.getApplicationContext().getSystemService(
+            TelephonyManager tm = (TelephonyManager) ResourceUtils.getApplicationContext().getSystemService(
                     Context.TELEPHONY_SERVICE);
 
             try {
@@ -405,7 +405,7 @@ public class DevicesUtils {
     private static String sSimContryCode = null;
     public static String getSimCountryCode() {
         if (sSimContryCode == null) {
-            TelephonyManager tm = (TelephonyManager) Utilities.getApplicationContext().getSystemService(
+            TelephonyManager tm = (TelephonyManager) ResourceUtils.getApplicationContext().getSystemService(
                     Context.TELEPHONY_SERVICE);
             try {
                 // need android.permission.READ_PHONE_STATE

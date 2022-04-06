@@ -29,14 +29,14 @@ public class CommonImageAdapter extends ListAdapter<CommonBean, CommonImageHolde
 
             @Override
             public boolean areContentsTheSame(@NonNull CommonBean oldItem, @NonNull CommonBean newItem) {
-                return TextUtils.equals(oldItem.content, newItem.content);
+                return TextUtils.equals(oldItem.id, newItem.id);
             }
         });
 
         List<CommonBean> list = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
             CommonBean commonBean = new CommonBean();
-            commonBean.id = i;
+            commonBean.id = String.valueOf(i);
             commonBean.resId = R.drawable.a3;
             list.add(commonBean);
         }

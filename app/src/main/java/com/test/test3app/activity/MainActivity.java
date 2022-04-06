@@ -1,106 +1,86 @@
 package com.test.test3app.activity;
 
-import android.os.Bundle;
-import android.view.View;
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
-import androidx.annotation.IdRes;
+import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.View;
+import android.widget.Button;
+import android.widget.GridLayout;
 
 import com.test.test3app.BaseActivity;
 import com.test.test3app.R;
+import com.test.test3app.a.ZRouter;
 import com.zhaoyuntao.androidutils.tools.S;
 
+import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         S.s("onCreate");
         setContentView(R.layout.activity_main);
+        List<ZRouter> zRouters = new ArrayList<>();
 
-        registerListener(R.id.m1);
-        registerListener(R.id.m2);
-        registerListener(R.id.m3);
-        registerListener(R.id.m4);
-        registerListener(R.id.m5);
-        registerListener(R.id.m6);
-        registerListener(R.id.m7);
-        registerListener(R.id.m8);
-        registerListener(R.id.m9);
-        registerListener(R.id.m91);
-        registerListener(R.id.m92);
-        registerListener(R.id.m93);
-        registerListener(R.id.m94);
-        registerListener(R.id.m95);
-        registerListener(R.id.m96);
-        registerListener(R.id.m97);
-        registerListener(R.id.m98);
-        registerListener(R.id.m99);
-        registerListener(R.id.m990);
-        registerListener(R.id.m991);
-        registerListener(R.id.m992);
-        registerListener(R.id.m993);
-        registerListener(R.id.m994);
+        zRouters.add(new ZRouter("bubble", MainActivity1_unknown.class));
+        zRouters.add(new ZRouter("record", MainActivity2_record.class));
+        zRouters.add(new ZRouter("sms", MainActivity3_sms.class));
+        zRouters.add(new ZRouter("group tips", MainActivity4_grouptips.class));
+        zRouters.add(new ZRouter("take photo", MainActivity5_takephoto.class));
+        zRouters.add(new ZRouter("pay", MainActivity6_pay.class));
+        zRouters.add(new ZRouter("recyclerView", MainActivity7_ListView.class));
+        zRouters.add(new ZRouter("permission", MainActivity8_permission.class));
+        zRouters.add(new ZRouter("openGL", MainActivity9_openGL.class));
+        zRouters.add(new ZRouter("Qmoji", MainActivity91_Qmoji.class));
+        zRouters.add(new ZRouter("huawei meeting", MainActivity92_huawei_meeting.class));
+        zRouters.add(new ZRouter("threadPool", MainActivity93_threadPool.class));
+        zRouters.add(new ZRouter("wallpaper", MainActivity_94_wallpaper.class));
+        zRouters.add(new ZRouter("textview", MainActivity_95_textview.class));
+        zRouters.add(new ZRouter("faceView", MainActivity_96_faceview.class));
+        zRouters.add(new ZRouter("spannable", MainActivity_97_textview_spannable.class));
+        zRouters.add(new ZRouter("stickerReply", MainActivity_98_sticker_reply.class));
+        zRouters.add(new ZRouter("dark mode", MainActivity_99_dark_mode.class));
+        zRouters.add(new ZRouter("ndk", MainActivity_990_cell.class));
+        zRouters.add(new ZRouter("calculate", MainActivity_991_calculate.class));
+        zRouters.add(new ZRouter("drawer", MainActivity_992_drawerLayout.class));
+        zRouters.add(new ZRouter("pull down", MainActivity_993_pulldown.class));
+        zRouters.add(new ZRouter("gallery view", MainActivity_994_gallery_pager.class));
+        zRouters.add(new ZRouter("popWindow", MainActivity_995_popwindow.class));
+        zRouters.add(new ZRouter("expand", MainActivity_996_expand.class));
+        zRouters.add(new ZRouter("CameraWallpaper", MainActivity_997_cameraWallpaper.class));
+        zRouters.add(new ZRouter("Nest", MainActivity_998_nest.class));
 
-        onClick(findViewById(R.id.m94));
+        init(zRouters);
     }
 
-    private void registerListener(@IdRes int viewId) {
-        View view = findViewById(viewId);
-        if (view != null) {
-            view.setVisibility(View.VISIBLE);
-            view.setOnClickListener(this);
-        }
-    }
+    private void init(List<ZRouter> zRouters) {
+        GridLayout gridLayout = findViewById(R.id.grid_main);
+        for (ZRouter z : zRouters) {
+            Button button = new Button(activity());
+            button.setText(z.getName());
+            float textSize = 20f - (z.getName().length() - 8) * 1.5f;
+            button.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+            button.setPadding(0, 0, 0, 0);
+            GridLayout.LayoutParams layoutParams = new GridLayout.LayoutParams();
+            layoutParams.width = 0;
+            layoutParams.height = WRAP_CONTENT;
+            layoutParams.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1, 1.0f);
+            layoutParams.rowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1, 1.0f);
+            button.setLayoutParams(layoutParams);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    goToActivity(z.getActivity());
+                }
+            });
+            gridLayout.addView(button);
 
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.m1) {
-            goToActivity(MainActivity1_unknown.class);
-        } else if (v.getId() == R.id.m2) {
-            goToActivity(MainActivity2_record.class);
-        } else if (v.getId() == R.id.m3) {
-            goToActivity(MainActivity3_sms.class);
-        } else if (v.getId() == R.id.m4) {
-            goToActivity(MainActivity4_grouptips.class);
-        } else if (v.getId() == R.id.m5) {
-            goToActivity(MainActivity5_takephoto.class);
-        } else if (v.getId() == R.id.m6) {
-            goToActivity(MainActivity6_pay.class);
-        } else if (v.getId() == R.id.m7) {
-            goToActivity(MainActivity7_recyclerView.class);
-        } else if (v.getId() == R.id.m8) {
-            goToActivity(MainActivity8_permission.class);
-        } else if (v.getId() == R.id.m9) {
-            goToActivity(MainActivity9_openGL.class);
-        } else if (v.getId() == R.id.m91) {
-            goToActivity(MainActivity91_Qmoji.class);
-        } else if (v.getId() == R.id.m92) {
-            goToActivity(MainActivity92_huawei_meeting.class);
-        } else if (v.getId() == R.id.m93) {
-            goToActivity(MainActivity93_threadPool.class);
-        } else if (v.getId() == R.id.m94) {
-            goToActivity(MainActivity_94_wallpaper.class);
-        } else if (v.getId() == R.id.m95) {
-            goToActivity(MainActivity_95_textview.class);
-        } else if (v.getId() == R.id.m96) {
-            goToActivity(MainActivity_96_faceview.class);
-        } else if (v.getId() == R.id.m97) {
-            goToActivity(MainActivity_97_textview_spannable.class);
-        } else if (v.getId() == R.id.m98) {
-            goToActivity(MainActivity_98_sticker_reply.class);
-        } else if (v.getId() == R.id.m99) {
-            goToActivity(MainActivity_99_dark_mode.class);
-        } else if (v.getId() == R.id.m990) {
-            goToActivity(MainActivity_990_cell.class);
-        } else if (v.getId() == R.id.m991) {
-            goToActivity(MainActivity_991_calculate.class);
-        } else if (v.getId() == R.id.m992) {
-            goToActivity(MainActivity_992_drawerLayout.class);
-        } else if (v.getId() == R.id.m993) {
-            goToActivity(MainActivity_993_pulldown.class);
-        } else if (v.getId() == R.id.m994) {
-            goToActivity(MainActivity_994_gallery_pager.class);
         }
+        ZRouter zRouter = zRouters.get(zRouters.size() - 1);
+        goToActivity(zRouter.getActivity());
     }
 }

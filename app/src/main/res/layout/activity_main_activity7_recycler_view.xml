@@ -4,22 +4,108 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.MainActivity7_recyclerView">
+    tools:context=".activity.MainActivity7_ListView">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <ListView
         android:id="@+id/country_code_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:transcriptMode="disabled"
         android:layout_weight="1" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/text"
+        android:id="@+id/mode"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_margin="3dp"
         android:background="#ff0000"
         android:gravity="center"
-        android:text="Hello"
+        android:text=""
         android:textColor="@color/white"
         android:textSize="30dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/add_at_tail"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:background="#ff0000"
+            android:gravity="center"
+            android:text="add"
+            android:textColor="@color/white"
+            android:textSize="30dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/remove"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:background="#ff0000"
+            android:gravity="center"
+            android:text="remove"
+            android:textColor="@color/white"
+            android:textSize="30dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/add_at_0"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:background="#ff0000"
+            android:gravity="center"
+            android:text="add at 0"
+            android:textColor="@color/white"
+            android:textSize="30dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/disable"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:background="#ff0000"
+            android:gravity="center"
+            android:text="disable"
+            android:textColor="@color/white"
+            android:textSize="30dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/always_scroll"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:background="#ff0000"
+            android:gravity="center"
+            android:text="always"
+            android:textColor="@color/white"
+            android:textSize="30dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/normal"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:background="#ff0000"
+            android:gravity="center"
+            android:text="normal"
+            android:textColor="@color/white"
+            android:textSize="30dp" />
+    </LinearLayout>
 
 </LinearLayout>

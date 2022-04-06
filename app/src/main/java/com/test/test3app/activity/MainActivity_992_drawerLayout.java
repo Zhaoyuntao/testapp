@@ -13,7 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.test.test3app.BaseActivity;
 import com.test.test3app.R;
 import com.test.test3app.drawerlayout.DrawerAdapter;
-import com.test.test3app.threadpool.Utilities;
+import com.test.test3app.threadpool.ResourceUtils;
 import com.zhaoyuntao.androidutils.permission.PermissionSettings;
 import com.zhaoyuntao.androidutils.permission.runtime.Permission;
 import com.zhaoyuntao.androidutils.tools.S;
@@ -69,7 +69,7 @@ public class MainActivity_992_drawerLayout extends BaseActivity {
     }
 
     public void sss() {
-        File[] files = Utilities.getApplicationContext().getExternalMediaDirs();
+        File[] files = ResourceUtils.getApplicationContext().getExternalMediaDirs();
         File publicDir = Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS);
         if (publicDir != null) {
             S.s("files:" + Arrays.toString(files) + "  dir:" + publicDir);
