@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/red"
+    android:orientation="vertical"
     tools:context=".activity.MainActivity_94_wallpaper">
 
     <TextView
@@ -13,137 +13,91 @@
         android:layout_height="56dp"
         android:background="@color/red" />
 
-
-    <com.test.test3app.wallpaper.AdapterImageView
-        android:id="@+id/wall"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="56dp"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:scaleType="centerCrop"
-        android:src="@drawable/aaaaa" />
-
-    <com.test.test3app.wallpaper.AnimateImageView
-        android:id="@+id/image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:background="#88000000"
-        android:src="@drawable/a1" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="56dp"
         android:orientation="vertical">
 
-        <FrameLayout
+        <com.test.test3app.wallpaper.AdapterImageView
+            android:id="@+id/wall"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-
-                <com.test.test3app.recyclerview.ChatView
-                    android:id="@+id/recycler_view1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-
-                <com.test.test3app.recyclerview.ChatView
-                    android:id="@+id/recycler_view2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-            </LinearLayout>
-
-        </FrameLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:autoLink="web"
-            android:background="@color/white"
-            android:gravity="center"
-            android:text="https://botim.me/oa/chat/?oaid=18XQCMSI&amp;mode=keyboard"
-            android:textColor="@color/red"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:autoLink="web"
-            android:background="@color/white"
-            android:gravity="center"
-            android:text="https://botim.me/oa/chat/?oaid=18XQCMSI&amp;mode=menu"
-            android:textColor="@color/red"
-            android:textSize="20sp" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:background="#00ff00">
-
-            <TextView
-                android:id="@+id/testtest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#ff0000"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="ajksndjkasbdjak"
-                android:textColor="#ffffff"
-                app:layout_constrainedWidth="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/test3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/test3"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="#0000ff"
-                android:src="@drawable/ic_messages_delete"
-                app:layout_constrainedWidth="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintStart_toEndOf="@+id/testtest"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="match_parent"
+            android:layout_above="@+id/input"
+            android:scaleType="centerCrop"
+            android:src="@drawable/aaaaa" />
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/input"
+            android:background="@null"
+            android:orientation="horizontal">
+
+            <com.test.test3app.recyclerview.ChatView
+                android:id="@+id/recycler_view1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null" />
+
+            <com.test.test3app.recyclerview.ChatView
+                android:id="@+id/recycler_view2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/input"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/testtest2"
                 android:layout_width="0dp"
                 android:layout_height="80dp"
-
                 android:layout_weight="1"
                 android:background="#f0f0f0" />
 
             <TextView
-                android:id="@+id/show"
+                android:id="@+id/jump"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
                 android:background="#000000"
                 android:gravity="center"
-                android:text="show"
+                android:text="jump"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/add100"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:background="#000000"
+                android:gravity="center"
+                android:text="100"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/add6"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:background="#000000"
+                android:gravity="center"
+                android:text="6"
+                android:textColor="@color/white"
                 android:textSize="20sp" />
         </LinearLayout>
 
 
-    </LinearLayout>
-</FrameLayout>
+    </RelativeLayout>
+</LinearLayout>

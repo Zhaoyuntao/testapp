@@ -1,17 +1,23 @@
 package com.test.test3app.fastrecordviewnew;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.MotionEvent;
-import android.widget.ImageButton;
+import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.fragment.app.Fragment;
+
+import com.test.test3app.threadpool.ThreadPool;
+import com.zhaoyuntao.androidutils.tools.thread.SafeRunnable;
 
 /**
  * created by zhaoyuntao
  * on 2019-12-15
  * description:
  */
-public class ZImageButton extends ImageButton {
+public class ZImageButton extends AppCompatImageButton {
     private OnClickListener onClickListener;
     private OnLongClickListener onLongClickListener;
     private boolean touchEventLongPressedCustom;
@@ -21,13 +27,29 @@ public class ZImageButton extends ImageButton {
         super(context);
     }
 
-    private class LongClickEventRunnable extends ZRunnable {
+    private class LongClickEventRunnable extends SafeRunnable {
 
         private float x;
         private float y;
 
-        public LongClickEventRunnable(Object t) {
-            super(t);
+        public LongClickEventRunnable(Activity lifeCircle) {
+            super(lifeCircle);
+        }
+
+        public LongClickEventRunnable(Fragment lifeCircle) {
+            super(lifeCircle);
+        }
+
+        public LongClickEventRunnable(android.app.Fragment lifeCircle) {
+            super(lifeCircle);
+        }
+
+        public LongClickEventRunnable(Context lifeCircle) {
+            super(lifeCircle);
+        }
+
+        public LongClickEventRunnable(View lifeCircle) {
+            super(lifeCircle);
         }
 
         public void setEvent(float x, float y) {
@@ -36,7 +58,7 @@ public class ZImageButton extends ImageButton {
         }
 
         @Override
-        protected void todo() {
+        protected void runSafely() {
             //if the event is consumed by other way
             boolean consume = onLongClick();
             //if not,our custom long click down will execute
@@ -59,14 +81,14 @@ public class ZImageButton extends ImageButton {
                 if (touchEvent != null) {
                     touchEvent.whenActionDown();
                 }
-                ThreadPool.runOnUiDelayedSafely(longClickEventRunnable, 100);
+                ThreadPool.runUiDelayed(100, longClickEventRunnable);
                 break;
 
             case MotionEvent.ACTION_UP:
                 if (touchEvent != null) {
                     touchEvent.whenActionUp();
                 }
-                ThreadPool.removeFromUi(longClickEventRunnable);
+                ThreadPool.removeUi(longClickEventRunnable);
                 if (touchEventLongPressedCustom) {
                     if (touchEvent != null) {
                         touchEvent.whenLongClickUp(event);

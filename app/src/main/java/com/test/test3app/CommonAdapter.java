@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.selection.SelectionTracker;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
+
+import com.test.test3app.wallpaper.DiffHelper;
+import com.test.test3app.wallpaper.ListItemSelector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,7 @@ import java.util.List;
  */
 public class CommonAdapter extends ListAdapter<CommonBean, CommonHolder> {
     private OnItemClickListener onItemClickListener;
-    private SelectionTracker<String> selectionTracker;
+    private ListItemSelector<CommonBean> selector = new ListItemSelector<>();
 
     public CommonAdapter(int count) {
         super(new DiffUtil.ItemCallback<CommonBean>() {
@@ -36,6 +38,10 @@ public class CommonAdapter extends ListAdapter<CommonBean, CommonHolder> {
             }
         });
 
+        initData(count);
+    }
+
+    public void initData(int count) {
         List<CommonBean> list = new ArrayList<>(count);
         for (int i = 0; i < count; i++) {
             CommonBean commonBean = new CommonBean();
@@ -45,27 +51,39 @@ public class CommonAdapter extends ListAdapter<CommonBean, CommonHolder> {
         submitList(list);
     }
 
+    @Override
+    public void submitList(List<CommonBean> list) {
+        this.selector.setData(list);
+        super.submitList(list);
+    }
+
     private int index;
 
     @NonNull
     @Override
     public CommonHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 //        S.s("onCreateViewHolder:" + index++);
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return new CommonHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_recycler_view, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CommonHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CommonHolder holder, int position2) {
+        int position = holder.getBindingAdapterPosition();
 //        S.s("onBindViewHolder:" + position);
         CommonBean commonBean = getCurrentList().get(position);
         holder.itemView.setTag("position:" + position + " " + commonBean.id);
         holder.textView.setText(commonBean.id);
-        holder.textView.setBackgroundColor((selectionTracker != null && selectionTracker.isSelected(commonBean.id)) ? Color.RED : Color.GREEN);
+        holder.textView.setBackgroundColor((selector.isSelected(commonBean)) ? Color.parseColor("#dd880000") : Color.parseColor("#80000000"));
         holder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(v, commonBean);
+                    onItemClickListener.onItemClick(v, commonBean, position);
                 }
             }
         });
@@ -80,30 +98,12 @@ public class CommonAdapter extends ListAdapter<CommonBean, CommonHolder> {
         this.onItemClickListener = onItemClickListener;
     }
 
-    public void setSelectionTracker(SelectionTracker<String> selectionTracker) {
-        this.selectionTracker = selectionTracker;
-    }
-
-    private CommonBean tmp;
-
-    public void increase() {
-        if (tmp != null) {
-            List<CommonBean> newList = new ArrayList<>(getCurrentList());
-            newList.add(tmp);
-            submitList(newList);
-            tmp = null;
-        }
-    }
-
-    public void reduce() {
-        if (tmp == null) {
-            List<CommonBean> newList = new ArrayList<>(getCurrentList());
-            tmp = newList.remove(newList.size() - 1);
-            submitList(newList);
-        }
+    public void selectItem(CommonBean commonBean, int position) {
+        boolean selected = selector.changeSelect(commonBean);
+        notifyItemChanged(position, DiffHelper.getPayload("", selected));
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view, CommonBean commonBean);
+        void onItemClick(View view, CommonBean commonBean, int position);
     }
 }

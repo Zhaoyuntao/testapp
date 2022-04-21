@@ -1,103 +1,173 @@
 package com.test.test3app.threadpool;
 
-import android.util.Log;
+import androidx.annotation.NonNull;
 
-import com.test.test3app.BuildConfig;
+import java.io.File;
+import java.io.FileFilter;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
-import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * Time: 2019/9/15
  * Author Hay
  */
 public class ThreadManager {
-    private static final String TAG = "ThreadManager";
-    private final static EasyThread io;
-    private final static EasyThread scheduleIo;
-    private final static EasyThread cache;
-    private final static EasyThread calculator;
-    private final static EasyThread file;
-    private final static EasyThread dataBase;
-    private final static DefaultCallback callback = BuildConfig.DEBUG ? new DefaultCallback() : null;
 
-    public static EasyThread getIO() {
-        return io;
+    private static final int CALCULATOR_MAX_ALIVE_TIME = 5_000;
+    private static final int DB_MAX_ALIVE_TIME = 15_000;
+    private static final int IO_MAX_TIME_MS = 30_000;
+    private static final int NETWORK_MAX_TIME_MS = 60_000;
+    private static final int FILE_TRANSFER_MAX_TIME_MS = 60_000 * 10;
+    private static final int LEGACY_MAX_TIME_MS = 60_000;
+
+    private final MyThreadPoolExecutor calculator;
+    private final MyThreadPoolExecutor db;
+
+    private final MyThreadPoolExecutor io;
+    //    private final MyThreadPoolExecutor network;
+//    private final MyThreadPoolExecutor fileUpload;
+//    private final MyThreadPoolExecutor fileDownload;
+    private static int numOfCpuCores = -1;
+
+    private static final ThreadManager instance = new ThreadManager();
+
+    public static ThreadManager getInstance() {
+        return instance;
     }
 
-    public static EasyThread getScheduleIo() {
-        return scheduleIo;
-    }
 
-    public static EasyThread getCache() {
-        return cache;
-    }
-
-    public static EasyThread getCalculator() {
+    public MyThreadPoolExecutor getCalculator() {
         return calculator;
     }
 
-    public static EasyThread getFile() {
-        return file;
+
+    public MyThreadPoolExecutor getDb() {
+        return db;
+    }
+
+    MyThreadPoolExecutor getIo() {
+        return io;
+    }
+
+
+    private ThreadManager() {
+        int cpuCoreSize = getNumCores();
+        if (cpuCoreSize <= 1) {
+            cpuCoreSize = 2;//保证低配设备线程池至少有2个核心池
+        }
+
+        boolean lowDevice = cpuCoreSize <= 2;
+        int coreSize = 0;//低配设备核心池数量为cpuCoreSize，高配设备为4
+        //计算任务线程池，大小为coreSize+1
+        int maxPoolSizeFactor = Math.max(coreSize, cpuCoreSize);//比coreSize大
+        calculator = createPool("TPCalculator", Thread.NORM_PRIORITY, 1, maxPoolSizeFactor, maxPoolSizeFactor);
+        //db和io线程池大小一致，只是db线程优先级比io线程池高，核心数为coreSize，最大核心数为coreSize*2
+        db = createPool("TPDb", Thread.NORM_PRIORITY, coreSize, maxPoolSizeFactor * 2, maxPoolSizeFactor);
+        io = createPool("TPIo", Thread.NORM_PRIORITY - 1, coreSize, maxPoolSizeFactor * 2, maxPoolSizeFactor);
+    }
+
+    private static MyThreadPoolExecutor createFixedPool(@NonNull String name, int priority,
+                                                        int poolSize) {
+        return new MyThreadPoolExecutor(name, priority,
+                poolSize, poolSize, 30L, TimeUnit.SECONDS,
+                new LinkedBlockingQueue<>());
+    }
+
+
+    private static MyThreadPoolExecutor createPool(@NonNull String name, int priority,
+                                                   int coreSize, int maxSize, int fallbackPoolSize) {
+        MyThreadPoolExecutor fallbackExecutor = createFixedPool(name + "Fallback",
+                priority, fallbackPoolSize);
+        fallbackExecutor.allowCoreThreadTimeOut(true);
+        return new MyThreadPoolExecutor(name, priority, coreSize, maxSize,
+                60L, TimeUnit.SECONDS, fallbackExecutor);
     }
 
     /**
-     * Only use for db init
-     * @return
+     * Gets the number of cores available in this device, across all processors.
+     * Requires: Ability to peruse the filesystem at "/sys/devices/system/cpu"
+     *
+     * @return The number of cores, or 1 if failed to get result
      */
-    public static EasyThread getDataBase() {
-        return dataBase;
-    }
-
-    public static EasyThread newSingle(String name) {
-        return EasyThread.Builder.createSingle().setName(name).setCallback(callback).build();
-    }
-
-    static {
-        int CPU_CORES=DevicesUtils.getNumCores();
-        int coreSize = DevicesUtils.lowPhysicalMemoryDevices() ? CPU_CORES + 1 : CPU_CORES * 2;
-        io = EasyThread.Builder.createFixed(coreSize * 3).setName("IO").setPriority(7).setCallback(callback).build();
-        cache = EasyThread.Builder.createCacheable().setName("cache").setCallback(callback).build();
-        calculator = EasyThread.Builder.createFixed(coreSize + 1).setName("calculator").setPriority(Thread.MAX_PRIORITY).setCallback(callback).build();
-        file = EasyThread.Builder.createFixed(4).setName("file").setPriority(3).setCallback(callback).build();
-        dataBase = EasyThread.Builder.createFixed(6).setName("dataBase").setPriority(Thread.MAX_PRIORITY).setCallback(callback).build();
-        scheduleIo = EasyThread.Builder.createScheduled(coreSize * 3).setName("scheduleIo").setPriority(7).setCallback(callback).build();
-    }
-
-    private static class DefaultCallback implements Callback {
-
-        @Override
-        public void onError(String threadName, Throwable t) {
+    public static int getNumCores() {
+        if (numOfCpuCores > 0) {
+            return numOfCpuCores;
         }
 
-        @Override
-        public void onCompleted(String threadName) {
-            showActvieCount("onCompleted");
+        //Private Class to display only CPU devices in the directory listing
+        class CpuFilter implements FileFilter {
+            @Override
+            public boolean accept(File pathname) {
+                //Check if filename is "cpu", followed by a single digit number
+                if (Pattern.matches("cpu[0-9]+", pathname.getName())) {
+                    return true;
+                }
+                return false;
+            }
         }
 
-        @Override
-        public void onStart(String threadName) {
-
+        try {
+            //Get directory containing CPU info
+            File dir = new File("/sys/devices/system/cpu/");
+            //Filter to only list the devices we care about
+            File[] files = dir.listFiles(new CpuFilter());
+            //Return the number of cores (virtual CPU devices)
+            numOfCpuCores = files.length > 0 ? files.length : 1;
+        } catch (Throwable e) {
+            numOfCpuCores = -1;
         }
-    }
 
-    private static void showActvieCount(String tag) {
-        if (BuildConfig.DEBUG) {
-            String tmp = TAG + " " + tag;
-            boolean isApp = ProcessUtils.getProcessName().equals(ResourceUtils.getApplicationContext());
-            Log.i(tmp, "io thread active count:" + getActiveCount(io) + "  " + getPoolSize(io) + " " + isApp);
-            Log.i(tmp, "scheduleIo thread active count:" + getActiveCount(scheduleIo) + "  " + getPoolSize(scheduleIo) + " " + isApp);
-            Log.i(tmp, "cache thread active count:" + getActiveCount(cache) + "  " + getPoolSize(cache) + " " + isApp);
-            Log.i(tmp, "calculator thread active count:" + getActiveCount(calculator) + "  " + getPoolSize(calculator) + " " + isApp);
-            Log.i(tmp, "file thread active count:" + getActiveCount(file) + "  " + getPoolSize(file) + " " + isApp);
-            Log.i(tmp, "dataBase thread active count:" + getActiveCount(dataBase) + "  " + getPoolSize(dataBase) + " " + isApp);
+        if (numOfCpuCores <= 0) {
+            numOfCpuCores = Runtime.getRuntime().availableProcessors();
         }
+
+        if (numOfCpuCores <= 0) {
+            //Default to return 1 core
+            numOfCpuCores = 1;
+        }
+
+        return numOfCpuCores;
     }
 
-    private static int getActiveCount(EasyThread easyThread) {
-        return ((ThreadPoolExecutor) easyThread.getExecutor()).getActiveCount();
-    }
-
-    private static int getPoolSize(EasyThread easyThread) {
-        return ((ThreadPoolExecutor) easyThread.getExecutor()).getPoolSize();
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("\n");
+        builder.append("calculator ActiveCount = ");
+        builder.append(calculator.getActiveCount());
+        builder.append("\n");
+        builder.append("calculator PoolSize = ");
+        builder.append(calculator.getPoolSize());
+        builder.append("\n");
+        builder.append("calculator CompletedTaskCount = ");
+        builder.append(calculator.getCompletedTaskCount());
+        builder.append("\n");
+        builder.append("-----------------------------\n");
+        builder.append("db ActiveCount = ");
+        builder.append(db.getActiveCount());
+        builder.append("\n");
+        builder.append("db PoolSize = ");
+        builder.append(db.getPoolSize());
+        builder.append("\n");
+        builder.append("db CompletedTaskCount = ");
+        builder.append(db.getCompletedTaskCount());
+        builder.append("\n");
+        builder.append("-----------------------------\n");
+        builder.append("io ActiveCount = ");
+        builder.append(io.getActiveCount());
+        builder.append("\n");
+        builder.append("io PoolSize = ");
+        builder.append(io.getPoolSize());
+        builder.append("\n");
+        builder.append("io CompletedTaskCount = ");
+        builder.append(io.getCompletedTaskCount());
+        builder.append("\n");
+        builder.append("-----------------------------\n");
+        builder.append("\n\n\n\n");
+        return builder.toString();
     }
 }

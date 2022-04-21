@@ -43,7 +43,7 @@ public class ShowExceptionRunnable implements Runnable {
                 S.e("++++++++++++++++++ Job posted in: ", mStackTrace);
             }
             onRuntimeException(e);
-            ThreadPool.runOnUi(new Runnable() {
+            ThreadPool.runMain(new Runnable() {
                 @Override
                 public void run() {
                     // request processs termination

@@ -1,166 +1,309 @@
 package com.test.test3app.threadpool;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
+import android.os.Process;
 import android.text.TextUtils;
 import android.util.Printer;
 
-import com.test.test3app.BuildConfig;
-import com.zhaoyuntao.androidutils.tools.S;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
+import com.test.test3app.BuildConfig;
+import com.test.test3app.faceview.Preconditions;
+import com.zhaoyuntao.androidutils.tools.thread.SafeRunnable;
+
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 public class ThreadPool {
-    private static ScheduledThreadPoolExecutor scheduledPool = new ScheduledThreadPoolExecutor(1, createThreadFactory(
-            "schedule", true));
-
-    private static final Map<Runnable, ScheduledFuture> SCHEDULED_FUTURE_MAP = new ConcurrentHashMap<>();
-
+    private static final int UI_TASK_CHECK_INTERVAL = 10_000; // 10 seconds
     private static Handler sUiHandler = null;
+    private static ITaskExecutor uiTaskExecutor;
+
     private static HandlerThread sHandlerThread = null;
     private static Handler sWorkerHandler = null;
     private static final Object mWorkObj = new Object();
 
-    private static HandlerThread sFtsHandlerThread = null;
-    private static Handler sFtsWorkerHandler = null;
-    private static final Object mFtsWorkObj = new Object();
+    private static HandlerThread schedulerThread;
+    private static TaskScheduler taskScheduler;
 
-    public static void runOnPool(Runnable r) {
-        if (BuildConfig.DEBUG)
-            ThreadManager.getIO().execute(new ShowExceptionRunnable(r));
-        else
-            ThreadManager.getIO().execute(r);
+
+    public static void triggerTaskSchedulerCheck() {
+        taskScheduler.trigger();
     }
 
-    public static void runCache(Runnable r) {
-        if (BuildConfig.DEBUG)
-            ThreadManager.getCache().execute(new ShowExceptionRunnable(r));
-        else
-            ThreadManager.getCache().execute(r);
+    public static TaskScheduler getTaskScheduler() {
+        return taskScheduler;
     }
 
-    public static void runOnPoolDelayed(final Runnable runnable, final int delay) {
-        if (BuildConfig.DEBUG) {
-            S.s("Debug");
-            SCHEDULED_FUTURE_MAP.put(runnable, ((ScheduledThreadPoolExecutor) ThreadManager.getScheduleIo().getExecutor()).schedule(new ShowExceptionRunnable(runnable) {
-                @Override
-                public void run() {
-                    super.run();
-                    SCHEDULED_FUTURE_MAP.remove(runnable);
-                    S.s("map[d]:"+SCHEDULED_FUTURE_MAP.size());
-                }
-
-                @Override
-                protected void onRuntimeException(Throwable e) {
-                    SCHEDULED_FUTURE_MAP.remove(runnable);
-                    S.s("map[dd]:"+SCHEDULED_FUTURE_MAP.size());
-                }
-            }, delay, TimeUnit.MILLISECONDS));
-        } else {
-            SCHEDULED_FUTURE_MAP.put(runnable, ((ScheduledThreadPoolExecutor) ThreadManager.getScheduleIo().getExecutor()).schedule(new Runnable() {
-                @Override
-                public void run() {
-                    runnable.run();
-                    SCHEDULED_FUTURE_MAP.remove(runnable);
-                    S.s("map:"+SCHEDULED_FUTURE_MAP.size());
-                }
-            }, delay, TimeUnit.MILLISECONDS));
-        }
+    public static Looper getTaskSchedulerLooper() {
+        return schedulerThread.getLooper();
     }
 
-    public static void removeFromPool(Runnable runnable) {
-        ((ThreadPoolExecutor) ThreadManager.getIO().getExecutor()).remove(runnable);
-        ScheduledFuture scheduledFuture = SCHEDULED_FUTURE_MAP.remove(runnable);
-        if (scheduledFuture != null) {
-            scheduledFuture.cancel(false);
-        }
+
+    public static void runIO(Runnable task) {
+        ThreadManager.getInstance().getIo().execute(task);
     }
 
-    public static ThreadPoolExecutor getPoolExecutor() {
-        return (ThreadPoolExecutor) ThreadManager.getIO().getExecutor();
+    /**
+     * It's for other I/O operations (excluding DB operations and network operations).
+     */
+    public static void runIoDelayed(long delayMs, @NonNull Runnable task) {
+        Preconditions.checkNotNull(task);
+        taskScheduler.schedule(ThreadManager.getInstance().getIo(), delayMs, true, task);
     }
 
-    public static void postOnPoolDelayed(final Runnable r, int delay) {
-        postOnWorkerDelayed(new Runnable() {
-            @Override
-            public void run() {
-                runOnPool(r);
-            }
-        }, delay);
+    public static void removeIo(@NonNull Runnable task) {
+        Preconditions.checkNotNull(task);
+        taskScheduler.cancel(task);
+        ThreadManager.getInstance().getIo().remove(task);
     }
 
-    public static void runOnUiWithPriority(Runnable r) {
-        sUiHandler.postAtFrontOfQueue(r);
+    /**
+     * It's for other I/O operations (excluding DB operations and network operations).
+     */
+    public static ThreadPoolExecutor getIoPool() {
+        return ThreadManager.getInstance().getIo();
     }
 
-    public static void runOnUi(Runnable r) {
-        sUiHandler.post(r);
+
+    public static void runDatabase(Runnable runnable) {
+        ThreadManager.getInstance().getDb().execute(runnable);
     }
 
-    public static void runOnUiOpt(Runnable r) {
-        AndroidDeliver.getInstance().execute(r);
+    /**
+     * It's for data processing (esp. for DB operations).
+     */
+    public static void runDbDelayed(long delayMs, @NonNull Runnable task) {
+        Preconditions.checkNotNull(task);
+        taskScheduler.schedule(ThreadManager.getInstance().getDb(), delayMs, true, task);
     }
 
-    public static void postOnUiDelayed(Runnable r, int delay) {
-        if (BuildConfig.DEBUG)
-            sUiHandler.postDelayed(r, delay);
-        else
-            sUiHandler.postDelayed(r, delay);
+
+    /***
+     * 定时执行db任务，这里需要注意所有定时任务如果传入的task是同一个对象则会进行覆盖（只改delay和period），不会开启新的定时任务
+     * @param task
+     * @param delayMs
+     * @param periodMs
+     */
+    public static void scheduleDbTask(Runnable task, long delayMs, long periodMs) {
+        Preconditions.checkNotNull(task);
+        taskScheduler.schedulePeriod(ThreadManager.getInstance().getDb(), delayMs, periodMs, TaskScheduler.SchedulePolicy.REPLACE, false, task);
     }
 
-    public static Handler getUiHandler() {
-        return sUiHandler;
+
+    /***
+     * 定时执行IO任务，这里需要注意所有定时任务如果传入的task是同一个对象则会进行覆盖（只改delay和period），不会开启新的定时任务
+     * @param task
+     * @param delayMs
+     * @param periodMs
+     */
+    public static void scheduleIoTask(Runnable task, long delayMs, long periodMs) {
+        Preconditions.checkNotNull(task);
+        taskScheduler.schedulePeriod(ThreadManager.getInstance().getIo(), delayMs, periodMs, TaskScheduler.SchedulePolicy.REPLACE, false, task);
     }
 
-    public static void runOnUiSafely(ZRunnable r) {
-        sUiHandler.post(r);
+    /***
+     * 定时执行计算任务，这里需要注意所有定时任务如果传入的task是同一个对象则会进行覆盖（只改delay和period），不会开启新的定时任务
+     * @param task
+     * @param delayMs
+     * @param periodMs
+     */
+    public static void scheduleCalculateTask(Runnable task, long delayMs, long periodMs) {
+        Preconditions.checkNotNull(task);
+        taskScheduler.schedulePeriod(ThreadManager.getInstance().getIo(), delayMs, periodMs, TaskScheduler.SchedulePolicy.REPLACE, false, task);
     }
 
-    public static void removeFromUi(Runnable r) {
-        sUiHandler.removeCallbacks(r);
+
+    /**
+     * It's for data processing (esp. for DB operations).
+     * It'll be be ignored if the task was already scheduled.
+     */
+    public static void runDbDelayedIfAbsent(long delayMs, @NonNull Runnable task) {
+        Preconditions.checkNotNull(task);
+        taskScheduler.schedule(ThreadManager.getInstance().getDb(), delayMs,
+                TaskScheduler.SchedulePolicy.IGNORE, true, task);
     }
 
-    public static void runOnUiDelayedSafely(ZRunnable r, long delay) {
+    public static void removeDb(@NonNull Runnable task) {
+        Preconditions.checkNotNull(task);
+        taskScheduler.cancel(task);
+        ThreadManager.getInstance().getDb().remove(task);
+    }
+
+    /**
+     * It's for data processing (esp. for DB operations).
+     */
+    public static ThreadPoolExecutor getDbPool() {
+        return ThreadManager.getInstance().getDb();
+    }
+
+    public static void runCalculate(Runnable r) {
+        ThreadManager.getInstance().getCalculator().execute(r);
+    }
+
+    /**
+     * It's for CPU related tasks.
+     */
+    public static void runCalculatorDelayed(long delayMs, @NonNull Runnable task) {
+        Preconditions.checkNotNull(task);
+        taskScheduler.schedule(ThreadManager.getInstance().getCalculator(), delayMs, true, task);
+    }
+
+    /**
+     * It's for CPU related tasks.
+     * It'll be be ignored if the task was already scheduled.
+     */
+    public static void runCalculatorDelayedIfAbsent(long delayMs, @NonNull Runnable task) {
+        Preconditions.checkNotNull(task);
+        taskScheduler.schedule(ThreadManager.getInstance().getCalculator(), delayMs,
+                TaskScheduler.SchedulePolicy.IGNORE, true, task);
+    }
+
+    public static void removeCalculator(@NonNull Runnable task) {
+        Preconditions.checkNotNull(task);
+        taskScheduler.cancel(task);
+        ThreadManager.getInstance().getCalculator().remove(task);
+    }
+
+    /**
+     * It's for CPU related tasks.
+     */
+    public static ThreadPoolExecutor getCalculatorPool() {
+        return ThreadManager.getInstance().getCalculator();
+    }
+
+
+    public static void runMain(Runnable r) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            r.run();
+        } else
+            sUiHandler.post(r);
+    }
+
+    public static void runMainDelay(Runnable r, int delay) {
         sUiHandler.postDelayed(r, delay);
     }
 
-    public static void runCriticalTask(Runnable r) {
-        if (BuildConfig.DEBUG) {
-            ThreadManager.getCalculator().execute(new ShowExceptionRunnable(r));
-        } else {
-            ThreadManager.getCalculator().execute(r);
-        }
+
+    //-----------------------------------------------------------
+    // UI tasks
+
+    public static void runUi(@NonNull SafeRunnable task) {
+        Preconditions.checkNotNull(task);
+        sUiHandler.post(task);
     }
 
+    /**
+     * Execute the task only when the context is still there. For example,
+     * the Activity or the fragment
+     */
+    @Nullable
+    public static SafeRunnable runUiSafely(@Nullable Context context, @NonNull Runnable task) {
+        Preconditions.checkNotNull(task);
+        if (context == null) {
+            return null; // ignore
+        }
+        SafeRunnable safeTask = new SafeRunnable(context) {
+            @Override
+            protected void runSafely() {
+                task.run();
+            }
+        };
+        sUiHandler.post(safeTask);
+        return safeTask;
+    }
+
+    public static void runUiDelayed(long delayMs, @NonNull SafeRunnable task) {
+        Preconditions.checkNotNull(task);
+        taskScheduler.schedule(uiTaskExecutor, delayMs, false, task);
+    }
+
+    @Nullable
+    public static SafeRunnable runUiSafelyDelayed(@Nullable Context context, long delayMs,
+                                                  @NonNull Runnable task) {
+        Preconditions.checkNotNull(task);
+        if (context == null) {
+            return null; // ignore
+        }
+        SafeRunnable safeTask = new SafeRunnable(context) {
+            @Override
+            protected void runSafely() {
+                task.run();
+            }
+        };
+        runUiDelayed(delayMs, safeTask);
+        return safeTask;
+    }
+
+
+    public static void runUiDelayed(@Nullable Context context, long delayMs,
+                                    @NonNull Runnable task) {
+        Preconditions.checkNotNull(task);
+        if (context == null) {
+            return; // ignore
+        }
+        SafeRunnable safeTask = new SafeRunnable(context) {
+            @Override
+            protected void runSafely() {
+                task.run();
+            }
+        };
+        sUiHandler.postDelayed(safeTask, delayMs);
+    }
+
+    public static void runUiImmediately(@NonNull Context context, @NonNull Runnable task) {
+        SafeRunnable safeTask = new SafeRunnable(context) {
+            @Override
+            protected void runSafely() {
+                task.run();
+            }
+        };
+        sUiHandler.postAtFrontOfQueue(safeTask);
+    }
+
+    public static void runUiImmediately(@NonNull Runnable task) {
+        sUiHandler.postAtFrontOfQueue(task);
+    }
+
+
+    public static void removeUi(@NonNull SafeRunnable task) {
+        Preconditions.checkNotNull(task);
+        taskScheduler.cancel(task);
+        sUiHandler.removeCallbacks(task);
+    }
+
+
+    @Deprecated
+    public static void runOnUiDelayedSafely(SafeRunnable r, long delay) {
+        sUiHandler.postDelayed(r, delay);
+    }
+
+    @Deprecated
+    public static void postOnUiSafely(SafeRunnable r, int delay) {
+        sUiHandler.postDelayed(r, delay);
+    }
+
+    @Deprecated
     public static void runOnWorker(Runnable r) {
         initWorkHandler();
-        if (BuildConfig.DEBUG)
-            sWorkerHandler.post(new ShowExceptionRunnable(r));
-        else
-            sWorkerHandler.post(r);
+        sWorkerHandler.post(r);
+
     }
 
 
+    @Deprecated
     public static void postOnWorkerDelayed(Runnable r, long delay) {
         initWorkHandler();
-        if (BuildConfig.DEBUG)
-            sWorkerHandler.postDelayed(new ShowExceptionRunnable(r), delay);
-        else
-            sWorkerHandler.postDelayed(r, delay);
+        sWorkerHandler.postDelayed(r, delay);
+
     }
 
-    public static Looper getWorkerLooper() {
-        initWorkHandler();
-        return sHandlerThread.getLooper();
-    }
 
+    @Deprecated
     public static Handler getWorkerHandler() {
         initWorkHandler();
         return sWorkerHandler;
@@ -171,7 +314,7 @@ public class ThreadPool {
             // handler based thread runner
             synchronized (mWorkObj) {
                 if (sWorkerHandler == null) {
-                    sHandlerThread = new HandlerThread("internal");
+                    sHandlerThread = new HandlerThread("normal-worker");
                     sHandlerThread.setPriority(Thread.NORM_PRIORITY - 1);
                     sHandlerThread.start();
                     sWorkerHandler = new Handler(sHandlerThread.getLooper());
@@ -180,59 +323,33 @@ public class ThreadPool {
         }
     }
 
-    public static Handler getFtsWorkerHandler() {
-        initFtsWorkHandler();
-        return sFtsWorkerHandler;
-    }
-
-    private static void initFtsWorkHandler() {
-        if (sFtsWorkerHandler == null) {
-            // handler based thread runner
-            synchronized (mFtsWorkObj) {
-                if (sFtsWorkerHandler == null) {
-                    sFtsHandlerThread = new HandlerThread("fts");
-                    sFtsHandlerThread.setPriority(Thread.NORM_PRIORITY + 1);
-                    sFtsHandlerThread.start();
-                    sFtsWorkerHandler = new Handler(sFtsHandlerThread.getLooper());
-                }
-            }
-        }
-    }
-
-    /**
-     * Schedule a runnable running at fixed rate
-     */
-    public static ScheduledFuture<?> schedule(Runnable r, long initialDelay, long period, TimeUnit unit) {
-        return scheduledPool.scheduleAtFixedRate(r, initialDelay, period, unit);
-    }
-
-    public static void runOnScheduleQueue(Runnable r) {
-        scheduledPool.execute(r);
-    }
-
-    public static void startup(boolean isDebug) {
-        if (isDebug) {
-            ThreadUtils.ensureUiThread();
+    public static void startup() {
+        if (BuildConfig.DEBUG) {
+            Preconditions.checkMainThread();
         }
 
-        AsyncTask.setDefaultExecutor(ThreadManager.getIO());
+        // Use a HandlerThread to schedule tasks
+        schedulerThread = new HandlerThread("TaskScheduler",
+                Process.THREAD_PRIORITY_MORE_FAVORABLE);
+        schedulerThread.start();
+        taskScheduler = new TaskScheduler(schedulerThread.getLooper(), "ThreadPool");
+        taskScheduler.setCheckInterval(UI_TASK_CHECK_INTERVAL);
 
         // ui thread runner
         sUiHandler = new Handler(Looper.getMainLooper());
+        uiTaskExecutor = new HandlerExecutor(sUiHandler);
         // debug ui thread
-        if (BuildConfig.DEBUG) {
-            Looper.getMainLooper().setMessageLogging(new Printer() {
-                @Override
-                public void println(String x) {
-                    if (x.startsWith(">>>>> Dispatching")) {
-                        UIMonitor.getInstance().startMonitor();
-                    }
-                    if (x.startsWith("<<<<< Finished")) {
-                        UIMonitor.getInstance().removeMonitor();
-                    }
+        Looper.getMainLooper().setMessageLogging(new Printer() {
+            @Override
+            public void println(String x) {
+                if (x.startsWith(">>>>> Dispatching")) {
+                    UIMonitor.getInstance().startMonitor();
                 }
-            });
-        }
+                if (x.startsWith("<<<<< Finished")) {
+                    UIMonitor.getInstance().removeMonitor();
+                }
+            }
+        });
     }
 
     public static void shutdown() {
@@ -241,11 +358,6 @@ public class ThreadPool {
         }
     }
 
-    public static void shutdownfts() {
-        if (sFtsHandlerThread != null) {
-            sFtsHandlerThread.quit();
-        }
-    }
 
     private static ThreadFactory createThreadFactory(final String purpose, final boolean highPriority) {
         return new ThreadFactory() {
@@ -268,18 +380,8 @@ public class ThreadPool {
         };
     }
 
-    public static void runImageLoader(Runnable r) {
-        if (r == null) {
-            return;
-        }
 
-        ThreadManager.getFile().execute(r);
-    }
-
-    public static void runThread(Runnable runnable) {
-        runThread(runnable, "");
-    }
-
+    @Deprecated
     public static void runThread(Runnable runnable, String threadName) {
 
         if (TextUtils.isEmpty(threadName)) {
@@ -303,6 +405,8 @@ public class ThreadPool {
             }
         }
 
-        new TotokThread(runnable, threadName).start();
+        new Thread(runnable, threadName).start();
     }
+
+
 }

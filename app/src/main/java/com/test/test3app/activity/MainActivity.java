@@ -38,7 +38,6 @@ public class MainActivity extends BaseActivity {
         zRouters.add(new ZRouter("Qmoji", MainActivity91_Qmoji.class));
         zRouters.add(new ZRouter("huawei meeting", MainActivity92_huawei_meeting.class));
         zRouters.add(new ZRouter("threadPool", MainActivity93_threadPool.class));
-        zRouters.add(new ZRouter("wallpaper", MainActivity_94_wallpaper.class));
         zRouters.add(new ZRouter("textview", MainActivity_95_textview.class));
         zRouters.add(new ZRouter("faceView", MainActivity_96_faceview.class));
         zRouters.add(new ZRouter("spannable", MainActivity_97_textview_spannable.class));
@@ -53,6 +52,7 @@ public class MainActivity extends BaseActivity {
         zRouters.add(new ZRouter("expand", MainActivity_996_expand.class));
         zRouters.add(new ZRouter("CameraWallpaper", MainActivity_997_cameraWallpaper.class));
         zRouters.add(new ZRouter("Nest", MainActivity_998_nest.class));
+        zRouters.add(new ZRouter("wallpaper", MainActivity_94_wallpaper.class));
 
         init(zRouters);
     }

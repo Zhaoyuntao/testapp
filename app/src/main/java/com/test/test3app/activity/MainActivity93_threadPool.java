@@ -24,7 +24,7 @@ public class MainActivity93_threadPool extends AppCompatActivity {
                 S.s("thread pool is running");
             }
         };
-        ThreadPool.runOnPoolDelayed(runnable,1000);
+        ThreadPool.runDbDelayed(1000,runnable);
 //        S.s("remove from poll");
 //        ThreadPool.removeFromPool(runnable);
 //        scheduledFuture.cancel(true);

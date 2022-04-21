@@ -4,53 +4,109 @@ import android.content.Context;
 import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.test.test3app.threadpool.ThreadPool;
 import com.zhaoyuntao.androidutils.tools.S;
 import com.zhaoyuntao.androidutils.tools.thread.SafeRunnable;
-import com.zhaoyuntao.androidutils.tools.thread.TP;
 
 public class ChatViewLayoutManager extends LinearLayoutManager {
 
-    //    private int extraLayoutSpace = -1;
     private volatile int lastOffset;
     private volatile int lastPosition;
     private final Context context;
+    private final ChatView chatView;
+    private int extentLast;
+    private int rangeLast;
 
-    public ChatViewLayoutManager(Context context) {
-        super(context);
+    private int initialPosition = -1;
+    private int initialOffset = -1;
+
+    private boolean isFingerFling;
+
+    public ChatViewLayoutManager(Context context, ChatView chatView, boolean reverseLayout) {
+        super(context, RecyclerView.VERTICAL, reverseLayout);
         this.context = context;
-        setOrientation(VERTICAL);
+        this.chatView = chatView;
+    }
+
+    @Override
+    public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+        S.s("===============================================     onLayoutChildren: count:" + state.getItemCount() + " extent:" + computeVerticalScrollExtent(state) + "  extentLast:" + extentLast + " range:" + computeVerticalScrollRange(state) + " rangeLast:" + rangeLast);
+        int extent = computeVerticalScrollExtent(state);
+        int range = computeVerticalScrollRange(state);
+        boolean contentFullThisTime = range > extent;
+        boolean contentFullLastTime = rangeLast > extentLast;
+        boolean fullToFull = contentFullLastTime && contentFullThisTime;
+        if (state.getItemCount() > 0) {
+            if (initialPosition >= 0) {
+                S.e("initialPosition >= 0 scroll to :" + initialPosition + " " + initialOffset);
+                scrollToPositionWithOffset(initialPosition, initialOffset);
+                lastPosition = initialPosition;
+                lastOffset = initialOffset;
+                initialPosition = -1;
+                initialOffset = -1;
+                extentLast = 0;
+            } else {
+                S.s("initialPosition <0");
+
+                if (extentLast < 0) {
+                    S.e("extentLast<0, scroll to : 0 , 0");
+                    resetPosition();
+                    scrollToLastPosition();
+                } else {
+                    if (extentLast > 0 && extent > 0) {
+                        S.s("extent > 0 :" + extent);
+
+                        S.s("contentFullThisTime:" + contentFullThisTime + "  contentFullLastTime:" + contentFullLastTime);
+                        if (!fullToFull) {
+                            S.s("! full to full, reset position");
+                            resetPosition();
+                        }
+                        if (extent != extentLast) {
+                            S.e("extent changed, scroll to : " + lastPosition + " , " + lastOffset);
+                            scrollToLastPosition();
+                        }
+                    }
+                }
+                extentLast = extent;
+                rangeLast = range;
+            }
+        }
+        super.onLayoutChildren(recycler, state);
+    }
+
+    @Override
+    public int scrollVerticallyBy(int dy, RecyclerView.Recycler recycler, RecyclerView.State state) {
+        if (chatView.getScrollState() == RecyclerView.SCROLL_STATE_DRAGGING) {
+            isFingerFling = true;
+            initPositionAndOffset();
+        } else if (isFingerFling && chatView.getScrollState() == RecyclerView.SCROLL_STATE_SETTLING) {
+            initPositionAndOffset();
+        } else {
+            isFingerFling = false;
+        }
+        return super.scrollVerticallyBy(dy, recycler, state);
     }
 
     public void fastSmoothScrollToPosition(int position, boolean toBottom, AnimationListener animationListener) {
-
         fastSmoothScrollToPositionWithOffset(position, 0, toBottom, animationListener);
     }
 
     public void fastSmoothScrollToPositionWithOffset(int position, int offset, boolean toBottom, AnimationListener animationListener) {
         lastPosition = position;
         lastOffset = 0;
-        if (toBottom) {
-            scrollToPosition(position);
-        } else if (position > 0) {
-            scrollToPositionWithOffset(position, getHeight());
-        }
-        TP.removeFromUi(new SafeRunnable(context) {
+        startSmoothScroll(createScroller(toBottom, position, offset, new AnimationListener() {
             @Override
-            protected void runSafely() {
-                startSmoothScroll(createScroller(toBottom, position, offset, new AnimationListener() {
-                    @Override
-                    public void onStart() {
-                        animationListener.onStart();
-                    }
-
-                    @Override
-                    public void onStop(int positionTo) {
-                        scroll(createScroller(toBottom, position, offset, animationListener), position, 3, animationListener);
-                    }
-                }));
+            public void onStart() {
+                animationListener.onStart();
             }
-        });
+
+            @Override
+            public void onStop(int positionTo) {
+                scroll(createScroller(toBottom, position, offset, animationListener), position, 3, animationListener);
+            }
+        }));
     }
 
     private BaseScroller createScroller(boolean toBottom, int position, int offset, AnimationListener animationListener) {
@@ -66,7 +122,7 @@ public class ChatViewLayoutManager extends LinearLayoutManager {
             animationListener.onStop(position);
             return;
         }
-        TP.runOnUiDelayed(new SafeRunnable(context) {
+        ThreadPool.runUiDelayed(100, new SafeRunnable(context) {
             @Override
             public void runSafely() {
                 baseScroller.setTargetPosition(position);
@@ -78,7 +134,7 @@ public class ChatViewLayoutManager extends LinearLayoutManager {
                 });
                 startSmoothScroll(baseScroller);
             }
-        }, 100);
+        });
     }
 
     public void scrollDynamicToBottom(AnimationListener animationListener) {
@@ -97,17 +153,23 @@ public class ChatViewLayoutManager extends LinearLayoutManager {
     /**
      * keep position the list scroll to last time.
      */
-    void scrollToLastPosition() {
+    private void scrollToLastPosition() {
         scrollToPositionWithOffset(lastPosition, lastOffset);
+    }
+
+    @Override
+    public void scrollToPositionWithOffset(int position, int offset) {
+//        S.sd("scrollToPositionWithOffset:"+position+" "+offset);
+        super.scrollToPositionWithOffset(position, offset);
     }
 
     /**
      * init position and offset of the first child.
      */
-    void initPositionAndOffset() {
+    private void initPositionAndOffset() {
         if (getChildCount() == 0) {
-            lastOffset = 0;
-            lastPosition = 0;
+            resetPosition();
+            return;
         }
         //get the first child view
         View topView = getChildAt(0);
@@ -116,7 +178,6 @@ public class ChatViewLayoutManager extends LinearLayoutManager {
             lastOffset = getHeight() - topView.getBottom();
             //get current position of child
             lastPosition = getPosition(topView);
-//            S.s("[" + topView.getTag() + "]initPositionAndOffset: lastPosition:" + lastPosition + "   lastOffset:" + lastOffset);
         }
     }
 
@@ -125,8 +186,9 @@ public class ChatViewLayoutManager extends LinearLayoutManager {
         lastPosition = 0;
     }
 
-    public boolean isPositionOnBottom() {
-        return lastPosition == 0 && lastOffset == 0;
+    public void setScrollToPosition(int scrollToPosition, int scrollToPositionOffset) {
+        this.initialPosition = scrollToPosition;
+        this.initialOffset = scrollToPositionOffset;
     }
 
     public interface AnimationListener {
@@ -136,5 +198,4 @@ public class ChatViewLayoutManager extends LinearLayoutManager {
         default void onStop(int positionTo) {
         }
     }
-
 }

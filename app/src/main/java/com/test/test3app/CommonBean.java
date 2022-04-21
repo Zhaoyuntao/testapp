@@ -1,5 +1,7 @@
 package com.test.test3app;
 
+import com.test.test3app.wallpaper.Selectable;
+
 import java.util.Objects;
 
 /**
@@ -7,7 +9,7 @@ import java.util.Objects;
  * on 25/11/2021
  * description:
  */
-public class CommonBean {
+public class CommonBean implements Selectable<String> {
     public String id;
     public int resId;
 
@@ -34,5 +36,10 @@ public class CommonBean {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String getUniqueIdentificationId() {
+        return id;
     }
 }

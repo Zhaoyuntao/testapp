@@ -32,5 +32,6 @@ compileTestKotlin {
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api"com.google.code.gson:gson:2.8.6"
 //    implementation ('org.json:json:20180813')
 }
