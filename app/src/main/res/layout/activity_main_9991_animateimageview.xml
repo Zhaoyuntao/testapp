@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="#f3f3f3"
+        android:orientation="horizontal"
+        android:padding="20dp">
+
+        <com.test.test3app.wallpaper.AnimateImageView
+            android:id="@+id/animateimage1"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="#ffffff"
+            app:AnimateImageView_animationMode="scale" />
+
+        <com.test.test3app.wallpaper.AnimateImageView
+            android:id="@+id/animateimage2"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="20dp"
+            android:background="#ffffff" />
+
+        <com.test.test3app.wallpaper.AnimateImageView
+            android:id="@+id/animateimage3"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="20dp"
+            android:background="#ffffff"
+            app:AnimateImageView_animationMode="flip" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="20dp">
+
+        <com.test.test3app.textview.AutoSizeTextView
+            android:id="@+id/setreceived"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@color/red"
+            android:gravity="center"
+            android:text="received"
+            android:textColor="@color/white" />
+
+        <com.test.test3app.textview.AutoSizeTextView
+            android:id="@+id/setread"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_weight="1"
+            android:background="@color/red"
+            android:gravity="center"
+            android:text="read"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</LinearLayout>

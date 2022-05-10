@@ -2,8 +2,6 @@ package com.test;
 
 import com.zhaoyuntao.myjava.S;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -40,6 +38,10 @@ class B {
         }
     }
 
+    public static void setC(C c) {
+        c = null;
+    }
+
     public static void main(String[] args) {
 //        JSONArray jsonArray=new JSONArray();
 //        jsonArray.put(1);
@@ -51,7 +53,8 @@ class B {
 
 //        S.s("+971 1234 323 21 ".replaceAll("\\s|\\+",""));
 //        List<C> set = new ArrayList<>();
-//        C c0 = new C("hello0", 0);
+        C c0 = new C("hello0", 0);
+
 //        C c1 = new C("hello1", 100);
 //        C c2 = new C("hello2", 200);
 //        C c3 = new C("hello3", 300);
@@ -65,13 +68,41 @@ class B {
 //        set.add(c4);
 //        set.add(c5);
 //        set.add(c6);
+
+        setC(c0);
+        S.s("c0:" + c0);
 //
 //        S.s("--------------------------------------");
 //        S.s(set);
 //        S.s("--------------------------------------");
-//        S.s("sub 0-1:" + set.subList(0, 1));
+//        List<C>c= Collections.swap();
+//        List<C>a=new ArrayList<>(c);
+//        c.clear();
 //        set.removeAll(set.subList(2, 2+2));
 //        S.s(set);
+//        S.s("a:"+a);
+//        S.s("c:"+c);
 //        S.s("--------------------------------------");
+
+//        boolean a="@\u2068971585991024\u2068 ".contains("@\u2068"+"971585991024"+"\u2068");
+//        S.s("contains:"+a);
+//        int i = 1;
+//        S.s("start");
+//        l:
+//        if (i == 1) {
+//            S.s("else if i ==1");
+//            List<String> a = new ArrayList<>();
+//            a.add("s");
+//            for (String aa : a) {
+//                S.s("break l");
+//                break l;
+//            }
+//        } else if (i == 2) {
+//            S.s("else if i ==2");
+//        } else {
+//            S.s("else");
+//        }
+//        S.s("end");
+
     }
 }

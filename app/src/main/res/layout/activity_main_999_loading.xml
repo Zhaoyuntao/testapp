@@ -1,0 +1,110 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#99ff99"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.test.test3app.loading.TProgressView
+        android:id="@+id/loading"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        app:TProgressView_drawablePadding="-10dp"
+        app:TProgressView_rotateDuration="5000"
+        app:TProgressView_strokeColor="#ff6666" />
+
+    <com.test.test3app.loading.TProgressView
+        android:id="@+id/loading2"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:paddingStart="50dp"
+        android:paddingEnd="0dp"
+        android:background="@color/white"
+        app:TProgressView_rotateDuration="2000"
+        app:TProgressView_strokeColor="#00ff00"
+        app:TProgressView_strokeColorBack="#9999ff"
+        app:TProgressView_strokeRound="false"
+        app:TProgressView_strokeShadowColor="#000000"
+        app:TProgressView_strokeWidth="30dp" />
+
+    <com.test.test3app.loading.TProgressView
+        android:id="@+id/loading3"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:padding="5dp"
+        app:TProgressView_rotateDuration="1000" />
+
+    <TextView
+        android:id="@+id/progress_touch"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:background="#ff0000"
+        android:gravity="center"
+        android:text="progress"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <com.test.test3app.textview.AutoSizeTextView
+            android:id="@+id/mode_downloading"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="#ff0000"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="downloading"
+            android:textColor="@color/white" />
+
+        <com.test.test3app.textview.AutoSizeTextView
+            android:id="@+id/mode_success"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="#ff0000"
+            android:gravity="center"
+            android:text="Success"
+            android:textColor="@color/white" />
+
+        <com.test.test3app.textview.AutoSizeTextView
+            android:id="@+id/mode_failed"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="#ff0000"
+            android:gravity="center"
+            android:text="failed"
+            android:textColor="@color/white" />
+
+        <com.test.test3app.textview.AutoSizeTextView
+            android:id="@+id/mode_canceled"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:background="#ff0000"
+            android:gravity="center"
+            android:text="canceled"
+            android:textColor="@color/white" />
+
+
+    </LinearLayout>
+</LinearLayout>

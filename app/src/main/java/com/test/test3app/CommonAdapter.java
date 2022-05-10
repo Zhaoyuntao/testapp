@@ -78,6 +78,16 @@ public class CommonAdapter extends ListAdapter<CommonBean, CommonHolder> {
         CommonBean commonBean = getCurrentList().get(position);
         holder.itemView.setTag("position:" + position + " " + commonBean.id);
         holder.textView.setText(commonBean.id);
+        if (position == 12) {
+            holder.textView.setText(
+                    "12\n" +
+                            "-\n" +
+                            "-\n" +
+                            "-\n" +
+                            "-\n" +
+                            "-"
+            );
+        }
         holder.textView.setBackgroundColor((selector.isSelected(commonBean)) ? Color.parseColor("#dd880000") : Color.parseColor("#80000000"));
         holder.textView.setOnClickListener(new View.OnClickListener() {
             @Override

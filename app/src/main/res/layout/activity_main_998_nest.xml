@@ -1,33 +1,7 @@
-<com.test.test3app.stickynavlayout.view.StickyNavLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/id_stickynavlayout_topview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#99ff00">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="256dp"
-            android:gravity="center"
-            android:text="软件介绍"
-            android:textSize="30sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
-
-    <com.test.test3app.stickynavlayout.view.SimpleViewPagerIndicator
-        android:id="@+id/id_stickynavlayout_indicator"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#ff99ff" />
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/id_stickynavlayout_viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ff9999" />
-
-</com.test.test3app.stickynavlayout.view.StickyNavLayout>
+</FrameLayout>

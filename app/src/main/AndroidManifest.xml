@@ -61,6 +61,8 @@
         <activity android:name=".activity.MainActivity_991_calculate" />
         <activity android:name=".activity.MainActivity_997_cameraWallpaper" />
         <activity android:name=".activity.MainActivity_998_nest" />
+        <activity android:name=".activity.MainActivity_999_loading" />
+        <activity android:name=".activity.MainActivity_9991_animateimageview" />
         <activity
             android:name=".activity.MainActivity_994_gallery_pager"
             android:theme="@style/Theme.AppCompat" />

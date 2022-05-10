@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.LinearSmoothScroller;
  */
 public abstract class BaseScroller extends LinearSmoothScroller {
     private int offset;
-    private ChatViewLayoutManager.AnimationListener animationListener;
+    private ChatLayoutManager.AnimationListener animationListener;
 
     public BaseScroller(Context context) {
         super(context);
     }
 
-    public void setAnimationListener(ChatViewLayoutManager.AnimationListener animationListener) {
+    public void setAnimationListener(ChatLayoutManager.AnimationListener animationListener) {
         this.animationListener = animationListener;
     }
 

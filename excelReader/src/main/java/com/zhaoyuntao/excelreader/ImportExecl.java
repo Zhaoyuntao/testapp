@@ -1,5 +1,14 @@
 package com.zhaoyuntao.excelreader;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,15 +18,6 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ImportExecl {
 
@@ -31,6 +31,7 @@ public class ImportExecl {
     static final String ANDROID = "android";
 
     public static class Item {
+        public String msg;
         String key = "";
         String value = "";
         boolean okKey;
@@ -128,7 +129,7 @@ public class ImportExecl {
             }
             int firstCellIndex = row.getFirstCellNum();
             int lastCellIndex = row.getLastCellNum();
-
+            s("[row " + i + "]===============> start:" + firstCellIndex + " end:" + lastCellIndex);
             int index = 0;
             for (int j = firstCellIndex; j < lastCellIndex; j++) { // 遍历列
                 Cell cell = row.getCell(j);
@@ -141,7 +142,7 @@ public class ImportExecl {
                         item.okKey = false;
                         continue;
                     }
-//							s(cellContent);
+                    s("[column " + j + "][" + cellContent + "]");
                     // 跳过第一个题注
                     if (cellContent.contains("题注")) {
                         e("题注:" + cellContent);
@@ -153,9 +154,11 @@ public class ImportExecl {
                     if (index == keyIndex) {
                         if (cellContent == null || Pattern.matches("[ \f\n\r\t]*", cellContent)) {
                             item.okKey = false;
+                            item.msg = "contains wrap or space";
                         } else if (!Pattern.compile("[a-z_A-Z0-9]*").matcher(cellContent).matches()) {
                             item.key = cellContent.trim();
                             item.okKey = false;
+                            item.msg = "contains error symbol";
                         } else {
                             item.key = cellContent.trim();
                             item.okKey = true;
@@ -182,7 +185,7 @@ public class ImportExecl {
                 if (item.okValue) {
                     s(item.value);
                 } else {
-                    e(item.value);
+                    e("[error:" + item.msg + "]" + item.value);
                 }
             }
 
@@ -258,10 +261,10 @@ public class ImportExecl {
         String type = ANDROID;
         int keyIndex = 0;
         int valueIndex = 1;
-        int maxShowLine = 3;
-        int maxShowErrorLine = 3;
-        String[] files = {"Android-Copy of app_strings-0817 edited"};//{ "italian", "indonesian_yinni", "hindi", "hebrew_xibolai", "german", "french", "amharic_aisaiebiya" };
-        String[] files2 = {"malayalam", "persian", "portuguese", "spanish", "turkish", "urdu"};
+        int maxShowLine = 2000;
+        int maxShowErrorLine = 2000;
+        String[] files = {"Android"};//{ "italian", "indonesian_yinni", "hindi", "hebrew_xibolai", "german", "french", "amharic_aisaiebiya" };
+//        String[] files2 = {"malayalam", "persian", "portuguese", "spanish", "turkish", "urdu"};
         for (String filename : files) {
             convert(type, filename + ".xlsx", keyIndex, valueIndex, maxShowLine, maxShowErrorLine);
         }

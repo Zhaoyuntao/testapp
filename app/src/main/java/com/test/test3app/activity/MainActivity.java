@@ -2,15 +2,17 @@ package com.test.test3app.activity;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
+import android.graphics.Color;
 import android.os.Bundle;
-import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.GridLayout;
 
 import com.test.test3app.BaseActivity;
 import com.test.test3app.R;
 import com.test.test3app.a.ZRouter;
+import com.test.test3app.fastrecordviewnew.UiUtils;
+import com.test.test3app.textview.AutoSizeTextView;
 import com.zhaoyuntao.androidutils.tools.S;
 
 import java.util.ArrayList;
@@ -53,21 +55,29 @@ public class MainActivity extends BaseActivity {
         zRouters.add(new ZRouter("CameraWallpaper", MainActivity_997_cameraWallpaper.class));
         zRouters.add(new ZRouter("Nest", MainActivity_998_nest.class));
         zRouters.add(new ZRouter("wallpaper", MainActivity_94_wallpaper.class));
+        zRouters.add(new ZRouter("Loading", MainActivity_999_loading.class));
+        zRouters.add(new ZRouter("AnimateImage", MainActivity_9991_animateimageview.class));
 
         init(zRouters);
     }
 
     private void init(List<ZRouter> zRouters) {
         GridLayout gridLayout = findViewById(R.id.grid_main);
+        int margin = UiUtils.dipToPx(5);
         for (ZRouter z : zRouters) {
-            Button button = new Button(activity());
+            AutoSizeTextView button = new AutoSizeTextView(activity());
             button.setText(z.getName());
-            float textSize = 20f - (z.getName().length() - 8) * 1.5f;
-            button.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
             button.setPadding(0, 0, 0, 0);
+            button.setGravity(Gravity.CENTER);
+            button.setBackgroundColor(Color.RED);
+            button.setTextColor(Color.WHITE);
             GridLayout.LayoutParams layoutParams = new GridLayout.LayoutParams();
             layoutParams.width = 0;
             layoutParams.height = WRAP_CONTENT;
+            layoutParams.setMarginEnd(margin);
+            layoutParams.setMarginStart(margin);
+            layoutParams.topMargin = margin;
+            layoutParams.bottomMargin = margin;
             layoutParams.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1, 1.0f);
             layoutParams.rowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1, 1.0f);
             button.setLayoutParams(layoutParams);

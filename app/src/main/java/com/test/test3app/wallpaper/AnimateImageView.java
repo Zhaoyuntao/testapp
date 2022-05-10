@@ -1,15 +1,13 @@
 package com.test.test3app.wallpaper;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.DecelerateInterpolator;
-import android.view.animation.ScaleAnimation;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
+
+import com.test.test3app.R;
 
 /**
  * created by zhaoyuntao
@@ -18,75 +16,58 @@ import androidx.appcompat.widget.AppCompatImageView;
  */
 public class AnimateImageView extends AppCompatImageView {
 
-    private final float minPercent = 0.3f;
+    private static final int MODE_NON = 0;
+    private static final int MODE_SCALE = 1;
+    private static final int MODE_FLIP = 2;
+    private int animationMode;
 
     public AnimateImageView(Context context) {
         super(context);
+        init(null);
     }
 
     public AnimateImageView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        init(attrs);
     }
 
     public AnimateImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init(attrs);
+    }
+
+    private void init(AttributeSet attrs) {
+        if (attrs != null) {
+            TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.AnimateImageView);
+            animationMode = typedArray.getInt(R.styleable.AnimateImageView_AnimateImageView_animationMode, MODE_NON);
+            typedArray.recycle();
+        }
     }
 
     @Override
     public void setImageResource(int resId) {
-        shrink(resId);
-    }
-
-    public void shrink(int resId) {
-        AnimationSet animationSet = new AnimationSet(true);
-        animationSet.addAnimation(new ScaleAnimation(1, minPercent, 1, minPercent, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f));
-        animationSet.addAnimation(new AlphaAnimation(1, minPercent));
-        animationSet.setInterpolator(new DecelerateInterpolator());
-        animationSet.setDuration(100);
-        animationSet.setFillAfter(true);
-        animationSet.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
+        BaseAnimation animation;
+        if (animationMode == MODE_SCALE) {
+            animation = new ScaleAnimation();
+        } else if (animationMode == MODE_FLIP) {
+            animation = new FlipAnimation();
+        } else {
+            super.setImageResource(resId);
+            return;
+        }
+        animation.setDuration(1000);
+        animation.setUpdateListener(new AnimationProgressListener() {
+            boolean set;
 
             @Override
-            public void onAnimationEnd(Animation animation) {
-                AnimateImageView.super.setImageResource(resId);
-                expend();
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
+            public void onUpdate(float percent) {
+                if (percent == 0 && !set) {
+                    set = true;
+                    AnimateImageView.super.setImageResource(resId);
+                }
             }
         });
-        startAnimation(animationSet);
-    }
-
-    public void expend() {
-        AnimationSet animationSet = new AnimationSet(true);
-        animationSet.addAnimation(new ScaleAnimation(minPercent, 1, minPercent, 1, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f));
-        animationSet.addAnimation(new AlphaAnimation(minPercent, 1));
-        animationSet.setInterpolator(new DecelerateInterpolator());
-        animationSet.setDuration(100);
-        animationSet.setFillAfter(true);
-        animationSet.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-        startAnimation(animationSet);
+        animation.setFillAfter(true);
+        startAnimation(animation);
     }
 }

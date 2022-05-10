@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.test.test3app.fastrecordviewnew.UiUtils;
+import com.zhaoyuntao.androidutils.tools.S;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -23,7 +24,7 @@ import java.util.List;
  */
 public class ChatView extends RecyclerView {
 
-    private ChatViewLayoutManager mTheListLayoutManager;
+    private ChatLayoutManager mTheListLayoutManager;
 
     private int TOUCH_MOVE_GAP;
     private long mClickStartTime;
@@ -52,8 +53,7 @@ public class ChatView extends RecyclerView {
     }
 
     private void init() {
-        mTheListLayoutManager = new ChatViewLayoutManager(getContext(), this, true);
-        mTheListLayoutManager.setStackFromEnd(true);
+        mTheListLayoutManager = new ChatLayoutManager(getContext());
         setLayoutManager(mTheListLayoutManager);
         scrollListeners = new ArrayList<>(2);
         gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
@@ -79,6 +79,16 @@ public class ChatView extends RecyclerView {
         setItemAnimator(null);
         setItemViewCacheSize(10);
         TOUCH_MOVE_GAP = UiUtils.dipToPx(8);
+
+        addOnChildAttachStateChangeListener(new OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(@NonNull View view) {
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(@NonNull View view) {
+            }
+        });
     }
 
     public void setPreScrollPosition(int scrollPosition, int scrollPositionOffset) {
@@ -248,26 +258,12 @@ public class ChatView extends RecyclerView {
         }
     }
 
-    public void scrollDynamicToBottom() {
-        mTheListLayoutManager.scrollDynamicToBottom(new ChatViewLayoutManager.AnimationListener() {
-            @Override
-            public void onStart() {
-            }
-
-            @Override
-            public void onStop(int positionTo) {
-                distanceScroll = 0;
-                scrollToPosition(0);
-            }
-        });
-    }
-
     public void fastSmoothScrollToPosition(int position, boolean toBottom) {
         fastSmoothScrollToPosition(position, toBottom, null);
     }
 
-    public void fastSmoothScrollToBottom(ChatViewLayoutManager.AnimationListener animationListener) {
-        mTheListLayoutManager.fastSmoothScrollToPosition(0, true, new ChatViewLayoutManager.AnimationListener() {
+    public void fastSmoothScrollToBottom(ChatLayoutManager.AnimationListener animationListener) {
+        mTheListLayoutManager.fastSmoothScrollToPosition(0, true, new ChatLayoutManager.AnimationListener() {
             @Override
             public void onStart() {
                 animationListener.onStart();
@@ -282,7 +278,7 @@ public class ChatView extends RecyclerView {
         });
     }
 
-    public void fastSmoothScrollToPosition(int position, boolean toBottom, ChatViewLayoutManager.AnimationListener animationListener) {
+    public void fastSmoothScrollToPosition(int position, boolean toBottom, ChatLayoutManager.AnimationListener animationListener) {
         if (position == 0) {
             distanceScroll = 0;
         }
@@ -290,7 +286,7 @@ public class ChatView extends RecyclerView {
     }
 
 
-    public void fastSmoothScrollToPositionWithOffset(int position, int offset, boolean toBottom, ChatViewLayoutManager.AnimationListener animationListener) {
+    public void fastSmoothScrollToPositionWithOffset(int position, int offset, boolean toBottom, ChatLayoutManager.AnimationListener animationListener) {
         if (position == 0) {
             distanceScroll = 0;
         }
