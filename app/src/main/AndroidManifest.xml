@@ -7,8 +7,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".appbase.ZApplication"
@@ -19,9 +18,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Test3app"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".windowtransition.SecondActivity"
+            android:exported="false" />
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713"/>
+            android:value="ca-app-pub-3940256099942544~3347511713" />
+
         <activity
             android:name=".activity.MainActivity"
             android:configChanges="orientation|screenSize"
@@ -63,13 +67,17 @@
         <activity android:name=".activity.MainActivity_998_nest" />
         <activity android:name=".activity.MainActivity_999_loading" />
         <activity android:name=".activity.MainActivity_9991_animateimageview" />
+        <activity android:name=".activity.MainActivity_9992_windowContentTransition" />
+        <activity android:name=".activity.MainActivity_9993_wam" />
+
+        <activity android:name=".windowtransition.gridtopager.MainActivity_google" />
         <activity
             android:name=".activity.MainActivity_994_gallery_pager"
             android:theme="@style/Theme.AppCompat" />
         <activity
             android:name=".activity.MainActivity_995_popwindow"
-            android:windowSoftInputMode="adjustResize"
-            android:theme="@style/Theme.AppCompat" />
+            android:theme="@style/Theme.AppCompat"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.MainActivity_992_drawerLayout"
             android:theme="@style/Theme.AppCompat" />

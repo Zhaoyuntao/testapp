@@ -10,7 +10,7 @@ import android.widget.GridLayout;
 
 import com.test.test3app.BaseActivity;
 import com.test.test3app.R;
-import com.test.test3app.a.ZRouter;
+import com.test.test3app.appbase.ZRouter;
 import com.test.test3app.fastrecordviewnew.UiUtils;
 import com.test.test3app.textview.AutoSizeTextView;
 import com.zhaoyuntao.androidutils.tools.S;
@@ -54,9 +54,11 @@ public class MainActivity extends BaseActivity {
         zRouters.add(new ZRouter("expand", MainActivity_996_expand.class));
         zRouters.add(new ZRouter("CameraWallpaper", MainActivity_997_cameraWallpaper.class));
         zRouters.add(new ZRouter("Nest", MainActivity_998_nest.class));
+        zRouters.add(new ZRouter("AnimateImage", MainActivity_9991_animateimageview.class));
         zRouters.add(new ZRouter("wallpaper", MainActivity_94_wallpaper.class));
         zRouters.add(new ZRouter("Loading", MainActivity_999_loading.class));
-        zRouters.add(new ZRouter("AnimateImage", MainActivity_9991_animateimageview.class));
+        zRouters.add(new ZRouter("window transition", MainActivity_9992_windowContentTransition.class));
+        zRouters.add(new ZRouter("wam", MainActivity_9993_wam.class));
 
         init(zRouters);
     }

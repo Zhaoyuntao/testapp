@@ -1,10 +1,8 @@
 package com.test.test3app;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-
-import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
 
 /**
  * created by zhaoyuntao
@@ -20,5 +18,10 @@ public class BaseActivity extends Activity {
     protected void goToActivity(Class<?> tClass) {
         Intent intent = new Intent(this, tClass);
         startActivity(intent);
+    }
+
+    protected void goToActivity(Class<?> tClass, Bundle bundle) {
+        Intent intent = new Intent(this, tClass);
+        startActivity(intent, bundle);
     }
 }

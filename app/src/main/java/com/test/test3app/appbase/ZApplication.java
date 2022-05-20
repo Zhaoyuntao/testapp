@@ -8,7 +8,6 @@ import androidx.emoji.text.EmojiCompat;
 import androidx.emoji.text.FontRequestEmojiCompatConfig;
 
 import com.test.test3app.R;
-import com.test.test3app.a.TestExceptionHandler;
 import com.test.test3app.fastrecordviewnew.UiUtils;
 import com.test.test3app.threadpool.ResourceUtils;
 

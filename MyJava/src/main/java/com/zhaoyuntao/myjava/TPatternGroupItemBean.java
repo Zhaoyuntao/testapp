@@ -5,7 +5,7 @@ package com.zhaoyuntao.myjava;
  * on 2020/8/25
  * description:
  */
-public class BluePatternGroupItemBean {
+public class TPatternGroupItemBean {
     private int start;
     private int end;
     private int index;
@@ -45,11 +45,6 @@ public class BluePatternGroupItemBean {
 
     @Override
     public String toString() {
-        return "BluePatternGroupItemBean{" +
-                "start=" + start +
-                ", end=" + end +
-                ", index=" + index +
-                ", content='" + content + '\'' +
-                '}';
+        return "[content:" + content + "]  [start:" + start + "][end:" + end + "][index:" + index + "]";
     }
 }

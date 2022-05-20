@@ -21,6 +21,11 @@ final public class ViewMode {
     private boolean useWaveProgress;
     private boolean rotate;
     private View.OnClickListener listener;
+    private int visible = View.VISIBLE;
+
+    public ViewMode(int mode) {
+        this.mode = String.valueOf(mode);
+    }
 
     public ViewMode(@NonNull String mode) {
         Preconditions.checkNotEmpty(mode);
@@ -88,6 +93,15 @@ final public class ViewMode {
 
     public long getRotateDuration() {
         return rotateDuration;
+    }
+
+    public ViewMode visible(int visible) {
+        this.visible = visible;
+        return this;
+    }
+
+    public int getVisible() {
+        return visible;
     }
 
     @Override

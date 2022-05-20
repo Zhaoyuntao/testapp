@@ -1,4 +1,4 @@
-package com.test.test3app.a
+package com.test.test3app.appbase
 
 import android.app.Activity
 import android.view.View

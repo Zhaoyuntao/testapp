@@ -17,6 +17,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
 import androidx.annotation.NonNull;
@@ -27,7 +28,6 @@ import com.test.test3app.R;
 import com.test.test3app.faceview.Preconditions;
 import com.test.test3app.fastrecordviewnew.UiUtils;
 import com.test.test3app.observer.ObjectManager;
-import com.zhaoyuntao.androidutils.tools.S;
 
 /**
  * created by zhaoyuntao
@@ -43,6 +43,7 @@ public class TProgressView extends View {
     private long rotateDuration;
     private ValueAnimator animatorRotateCanvas;
     private ValueAnimator animatorWave;
+    private ValueAnimator animatorSmooth;
     private Rect rectDrawable;
     private RectF rectStroke;
     private int xCenter;
@@ -50,7 +51,8 @@ public class TProgressView extends View {
     private float drawablePadding;
     private boolean useWaveProgress;
     private float startAngle;
-    private float progressAngle;
+    private float progressAngleFinal;
+    private float progressAngleForDraw;
     private boolean strokeRound;
     private int strokeShadowColor;
     private float strokeShadowWidth;
@@ -136,10 +138,10 @@ public class TProgressView extends View {
                 float percent = (float) animation.getAnimatedValue();
                 if (percent < 1f) {
                     startAngle = 0;
-                    progressAngle = 360 * percent;
+                    progressAngleForDraw = 360 * percent;
                 } else {
                     startAngle = 360 * (percent - 1);
-                    progressAngle = 360 - startAngle;
+                    progressAngleForDraw = 360 - startAngle;
                 }
                 postInvalidate();
             }
@@ -148,7 +150,7 @@ public class TProgressView extends View {
             @Override
             public void onAnimationCancel(Animator animation) {
                 startAngle = 0;
-                progressAngle = 0;
+                progressAngleForDraw = 0;
                 postInvalidate();
             }
         });
@@ -160,7 +162,6 @@ public class TProgressView extends View {
         super.setOnClickListener(v -> {
             String mode = TProgressView.this.currentMode;
             manager.notifyObjects(viewMode -> {
-                S.s("notifyObjects:" + viewMode + " " + currentMode);
                 if (TextUtils.equals(viewMode.getMode(), mode)) {
                     OnClickListener listener = viewMode.getListener();
                     if (listener != null) {
@@ -213,7 +214,7 @@ public class TProgressView extends View {
             canvas.drawArc(rectStroke, 0, 360, false, paint);
             paint.setColor(strokeColor);
             paint.setShadowLayer(strokeShadowWidth, 0, 0, strokeShadowColor);
-            canvas.drawArc(rectStroke, startAngle - 90, Math.max(progressAngle, 0.1f), false, paint);
+            canvas.drawArc(rectStroke, startAngle - 90, Math.max(progressAngleForDraw, 0.1f), false, paint);
             canvas.restore();
             paint.clearShadowLayer();
         }
@@ -224,64 +225,99 @@ public class TProgressView extends View {
         }
     }
 
-    public void setTotalProgress(int current, int total) {
+    public void setProgress(float current, float total) {
         if (useWaveProgress) {
             throw new RuntimeException("Please don't set progress when set wave progress");
         }
-        int totalProgress = Math.max(0, total);
-        int currentProgress = Math.min(Math.max(0, current), totalProgress);
-        progressAngle = 360 * (currentProgress / (float) totalProgress);
+        float totalProgress = Math.max(0, total);
+        float currentProgress = Math.min(Math.max(0, current), totalProgress);
+        progressAngleFinal = 360 * (currentProgress / totalProgress);
         startAngle = 0;
-        postInvalidate();
+        if (animatorSmooth != null && animatorSmooth.isRunning()) {
+            animatorSmooth.cancel();
+        }
+        float difference = progressAngleFinal - progressAngleForDraw;
+        float startAngle = progressAngleForDraw;
+        animatorSmooth = ValueAnimator.ofFloat(0, 1);
+        animatorSmooth.setInterpolator(new DecelerateInterpolator());
+        animatorSmooth.setDuration(300);
+        animatorSmooth.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float percent = (float) animation.getAnimatedValue();
+                progressAngleForDraw = startAngle + difference * percent;
+                postInvalidate();
+            }
+        });
+        animatorSmooth.start();
+    }
+
+    public void setCurrentMode(int mode) {
+        setCurrentMode(String.valueOf(mode));
     }
 
     public void setCurrentMode(@NonNull String mode) {
         Preconditions.checkNotEmpty(mode);
+        if (TextUtils.equals(currentMode, mode)) {
+            return;
+        }
         ViewMode viewMode = manager.getObject(mode);
         setCurrentMode(viewMode);
     }
 
     private void setCurrentMode(ViewMode viewMode) {
         if (viewMode != null) {
-            try {
-                int drawableRes = viewMode.getDrawableRes();
-                if (drawableRes != 0) {
+            setVisibility(viewMode.getVisible());
+            int drawableRes = viewMode.getDrawableRes();
+            if (drawableRes != 0) {
+                try {
                     this.drawable = ContextCompat.getDrawable(getContext(), drawableRes);
+                } catch (Throwable ignore) {
                 }
-            } catch (Throwable ignore) {
+            } else {
+                this.drawable = null;
             }
             this.currentMode = viewMode.getMode();
             this.showProgress = viewMode.isShowProgress();
+            this.useWaveProgress = viewMode.useWaveProgress();
+            this.rotateDuration = viewMode.getRotateDuration();
             if (showProgress) {
                 if (viewMode.isRotate()) {
-                    if (viewMode.getRotateDuration() > 0) {
-                        this.rotateDuration = viewMode.getRotateDuration();
+                    if (rotateDuration <= 0) {
+                        rotateDuration = 1000;
                     }
                     animatorRotateCanvas.setDuration(rotateDuration);
                     animatorRotateCanvas.start();
-                    this.useWaveProgress = viewMode.useWaveProgress();
+                    animatorWave.setDuration(rotateDuration * 2);
                     if (useWaveProgress) {
-                        animatorWave.setDuration(rotateDuration * 2);
                         animatorWave.start();
+                    } else {
+                        animatorWave.cancel();
+                        angle = 0;
                     }
                 } else {
                     animatorRotateCanvas.cancel();
                     animatorWave.cancel();
+                    angle = 0;
                     invalidate();
                 }
+            } else {
+                angle = 0;
+                startAngle = 0;
+                progressAngleFinal = 0;
+                progressAngleForDraw = 0;
             }
             invalidate();
         }
     }
 
-    public void addViewMode(@NonNull ViewMode... viewModes) {
+    public void setViewMode(@NonNull ViewMode... viewModes) {
+        manager.clear();
         for (ViewMode viewMode : viewModes) {
             manager.addObject(viewMode.getMode(), viewMode);
         }
-    }
-
-    public void setViewMode(@NonNull ViewMode viewMode) {
-        manager.addObject(viewMode.getMode(), viewMode);
-        setCurrentMode(viewMode);
+        if (viewModes.length > 0) {
+            setCurrentMode(viewModes[0]);
+        }
     }
 }

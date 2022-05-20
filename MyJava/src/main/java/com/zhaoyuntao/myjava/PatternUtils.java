@@ -16,93 +16,82 @@ import java.util.regex.Pattern;
  */
 public class PatternUtils {
     /**
-     * Meeting url.
-     */
-    public static final String PATTERN_URL_MEETING = "https://[a-z]+\\.matrx\\..*/#/[a-zA-Z0-9]+/([0-9a-zA-Z]{8,12})/([0-9a-zA-Z]*)";
-    /**
      * Email.
      */
-    public static final String PATTERN_EMAIL = "[a-z1-9A-Z][a-z0-9A-Z]+@[a-zA-Z0-9]+\\.[a-zA-Z]+";
+    public static final String PATTERN_EMAIL = "([a-z0-9A-Z-_\\.]+@[a-zA-Z0-9]+\\.[a-zA-Z]+)";
     /**
      * Phone number.
      */
-    public static final String PATTERN_PHONE_NUMBER = "?!\\d\\d{1,4}[- ]?\\d{5,15}";
+    public static final String PATTERN_PHONE_NUMBER = "((?<!(http:|\\d))([0-9]{1,3}[ \\-])?[0-9]{5,15}(?!( ?\\d)))";
+    private static final String WEB_URL_PREFIX = "((?i)(https?|ftp|git|afp|telnet|smb)://)";
+    private static final String WEB_URL_SUFFIX = "(\\.(?i)(cn|com|ae|ar|ai|us|ch|ca|br|es|xyz|net|top|tech|org|gov|edu|ink|int|mil|pub|mob|tv|cc|biz|red|coop|aero|io))";
+    private static final String WEB_URL_DOMAIN_NAME = "[a-zA-Z0-9_\\-]";
+    private static final String WEB_URL_PARAM = "[a-zA-Z0-9_\\-+=&?!@#$%^*():：'\";]";
 
-    // all domain names
+    public static final String WEB_URL = "(?<![@A-Za-z0-9.])((" + WEB_URL_PREFIX + "?" + WEB_URL_DOMAIN_NAME + "+(\\." + WEB_URL_DOMAIN_NAME + "{2,})+" + WEB_URL_SUFFIX + "*(/" + WEB_URL_PARAM + "*)*(\\?" + WEB_URL_PARAM + "*)?)" +
+            "|(" + WEB_URL_DOMAIN_NAME + "+(\\." + WEB_URL_DOMAIN_NAME + "{2,})*\\." + WEB_URL_SUFFIX + ")" +
+            "|(" + WEB_URL_PREFIX + WEB_URL_DOMAIN_NAME + "+(\\." + WEB_URL_DOMAIN_NAME + "{2,})+)" +
+            ")(?![@A-Za-z0-9.])";
+    Pattern p = Pattern.compile(WEB_URL);
 
-    private static final String[] ext = {
-            "top", "com.cn", "com", "net", "org", "edu", "gov", "int", "mil", "cn", "tel", "biz", "cc", "tv", "info",
-            "name", "hk", "mobi", "asia", "cd", "travel", "pro", "museum", "coop", "aero", "ad", "ae", "af",
-            "ag", "ai", "al", "am", "an", "ao", "aq", "ar", "as", "at", "au", "aw", "az", "ba", "bb", "bd",
-            "be", "bf", "bg", "bh", "bi", "bj", "bm", "bn", "bo", "br", "bs", "bt", "bv", "bw", "by", "bz",
-            "ca", "cc", "cf", "cg", "ch", "ci", "ck", "cl", "cm", "cn", "co", "cq", "cr", "cu", "cv", "cx",
-            "cy", "cz", "de", "dj", "dk", "dm", "do", "dz", "ec", "ee", "eg", "eh", "es", "et", "ev", "fi",
-            "fj", "fk", "fm", "fo", "fr", "ga", "gb", "gd", "ge", "gf", "gh", "gi", "gl", "gm", "gn", "gp",
-            "gr", "gt", "gu", "gw", "gy", "hk", "hm", "hn", "hr", "ht", "hu", "id", "ie", "il", "in", "io",
-            "iq", "ir", "is", "it", "jm", "jo", "jp", "ke", "kg", "kh", "ki", "km", "kn", "kp", "kr", "kw",
-            "ky", "kz", "la", "lb", "lc", "li", "lk", "lr", "ls", "lt", "lu", "lv", "ly", "ma", "mc", "md",
-            "mg", "mh", "ml", "mm", "mn", "mo", "mp", "mq", "mr", "ms", "mt", "mv", "mw", "mx", "my", "mz",
-            "na", "nc", "ne", "nf", "ng", "ni", "nl", "no", "np", "nr", "nt", "nu", "nz", "om", "qa", "pa",
-            "pe", "pf", "pg", "ph", "pk", "pl", "pm", "pn", "pr", "pt", "pw", "py", "re", "ro", "ru", "rw",
-            "sa", "sb", "sc", "sd", "se", "sg", "sh", "si", "sj", "sk", "sl", "sm", "sn", "so", "sr", "st",
-            "su", "sy", "sz", "tc", "td", "tf", "tg", "th", "tj", "tk", "tm", "tn", "to", "tp", "tr", "tt",
-            "tv", "tw", "tz", "ua", "ug", "uk", "us", "uy", "va", "vc", "ve", "vg", "vn", "vu", "wf", "ws",
-            "ye", "yu", "za", "zm", "zr", "zw"
-    };
-    public static String WEB_URL;
-
-    static {
-        StringBuilder sb = new StringBuilder();
-        sb.append("(");
-        for (int i = 0; i < ext.length; i++) {
-            sb.append(ext[i]);
-            sb.append("|");
-        }
-        sb.deleteCharAt(sb.length() - 1);
-        sb.append(")");
-        // final pattern str
-        WEB_URL = "((https?|s?ftp|irc[6s]?|git|afp|telnet|smb)://)?((\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})|((www\\.|[a-zA-Z\\.\\-]+\\.)?[a-zA-Z0-9\\-]+\\." + sb.toString() + "(:[0-9]{1,5})?))((/[a-zA-Z0-9\\./,;\\?'\\+&%\\$#=~_\\-]*)|([^\\u4e00-\\u9fa5\\s0-9a-zA-Z\\./,;\\?'\\+&%\\$#=~_\\-]*))";
-        // Log.v(TAG, "pattern = " + pattern);
-    }
 
     /**
      * Parent group at 0,child group after parent group.
-     *
-     * @param text
-     * @return
      */
-    public static List<BluePatternGroupBean> match(String patternString, String text) {
-        if (patternString == null || text == null || text.length() == 0 || text.length() > 1000) {
+    public static List<TPatternGroupBean> match(String patternString, CharSequence text) {
+        return match(patternString, text, 1000);
+    }
+
+    public static List<TPatternGroupBean> match(String patternString, CharSequence text, int maxLength) {
+        if (TextUtils.isEmpty(patternString) || TextUtils.isEmpty(text) || text.length() < 3 || text.length() > Math.max(maxLength, 1000)) {
             return null;
         }
-        List<BluePatternGroupBean> patternBeans = new ArrayList<>();
+        List<TPatternGroupBean> patternBeans = new ArrayList<>();
         Pattern pattern = Pattern.compile(patternString);
         Matcher matcher = pattern.matcher(text);
         int index = 0;
         while (matcher.find()) {
             int groupCount = matcher.groupCount() + 1;
-            BluePatternGroupBean bluePatternGroupBean = new BluePatternGroupBean(groupCount);
-            bluePatternGroupBean.setPatternString(patternString);
+            TPatternGroupBean TPatternGroupBean = new TPatternGroupBean(groupCount);
+            TPatternGroupBean.setPatternString(patternString);
             //Parent group.
-            bluePatternGroupBean.setContent(matcher.group(0));
-            bluePatternGroupBean.setEnd(matcher.end());
-            bluePatternGroupBean.setIndex(index++);
-            bluePatternGroupBean.setStart(matcher.start());
+            TPatternGroupBean.setContent(matcher.group(0));
+            TPatternGroupBean.setEnd(matcher.end());
+            TPatternGroupBean.setIndex(index++);
+            TPatternGroupBean.setStart(matcher.start());
             //Child group.
             for (int i = 1; i < groupCount; i++) {
                 String group = matcher.group(i);
                 int start = matcher.start(i);
                 int end = matcher.end(i);
-                BluePatternGroupItemBean childPatternBean = new BluePatternGroupItemBean();
+                if (start < 0) {
+                    continue;
+                }
+                TPatternGroupItemBean childPatternBean = new TPatternGroupItemBean();
                 childPatternBean.setContent(group);
                 childPatternBean.setEnd(end);
                 childPatternBean.setStart(start);
                 childPatternBean.setIndex(i);
-                bluePatternGroupBean.addItem(childPatternBean);
+                TPatternGroupBean.addItem(childPatternBean);
             }
-            patternBeans.add(bluePatternGroupBean);
+            patternBeans.add(TPatternGroupBean);
         }
         return patternBeans;
     }
 
+    public static List<TPatternGroupBean> matcher(String patternString, String text) {
+        if (matched(patternString, text)) {
+            return match(patternString, text);
+        } else {
+            return null;
+        }
+    }
+
+    public static boolean matched(String patternString, String text) {
+        if (patternString == null || text == null) {
+            return false;
+        }
+        Pattern pattern = Pattern.compile(patternString);
+        return pattern.matcher(text).matches();
+    }
 }

@@ -29,7 +29,7 @@ public class ChatLayoutManager extends LinearLayoutManager {
 
     @Override
     public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
-        S.s("onLayoutChildren");
+//        S.s("onLayoutChildren");
         if (state.getItemCount() > 0) {
             if (initialPosition >= 0) {
                 scrollToPositionWithOffset(initialPosition, initialOffset);
@@ -40,10 +40,10 @@ public class ChatLayoutManager extends LinearLayoutManager {
                 int range = computeVerticalScrollRange(state);
                 int lastItemPosition = Math.max(state.getItemCount() - 1, 0);
                 if (range > extent && isLastItemVisible) {
-                    S.s("1");
+//                    S.s("1");
                     scrollToPositionWithOffset(lastItemPosition, 0);
                 }else{
-                    S.e("no need scroll:"+(range>extent)+" isLastItemVisible:"+isLastItemVisible+"");
+//                    S.e("no need scroll:"+(range>extent)+" isLastItemVisible:"+isLastItemVisible+"");
                 }
             }
         }
@@ -52,20 +52,20 @@ public class ChatLayoutManager extends LinearLayoutManager {
 
     @Override
     public void attachView(@NonNull View child) {
-        S.s("attach view");
+//        S.s("attach view");
         super.attachView(child);
     }
 
     @Override
     public void detachView(@NonNull View child) {
-        S.s("detach view");
+//        S.s("detach view");
         super.detachView(child);
     }
 
     @Override
     public void onLayoutCompleted(RecyclerView.State state) {
         super.onLayoutCompleted(state);
-        S.s("onLayoutCompleted");
+//        S.s("onLayoutCompleted");
         initAlignBottom(state);
     }
 

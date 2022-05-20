@@ -20,7 +20,7 @@ public class MainActivity_999_loading extends BaseActivity {
 
         TProgressView loadingView = findViewById(R.id.loading);
 
-        loadingView.addViewMode(
+        loadingView.setViewMode(
                 new ViewMode("downloading")
                         .showProgress(true)
                         .rotate(true)
@@ -97,6 +97,7 @@ public class MainActivity_999_loading extends BaseActivity {
         loadingView2.setViewMode(new ViewMode("normal")
                 .rotate(true)
                 .useWaveProgress(true)
+                .showProgress(true)
                 .drawable(R.drawable.zayhu_video_call_hangup_drawable)
                 .listener(new View.OnClickListener() {
                     @Override
@@ -106,7 +107,6 @@ public class MainActivity_999_loading extends BaseActivity {
                 }));
         TProgressView loadingView3 = findViewById(R.id.loading3);
         loadingView3.setViewMode(new ViewMode("normal")
-                .rotate(false)
                 .showProgress(true)
                 .listener(new View.OnClickListener() {
                     @Override
@@ -115,26 +115,11 @@ public class MainActivity_999_loading extends BaseActivity {
                     }
                 }));
         findViewById(R.id.progress_touch).setOnTouchListener(new View.OnTouchListener() {
-            int current = 0;
-            int total = 100;
-            float x = 0;
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    x = event.getX();
-                } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-                    int add = 2;
-                    if (event.getX() - x < 0) {
-                        current = current - add;
-                    } else if (event.getX() - x > 0) {
-                        current = current + add;
-                    }
-                    loadingView3.setTotalProgress(current, total);
-                    x = event.getX();
-                } else {
-                    x = 0;
-                }
+                int width = v.getWidth();
+                loadingView3.setProgress(event.getX(), width);
                 return true;
             }
         });

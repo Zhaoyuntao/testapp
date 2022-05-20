@@ -14,7 +14,9 @@ import com.test.test3app.wallpaper.DiffHelper;
 import com.test.test3app.wallpaper.ListItemSelector;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * created by zhaoyuntao
@@ -24,6 +26,7 @@ import java.util.List;
 public class CommonAdapter extends ListAdapter<CommonBean, CommonHolder> {
     private OnItemClickListener onItemClickListener;
     private ListItemSelector<CommonBean> selector = new ListItemSelector<>();
+    private Map<String, Integer> colorMap = new HashMap<>();
 
     public CommonAdapter(int count) {
         super(new DiffUtil.ItemCallback<CommonBean>() {
@@ -78,17 +81,22 @@ public class CommonAdapter extends ListAdapter<CommonBean, CommonHolder> {
         CommonBean commonBean = getCurrentList().get(position);
         holder.itemView.setTag("position:" + position + " " + commonBean.id);
         holder.textView.setText(commonBean.id);
-        if (position == 12) {
-            holder.textView.setText(
-                    "12\n" +
-                            "-\n" +
-                            "-\n" +
-                            "-\n" +
-                            "-\n" +
-                            "-"
-            );
+//        if (position == 12) {
+//            holder.textView.setText(
+//                    "12\n" +
+//                            "-\n" +
+//                            "-\n" +
+//                            "-\n" +
+//                            "-\n" +
+//                            "-"
+//            );
+//        }
+        Integer color=colorMap.get(commonBean.id);
+        if (color!=null) {
+            holder.textView.setBackgroundColor(color);
+        } else {
+            holder.textView.setBackgroundColor((selector.isSelected(commonBean)) ? Color.parseColor("#dd880000") : Color.parseColor("#80000000"));
         }
-        holder.textView.setBackgroundColor((selector.isSelected(commonBean)) ? Color.parseColor("#dd880000") : Color.parseColor("#80000000"));
         holder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,6 +119,10 @@ public class CommonAdapter extends ListAdapter<CommonBean, CommonHolder> {
     public void selectItem(CommonBean commonBean, int position) {
         boolean selected = selector.changeSelect(commonBean);
         notifyItemChanged(position, DiffHelper.getPayload("", selected));
+    }
+
+    public void setColor(String position, int parseColor) {
+        colorMap.put(position, parseColor);
     }
 
     public interface OnItemClickListener {

@@ -8,24 +8,24 @@ import java.util.List;
  * on 2020/8/25
  * description:
  */
-public class BluePatternGroupBean {
-    private List<BluePatternGroupItemBean> groupItemBeans;
+public class TPatternGroupBean {
+    private List<TPatternGroupItemBean> groupItemBeans;
     private int start;
     private int end;
     private int index;
     private String content;
     private String patternString;
 
-    public BluePatternGroupBean(int groupCount) {
+    public TPatternGroupBean(int groupCount) {
         groupItemBeans = new ArrayList<>(groupCount);
     }
 
-    public List<BluePatternGroupItemBean> getGroupItemBeans() {
+    public List<TPatternGroupItemBean> getGroupItemBeans() {
         return groupItemBeans;
     }
 
-    public void addItem(BluePatternGroupItemBean bluePatternGroupItemBean) {
-        this.groupItemBeans.add(bluePatternGroupItemBean);
+    public void addItem(TPatternGroupItemBean TPatternGroupItemBean) {
+        this.groupItemBeans.add(TPatternGroupItemBean);
     }
 
     public void clearItems() {
@@ -77,5 +77,13 @@ public class BluePatternGroupBean {
             return 0;
         }
         return content.length();
+    }
+
+    @Override
+    public String toString() {
+        return "\nGroup[" + content + "]  [start:" + start + "][end:" + end + "][index:" + index + "][" + patternString + "]"
+                + "\n<\n"
+                + "     " + groupItemBeans
+                + "\n>\n";
     }
 }
