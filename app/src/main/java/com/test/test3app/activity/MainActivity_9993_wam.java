@@ -10,6 +10,7 @@ import com.test.test3app.BaseActivity;
 import com.test.test3app.R;
 import com.test.test3app.a.wam.base.WAMDrawObject;
 import com.test.test3app.a.wam.canvas.CanvasView;
+import com.test.test3app.a.wam.canvas.PowerView;
 import com.test.test3app.a.wam.test.TestObject;
 import com.test.test3app.a.wam.test.WorldObject;
 import com.zhaoyuntao.androidutils.tools.S;
@@ -24,15 +25,14 @@ public class MainActivity_9993_wam extends BaseActivity {
     int aMax = 360;
     int pMax = 1000;
     float power = 100;
-    float angle = 0;
+    float powerAngle = 0;
     float percent = 1;
 
     CanvasView canvasView;
     View oncePush;
     WorldObject worldObject;
     TestObject testObject;
-    private TextView textViewPower;
-    private TextView textViewAngle;
+    private PowerView textViewAngle;
     private TextView textViewGravity;
     private TextView textViewFriction;
     private TextView textViewElasticity;
@@ -47,7 +47,6 @@ public class MainActivity_9993_wam extends BaseActivity {
         canvasView = findViewById(R.id.canvas);
         canvasView.setSlowPercent(percent);
         oncePush = findViewById(R.id.once_push);
-        textViewPower = findViewById(R.id.progress_touch_power);
         textViewAngle = findViewById(R.id.progress_touch_angle);
         textViewGravity = findViewById(R.id.progress_touch_g);
         textViewFriction = findViewById(R.id.progress_touch_f);
@@ -64,25 +63,15 @@ public class MainActivity_9993_wam extends BaseActivity {
         worldObject.setObjects(objects);
         canvasView.setWorldObject(worldObject);
 
-
         showMessage();
 
-        textViewPower.setOnTouchListener(new View.OnTouchListener() {
+        textViewAngle.setCallback(new PowerView.Callback() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                float percent = event.getX() / v.getWidth();
-                power = pMax * percent;
+            public String onTouch(float angle, float lengthPercent) {
+                powerAngle = angle;
+                power = pMax * lengthPercent;
                 showMessage();
-                return true;
-            }
-        });
-        textViewAngle.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                float percent = event.getX() / v.getWidth();
-                angle = aMax * percent;
-                showMessage();
-                return true;
+                return S.formatNumber(angle, "#.#") + "°, " + S.formatNumber(lengthPercent * pMax, "#.#");
             }
         });
         textViewFriction.setOnTouchListener(new View.OnTouchListener() {
@@ -122,12 +111,16 @@ public class MainActivity_9993_wam extends BaseActivity {
             }
         });
 
-        oncePush.setOnClickListener(new View.OnClickListener() {
+        oncePush.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                worldObject.power = power;
-                worldObject.angle = angle;
-                worldObject.powerTime = 0.3f;
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_CANCEL || motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    worldObject.power = 0;
+                } else {
+                    worldObject.power = power;
+                }
+                worldObject.angle = powerAngle;
+                return true;
             }
         });
     }
@@ -135,8 +128,6 @@ public class MainActivity_9993_wam extends BaseActivity {
     private void showMessage() {
         textViewFriction.setText("friction:" + S.formatNumber(worldObject.f, "#.#"));
         textViewGravity.setText("gravity:" + S.formatNumber(worldObject.g, "#.#"));
-        textViewPower.setText("power:" + S.formatNumber(power, "#.#"));
-        textViewAngle.setText("angle:" + S.formatNumber(angle, "#.#"));
         textViewSlow.setText("slow:" + S.formatNumber(percent, "#.#"));
         textViewElasticity.setText("Elasticity:" + S.formatNumber(testObject.getE(), "#.#"));
     }
