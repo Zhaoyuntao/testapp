@@ -24,20 +24,22 @@ public class MyClass {
 //        test(PatternUtils.PATTERN_PHONE_NUMBER, "撒库拉代码了971 12345678 123卡里打卡啦");
 //        test(PatternUtils.PATTERN_PHONE_NUMBER, "撒库拉代码了http:123.123.123卡里打卡啦");
 
-        test(PatternUtils.WEB_URL, "撒库拉代码了www.baidu.com卡里打卡啦");
-        test(PatternUtils.WEB_URL, "撒库拉代码了baidu.com卡里打卡啦");
-        test(PatternUtils.WEB_URL, "撒库拉代码了http://www.baidu.com卡里打卡啦");
-        test(PatternUtils.WEB_URL, "撒库拉代码了htTp://www.baidu.cOm卡里打卡啦");
-        test(PatternUtils.WEB_URL, "撒库拉代码了http:/www.baidu.com卡里打卡啦");
-        test(PatternUtils.WEB_URL, "撒库拉代码了http://a.a卡里打卡啦");
-        test(PatternUtils.WEB_URL, "撒库拉代码了http://a.aa卡里打卡啦");
-        test(PatternUtils.WEB_URL, "撒库拉代码了http://www.baidu.com/a=1卡里打卡啦");
-        test(PatternUtils.WEB_URL, "撒库拉代码了http://www.baidu.com/a=1&b=2卡里打卡啦");
-        test(PatternUtils.WEB_URL, "撒库拉代码了http://www.baidu.com/a=1&b=2 abc卡里打卡啦");
-        test(PatternUtils.WEB_URL, "撒库拉代码了http://www.baidu.com/a/b/c/d/a=1&b=2 abc卡里打卡啦");
-        test(PatternUtils.WEB_URL, "撒库拉代码了http://192.168.3.3:1024卡里打卡啦");
-        test(PatternUtils.WEB_URL, "撒库拉代码了123.233.23.2卡里打卡啦");
-        test(PatternUtils.WEB_URL, "撒库拉代码了yuntao.zhao@gmail.com卡里打卡啦");
+//        test(PatternUtils.WEB_URL, "撒库拉代码了www.baidu.com卡里打卡啦");
+//        test(PatternUtils.WEB_URL, "撒库拉代码了baidu.com卡里打卡啦");
+//        test(PatternUtils.WEB_URL, "撒库拉代码了http://www.baidu.com卡里打卡啦");
+//        test(PatternUtils.WEB_URL, "撒库拉代码了htTp://www.baidu.cOm卡里打卡啦");
+//        test(PatternUtils.WEB_URL, "撒库拉代码了http:/www.baidu.com卡里打卡啦");
+//        test(PatternUtils.WEB_URL, "撒库拉代码了http://a.a卡里打卡啦");
+//        test(PatternUtils.WEB_URL, "撒库拉代码了http://a.aa卡里打卡啦");
+//        test(PatternUtils.WEB_URL, "撒库拉代码了http://www.baidu.com/a=1卡里打卡啦");
+//        test(PatternUtils.WEB_URL, "撒库拉代码了http://www.baidu.com/a=1&b=2卡里打卡啦");
+//        test(PatternUtils.WEB_URL, "撒库拉代码了http://www.baidu.com/a=1&b=2 abc卡里打卡啦");
+//        test(PatternUtils.WEB_URL, "撒库拉代码了http://www.baidu.com/a/b/c/d/a=1&b=2 abc卡里打卡啦");
+//        test(PatternUtils.WEB_URL, "撒库拉代码了http://192.168.3.3:1024卡里打卡啦");
+//        test(PatternUtils.WEB_URL, "撒库拉代码了123.233.23.2卡里打卡啦");
+//        test(PatternUtils.WEB_URL, "撒库拉代码了yuntao.zhao@gmail.com卡里打卡啦");
+
+        test(PatternUtils.PATTERN_MENTION, "@\u2068Hello world\u2068");
     }
 
     public static void test(String patternString, String content) {

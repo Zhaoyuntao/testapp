@@ -23,6 +23,7 @@ public class PatternUtils {
      * Phone number.
      */
     public static final String PATTERN_PHONE_NUMBER = "((?<!(http:|\\d))([0-9]{1,3}[ \\-])?[0-9]{5,15}(?!( ?\\d)))";
+    public static final String PATTERN_MENTION = "@\u2068(.+?)(?=\u2068)";
     private static final String WEB_URL_PREFIX = "((?i)(https?|ftp|git|afp|telnet|smb)://)";
     private static final String WEB_URL_SUFFIX = "(\\.(?i)(cn|com|ae|ar|ai|us|ch|ca|br|es|xyz|net|top|tech|org|gov|edu|ink|int|mil|pub|mob|tv|cc|biz|red|coop|aero|io))";
     private static final String WEB_URL_DOMAIN_NAME = "[a-zA-Z0-9_\\-]";

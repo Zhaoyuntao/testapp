@@ -19,6 +19,8 @@ public class MainActivity_9991_animateimageview extends BaseActivity {
         AnimateImageView imageView2 = findViewById(R.id.animateimage2);
         AnimateImageView imageView3 = findViewById(R.id.animateimage3);
 
+        imageView1.setImageResource(R.drawable.aaaa);
+
         findViewById(R.id.setreceived).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
