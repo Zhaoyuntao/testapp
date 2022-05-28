@@ -59,4 +59,7 @@
     <string name="string_subject_cash_gift_theme_red">I love you!</string>
     <string name="string_subject_cash_gift_theme_blue">May your life be filled with health and wealth!</string>
     <string name="string_subject_cash_gift_theme_yellow">Thanks for being a great friend!</string>
+    <string name="permission_settings_open">settings</string>
+    <string name="permission_continue">continue</string>
+    <string name="permission_cancel">cancel</string>
 </resources>

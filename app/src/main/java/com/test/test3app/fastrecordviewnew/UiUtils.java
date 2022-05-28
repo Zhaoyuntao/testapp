@@ -35,4 +35,10 @@ public class UiUtils {
         }
         return sDensity;
     }
+    public static int getScreenWidthPixels() {
+        DisplayMetrics dm = new DisplayMetrics();
+        ((WindowManager) ResourceUtils.getApplicationContext().getSystemService(Context.WINDOW_SERVICE))
+                .getDefaultDisplay().getMetrics(dm);
+        return dm.widthPixels;
+    }
 }
