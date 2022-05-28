@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 /**
  * created by zhaoyuntao
  * on 2019-10-25
  * description:
  */
-public class BaseActivity extends Activity {
+public class BaseActivity extends AppCompatActivity {
 
     protected Activity activity() {
         return this;

@@ -57,9 +57,10 @@ public class MainActivity extends BaseActivity {
         zRouters.add(new ZRouter("Nest", MainActivity_998_nest.class));
         zRouters.add(new ZRouter("wallpaper", MainActivity_94_wallpaper.class));
         zRouters.add(new ZRouter("Loading", MainActivity_999_loading.class));
+        zRouters.add(new ZRouter("AnimateImage", MainActivity_9991_animateimageview.class));
         zRouters.add(new ZRouter("window transition", MainActivity_9992_windowContentTransition.class));
         zRouters.add(new ZRouter("wam", MainActivity_9993_wam.class));
-        zRouters.add(new ZRouter("AnimateImage", MainActivity_9991_animateimageview.class));
+        zRouters.add(new ZRouter("NewPermission", MainActivity_9994_new_permission.class));
 
         init(zRouters);
     }

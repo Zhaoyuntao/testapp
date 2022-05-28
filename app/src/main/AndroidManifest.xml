@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -69,6 +70,7 @@
         <activity android:name=".activity.MainActivity_9991_animateimageview" />
         <activity android:name=".activity.MainActivity_9992_windowContentTransition" />
         <activity android:name=".activity.MainActivity_9993_wam" />
+        <activity android:name=".activity.MainActivity_9994_new_permission" />
 
         <activity android:name=".windowtransition.gridtopager.MainActivity_google" />
         <activity

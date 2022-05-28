@@ -20,7 +20,7 @@ import java.util.List;
  * on 24/11/2021
  * description:
  */
-abstract class MyFileDropListener implements DropTargetListener {
+public abstract class MyFileDropListener implements DropTargetListener {
 
     public MyFileDropListener(Component component) {
         new DropTarget(component, DnDConstants.ACTION_COPY_OR_MOVE, this);
