@@ -35,7 +35,6 @@ public class InputMethodUtils {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     public static void forceOpenInputKeyboard(@NonNull View view) {
         InputMethodManager imm = view.getContext().getSystemService(InputMethodManager.class);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);

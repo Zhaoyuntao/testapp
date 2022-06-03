@@ -42,7 +42,7 @@
             android:name=".activity.MainActivity_990_cell"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".activity.MainActivity_99_dark_mode"/>
+        <activity android:name=".activity.MainActivity_99_dark_mode" />
         <activity android:name=".activity.MainActivity_98_sticker_reply" />
         <activity android:name=".activity.MainActivity_996_expand" />
         <activity android:name=".activity.MainActivity_97_textview_spannable" />
@@ -71,6 +71,9 @@
         <activity android:name=".activity.MainActivity_9992_windowContentTransition" />
         <activity android:name=".activity.MainActivity_9993_wam" />
         <activity android:name=".activity.MainActivity_9994_new_permission" />
+        <activity
+            android:name=".activity.MainActivity_9995_mention"
+            android:windowSoftInputMode="adjustResize" />
 
         <activity android:name=".windowtransition.gridtopager.MainActivity_google" />
         <activity

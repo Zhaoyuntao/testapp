@@ -540,5 +540,6 @@
 
     <color name="call_video_full_backgound_color">#4B4B4B</color>
     <color name="call_video_button_turn_on_color">#4378f2</color>
+    <color name="color_primary">#6666ff</color>
 
 </resources>

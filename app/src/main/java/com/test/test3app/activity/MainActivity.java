@@ -8,7 +8,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.GridLayout;
 
-import com.bumptech.glide.Glide;
 import com.test.test3app.BaseActivity;
 import com.test.test3app.R;
 import com.test.test3app.appbase.ZRouter;
@@ -61,6 +60,7 @@ public class MainActivity extends BaseActivity {
         zRouters.add(new ZRouter("window transition", MainActivity_9992_windowContentTransition.class));
         zRouters.add(new ZRouter("wam", MainActivity_9993_wam.class));
         zRouters.add(new ZRouter("NewPermission", MainActivity_9994_new_permission.class));
+        zRouters.add(new ZRouter("mention", MainActivity_9995_mention.class));
 
         init(zRouters);
     }

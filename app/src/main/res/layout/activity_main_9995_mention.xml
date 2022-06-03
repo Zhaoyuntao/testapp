@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.test.test3app.textview.AutoSizeTextView
+            android:id="@+id/text_mention"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:background="#222222"
+            android:gravity="center"
+            android:text="\@"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            app:autoRadius="30dp" />
+
+        <com.test.test3app.textview.AutoSizeTextView
+            android:id="@+id/text_pop"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="50dp"
+            android:background="#ff0000"
+            android:gravity="center"
+            android:text="POP"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            app:autoRadius="30dp" />
+    </LinearLayout>
+
+
+    <com.test.test3app.mention.ChatEditText
+        android:id="@+id/edit_text_mention"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:layout_marginTop="10dp"
+        android:background="#ff0000"
+        android:gravity="start"
+        android:hint="Text"
+        android:padding="20dp"
+        android:textAlignment="viewStart"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+</LinearLayout>

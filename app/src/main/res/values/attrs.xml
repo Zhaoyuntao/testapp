@@ -99,5 +99,8 @@
             <enum name="flip" value="2" />
         </attr>
     </declare-styleable>
+    <declare-styleable name="AutoSizeTextView">
+        <attr name="autoRadius" format="dimension" />
+    </declare-styleable>
 
 </resources>

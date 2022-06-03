@@ -40,6 +40,8 @@ public class MyClass {
 //        test(PatternUtils.WEB_URL, "撒库拉代码了yuntao.zhao@gmail.com卡里打卡啦");
 
         test(PatternUtils.PATTERN_MENTION, "@\u2068Hello world\u2068");
+
+        S.s(PatternUtils.matched(".*((?i)json).*","DbJson"));
     }
 
     public static void test(String patternString, String content) {
