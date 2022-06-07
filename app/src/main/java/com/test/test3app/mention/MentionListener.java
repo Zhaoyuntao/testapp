@@ -14,8 +14,6 @@ public abstract class MentionListener {
 
     public abstract void onStopMentionPeople();
 
-    public abstract void onReferenceRemoved(String hid);
-
     final boolean isKeepSearch() {
         return keepSearch;
     }

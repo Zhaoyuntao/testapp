@@ -49,83 +49,50 @@
             android:src="@drawable/tab_reply" />
 
         <LinearLayout
-            android:id="@+id/chat_cell_root_view_container"
-            android:layout_width="match_parent"
+            android:id="@+id/message_root_view"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#2d04AF9C"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            tools:visibility="visible">
 
-            <LinearLayout
-                android:id="@+id/message_root_view"
+            <!-- Message bubble background -->
+            <com.test.test3app.textview.BubbleView
+                android:id="@+id/bubble_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                tools:visibility="visible">
+                android:orientation="vertical"
+                tools:background="#0000ff"
+                tools:layout_width="200dp">
 
-                <LinearLayout
+                <com.test.test3app.recyclerview.ChatCellContainer
+                    android:id="@+id/text_conversation_cell_simple_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:animateLayoutChanges="true"
-                    android:background="@null"
-                    android:orientation="vertical"
-                    tools:background="#00ff00">
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp">
 
-                    <!-- Message bubble background -->
-                    <com.test.test3app.textview.BubbleView
-                        android:id="@+id/bubble_view"
-                        android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/cell_text"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        tools:background="#0000ff"
-                        tools:layout_width="200dp">
+                        android:ellipsize="end"
+                        android:gravity="start|center_vertical"
+                        android:maxLength="4000"
+                        android:paddingStart="3dp"
+                        android:paddingTop="1.5dp"
+                        android:paddingEnd="3dp"
+                        android:paddingBottom="1.5dp"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        tools:text="abcde" />
 
-                        <com.test.test3app.recyclerview.ChatCellContainer
-                            android:id="@+id/text_conversation_cell_simple_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingStart="4dp"
-                            android:paddingEnd="4dp">
+                    <include layout="@layout/layout_chat_cell_component_send_time" />
 
-                            <TextView
-                                android:id="@+id/cell_text"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:gravity="start|center_vertical"
-                                android:maxLength="4000"
-                                android:paddingStart="3dp"
-                                android:paddingTop="1.5dp"
-                                android:paddingEnd="3dp"
-                                android:paddingBottom="1.5dp"
-                                android:textColor="@color/white"
-                                android:textSize="16sp"
-                                tools:text="abcde" />
+                </com.test.test3app.recyclerview.ChatCellContainer>
 
-                            <include layout="@layout/layout_chat_cell_component_send_time" />
-
-                        </com.test.test3app.recyclerview.ChatCellContainer>
-
-                    </com.test.test3app.textview.BubbleView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/container_message_cell_no_tail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginEnd="11dp"
-                    android:layout_marginBottom="3dp"
-                    android:elevation="1dp"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:visibility="gone"
-                    tools:background="#00ff00"
-                    tools:layout_height="50dp"
-                    tools:visibility="visible" />
-            </LinearLayout>
+            </com.test.test3app.textview.BubbleView>
         </LinearLayout>
     </com.test.test3app.scrollView.SlideLayout>
 

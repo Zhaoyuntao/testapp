@@ -28,7 +28,6 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         List<ZRouter> zRouters = new ArrayList<>();
 
-        zRouters.add(new ZRouter("bubble", MainActivity1_unknown.class));
         zRouters.add(new ZRouter("record", MainActivity2_record.class));
         zRouters.add(new ZRouter("sms", MainActivity3_sms.class));
         zRouters.add(new ZRouter("group tips", MainActivity4_grouptips.class));
@@ -48,7 +47,6 @@ public class MainActivity extends BaseActivity {
         zRouters.add(new ZRouter("ndk", MainActivity_990_cell.class));
         zRouters.add(new ZRouter("calculate", MainActivity_991_calculate.class));
         zRouters.add(new ZRouter("drawer", MainActivity_992_drawerLayout.class));
-        zRouters.add(new ZRouter("pull down", MainActivity_993_pulldown.class));
         zRouters.add(new ZRouter("gallery view", MainActivity_994_gallery_pager.class));
         zRouters.add(new ZRouter("popWindow", MainActivity_995_popwindow.class));
         zRouters.add(new ZRouter("expand", MainActivity_996_expand.class));
@@ -61,6 +59,8 @@ public class MainActivity extends BaseActivity {
         zRouters.add(new ZRouter("wam", MainActivity_9993_wam.class));
         zRouters.add(new ZRouter("NewPermission", MainActivity_9994_new_permission.class));
         zRouters.add(new ZRouter("mention", MainActivity_9995_mention.class));
+        zRouters.add(new ZRouter("Event", MainActivity1_unknown.class));
+        zRouters.add(new ZRouter("slide", MainActivity_993_pulldown.class));
 
         init(zRouters);
     }

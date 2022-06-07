@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.test.test3app.BaseActivity;
 import com.test.test3app.R;
+import com.test.test3app.event.S;
 import com.test.test3app.fastrecordviewnew.UiUtils;
 import com.test.test3app.scrollView.SlideAdapter;
 
@@ -87,6 +89,12 @@ public class MainActivity_993_pulldown extends BaseActivity {
             list.add("[" + String.valueOf(i) + "] " + s);
         }
         SlideAdapter adapter = new SlideAdapter(list);
+        adapter.setOnItemClickListener(new SlideAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, String String) {
+                S.s("click item");
+            }
+        });
         recyclerView.setAdapter(adapter);
 
 

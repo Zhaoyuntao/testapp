@@ -47,11 +47,6 @@ public class MainActivity_9995_mention extends BaseActivity {
                 addMentionView.setBackgroundColor(Color.parseColor("#222222"));
                 addMentionView.setEnabled(false);
             }
-
-            @Override
-            public void onReferenceRemoved(String hid) {
-
-            }
         });
 
         addMentionView.setOnClickListener(new View.OnClickListener() {

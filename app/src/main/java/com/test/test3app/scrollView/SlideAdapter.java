@@ -1,5 +1,6 @@
 package com.test.test3app.scrollView;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.test.test3app.R;
-import com.test.test3app.recyclerview.CellTextView;
 import com.test.test3app.recyclerview.ChatCellContainer;
+import com.test.test3app.textview.BubbleView;
 import com.zhaoyuntao.androidutils.tools.S;
 
 import java.util.ArrayList;
@@ -75,7 +76,12 @@ public class SlideAdapter extends RecyclerView.Adapter<SlideAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         final String text = mList.get(position);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        if(position%2==0){
+            holder.slideLayout.setTag(" ");
+        }else{
+            holder.slideLayout.setTag(null);
+        }
+        holder.bubbleView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mOnItemClickListener != null) {
@@ -83,8 +89,15 @@ public class SlideAdapter extends RecyclerView.Adapter<SlideAdapter.ViewHolder> 
                 }
             }
         });
-        holder.rootView.setText(text);
-        S.s("onBindViewHolder["+position+"]:"+text);
+        holder.bubbleView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                S.s("long click item");
+                return true;
+            }
+        });
+        holder.chatCellContainer.setText(text);
+        S.s("onBindViewHolder[" + position + "]:" + text);
     }
 
     @Override
@@ -108,15 +121,29 @@ public class SlideAdapter extends RecyclerView.Adapter<SlideAdapter.ViewHolder> 
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         SlideLayout slideLayout;
-        ChatCellContainer rootView;
+        ChatCellContainer chatCellContainer;
+        ViewGroup rootView;
+        BubbleView bubbleView;
+
 
         ViewHolder(View itemView) {
             super(itemView);
             slideLayout = itemView.findViewById(R.id.slide_view);
-            slideLayout.setListener(new SlideLayout.SlideListener() {
+            bubbleView = itemView.findViewById(R.id.bubble_view);
+            slideLayout.setSlideListener(new SlideLayout.SlideListener() {
                 @Override
                 public void onFingerUp(boolean slideToRight) {
-                    S.s("onFingerUp: slideToRight: " + slideToRight);
+//                    S.s("onFingerUp: slideToRight: " + slideToRight);
+                }
+
+                @Override
+                public void onSlideDistanceChange(float percent) {
+
+                }
+
+                @Override
+                public boolean canSlide() {
+                    return slideLayout.getTag() != null;
                 }
 
                 @Override
@@ -125,7 +152,23 @@ public class SlideAdapter extends RecyclerView.Adapter<SlideAdapter.ViewHolder> 
                 }
             });
 
-            rootView = itemView.findViewById(R.id.text_conversation_cell_simple_text);
+            chatCellContainer = itemView.findViewById(R.id.text_conversation_cell_simple_text);
+            rootView = itemView.findViewById(R.id.message_root_view);
+            SlideLayout.SlideLayoutParams slideLayoutParams = (SlideLayout.SlideLayoutParams) rootView.getLayoutParams();
+            slideLayoutParams.gravity = Gravity.END;
+            slideLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    S.s("click");
+                }
+            });
+            slideLayout.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    S.s("long click");
+                    return true;
+                }
+            });
         }
     }
 

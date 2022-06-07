@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.test.test3app.event.AViewGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="#ffffff">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:id="@+id/viewgroup"
+        android:layout_height="match_parent">
+        <com.test.test3app.event.AView
+            android:id="@+id/view"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="#ff0000" />
+    </FrameLayout>
+
+
+</com.test.test3app.event.AViewGroup>
