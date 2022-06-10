@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minWidth="50dp"
+    android:minHeight="50dp"
+    android:padding="4dp"
+    app:layout_constrainedHeight="true"
+    app:layout_constrainedWidth="true"
+    tools:background="#ffaaaa">
+
+
+    <im.thebot.chat.ui.view.ChatImageView
+        android:id="@+id/image_cell_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        app:ChatImageView_radius="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/image_cell_text_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@drawable/debug_background"
+        tools:layout_height="400dp"
+        tools:layout_width="300dp" />
+
+    <im.thebot.chat.ui.view.ChatImageView
+        android:id="@+id/image_cell_shadow_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignStart="@+id/image_cell_image_view"
+        android:layout_alignTop="@+id/image_cell_image_view"
+        android:layout_alignEnd="@+id/image_cell_image_view"
+        android:layout_alignBottom="@+id/image_cell_image_view"
+        android:background="@drawable/shape_gradient_image"
+        app:ChatImageView_radius="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/image_cell_image_view"
+        app:layout_constraintEnd_toEndOf="@+id/image_cell_image_view"
+        app:layout_constraintStart_toStartOf="@+id/image_cell_image_view"
+        app:layout_constraintTop_toTopOf="@+id/image_cell_image_view" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/image_cell_send_time_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_alignBottom="@+id/image_cell_image_view"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toStartOf="@+id/image_cell_send_status_view"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/image_cell_image_view"
+        app:layout_constraintEnd_toStartOf="@+id/image_cell_send_status_view"
+        tools:text="11:22"
+        tools:visibility="visible" />
+
+    <im.turbo.baseui.imageview.AnimateImageView
+        android:id="@+id/image_cell_send_status_view"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_alignEnd="@+id/image_cell_image_view"
+        android:layout_alignBottom="@+id/image_cell_image_view"
+        android:layout_gravity="center"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:visibility="gone"
+        app:AnimateImageView_animationDuration="150"
+        app:AnimateImageView_animationMode="flip"
+        app:layout_constraintBottom_toBottomOf="@+id/image_cell_image_view"
+        app:layout_constraintEnd_toEndOf="@+id/image_cell_image_view"
+        tools:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/image_cell_center_container"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_alignStart="@+id/image_cell_image_view"
+        android:layout_alignTop="@+id/image_cell_image_view"
+        android:layout_alignEnd="@+id/image_cell_image_view"
+        android:layout_alignBottom="@+id/image_cell_image_view"
+        android:background="@drawable/shape_round_rect_black_48_stroke_white"
+        android:minWidth="48dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/image_cell_image_view"
+        app:layout_constraintEnd_toEndOf="@+id/image_cell_image_view"
+        app:layout_constraintStart_toStartOf="@+id/image_cell_image_view"
+        app:layout_constraintTop_toTopOf="@+id/image_cell_image_view">
+
+        <im.turbo.baseui.progress.TProgressView
+            android:id="@+id/image_cell_progress_view"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            app:TProgressView_drawablePadding="5dp"
+            app:TProgressView_strokeColorBack="#00000000"
+            app:TProgressView_strokeShadowWidth="0dp"
+            app:TProgressView_strokeWidth="4dp" />
+
+        <LinearLayout
+            android:id="@+id/image_cell_retry_view_container"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="3dp"
+            android:paddingEnd="15dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image_cell_retry_view_icon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:padding="14dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/svg_download_white" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/image_cell_retry_view_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="start"
+                android:text="retry"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <im.thebot.common.ui.chat.TextCellContainer
+        android:id="@+id/image_cell_text_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/image_cell_image_view"
+        android:layout_alignStart="@+id/image_cell_image_view"
+        android:layout_alignEnd="@+id/image_cell_image_view"
+        android:paddingStart="6dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_cell_image_view">
+
+        <im.thebot.common.ui.chat.CellTextView
+            android:id="@+id/text_view_base_text_cell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="start|center_vertical"
+            android:maxLength="4000"
+            android:paddingStart="3dp"
+            android:paddingTop="1.5dp"
+            android:paddingEnd="3dp"
+            android:paddingBottom="1.5dp"
+            android:textColor="@color/bot_text_message_color"
+            android:textSize="16sp"
+            tools:text="abcde" />
+
+        <include layout="@layout/layout_chat_cell_component_send_time" />
+    </im.thebot.common.ui.chat.TextCellContainer>
+</androidx.constraintlayout.widget.ConstraintLayout>

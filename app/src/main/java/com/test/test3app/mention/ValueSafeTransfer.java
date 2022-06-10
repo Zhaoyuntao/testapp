@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 
-import com.test.test3app.faceview.Preconditions;
+import im.turbo.basetools.preconditions.Preconditions;
 
 import java.util.ArrayList;
 import java.util.Collection;

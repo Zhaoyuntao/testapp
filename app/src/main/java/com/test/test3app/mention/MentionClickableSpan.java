@@ -7,7 +7,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 
 import com.test.test3app.R;
-import com.test.test3app.threadpool.ResourceUtils;
+import im.turbo.utils.ResourceUtils;
 
 /**
  * created by zhaoyuntao

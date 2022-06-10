@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+   <string name="chat_cell_name_card_view_contact">View Contact</string>
+   <string name="chat_cell_official_text_show_more">Show more</string>
+   <string name="chat_cell_official_text_show_less">Show less</string>
+   <string name="chat_conversation_file_msg_file_not_found">File does not exist</string>
+   <string name="chat_conversation_file_msg_no_picker">Install \'File Manager\' first</string>
+   <string name="string_reply_block_by_other">You are blocked by the contact</string>
+   <string name="string_reply_block_by_self">Unblock the contact to continue</string>
+   <string name="string_reply_block_by_self_reply">Unblock the contact to reply</string>
+   <string name="block_by_other_hint_text">You are blocked by the contact</string>
+   <string name="block_by_self_hint_text">You blocked the contact</string>
+   <string name="block_by_self_hint_text_meeting">Unblock the contact to start a meeting</string>
+   <string name="block_by_self_hint_text_call">Unblock the contact to start a call</string>
+   <string name="chat_select_picture_over_range">The file exceeds 1Gb limit</string>
+   <string name="chat_input_hint_block">You are blocked by the contact</string>
+   <string name="chat_input_hint_unblock">You are unblocked by the contact</string>
+   <string name="chat_input_hint_not_in_group">You are not a member of this group</string>
+   <string name="chat_input_bar_emoji_favorite_empty_text">Collected stickers will be displayed here</string>
+   <string name="chat_activity_subtitle_last_seen">Last seen at</string>
+   <string name="chat_activity_toast_delete_for_me_success">Delete successfully</string>
+   <string name="chat_activity_record_hold_to_talk">Hold to Talk</string>
+   <string name="chat_record_stop_after_seconds">Recording will stop in %1$s \"</string>
+   <string name="chat_record_audio_release_to_send">Release to send</string>
+   <string name="chat_record_audio_release_to_cancel">Release to cancel</string>
+   <string name="chat_record_audio_release_to_lock">Release to lock</string>
+   <string name="chat_record_audio_guide_cancel_or_lock">Drag left or right to cancel or lock</string>
+   <string name="chat_record_audio_record_too_short">Voice message too short</string>
+   <string name="chat_record_audio_record_in_call">You can not record voice messages while video or voice calling</string>
+   <string name="chat_file_msg_failed_create_folder">Failed to create folder due to lack of disk space</string>
+   <string name="chat_file_msg_download_pool_full">Pending…</string>
+   <string name="chat_conversation_clip_board">Copied</string>
+   <string name="chat_conversation_clip_board_null">No data</string>
+   <string name="chat_delete_message">Delete</string>
+   <string name="chat_delete_message_dialog_message">Are you sure you want to delete this message?</string>
+   <string name="chat_copy_message">Copy</string>
+   <string name="chat_copy_payload">Copy Message Source Data</string>
+   <string name="chat_forward_message">Forward</string>
+   <string name="chat_pin_message">Pin to Channel</string>
+   <string name="chat_unpin_message">Unpin from Channel</string>
+   <string name="chat_message_view_in_chat">View in Chat</string>
+   <string name="chat_set_admin_msg">Set Admin Message</string>
+   <string name="chat_add_favorite_sticker">Add to My Favorite</string>
+   <string name="chat_toast_picture_save_successfully">Saved successfully!</string>
+   <string name="chat_save_fail">Failed to save</string>
+   <string name="string_toast_error_play_audio_on_call">Call in progress, please try again later</string>
+   <string name="chat_conversation_pick_name_card_title">Send Name Card</string>
+   <string name="conversation_item_invite_friends_title">Invite Friends</string>
+   <string name="conversation_item_invite_friends_subtitle">Unlimited HD calls and messages</string>
+   <string name="chat_group_ban_tips">Group banned</string>
+   <string name="chat_group_member_ban_tips">You are banned by group manager</string>
+   <string name="all_photos">All Photos</string>
+   <string name="string_main_activity_dialog_delete_chat_title">Delete chat</string>
+   <string name="string_main_activity_dialog_delete_chat_message">Are you sure you want to delete 1 selected chat? All your chat history will be deleted</string>
+   <string name="string_main_activity_dialog_delete_chats_message">Are you sure you want to delete %1$s selected chats? All your chat history will be deleted</string>
+   <string name="superapp_location_share_title">Share Location</string>
+   <string name="superapp_location_map_detail_title">Location</string>
+   <string name="superapp_location_fab_go">Go</string>
+   <string name="superapp_location_send_description">Send current location</string>
+   <string name="superapp_location_poi_name_desc">Send you location</string>
+   <string name="webview_network_error_tip">Network error, please try again later </string>
+   <string name="profile_upload_pic_failed_confirm_retry">Retry</string>
+   <string name="mtrl_main_fab_new_chat">New Chat</string>
+   <string name="chat_left_group_msg">You cannot send messages to this group because you are no longer a member</string>
+   <string name="chat_media_preview_original_size">Original(%s)</string>
+   <string name="chat_media_preview_original_downloading">Downloading(%s)</string>
+   <string name="chat_media_preview_original_download_complete">Download Complete</string>
+   <string name="chat_media_preview_image_save">Image saved to phone</string>
+   <string name="chat_media_preview_video_download_failed">Failed to download video</string>
+   <string name="conversation_item_join_group_title">Beta Testing Group</string>
+   <string name="conversation_item_join_group_subtitle">Join it to share your feedback</string>
+   <string name="conversation_item_join">Join</string>
+   <string name="conversation_item_joining">Joining</string>
+   <string name="chat_cell_official_alim_official_account_contact">Official Account</string>
+   <string name="call_choose_member_first_toast_string">At least 1 group member must be selected</string>
+   <string name="chat_admin_msg_dialog_btn_see_all">See All</string>
+   <string name="chat_dialog_click_phone_number_save_to_contacts">Save to Contacts</string>
+   <string name="chat_download_success_tips">Saved successfully</string>
+   <string name="chat_link_copied">Link Copied</string>
+
+   <!--oa-->
+   <string name="oa_profile_toolbar_title">Official Account</string>
+
+   <string name="oa_profile_pin">Pin</string>
+   <string name="oa_profile_unpin">Unpin</string>
+   <string name="oa_profile_share">Share with Contacts</string>
+   <string name="oa_profile_report">Report</string>
+   <string name="oa_profile_setting">Settings</string>
+   <string name="oa_profile_about">About</string>
+   <string name="oa_profile_cancel">Cancel</string>
+   <string name="oa_profile_follow">Follow</string>
+   <string name="oa_profile_unfollow">Unfollow</string>
+   <string name="oa_profile_unfollow_dialog_desc">You will not be able to use services provided by Abu Dhabi Police if you unfollow.</string>
+   <string name="oa_profile_view_new">Message</string>
+
+</resources>

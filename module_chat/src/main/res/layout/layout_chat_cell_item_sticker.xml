@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minWidth="50dp"
+    android:minHeight="50dp"
+    app:RoundCornerFrameLayout_radius="4dp">
+
+    <ImageView
+        android:id="@+id/image_view_sticker_cell_chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop" />
+
+<!--    <ai.bitcall.chat.commonlib.ui.progress.CircularWithBitmapProgress-->
+<!--        android:id="@+id/sticker_cell_conversation_progress"-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:background="@drawable/shape_oval_grey10_7f"-->
+<!--        android:visibility="gone"-->
+<!--        app:progress_progress_color="@color/white"-->
+<!--        app:progress_progress_radius="21dp"-->
+<!--        app:progress_progress_stroke_color="@color/transparent"-->
+<!--        app:progress_progress_width="2dp" />-->
+</FrameLayout>

@@ -1,6 +1,7 @@
 package com.test.test3app.appbase;
 
 import android.app.Application;
+import android.content.Context;
 
 import androidx.annotation.Nullable;
 import androidx.core.provider.FontRequest;
@@ -9,7 +10,9 @@ import androidx.emoji.text.FontRequestEmojiCompatConfig;
 
 import com.test.test3app.R;
 import com.test.test3app.fastrecordviewnew.UiUtils;
-import com.test.test3app.threadpool.ResourceUtils;
+
+import im.turbo.thread.ThreadPool;
+import im.turbo.utils.ResourceUtils;
 
 /**
  * created by zhaoyuntao
@@ -23,10 +26,11 @@ public class ZApplication extends Application {
         super.onCreate();
         Thread.UncaughtExceptionHandler defaultUncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
         Thread.setDefaultUncaughtExceptionHandler(new TestExceptionHandler(defaultUncaughtExceptionHandler));
-        ResourceUtils.setContext(this.getApplicationContext());
         UiUtils.application = this;
         initEmojiCompat();
+        ThreadPool.startup();
     }
+
     private void initEmojiCompat() {
         final EmojiCompat.Config config;
         // Use a downloadable font for EmojiCompat
@@ -50,5 +54,11 @@ public class ZApplication extends Application {
                 });
 
         EmojiCompat.init(config);
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        ResourceUtils.initApplication(this);
+        super.attachBaseContext(base);
     }
 }

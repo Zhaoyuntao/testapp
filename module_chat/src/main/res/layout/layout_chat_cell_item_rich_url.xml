@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/back_ground_rich_url_cell"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="56dp">
+
+        <FrameLayout
+            android:id="@+id/container_image_view_rich_url_cell"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/link_image_preview_rich_url_cell"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:background="#26000000"
+                android:scaleType="centerCrop" />
+
+            <ProgressBar
+                android:id="@+id/progress_bar_rich_url_cell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                android:indeterminateDrawable="@drawable/list_item_richurl_cell_progress_bg"
+                android:indeterminateDuration="600"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/title_view_rich_url_cell"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/container_image_view_rich_url_cell"
+            android:layout_marginStart="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="#262626"
+            android:textSize="14dp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toTopOf="@+id/description_view_rich_url_cell"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/container_image_view_rich_url_cell"
+            app:layout_constraintTop_toTopOf="@+id/container_image_view_rich_url_cell"
+            app:layout_constraintVertical_chainStyle="spread"
+            tools:ignore="SpUsage"
+            tools:text="rich title" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/description_view_rich_url_cell"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title_view_rich_url_cell"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="3dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="#7b7b7b"
+            android:textSize="10dp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toTopOf="@id/small_link_view_rich_url_cell"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/container_image_view_rich_url_cell"
+            app:layout_constraintTop_toBottomOf="@+id/title_view_rich_url_cell"
+            tools:ignore="SpUsage"
+            tools:text="sanjsandjsandjksajdknsa" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/small_link_view_rich_url_cell"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title_view_rich_url_cell"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="3dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="#7b7b7b"
+            android:textSize="10dp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="@id/container_image_view_rich_url_cell"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/container_image_view_rich_url_cell"
+            app:layout_constraintTop_toBottomOf="@+id/description_view_rich_url_cell"
+            tools:ignore="SpUsage"
+            tools:text="sanjsandjsandjksajdknsa" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/link_text_view_rich_url_cell"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:textSize="16sp"
+        app:layout_constrainedWidth="true"
+        tools:text="https:www.abcde.com" />
+
+</LinearLayout>
+

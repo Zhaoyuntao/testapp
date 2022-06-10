@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.test.test3app.BaseActivity;
 import com.test.test3app.R;
-import com.test.test3app.wallpaper.AnimateImageView;
+import im.turbo.baseui.imageview.AnimateImageView;
 
 
 public class MainActivity_9991_animateimageview extends BaseActivity {

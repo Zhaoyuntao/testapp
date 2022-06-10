@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#99889900"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/message_send_time_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:visibility="visible"
+        tools:text="11:22"
+        tools:visibility="visible" />
+
+    <im.turbo.baseui.imageview.AnimateImageView
+        android:id="@+id/message_status_view_send"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="3dp"
+        android:visibility="visible"
+        app:AnimateImageView_animationMode="flip"
+        app:AnimateImageView_animationDuration="150"
+        tools:background="@drawable/svg_message_send_success_received_and_read"
+        tools:visibility="visible" />
+</LinearLayout>

@@ -1,19 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright 2014 Hieu Rocker
-  ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License");
-  ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~    http://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~ Unless required by applicable law or agreed to in writing, software
-  ~ distributed under the License is distributed on an "AS IS" BASIS,
-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~ See the License for the specific language governing permissions and
-  ~ limitations under the License.
-  -->
-
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="BlueTextView">
         <attr name="maxLines" format="integer" />
@@ -83,24 +68,7 @@
         <attr name="el_parallax" format="float" />
         <attr name="android:orientation" />
     </declare-styleable>
-    <declare-styleable name="TProgressView">
-        <attr name="TProgressView_drawablePadding" format="dimension" />
-        <attr name="TProgressView_strokeColorBack" format="color" />
-        <attr name="TProgressView_strokeColor" format="color" />
-        <attr name="TProgressView_strokeRound" format="boolean" />
-        <attr name="TProgressView_strokeWidth" format="dimension" />
-        <attr name="TProgressView_strokeShadowWidth" format="dimension" />
-        <attr name="TProgressView_strokeShadowColor" format="color" />
-        <attr name="TProgressView_rotateDuration" format="integer" />
+    <declare-styleable name="RoundImageView">
+        <attr name="radius" format="dimension" />
     </declare-styleable>
-    <declare-styleable name="AnimateImageView">
-        <attr name="AnimateImageView_animationMode" format="string">
-            <enum name="scale" value="1" />
-            <enum name="flip" value="2" />
-        </attr>
-    </declare-styleable>
-    <declare-styleable name="AutoSizeTextView">
-        <attr name="autoRadius" format="dimension" />
-    </declare-styleable>
-
 </resources>

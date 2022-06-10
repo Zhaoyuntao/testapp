@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RoundCornerFrameLayout">
+        <attr name="RoundCornerFrameLayout_radius" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="RoundCornerLinearLayout">
+        <attr name="RoundCornerLinearLayout_radius" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="RoundCornerConstraintLayout">
+        <attr name="RoundCornerConstraintLayout_radius" format="dimension" />
+    </declare-styleable>
+</resources>

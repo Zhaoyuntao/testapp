@@ -41,8 +41,8 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.emoji.widget.EmojiTextViewHelper;
 
 import com.test.test3app.R;
-import com.test.test3app.threadpool.ResourceUtils;
-import com.test.test3app.utils.RTLUtils;
+import im.turbo.utils.ResourceUtils;
+import im.turbo.basetools.utils.RTLUtils;
 import com.zhaoyuntao.androidutils.tools.S;
 
 import java.util.ArrayList;

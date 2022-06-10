@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<im.thebot.common.ui.chat.TextCellContainer xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/text_cell_container"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingStart="6dp"
+    android:paddingTop="4dp"
+    android:paddingEnd="10dp"
+    android:paddingBottom="4dp"
+    android:background="#33ffff00">
+
+    <im.thebot.common.ui.chat.CellTextView
+        android:id="@+id/text_view_base_text_cell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="start|center_vertical"
+        android:maxLength="4000"
+        android:paddingStart="3dp"
+        android:paddingTop="1.5dp"
+        android:paddingEnd="3dp"
+        android:background="#88ffffff"
+        android:paddingBottom="1.5dp"
+        android:textColor="@color/bot_text_message_color"
+        android:textSize="20sp"
+        tools:text="abcdeeeeeeeee" />
+
+    <include layout="@layout/layout_chat_cell_component_send_time" />
+</im.thebot.common.ui.chat.TextCellContainer>
+

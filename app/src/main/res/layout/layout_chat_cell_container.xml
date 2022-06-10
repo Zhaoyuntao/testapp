@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="start"
     android:animateLayoutChanges="true"
-    android:layoutDirection="ltr"
     android:orientation="vertical">
 
     <LinearLayout
@@ -15,9 +13,6 @@
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:background="#4444ff"
         tools:layout_height="100dp" />
 
@@ -26,21 +21,13 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#00000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/top_message_container"
         tools:background="#ff0099" />
 
     <com.test.test3app.scrollView.SlideLayout
         android:id="@+id/slide_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/debug_message_container"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/top_space_chat_cell"
-        app:layout_goneMarginStart="0dp"
-        app:layout_goneMarginTop="0dp">
+        android:background="#88ff0000">
 
         <ImageView
             android:layout_width="50dp"
@@ -53,12 +40,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
+            android:background="#8899ff"
             tools:visibility="visible">
 
             <!-- Message bubble background -->
-            <com.test.test3app.textview.BubbleView
+            <im.thebot.chat.ui.view.BubbleView
                 android:id="@+id/bubble_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -66,7 +52,7 @@
                 tools:background="#0000ff"
                 tools:layout_width="200dp">
 
-                <com.test.test3app.recyclerview.ChatCellContainer
+                <im.thebot.common.ui.chat.TextCellContainer
                     android:id="@+id/text_conversation_cell_simple_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -90,9 +76,9 @@
 
                     <include layout="@layout/layout_chat_cell_component_send_time" />
 
-                </com.test.test3app.recyclerview.ChatCellContainer>
+                </im.thebot.common.ui.chat.TextCellContainer>
 
-            </com.test.test3app.textview.BubbleView>
+            </im.thebot.chat.ui.view.BubbleView>
         </LinearLayout>
     </com.test.test3app.scrollView.SlideLayout>
 
@@ -101,10 +87,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         tools:background="#00ff00"
         tools:layout_height="100dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

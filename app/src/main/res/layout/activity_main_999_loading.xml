@@ -6,7 +6,7 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <com.test.test3app.loading.TProgressView
+    <im.turbo.baseui.progress.TProgressView
         android:id="@+id/loading"
         android:layout_width="300dp"
         android:layout_height="200dp"
@@ -14,7 +14,7 @@
         app:TProgressView_rotateDuration="5000"
         app:TProgressView_strokeColor="#ff6666" />
 
-    <com.test.test3app.loading.TProgressView
+    <im.turbo.baseui.progress.TProgressView
         android:id="@+id/loading2"
         android:layout_width="300dp"
         android:layout_height="100dp"
@@ -29,7 +29,7 @@
         app:TProgressView_strokeShadowColor="#000000"
         app:TProgressView_strokeWidth="30dp" />
 
-    <com.test.test3app.loading.TProgressView
+    <im.turbo.baseui.progress.TProgressView
         android:id="@+id/loading3"
         android:layout_width="100dp"
         android:layout_height="100dp"

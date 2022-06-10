@@ -9,10 +9,10 @@ import com.test.test3app.BaseActivity;
 import com.test.test3app.R;
 import com.zhaoyuntao.androidutils.tools.T;
 
-import im.turbo.baseui.permission.tp.InstallResult;
-import im.turbo.baseui.permission.tp.Permission;
-import im.turbo.baseui.permission.tp.PermissionResult;
-import im.turbo.baseui.permission.tp.PermissionUtils;
+import im.turbo.baseui.permission.InstallResult;
+import im.turbo.baseui.permission.Permission;
+import im.turbo.baseui.permission.PermissionResult;
+import im.turbo.baseui.permission.PermissionUtils;
 
 
 public class MainActivity_9994_new_permission extends BaseActivity {

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AnimateImageView">
+        <attr name="AnimateImageView_animationMode" format="string">
+            <enum name="scale" value="1" />
+            <enum name="flip" value="2" />
+        </attr>
+        <attr name="AnimateImageView_animationDuration" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="ChatImageView">
+        <attr name="ChatImageView_radius" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="ExactlyFrameLayout">
+        <attr name="ExactlyFrameLayout_radius" format="dimension" />
+        <attr name="ExactlyFrameLayout_headWidth" format="dimension" />
+        <attr name="ExactlyFrameLayout_headColor" format="color" />
+    </declare-styleable>
+    <declare-styleable name="SlideLayoutContent">
+        <attr name="SlideLayoutContent_marginSpace" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="AutoSizeTextView">
+        <attr name="autoRadius" format="dimension" />
+    </declare-styleable>
+</resources>

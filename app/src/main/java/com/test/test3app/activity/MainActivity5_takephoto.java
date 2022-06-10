@@ -10,10 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.test.test3app.R;
 import com.test.test3app.bitmap.BitmapMemoryCache;
 import com.test.test3app.faceview.BlueFaceView;
-import com.test.test3app.utils.TakePictureUtils;
 import com.zhaoyuntao.androidutils.component.ZButton;
 import com.zhaoyuntao.androidutils.permission.PermissionSettings;
 import com.zhaoyuntao.androidutils.tools.S;
+import com.zhaoyuntao.androidutils.tools.TakePictureUtils;
 
 import java.io.File;
 import java.util.List;
@@ -49,37 +49,6 @@ public class MainActivity5_takephoto extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 S.s("111");
-                TakePictureUtils.takePhoto(MainActivity5_takephoto.this, new TakePictureUtils.PhotoGetter() {
-                    private double percent;
-                    private final long sizeMax = (long) (2 * 1024 * 1024);
-
-                    @Override
-                    public void whenGetPhoto(String absolutePath, Uri uri, Bitmap bitmap) {
-                        File file = new File(absolutePath);
-                        S.s("file size:[" + file.length() + "] | [" + S.formatNumber((double) file.length() / 2014 / 1024, "#.##") + " Mb]");
-                        Bitmap compressBitmap = TakePictureUtils.getCompressBitmap(MainActivity5_takephoto.this, uri, sizeMax);
-                        percent = (double) file.length() / sizeMax;
-                        zButton_photo.setDrawable_back(compressBitmap);
-                        S.s("max:[" + sizeMax + " | " + S.formatNumber((double) sizeMax / 2014 / 2014, "#.##") + " Mb] compress:[" + compressBitmap.getAllocationByteCount() + " | " + S.formatNumber((double) compressBitmap.getAllocationByteCount() / 1024 / 1024, "#.##") + " Mb] percent:[" + percent + "]");
-                        bitmapMemoryCache.put(absolutePath, compressBitmap);
-//                        S.s("size:" + bitmapMemoryCache.size());
-                    }
-
-                    @Override
-                    public void whenPictureNotFound() {
-                        S.s("2");
-                    }
-
-                    @Override
-                    public void whenNoPermission(List<String> permissions) {
-                        S.s("3");
-                    }
-
-                    @Override
-                    public void whenForbidPermission(PermissionSettings permissionSettings) {
-                        S.s("4");
-                    }
-                });
             }
         });
         zButton_click2.setOnClickListener(new View.OnClickListener() {

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <string name="chat_subtitle_namecard">[Name Card]</string>
+   <string name="chat_subtitle_photo">[Photo]</string>
+   <string name="chat_subtitle_video">[Video]</string>
+   <string name="chat_subtitle_sticker">[Sticker]</string>
+   <string name="chat_subtitle_web_share_card">[Game Card]</string>
+   <string name="chat_subtitle_voice">[Voice message]%1$s</string>
+   <string name="chat_subtitle_file">[File]%1$s</string>
+
+   <string name="chat_someone_reference_you">[%1$s@ you]%2$s</string>
+   <string name="chat_notification_channel_new_messages">New Messages</string>
+   <string name="chat_notification_channel_group_summary">New Messages (Group Summary)</string>
+   <string name="chat_group_join_call_title">Join group call</string>
+   <string name="chat_group_join_call_closed">Sorry, this call has ended, please start a new one</string>
+   <string name="chat_group_join_call_content">Group call in progress, are you sure you want to join it?</string>
+   <string name="chat_group_join_call_join">Join</string>
+   <plurals name="chat_notification_conversation_summary">
+      <item quantity="one">%1$d message</item>
+      <item quantity="other">%1$d messages</item>
+   </plurals>
+   <plurals name="chat_notification_chats_group_summary">
+      <item quantity="one">%1$s from %2$d chat</item>
+      <item quantity="other">%1$s from %2$d chats</item>
+   </plurals>
+</resources>

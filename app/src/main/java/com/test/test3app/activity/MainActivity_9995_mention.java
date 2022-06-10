@@ -10,8 +10,9 @@ import com.test.test3app.mention.ChatEditText;
 import com.test.test3app.mention.MentionListener;
 import com.test.test3app.mention.TMention;
 import com.test.test3app.mention.TTextWatcher;
-import com.test.test3app.textview.AutoSizeTextView;
-import com.test.test3app.utils.InputMethodUtils;
+
+import im.thebot.common.ui.chat.AutoSizeTextView;
+import im.turbo.basetools.utils.InputMethodUtils;
 import com.zhaoyuntao.androidutils.tools.S;
 
 import java.util.List;

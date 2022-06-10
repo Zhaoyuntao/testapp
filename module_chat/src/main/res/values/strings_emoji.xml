@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="emoji_recent">Recently Used</string>
+    <string name="emoji_smile">Smileys &amp; People</string>
+    <string name="emoji_animal">Animals &amp; Nature</string>
+    <string name="emoji_food">Food &amp; Drink</string>
+    <string name="emoji_activity">Activity</string>
+    <string name="emoji_travel">Travel &amp; Places</string>
+    <string name="emoji_object">Objects</string>
+    <string name="emoji_symbol">Symbols</string>
+    <string name="emoji_flag">Flags</string>
+</resources>

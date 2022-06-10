@@ -13,7 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.test.test3app.BaseActivity;
 import com.test.test3app.R;
 import com.test.test3app.drawerlayout.DrawerAdapter;
-import com.test.test3app.threadpool.ResourceUtils;
+import im.turbo.utils.ResourceUtils;
 import com.zhaoyuntao.androidutils.permission.PermissionSettings;
 import com.zhaoyuntao.androidutils.permission.runtime.Permission;
 import com.zhaoyuntao.androidutils.tools.S;

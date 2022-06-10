@@ -22,8 +22,8 @@ import androidx.annotation.Nullable;
 
 import com.test.test3app.R;
 import com.test.test3app.fastrecordviewnew.TouchEvent;
-import com.test.test3app.utils.BitmapUtils;
-import com.test.test3app.utils.VibratorUtil;
+import im.turbo.basetools.utils.BitmapUtils;
+import im.turbo.basetools.vibrate.VibratorUtil;
 import com.zhaoyuntao.androidutils.tools.TextMeasure;
 
 

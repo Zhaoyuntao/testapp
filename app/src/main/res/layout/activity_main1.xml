@@ -1,22 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.test.test3app.event.AViewGroup xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="#ffffff">
+    android:background="@drawable/default_wallpaper"
+    android:orientation="vertical"
+    android:padding="2dp">
 
-    <FrameLayout
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chat_view"
         android:layout_width="match_parent"
-        android:id="@+id/viewgroup"
-        android:layout_height="match_parent">
-        <com.test.test3app.event.AView
-            android:id="@+id/view"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:background="#ff0000" />
-    </FrameLayout>
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
+    <EditText
+        android:id="@+id/edittext1"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="1dp"
+        android:background="#dddddd"
+        android:hint="Hello"
+        android:textColorHint="#999999"
+        android:textSize="20sp" />
 
-</com.test.test3app.event.AViewGroup>
+    <EditText
+        android:id="@+id/edittext2"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="1dp"
+        android:background="#dddddd"
+        android:hint="Hello"
+        android:textColorHint="#999999"
+        android:textSize="20sp" />
+</LinearLayout>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    tools:background="@color/color_bubble_me_press">
+
+    <im.thebot.common.UserFaceView
+        android:id="@+id/name_card_cell_conversation_face"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="9dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="#ff0000" />
+
+    <im.thebot.common.UserNameView
+        android:id="@+id/name_card_cell_conversation_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:ellipsize="middle"
+        android:gravity="start|center_vertical"
+        android:singleLine="true"
+        android:textColor="@color/color_bubble_text_color_name_card"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/name_card_cell_conversation_face"
+        app:layout_constraintStart_toEndOf="@+id/name_card_cell_conversation_face"
+        app:layout_constraintTop_toTopOf="@+id/name_card_cell_conversation_face" />
+
+    <include
+        layout="@layout/layout_chat_cell_component_send_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="3dp"
+        app:layout_constraintBottom_toTopOf="@+id/line_name_card_chat_cell"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <im.turbo.baseui.space.TSpace
+        android:id="@+id/line_name_card_chat_cell"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="21dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_card_cell_conversation_face" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line_name_card_chat_cell">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_name_card_message"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/message"
+            android:textColor="@color/color_bubble_text_color_name_card"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/line_name_card_chat_cell" />
+
+        <im.turbo.baseui.space.TSpace
+            android:id="@+id/line2_name_card_chat_cell"
+            android:layout_width="1px"
+            android:layout_height="match_parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_name_card_invite_contact"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="invite"
+            android:textColor="@color/color_bubble_text_color_name_card"
+            android:textSize="16sp" />
+
+        <im.turbo.baseui.space.TSpace
+            android:id="@+id/line3_name_card_chat_cell"
+            android:layout_width="1px"
+            android:layout_height="match_parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_name_card_add_contact"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="add"
+            android:textColor="@color/color_bubble_text_color_name_card"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

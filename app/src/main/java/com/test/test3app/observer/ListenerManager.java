@@ -3,7 +3,7 @@ package com.test.test3app.observer;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.test.test3app.faceview.Preconditions;
+import im.turbo.basetools.preconditions.Preconditions;
 
 public class ListenerManager<IListener> extends ObjectManager<IListener> {
     public static final String KEY_ALL = "All";

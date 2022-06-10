@@ -11,28 +11,6 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <com.test.test3app.scrollView.SlideLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-
-        <TextView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="#FF9999"
-            android:gravity="center"
-            android:text="\?"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/slayouttext"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:background="#ff0000"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-    </com.test.test3app.scrollView.SlideLayout>
-
     <EditText
         android:id="@+id/edittext_slide"
         android:layout_width="match_parent"

@@ -1,0 +1,44 @@
+package im.thebot.api.chat.constant;
+
+import androidx.annotation.IntDef;
+
+/**
+ * created by zhaoyuntao
+ * on 05/09/2021
+ * description:
+ * <p>
+ * Message's status code.
+ * For my message:
+ * {@link #STATUS_MESSAGE_SEND_SENDING},
+ * {@link #STATUS_MESSAGE_SEND_FAILED},
+ * {@link #STATUS_MESSAGE_SEND_CANCEL},
+ * {@link #STATUS_MESSAGE_SENDER_SEND_SUCCESS_RECEIVER_NOT_RECEIVE},
+ * {@link #STATUS_MESSAGE_SENDER_SEND_SUCCESS_RECEIVER_RECEIVED},
+ * {@link #STATUS_MESSAGE_SENDER_SEND_SUCCESS_RECEIVER_HAS_READ},
+ *
+ * <p>
+ * For other people's message:
+ * <p>
+ * {@link #STATUS_MESSAGE_SENDER_SEND_SUCCESS_RECEIVER_RECEIVED}，
+ * {@link #STATUS_MESSAGE_SENDER_SEND_SUCCESS_RECEIVER_HAS_READ}，
+ */
+@IntDef({MessageStatusCode.STATUS_MESSAGE_SEND_SENDING,
+        MessageStatusCode.STATUS_MESSAGE_SEND_SENDING_WAIT,
+        MessageStatusCode.STATUS_MESSAGE_SEND_FAILED,
+        MessageStatusCode.STATUS_MESSAGE_SEND_CANCEL,
+        MessageStatusCode.STATUS_MESSAGE_SENDER_SEND_SUCCESS_RECEIVER_NOT_RECEIVE,
+        MessageStatusCode.STATUS_MESSAGE_SENDER_SEND_SUCCESS_RECEIVER_RECEIVED,
+        MessageStatusCode.STATUS_MESSAGE_SENDER_SEND_SUCCESS_RECEIVER_HAS_READ,
+})
+public @interface MessageStatusCode {
+
+    int STATUS_MESSAGE_SEND_FAILED = 0;// 发送失败
+    int STATUS_MESSAGE_SEND_SENDING = 1;// 发送中
+    int STATUS_MESSAGE_SENDER_SEND_SUCCESS_RECEIVER_NOT_RECEIVE = 2; // 已发送
+    int STATUS_MESSAGE_SENDER_SEND_SUCCESS_RECEIVER_RECEIVED = 3;// 已送达
+    int STATUS_MESSAGE_SENDER_SEND_SUCCESS_RECEIVER_HAS_READ = 4;// 已阅读
+    int STATUS_MESSAGE_SEND_CANCEL = 5;// 已取消
+
+    int STATUS_MESSAGE_SEND_SENDING_WAIT = -1;
+
+}

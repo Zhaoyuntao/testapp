@@ -6,8 +6,8 @@ import android.view.View;
 
 import com.test.test3app.BaseActivity;
 import com.test.test3app.R;
-import com.test.test3app.loading.TProgressView;
-import com.test.test3app.loading.ViewMode;
+import im.turbo.baseui.progress.TProgressView;
+import im.turbo.baseui.progress.ViewMode;
 import com.zhaoyuntao.androidutils.tools.T;
 
 

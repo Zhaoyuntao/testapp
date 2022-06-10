@@ -21,8 +21,8 @@ import android.widget.LinearLayout;
 import androidx.core.content.ContextCompat;
 
 import com.test.test3app.R;
-import com.test.test3app.utils.BitmapUtils;
-import com.test.test3app.utils.InputMethodUtils;
+import im.turbo.basetools.utils.BitmapUtils;
+import im.turbo.basetools.utils.InputMethodUtils;
 import com.zhaoyuntao.androidutils.tools.S;
 
 import java.util.regex.Pattern;

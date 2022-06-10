@@ -20,7 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
 import com.test.test3app.R;
-import com.test.test3app.utils.BitmapUtils;
+import im.turbo.basetools.utils.BitmapUtils;
 import com.zhaoyuntao.androidutils.tools.B;
 import com.zhaoyuntao.androidutils.tools.TextMeasure;
 

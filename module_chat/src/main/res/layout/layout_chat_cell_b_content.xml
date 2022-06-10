@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Message bubble background -->
+<im.thebot.chat.ui.view.BubbleView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bubble_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layoutDirection="ltr"
+    android:orientation="vertical"
+    tools:background="#ffaa66">
+
+    <LinearLayout
+        android:id="@+id/name_view_container_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#55ffffff"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="8dp"
+        android:visibility="gone"
+        tools:layout_width="300dp"
+        tools:visibility="visible">
+
+        <im.thebot.common.UserNameView
+            android:id="@+id/name_view_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:padding="0dp"
+            android:singleLine="true"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            tools:background="#ff9999"
+            tools:text="Sender's name"
+            tools:visibility="visible" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/second_name_view_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:ellipsize="end"
+            android:maxWidth="100dp"
+            android:padding="0dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            tools:background="@color/white"
+            tools:text="Sender's name"
+            tools:visibility="visible" />
+    </LinearLayout>
+    <!-- Message reply part -->
+    <im.thebot.chat.ui.view.ChatHeadLayout
+        android:id="@+id/container_reply_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/shape_round_rect_background_reply"
+        android:padding="2dp"
+        android:visibility="gone"
+        app:ExactlyFrameLayout_headColor="#ff0044"
+        app:ExactlyFrameLayout_headWidth="4dp"
+        app:ExactlyFrameLayout_radius="8dp"
+        tools:background="#88aa0000"
+        tools:layout_height="100dp"
+        tools:layout_width="200dp"
+        tools:visibility="visible" />
+
+    <!-- Message container -->
+    <im.thebot.chat.ui.view.ChatHeadLayout
+        android:id="@+id/chat_cell_message_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#559988ff"
+        android:orientation="horizontal"
+        tools:layout_height="100dp"
+        tools:layout_width="300dp" />
+
+</im.thebot.chat.ui.view.BubbleView>

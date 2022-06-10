@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 
 import com.test.test3app.R;
-import com.test.test3app.threadpool.ResourceUtils;
+import im.turbo.utils.ResourceUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;

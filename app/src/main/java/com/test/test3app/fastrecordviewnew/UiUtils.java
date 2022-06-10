@@ -5,8 +5,8 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
-import com.test.test3app.threadpool.ResourceUtils;
-import com.test.test3app.utils.BitmapUtils;
+import im.turbo.basetools.utils.BitmapUtils;
+import im.turbo.utils.ResourceUtils;
 
 /**
  * created by zhaoyuntao
@@ -18,7 +18,7 @@ public class UiUtils {
     public static Application application;
     private static float sDensity;
 
-    public static int dipToPx(int i) {
+    public static int dipToPx(float i) {
         return BitmapUtils.dip2px(application, i);
     }
 

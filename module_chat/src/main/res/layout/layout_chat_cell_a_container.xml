@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="start"
+    android:layoutDirection="ltr"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/chat_cell_title_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical"
+        tools:background="#4444ff"
+        tools:layout_height="100dp" />
+
+    <im.turbo.baseui.space.TSpace
+        android:id="@+id/top_space_chat_cell"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/transparent"
+        tools:background="#ff0099" />
+
+    <im.thebot.chat.ui.view.SlideLayout
+        android:id="@+id/chat_cell_slide_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00FFff"
+        tools:layout_height="50dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/chat_reply" />
+
+        <im.thebot.chat.ui.view.SlideLayoutContent
+            android:id="@+id/chat_cell_root_view_slide_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:SlideLayoutContent_marginSpace="48dp"
+            tools:background="#ffff33"
+            tools:layout_height="50dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/message_forward_view_left"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:background="@drawable/shape_oval_black_forward"
+                android:padding="5dp"
+                android:src="@drawable/tab_forward"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <include layout="@layout/layout_chat_cell_b_content" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/message_forward_view_right"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:background="@drawable/shape_oval_black_forward"
+                android:padding="6dp"
+                android:src="@drawable/tab_forward"
+                android:visibility="gone"
+                tools:visibility="visible" />
+        </im.thebot.chat.ui.view.SlideLayoutContent>
+    </im.thebot.chat.ui.view.SlideLayout>
+
+    <FrameLayout
+        android:id="@+id/debug_message_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:background="#00ff00"
+        tools:layout_height="100dp" />
+
+</LinearLayout>

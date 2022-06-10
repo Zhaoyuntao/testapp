@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingStart="8dp"
+    android:paddingTop="6dp"
+    android:paddingEnd="8dp"
+    android:paddingBottom="6dp"
+    tools:background="#ff9999">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/withdraw_message_cell_icon"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_recall_send"
+        tools:background="#9999ff" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/withdraw_message_cell_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="5dp"
+        android:textSize="16dp"
+        android:textStyle="italic" />
+
+    <include
+        layout="@layout/layout_chat_cell_component_send_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="10dp" />
+</LinearLayout>

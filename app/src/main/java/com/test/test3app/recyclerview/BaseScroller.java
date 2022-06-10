@@ -4,6 +4,8 @@ import android.content.Context;
 
 import androidx.recyclerview.widget.LinearSmoothScroller;
 
+import im.turbo.baseui.chat.ChatLayoutManager;
+
 /**
  * created by zhaoyuntao
  * on 2020/8/14

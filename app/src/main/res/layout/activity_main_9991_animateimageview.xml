@@ -15,21 +15,21 @@
         android:orientation="horizontal"
         android:padding="20dp">
 
-        <com.test.test3app.wallpaper.AnimateImageView
+        <im.turbo.baseui.imageview.AnimateImageView
             android:id="@+id/animateimage1"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="#ffffff"
             app:AnimateImageView_animationMode="scale" />
 
-        <com.test.test3app.wallpaper.AnimateImageView
+        <im.turbo.baseui.imageview.AnimateImageView
             android:id="@+id/animateimage2"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginStart="20dp"
             android:background="#ffffff" />
 
-        <com.test.test3app.wallpaper.AnimateImageView
+        <im.turbo.baseui.imageview.AnimateImageView
             android:id="@+id/animateimage3"
             android:layout_width="80dp"
             android:layout_height="80dp"

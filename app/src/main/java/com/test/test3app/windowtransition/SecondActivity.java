@@ -8,7 +8,6 @@ import androidx.core.app.SharedElementCallback;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.test.test3app.R;
-import com.test.test3app.recyclerview.ChatLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;

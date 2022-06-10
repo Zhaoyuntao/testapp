@@ -9,7 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import com.test.test3app.R;
-import com.test.test3app.utils.StringUtils;
+import im.turbo.basetools.utils.StringUtils;
+
+import im.turbo.basetools.preconditions.Preconditions;
 
 /**
  * created by zhaoyuntao

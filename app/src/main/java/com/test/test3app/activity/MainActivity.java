@@ -12,11 +12,12 @@ import com.test.test3app.BaseActivity;
 import com.test.test3app.R;
 import com.test.test3app.appbase.ZRouter;
 import com.test.test3app.fastrecordviewnew.UiUtils;
-import com.test.test3app.textview.AutoSizeTextView;
 import com.zhaoyuntao.androidutils.tools.S;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import im.thebot.common.ui.chat.AutoSizeTextView;
 
 
 public class MainActivity extends BaseActivity {
@@ -44,7 +45,6 @@ public class MainActivity extends BaseActivity {
         zRouters.add(new ZRouter("spannable", MainActivity_97_textview_spannable.class));
         zRouters.add(new ZRouter("stickerReply", MainActivity_98_sticker_reply.class));
         zRouters.add(new ZRouter("dark mode", MainActivity_99_dark_mode.class));
-        zRouters.add(new ZRouter("ndk", MainActivity_990_cell.class));
         zRouters.add(new ZRouter("calculate", MainActivity_991_calculate.class));
         zRouters.add(new ZRouter("drawer", MainActivity_992_drawerLayout.class));
         zRouters.add(new ZRouter("gallery view", MainActivity_994_gallery_pager.class));
@@ -59,8 +59,10 @@ public class MainActivity extends BaseActivity {
         zRouters.add(new ZRouter("wam", MainActivity_9993_wam.class));
         zRouters.add(new ZRouter("NewPermission", MainActivity_9994_new_permission.class));
         zRouters.add(new ZRouter("mention", MainActivity_9995_mention.class));
+        zRouters.add(new ZRouter("slide", MainActivity_993_slide.class));
+        zRouters.add(new ZRouter("bubble", MainActivity_9996_bubble.class));
+        zRouters.add(new ZRouter("cell", MainActivity_990_cell.class));
         zRouters.add(new ZRouter("Event", MainActivity1_unknown.class));
-        zRouters.add(new ZRouter("slide", MainActivity_993_pulldown.class));
 
         init(zRouters);
     }

@@ -1,0 +1,164 @@
+<resources>
+    <string name="permission_app_name">permission</string>
+    <string name="permission_settings_open">SETTINGS</string>
+    <string name="permission_cancel">Not now</string>
+    <string name="permission_continue">CONTINUE</string>
+
+    <string name="permission_prime_cancel">CANCEL</string>
+    <string name="permission_prime_turn_on">TURN ON</string>
+
+    <string name="permission_contacts_storage_access_request">To easily connect with friends and family, and send and receive photos and videos, allow BOTIM access to your contacts and your device\'s phones, media, and files.</string>
+    <string name="permission_contacts_storage_access">To easily connect with friends and family, and send and receive photos and videos, allow BOTIM access to your contacts and your device\'s phones, media, and files.Tap Settings > Permissions, and turn Contacts and Storage on.</string>
+    <string name="permission_location_access_current_location">To use your current location, allow BOTIM access to your location.</string>
+
+    <string name="permission_phone_number">Please allow BOTIM to receive calls so that we call automatically confirm your phone number.</string>
+    <string name="permission_cam_access_on_wa_web_connect">To scan the QR code and log in to BOTIM Web, allow %s access to your camera. Tap Settings > Permissions, and turn Camera on.</string>
+    <string name="permission_cam_access_on_wa_web_connect_request">To log in to BOTIM Web, allow %s access to your camera so you can scan the QR code.</string>
+    <string name="permission_mic_access_on_incoming_call_request">To answer this call from %s, allow BOTIM access to your microphone.</string>
+    <string name="permission_mic_access_on_incoming_call">To answer this call from %s, allow BOTIM access to your microphone. Tap Settings > Permissions, and turn Microphone on.</string>
+    <string name="permission_storage_need_access">"Allow BOTIM access to your device's photos, media, and files and try again."</string>
+    <string name="permission_storage_need_read_on_viewing_media">"To view media, allow BOTIM access to your device's photos, media and files. Tap Settings > Permissions, and turn Storage on."</string>
+    <string name="permission_storage_need_read_on_viewing_media_request">"To view media, allow BOTIM access to your device's photos, media and files."</string>
+    <string name="permission_cam_access_request">To capture photos and videos, allow BOTIM access to your camera.</string>
+
+
+    <string name="permission_cam_access">To capture photos and videos, allow BOTIM access to your camera. Tap Settings > Permissions, and turn Camera on.</string>
+
+    <string name="permission_storage_cam_on_attaching_photo">"To send a photo, allow BOTIM access to your camera and your device's photos, media, and files. Tap Settings > Permissions, and turn Camera and Storage on."</string>
+    <string name="permission_storage_cam_on_attaching_photo_request">"To send a photo, allow BOTIM access to your camera and your device's photos, media, and files."</string>
+
+    <string name="permission_storage_need_write_access_on_attaching_photo">"To send a photo, allow BOTIM access to your device's photos, media, and files. Tap Settings > Permissions, and turn Storage on."</string>
+    <string name="permission_storage_need_write_access_on_attaching_photo_request">"To send a photo, allow BOTIM access to your device's photos, media, and files."</string>
+
+    <string name="permission_storage_cam_on_attaching_video">"To send a video, allow BOTIM access to your camera and your device's photos, media, and files. Tap Settings > Permissions, and turn Camera on and Storage on."</string>
+    <string name="permission_storage_cam_on_attaching_video_request">"To send a video, allow BOTIM access to your camera and your device's photos, media, and files."</string>
+
+    <string name="permission_storage_need_write_access_on_sending_media">"To send media, allow BOTIM access to your device's photos, media, and files. Tap Settings > Permissions, and turn Storage on."</string>
+    <string name="permission_storage_need_write_access_on_sending_media_request">"To send media, allow BOTIM access to your device's photos, media, and files."</string>
+
+    <string name="permission_contacts_access_on_sending_contact">To send a contact, allow BOTIM access to your contacts. Tap Settings > Permissions, and turn Contacts on.</string>
+    <string name="permission_contacts_access_on_sending_contact_request">To send a contact, allow BOTIM access to your contacts.</string>
+
+    <string name="permission_contacts_access_request">To help you connect with friends and family, allow BOTIM access to your contacts.</string>
+    <string name="permission_contacts_needed">To help you message friends and family on BOTIM, allow BOTIM access to your contacts. Tap Settings > Permissions, and turn Contacts on.</string>
+
+    <string name="permission_storage_need_write_access_on_record_audio">"To record a Voice Message, allow BOTIM access to your device's photos, media, and files. Tap Settings > Permissions, and turn Storage on."</string>
+    <string name="permission_storage_need_write_access_on_record_audio_request">"To record a Voice Message, allow BOTIM access to your device's photos, media, and files."</string>
+
+
+
+    <string name="permission_mic_access_request">To call, allow BOTIM access to your microphone.</string>
+
+    <string name="permission_mic_access">To call, allow BOTIM access to your microphone. Tap Settings > Permissions, and turn Microphone on.</string>
+
+
+
+
+    <string name="permission_cam_access_on_attaching_photo">To send a photo, allow BOTIM access to your camera. Tap Settings > Permissions, and turn Camera on.</string>
+    <string name="permission_cam_access_on_attaching_photo_request">To send a photo, allow BOTIM access to your camera.</string>
+    <string name="permission_cam_access_on_attaching_video">To send a video, allow BOTIM access to your camera. Tap Settings > Permissions, and turn Camera on.</string>
+    <string name="permission_cam_access_on_attaching_video_request">To send a video, allow BOTIM access to your camera.</string>
+    <string name="permission_cam_access_on_incoming_call">To answer this video call from %s, allow BOTIM access to your camera. Tap Settings > Permissions, and turn Camera on.</string>
+    <string name="permission_cam_access_on_incoming_call_locked_screen">To answer this video call from %s, allow BOTIM access to your camera. Tap Settings, unlock your phone, tap Permissions, and turn Camera on.</string>
+    <string name="permission_cam_access_on_incoming_call_locked_screen_request">To answer this video call from %s, tap Continue, unlock your phone, and allow BOTIM access to your camera.</string>
+    <string name="permission_cam_access_on_incoming_call_request">To answer this video call from %s, allow BOTIM access to your camera.</string>
+    <string name="permission_cam_access_on_outcoming_call_locked_screen">To place a video call to %s, allow BOTIM access to your camera. Tap Settings, unlock your phone, tap Permissions, and turn Camera on.</string>
+    <string name="permission_cam_access_on_outcoming_call_request">To place a video call to %s, allow BOTIM access to your camera.</string>
+    <string name="permission_cam_access_on_verify_identity">To scan a security code, allow BOTIM access to your camera. Tap Settings > Permissions, and turn Camera on.</string>
+    <string name="permission_cam_access_on_verify_identity_request">To scan a security code, allow BOTIM access to your camera.</string>
+    <string name="permission_cam_access_on_video_call">To video call, allow BOTIM access to your camera. Tap Settings > Permissions, and turn Camera on.</string>
+    <string name="permission_cam_access_on_video_call_request">To video call, allow BOTIM access to your camera.</string>
+
+    <string name="permission_cam_on_post_status">To send a status update, allow BOTIM access to your camera. Tap Settings > Permissions, and turn Camera on.</string>
+    <string name="permission_cam_on_post_status_request">To send a status update, allow BOTIM access to your camera.</string>
+    <string name="permission_contacts_access_for_gdrive_backup">To choose a Google account for backups, allow BOTIM access your contacts. Tap Settings > Permissions, and turn Contacts on.</string>
+    <string name="permission_contacts_access_for_gdrive_backup_request">To choose a Google account for backups, allow BOTIM access your contacts.</string>
+    <string name="permission_contacts_access_on_gdrive_restore">To find your backup on Google Drive, allow BOTIM access to your contacts. Tap Settings > Permissions, and turn Contacts on.</string>
+    <string name="permission_contacts_access_on_gdrive_restore_request">To find your backup on Google Drive, allow BOTIM access to your contacts.</string>
+    <string name="permission_contacts_access_on_new_broadcast">To create a broadcast with your friends and family, allow BOTIM access to your contacts. Tap Settings > Permissions, and turn Contacts on.</string>
+    <string name="permission_contacts_access_on_new_broadcast_request">To create a broadcast with your friends and family, allow BOTIM access to your contacts.</string>
+    <string name="permission_contacts_access_on_new_call">To make a call, allow BOTIM access to your contacts. Tap Settings > Permissions, and turn Contacts on.</string>
+    <string name="permission_contacts_access_on_new_call_request">To make a call, allow BOTIM access to your contacts.</string>
+    <string name="permission_contacts_access_on_new_group">To create a group with your friends and family, allow BOTIM access to your contacts. Tap Settings > Permissions, and turn Contacts on.</string>
+    <string name="permission_contacts_access_on_new_group_request">To create a group with your friends and family, allow BOTIM access to your contacts.</string>
+    <string name="permission_contacts_access_on_notify_contacts_change_number">To notify your friends and family that you have changed your number, allow BOTIM access to your contacts. Tap Settings > Permissions, and turn Contacts on.</string>
+    <string name="permission_contacts_access_on_notify_contacts_change_number_request">To notify your friends and family that you have changed your number, allow BOTIM access to your contacts.</string>
+
+    <string name="permission_location_access_on_sending_location">To send a nearby place or your location, allow BOTIM access to your location. Tap Settings > Permissions, and turn Location on.</string>
+    <string name="permission_location_access_on_sending_location_request">To send a nearby place or your location, allow BOTIM access to your location.</string>
+    <string name="permission_location_access_on_sending_location_short">To send locations tap Settings > Permissions, and turn Location on.</string>
+    <string name="permission_location_access_on_updating_location">To update your live location, allow BOTIM access to your location. Tap Settings > Permissions, and turn Location on.</string>
+    <string name="permission_location_access_on_updating_location_request">To update your live location, allow BOTIM access to your location.</string>
+    <string name="permission_mic_access_on_audio_msg">To record a Voice Message, allow BOTIM access to your microphone. Tap Settings > Permissions, and turn Microphone on.</string>
+    <string name="permission_mic_access_on_audio_msg_request">To record a Voice Message, allow BOTIM access to your microphone.</string>
+    <string name="permission_mic_access_on_incoming_call_locked_screen">To answer this call from %s, allow BOTIM access to your microphone. Tap Settings, unlock your phone, tap Permissions, and turn Microphone on.</string>
+    <string name="permission_mic_access_on_incoming_call_locked_screen_request">To answer this call from %s, tap Continue, unlock your phone, and allow BOTIM access to your microphone.</string>
+
+    <string name="permission_mic_access_on_video_recording">Want to record videos with sound? Allow BOTIM access to your microphone. Tap Settings > Permissions and turn Microphone on.</string>
+    <string name="permission_mic_access_on_video_recording_request">Want to record videos with sound? Allow BOTIM access to your microphone.</string>
+
+    <string name="permission_mic_and_cam_access_on_incoming_call">To answer this video call from %s, allow BOTIM access to your microphone and camera. Tap Settings > Permissions, and turn Microphone and Camera on.</string>
+    <string name="permission_mic_and_cam_access_on_incoming_call_locked_screen">To answer this video call from %s, allow BOTIM access to your microphone and camera. Tap Settings, unlock your phone, tap Permissions, and turn Microphone and Camera on.</string>
+    <string name="permission_mic_and_cam_access_on_incoming_call_locked_screen_request">To answer this video call from %s, tap Continue, unlock your phone, and allow BOTIM access to your microphone and camera.</string>
+    <string name="permission_mic_and_cam_access_on_incoming_call_request">To answer this video call from %s, allow BOTIM access to your microphone and camera.</string>
+    <string name="permission_mic_and_cam_on_video_call">To video call, allow BOTIM access to your microphone and camera. Tap Settings > Permissions, and turn Microphone and Camera on.</string>
+    <string name="permission_mic_and_cam_on_video_call_request">To video call, allow BOTIM access to your microphone and your camera.</string>
+    <string name="permission_send_sms_permission_needed">To verify your phone number, allow BOTIM to send SMS messages. Tap Settings > Permissions, and turn SMS on.</string>
+    <string name="permission_send_sms_request">To verify your phone number, allow BOTIM to send SMS messages.</string>
+    <string name="permission_send_sms_telephone_permission_needed">To verify your phone number, allow BOTIM to send SMS messages and make and manage phone calls. Tap Settings > Permissions, and turn SMS and phone on.</string>
+    <string name="permission_send_sms_telephone_request">To verify your phone number, allow BOTIM to send SMS messages and make and manage phone calls.</string>
+    <string name="permission_sms_request">To easily verify your number, BOTIM can automatically detect your verification code if you allow BOTIM to view SMS messages.</string>
+     <string name="permission_storage_cam_on_camera_access">"To capture photos and videos, allow BOTIM access to your camera and your device's photos, media, and files. Tap Settings > Permissions, and turn Camera on and Storage on."</string>
+    <string name="permission_storage_cam_on_camera_access_request">"To capture photos and videos, allow BOTIM access to your camera and your device's photos, media, and files."</string>
+    <string name="permission_storage_cam_on_post_status">"To send a status update, allow BOTIM access to your camera and your device's photos, media, and files. Tap Settings > Permissions, and turn Camera on and Storage on."</string>
+    <string name="permission_storage_cam_on_post_status_request">"To send a status update, allow BOTIM access to your camera and your device's photos, media, and files."</string>
+    <string name="permission_storage_contacts_on_gdrive_restore">"To find and restore your backup from Google Drive, allow BOTIM access to your contacts and your device's photos, media, and files. Tap Settings > Permissions, and turn Contact and Storage on."</string>
+    <string name="permission_storage_contacts_on_gdrive_restore_request">"To find and restore your backup from Google Drive, allow BOTIM access to your contacts and your device's photos, media, and files."</string>
+    <string name="permission_storage_mic_on_audio_msg">"To record a Voice Message, allow BOTIM access to your microphone and your device's photos, media, and files. Tap Settings > Permissions, and turn Microphone on and Storage on."</string>
+    <string name="permission_storage_mic_on_audio_msg_locked_screen">"To record a Voice Message, allow access to your microphone and your device's photos, media, and files. Tap Settings, unlock your phone, tap Permissions, and turn Microphone on and Storage on."</string>
+    <string name="permission_storage_mic_on_audio_msg_locked_screen_request">"To record a Voice Message, allow access to your microphone and your device's photos, media, and files by tapping continue and unlocking your phone."</string>
+    <string name="permission_storage_mic_on_audio_msg_request">"To record a Voice Message, allow BOTIM access to your microphone and your device's photos, media, and files."</string>
+
+    <string name="permission_storage_need_write_access">"Allow BOTIM access to your device's photos, media, and files. Tap Settings > Permissions, and turn Storage on."</string>
+     <string name="permission_storage_need_write_access_on_attaching_video">"To send a video, allow BOTIM access to your device's photos, media, and files. Tap Settings > Permissions, and turn Storage on."</string>
+    <string name="permission_storage_need_write_access_on_attaching_video_request">"To send a video, allow BOTIM access to your device's photos, media, and files."</string>
+    <string name="permission_storage_need_write_access_on_backup">"To back up your chats and media, allow BOTIM access your device's photos, media, and files. Tap Settings > Permissions, and turn Storage on."</string>
+    <string name="permission_storage_need_write_access_on_backup_request">"To back up your chats and media, allow BOTIM access your device's photos, media, and files."</string>
+    <string name="permission_storage_need_write_access_on_camera_access">"To capture photos and videos, allow BOTIM access to your device's photos, media, and files. Tap Settings > Permissions, and turn Storage on."</string>
+    <string name="permission_storage_need_write_access_on_camera_access_request">"To capture photos and videos, allow BOTIM access to your device's photos, media, and files."</string>
+    <string name="permission_storage_need_write_access_on_group_photo_update">"To update this group's icon, allow BOTIM access to your device's photos, media, and files. Tap Settings > Permissions, and turn Storage on."</string>
+    <string name="permission_storage_need_write_access_on_group_photo_update_request">"To update this group's icon, allow BOTIM access to your device's photos, media, and files."</string>
+    <string name="permission_storage_need_write_access_on_msg_download">"To download media, allow BOTIM access to your device's photos, media, and files. Tap Settings > Permissions, and turn Storage on."</string>
+    <string name="permission_storage_need_write_access_on_msg_download_request">"To download media, allow BOTIM access to your device's photos, media, and files."</string>
+    <string name="permission_storage_need_write_access_on_post_status">"To send a status update, allow BOTIM access to your device's photos, media, and files. Tap Settings > Permissions, and turn Storage on."</string>
+    <string name="permission_storage_need_write_access_on_post_status_request">"To send a status update, allow BOTIM access to your device's photos, media, and files."</string>
+    <string name="permission_storage_need_write_access_on_profile_photo_view">"To view profile photos, allow BOTIM access to your device's photos, media, and files. Tap Settings > Permissions, and turn Storage on."</string>
+    <string name="permission_storage_need_write_access_on_profile_photo_view_request">"To view profile photos, allow BOTIM access to your device's photos, media, and files."</string>
+    <string name="permission_storage_need_write_access_on_record_audio_locked_screen">"To record a Voice Message, allow access to your device's photos, media, and files. Tap Settings, unlock your phone, tap Permissions, and turn Storage on."</string>
+    <string name="permission_storage_need_write_access_on_record_audio_locked_screen_request">"To record a Voice Message, allow access to your device's photos, media, and files by tapping continue and unlocking your phone."</string>
+    <string name="permission_storage_need_write_access_on_restore_from_backup">"To restore from backup, allow BOTIM access to your device's photos, media, and files. Tap Settings > Permissions, and turn Storage on."</string>
+    <string name="permission_storage_need_write_access_on_restore_from_backup_request">"To restore from backup, allow BOTIM access to your device's photos, media, and files."</string>
+    <string name="permission_storage_need_write_access_on_restore_media">"To restore your media, allow BOTIM access your device's photos, media, and files. Tap Settings > Permissions, and turn Storage on."</string>
+    <string name="permission_storage_need_write_access_on_restore_media_request">"To restore your media, allow BOTIM access your device's photos, media, and files."</string>
+    <string name="permission_storage_need_write_access_on_sharing">"To share media, allow BOTIM access to your device's photos, media, and files. Tap Settings > Permissions, and turn Storage on."</string>
+    <string name="permission_storage_need_write_access_on_sharing_request">"To share media, allow BOTIM access to your device's photos, media, and files."</string>
+    <string name="permission_storage_need_write_access_on_status_view">"To view statuses, allow BOTIM access to your device's photos, media, and files. Tap Settings > Permissions, and turn Storage on."</string>
+    <string name="permission_storage_need_write_access_on_status_view_request">"To view statuses, allow BOTIM access to your device's photos, media, and files."</string>
+    <string name="permission_storage_need_write_access_on_storage_usage">"To share media, allow BOTIM access to your device's photos, media, and files. Tap Settings > Permissions, and turn Storage on."</string>
+    <string name="permission_storage_need_write_access_on_storage_usage_request">"To access storage usage, allow BOTIM access to your device's photos, media, and files."</string>
+    <string name="permission_storage_need_write_access_on_web_image_picking">"To set a group icon, allow BOTIM access to your device's photos, media, and files. Tap Settings > Permissions, and turn Storage on."</string>
+    <string name="permission_storage_need_write_access_on_web_image_picking_request">"To set a group icon, allow BOTIM access to your device's photos, media, and files."</string>
+    <string name="permission_storage_need_write_access_request">"Allow BOTIM access to your device's photos, media, and files and try again."</string>
+    <string name="permission_telephone_permission_needed">To verify your phone number, allow BOTIM to make and manage phone calls. Tap Settings > Permissions, and turn phone on.</string>
+    <string name="permission_telephone_request">To verify your phone number, allow BOTIM to make and manage phone calls.</string>
+    <string name="permission_unable_to_start_ptt_in_popup">To record a Voice Message, allow access to your microphone by tapping continue and unlocking your phone.</string>
+    <string name="permission_unable_to_start_ptt_in_popup_screen_locked">To record a Voice Message, allow access to your microphone. Tap Settings, unlock your phone, tap Permissions, and turn Microphone on.</string>
+
+	<!-- Created by automatic sync strings tools from ios key name(permission_physical_activity_request) file(en.lproj/Localizable.strings)-->
+	<string name="permission_physical_activity_request">Allow BOTIM to access your device\'s Physical activity.</string>
+	<!-- Created by automatic sync strings tools from ios key name(permission_physical_activity_restore) file(en.lproj/Localizable.strings)-->
+	<string name="permission_physical_activity_restore">Allow BOTIM to access your device\'s Physical activity. Tap Settings &gt; Permissions, and turn Physical activity on.</string>
+
+	<string name="permission_phone_and_mic_access">"To voice chat, allow BOTIM to access your microphone and manage phone calls"</string>
+	<string name="permission_phone_and_mic_access_request">"To voice chat, allow BOTIM to access your microphone and manage phone calls. Tap Settings > Permissions, and turn Microphone and phone on."</string>
+</resources>

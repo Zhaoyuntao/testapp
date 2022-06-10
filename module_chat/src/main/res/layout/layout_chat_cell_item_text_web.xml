@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <im.turbo.baseui.roundcornerlayout.RoundCornerLinearLayout
+        android:id="@+id/text_cell_container_web_preview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:background="@drawable/background_cell_content_me"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/text_cell_web_preview_icon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:visibility="gone" />
+
+        <im.turbo.baseui.roundcornerlayout.RoundCornerLinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_cell_web_preview_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:maxLines="1"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:textAlignment="viewStart"
+                android:textDirection="locale"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_cell_web_preview_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:maxLines="3"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:textAlignment="viewStart"
+                android:textColor="@color/grey00_aaffffff"
+                android:textDirection="locale"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_cell_web_preview_tail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:maxLines="1"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:textAlignment="viewStart"
+                android:textColor="@color/grey00_55ffffff"
+                android:textDirection="locale"
+                android:textSize="12sp"
+                android:visibility="gone" />
+        </im.turbo.baseui.roundcornerlayout.RoundCornerLinearLayout>
+    </im.turbo.baseui.roundcornerlayout.RoundCornerLinearLayout>
+
+    <im.thebot.common.ui.chat.TextCellContainer
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="6dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_cell_container_web_preview">
+
+        <im.thebot.common.ui.chat.CellTextView
+            android:id="@+id/text_view_base_text_cell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="start|center_vertical"
+            android:maxLength="4000"
+            android:paddingStart="3dp"
+            android:paddingTop="1.5dp"
+            android:paddingEnd="3dp"
+            android:paddingBottom="1.5dp"
+            android:textColor="@color/bot_text_message_color"
+            android:textSize="16sp"
+            tools:text="abcde" />
+
+        <include layout="@layout/layout_chat_cell_component_send_time" />
+    </im.thebot.common.ui.chat.TextCellContainer>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

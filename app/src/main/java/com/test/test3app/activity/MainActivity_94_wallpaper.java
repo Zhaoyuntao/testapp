@@ -3,13 +3,11 @@ package com.test.test3app.activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.SpannedString;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,13 +15,13 @@ import com.test.test3app.BaseActivity;
 import com.test.test3app.CommonAdapter;
 import com.test.test3app.CommonBean;
 import com.test.test3app.R;
-import com.test.test3app.recyclerview.ChatView;
 import com.test.test3app.wallpaper.AdapterImageView;
 import com.test.test3app.wallpaper.SessionLayoutManager;
-import com.zhaoyuntao.androidutils.tools.S;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import im.turbo.baseui.chat.ChatRecyclerView;
 
 public class MainActivity_94_wallpaper extends BaseActivity {
 
@@ -50,8 +48,8 @@ public class MainActivity_94_wallpaper extends BaseActivity {
         boolean stackFromEnd = false;
 
 
-        ChatView chatView = findViewById(R.id.recycler_view1);
-        ChatView chatView2 = findViewById(R.id.recycler_view2);
+        ChatRecyclerView chatView = findViewById(R.id.recycler_view1);
+        ChatRecyclerView chatView2 = findViewById(R.id.recycler_view2);
         CommonAdapter commonAdapter = new CommonAdapter(0);
         chatView.setAdapter(commonAdapter);
         CommonAdapter commonAdapter2 = new CommonAdapter(8);
@@ -80,7 +78,7 @@ public class MainActivity_94_wallpaper extends BaseActivity {
 
             @Override
             public void onClick(View v) {
-                chatView.setPreScrollPosition(12, 0);
+                chatView.setScrollToPosition(12, 0);
                 commonAdapter.initData(100);
             }
         });
@@ -88,7 +86,7 @@ public class MainActivity_94_wallpaper extends BaseActivity {
 
             @Override
             public void onClick(View v) {
-                chatView.scrollToPositionWithOffset(12, 0);
+                chatView.setScrollToPosition(12, 0);
             }
         });
 
@@ -161,7 +159,7 @@ public class MainActivity_94_wallpaper extends BaseActivity {
 //                }
 //            }
 //        });
-        chatView.setPreScrollPosition(12, 0);
+        chatView.setScrollToPosition(12, 0);
         commonAdapter.initData(50);
 
         EditText editText = findViewById(R.id.testtest2);

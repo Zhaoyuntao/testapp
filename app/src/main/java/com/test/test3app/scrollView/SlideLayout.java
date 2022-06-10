@@ -8,10 +8,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
 
-import com.zhaoyuntao.androidutils.tools.VibratorTool;
+import im.turbo.basetools.vibrate.VibratorUtil;
 
 /**
  * created by zhaoyuntao
@@ -41,6 +42,7 @@ public class SlideLayout extends ViewGroup {
         scrollerChild = new Scroller(context);
         touchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
         longClickTimeOut = ViewConfiguration.getLongPressTimeout();
+        setWillNotDraw(false);
     }
 
     @Override
@@ -51,6 +53,9 @@ public class SlideLayout extends ViewGroup {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
+        if (getChildCount() != 2) {
+            throw new RuntimeException("Please put two children in this layout");
+        }
         hideTailView = getChildAt(0);
         childView = getChildAt(1);
     }
@@ -61,24 +66,72 @@ public class SlideLayout extends ViewGroup {
         if (childCount > 2) {
             throw new RuntimeException("You can only put two children in this layout");
         }
-        int sizeWidth = MeasureSpec.getSize(widthMeasureSpec);
-        measureChildren(widthMeasureSpec, heightMeasureSpec);
-        int calculateHeight = Math.max(childView.getMeasuredHeight(), hideTailView.getMeasuredHeight());
-        setMeasuredDimension(sizeWidth, calculateHeight);
+        int sizeWidthMax = MeasureSpec.getSize(widthMeasureSpec);
+        int sizeHeightMax = MeasureSpec.getSize(heightMeasureSpec);
+        int sizeHeight = 0;
+        int paddingStart = getPaddingStart();
+        int paddingEnd = getPaddingEnd();
+        int paddingTop = getPaddingTop();
+        int paddingBottom = getPaddingBottom();
+
+        for (int i = 0; i < childCount; i++) {
+            View child = getChildAt(i);
+            SlideLayoutParams childLayoutParams = (SlideLayoutParams) child.getLayoutParams();
+            final int childWidthMeasureSpec;
+            if (childLayoutParams.width == FrameLayout.LayoutParams.MATCH_PARENT) {
+                childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(sizeWidthMax, MeasureSpec.EXACTLY);
+            } else {
+                childWidthMeasureSpec = getChildMeasureSpec(widthMeasureSpec, paddingStart + paddingEnd + childLayoutParams.leftMargin + childLayoutParams.rightMargin, childLayoutParams.width);
+            }
+            final int childHeightMeasureSpec;
+            if (childLayoutParams.height == FrameLayout.LayoutParams.MATCH_PARENT) {
+                final int childMaxWidth = Math.max(0, sizeHeightMax - paddingTop - paddingBottom - childLayoutParams.topMargin - childLayoutParams.bottomMargin);
+                childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(childMaxWidth, MeasureSpec.EXACTLY);
+            } else {
+                childHeightMeasureSpec = getChildMeasureSpec(heightMeasureSpec, paddingBottom + paddingBottom + childLayoutParams.topMargin + childLayoutParams.bottomMargin, childLayoutParams.height);
+            }
+
+            measureChild(child, childWidthMeasureSpec, childHeightMeasureSpec);
+            if (child.getMeasuredHeight() > sizeHeight) {
+                sizeHeight = child.getMeasuredHeight();
+            }
+        }
+        sizeHeight += (paddingTop + paddingBottom);
+        if (sizeHeightMax > 0) {
+            if (sizeHeight > sizeHeightMax || MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.EXACTLY) {
+                sizeHeight = sizeHeightMax;
+            }
+        }
+        setMeasuredDimension(sizeWidthMax, sizeHeight);
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         SlideLayoutParams layoutParams = (SlideLayoutParams) childView.getLayoutParams();
-        int leftMain = layoutParams.gravity == Gravity.START ? l + layoutParams.getMarginStart() : r - layoutParams.getMarginEnd() - childView.getMeasuredWidth();
-        int topMain = layoutParams.topMargin;
-        int rightMain = layoutParams.gravity == Gravity.START ? leftMain + childView.getMeasuredWidth() : r - layoutParams.getMarginEnd();
-        int bottomMain = topMain + childView.getMeasuredHeight();
+        int childWidth = childView.getMeasuredWidth();
+        int childHeight = childView.getMeasuredHeight();
+        final int layoutDirection = getLayoutDirection();
+        int paddingStart = getPaddingStart();
+        int paddingEnd = getPaddingEnd();
+        int paddingTop = getPaddingTop();
+        int paddingBottom = getPaddingBottom();
+        int widthView = getMeasuredWidth();
+        final int absoluteGravity = Gravity.getAbsoluteGravity(layoutParams.gravity, layoutDirection);
+        int leftMain;
+        int rightMain = widthView - layoutParams.rightMargin - paddingEnd;
+        if ((absoluteGravity & Gravity.HORIZONTAL_GRAVITY_MASK) == Gravity.LEFT) {
+            leftMain = paddingStart + layoutParams.leftMargin;
+        } else {
+            leftMain = rightMain - childWidth;
+        }
+        int topMain = paddingTop + layoutParams.topMargin;
+        int bottomMain = topMain + childHeight;
         childView.layout(leftMain, topMain, rightMain, bottomMain);
 
-        int leftFollow = l - hideTailView.getMeasuredWidth();
-        int rightFollow = l;
-        int topFollow = (int) (topMain + (getMeasuredHeight() - hideTailView.getMeasuredHeight()) / 2f);
+        SlideLayoutParams tailLayoutParams = (SlideLayoutParams) hideTailView.getLayoutParams();
+        int leftFollow = -hideTailView.getMeasuredWidth() - tailLayoutParams.getMarginEnd();
+        int rightFollow = -tailLayoutParams.getMarginEnd();
+        int topFollow = (int) ((getMeasuredHeight() - hideTailView.getMeasuredHeight()) / 2f);
         int bottomFollow = topFollow + hideTailView.getMeasuredHeight();
         hideTailView.layout(leftFollow, topFollow, rightFollow, bottomFollow);
         rightBorder = hideTailView.getMeasuredWidth();
@@ -111,11 +164,12 @@ public class SlideLayout extends ViewGroup {
                 isTimeOut = false;
                 isLongClicking = false;
                 timeDown = now;
+                xLast = xDown;
                 return true;
             case MotionEvent.ACTION_MOVE:
-                isDistanceOver = Math.abs(x - xDown) > touchSlop;
-                isTimeOut = (now - timeDown) > longClickTimeOut;
                 x = event.getRawX();
+                isDistanceOver = isDistanceOver || Math.abs(x - xDown) > touchSlop;
+                isTimeOut = (now - timeDown) > longClickTimeOut;
                 if (canSlide() && !isLongClicking && isDistanceOver) {
                     int scrolledXDistance = (int) (xLast - x);
                     if (getScrollX() + scrolledXDistance > 0) {
@@ -123,14 +177,16 @@ public class SlideLayout extends ViewGroup {
                         childView.scrollTo(0, 0);
                         if (listener != null) {
                             listener.onSlideDistanceChange(0);
+                            changeTailAlpha(0);
                         }
                     } else if (getScrollX() + scrolledXDistance < -rightBorder || childView.getScrollX() < 0) {
                         if (getScrollX() != -rightBorder) {
                             scrollTo(-rightBorder, 0);
-                            VibratorTool.vibrate(getContext());
+                            VibratorUtil.vibrate(getContext());
                             if (listener != null) {
                                 listener.onSlideDistanceChange(1);
                                 listener.onSlideToRight();
+                                changeTailAlpha(1);
                             }
                         }
                         childView.scrollBy(scrolledXDistance / 2, 0);
@@ -138,14 +194,16 @@ public class SlideLayout extends ViewGroup {
                         scrollBy(scrolledXDistance, 0);
                         childView.scrollTo(0, 0);
                         if (listener != null) {
-                            listener.onSlideDistanceChange(Math.abs(getScrollX()) / (float) Math.abs(rightBorder));
+                            float percent = Math.abs(getScrollX()) / (float) Math.abs(rightBorder);
+                            listener.onSlideDistanceChange(percent);
+                            changeTailAlpha(percent);
                         }
                     }
+                    xLast = x;
                 } else if (!isDistanceOver && !isLongClicking && isTimeOut) {
                     isLongClicking = true;
                     performLongClick();
                 }
-                xLast = x;
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
@@ -163,11 +221,16 @@ public class SlideLayout extends ViewGroup {
                 childView.invalidate();
                 if (listener != null) {
                     listener.onSlideDistanceChange(0);
+                    changeTailAlpha(0);
                     listener.onFingerUp(getScrollX() <= -rightBorder || childView.getScrollX() < 0);
                 }
                 break;
         }
         return super.onTouchEvent(event);
+    }
+
+    private void changeTailAlpha(float percent) {
+        hideTailView.setAlpha(percent);
     }
 
     private boolean canSlide() {
@@ -208,26 +271,6 @@ public class SlideLayout extends ViewGroup {
     public static class SlideLayoutParams extends LinearLayout.LayoutParams {
         public SlideLayoutParams(Context c, AttributeSet attrs) {
             super(c, attrs);
-        }
-
-        public SlideLayoutParams(int width, int height) {
-            super(width, height);
-        }
-
-        public SlideLayoutParams(int width, int height, float weight) {
-            super(width, height, weight);
-        }
-
-        public SlideLayoutParams(LayoutParams p) {
-            super(p);
-        }
-
-        public SlideLayoutParams(MarginLayoutParams source) {
-            super(source);
-        }
-
-        public SlideLayoutParams(LinearLayout.LayoutParams source) {
-            super(source);
         }
     }
 }

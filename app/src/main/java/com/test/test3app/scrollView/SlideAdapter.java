@@ -4,13 +4,15 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.test.test3app.R;
-import com.test.test3app.recyclerview.ChatCellContainer;
-import com.test.test3app.textview.BubbleView;
+import com.test.test3app.fastrecordviewnew.UiUtils;
+import im.thebot.chat.ui.view.BubbleView;
+import im.thebot.common.ui.chat.TextCellContainer;
 import com.zhaoyuntao.androidutils.tools.S;
 
 import java.util.ArrayList;
@@ -76,10 +78,17 @@ public class SlideAdapter extends RecyclerView.Adapter<SlideAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         final String text = mList.get(position);
-        if(position%2==0){
+        SlideLayout.SlideLayoutParams layoutParams = (SlideLayout.SlideLayoutParams) holder.rootView.getLayoutParams();
+        if (position % 2 == 0) {
             holder.slideLayout.setTag(" ");
-        }else{
+            layoutParams.setMarginEnd(UiUtils.dipToPx(48));
+            layoutParams.setMarginStart(0);
+            layoutParams.gravity = Gravity.START;
+        } else {
             holder.slideLayout.setTag(null);
+            layoutParams.setMarginEnd(0);
+            layoutParams.setMarginStart(UiUtils.dipToPx(48));
+            layoutParams.gravity = Gravity.END;
         }
         holder.bubbleView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +105,7 @@ public class SlideAdapter extends RecyclerView.Adapter<SlideAdapter.ViewHolder> 
                 return true;
             }
         });
-        holder.chatCellContainer.setText(text);
+        holder.textView.setText(text);
         S.s("onBindViewHolder[" + position + "]:" + text);
     }
 
@@ -120,8 +129,9 @@ public class SlideAdapter extends RecyclerView.Adapter<SlideAdapter.ViewHolder> 
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+        private final TextView textView;
         SlideLayout slideLayout;
-        ChatCellContainer chatCellContainer;
+        TextCellContainer textCellContainer;
         ViewGroup rootView;
         BubbleView bubbleView;
 
@@ -143,7 +153,7 @@ public class SlideAdapter extends RecyclerView.Adapter<SlideAdapter.ViewHolder> 
 
                 @Override
                 public boolean canSlide() {
-                    return slideLayout.getTag() != null;
+                    return true;//slideLayout.getTag() != null;
                 }
 
                 @Override
@@ -152,8 +162,9 @@ public class SlideAdapter extends RecyclerView.Adapter<SlideAdapter.ViewHolder> 
                 }
             });
 
-            chatCellContainer = itemView.findViewById(R.id.text_conversation_cell_simple_text);
+            textCellContainer = itemView.findViewById(R.id.text_conversation_cell_simple_text);
             rootView = itemView.findViewById(R.id.message_root_view);
+            textView = itemView.findViewById(R.id.cell_text);
             SlideLayout.SlideLayoutParams slideLayoutParams = (SlideLayout.SlideLayoutParams) rootView.getLayoutParams();
             slideLayoutParams.gravity = Gravity.END;
             slideLayout.setOnClickListener(new View.OnClickListener() {

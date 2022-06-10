@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.test.test3app.fastrecordviewnew.TouchEvent;
-import com.test.test3app.utils.BitmapUtils;
+import im.turbo.basetools.utils.BitmapUtils;
 
 /**
  * created by zhaoyuntao

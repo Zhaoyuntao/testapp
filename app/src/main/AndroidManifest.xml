@@ -71,6 +71,7 @@
         <activity android:name=".activity.MainActivity_9992_windowContentTransition" />
         <activity android:name=".activity.MainActivity_9993_wam" />
         <activity android:name=".activity.MainActivity_9994_new_permission" />
+        <activity android:name=".activity.MainActivity_9996_bubble" />
         <activity
             android:name=".activity.MainActivity_9995_mention"
             android:windowSoftInputMode="adjustResize" />
@@ -87,7 +88,7 @@
             android:name=".activity.MainActivity_992_drawerLayout"
             android:theme="@style/Theme.AppCompat" />
         <activity
-            android:name=".activity.MainActivity_993_pulldown"
+            android:name=".activity.MainActivity_993_slide"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".MainActivity_inputbar"
@@ -96,20 +97,6 @@
         <activity android:name=".layoutmanager.TanTanAvatarActivity" />
         <activity android:name=".layoutmanager.LoopGalleryActivity" />
 
-        <provider
-            android:name=".MyContentProvider"
-            android:authorities="${applicationId}.myProvider"
-            android:enabled="true"
-            android:exported="true" />
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.photo"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
     </application>
 
 </manifest>

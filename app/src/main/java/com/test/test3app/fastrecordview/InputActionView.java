@@ -23,7 +23,7 @@ import androidx.annotation.Nullable;
 import com.test.test3app.R;
 import com.test.test3app.fastrecordviewnew.LanguageUtils;
 import com.test.test3app.interpolator.ZLoopThread;
-import com.test.test3app.utils.BitmapUtils;
+import im.turbo.basetools.utils.BitmapUtils;
 import com.zhaoyuntao.androidutils.tools.S;
 import com.zhaoyuntao.androidutils.tools.TextMeasure;
 

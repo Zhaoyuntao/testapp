@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.test.test3app.utils.BitmapUtils;
+import im.turbo.basetools.utils.BitmapUtils;
 
 /**
  * created by zhaoyuntao

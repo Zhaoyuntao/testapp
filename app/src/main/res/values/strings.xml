@@ -23,7 +23,7 @@
     <string name="string_dialog_permission_remind_positive">Settings</string>
     <string name="asdasdadsa"><![CDATA[reBr&tami=&s9E0et*u=wa]]></string>
     <string name="string_abc">abckdnsjn %1$s jnacas</string>
-
+    <string name="chats_listview_messagenumber" formatted="false">%d messages</string>
     <array name="com_google_android_gms_fonts_certs">
         <item>@array/com_google_android_gms_fonts_certs_dev</item>
         <item>@array/com_google_android_gms_fonts_certs_prod</item>

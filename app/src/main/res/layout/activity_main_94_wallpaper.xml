@@ -34,14 +34,14 @@
             android:background="@null"
             android:orientation="horizontal">
 
-            <com.test.test3app.recyclerview.ChatView
+            <im.turbo.baseui.chat.ChatRecyclerView
                 android:id="@+id/recycler_view1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@null" />
 
-            <com.test.test3app.recyclerview.ChatView
+            <im.turbo.baseui.chat.ChatRecyclerView
                 android:id="@+id/recycler_view2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

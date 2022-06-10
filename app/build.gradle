@@ -54,6 +54,7 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
 
     api project(":mylibrary")
+    api project(":module_chat")
 
     implementation 'com.google.android.gms:play-services-ads:10.6.0'
 

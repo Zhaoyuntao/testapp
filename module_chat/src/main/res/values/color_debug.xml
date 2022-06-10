@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingDefaultResource">
+    <color name="color_bubble_debug_info_stroke">#e6d8c5</color>
+    <color name="color_bubble_debug_info_normal">#00b951</color>
+    <color name="color_bubble_debug_info_error">#e4281d</color>
+    <color name="color_bubble_debug_info_text_color_normal">#C8FF64</color>
+    <color name="color_bubble_debug_info_text_color_error">#FFFF78</color>
+    <color name="color_bubble_debug_info_orange03">#ffa726</color>
+    <color name="color_bubble_debug_info_light_green01">#e4f9e9</color>
+</resources>
