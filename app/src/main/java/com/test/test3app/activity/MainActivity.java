@@ -62,7 +62,7 @@ public class MainActivity extends BaseActivity {
         zRouters.add(new ZRouter("slide", MainActivity_993_slide.class));
         zRouters.add(new ZRouter("bubble", MainActivity_9996_bubble.class));
         zRouters.add(new ZRouter("cell", MainActivity_990_cell.class));
-        zRouters.add(new ZRouter("Event", MainActivity1_unknown.class));
+        zRouters.add(new ZRouter("Event", MainActivity1_chat.class));
 
         init(zRouters);
     }

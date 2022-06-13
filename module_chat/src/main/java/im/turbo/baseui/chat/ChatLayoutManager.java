@@ -22,6 +22,7 @@ public class ChatLayoutManager extends LinearLayoutManager {
     private final Context context;
     private volatile boolean isLastItemVisible;
     private boolean isCurrentScrolling;
+    private int extentLast;
 
     public ChatLayoutManager(Context context) {
         super(context);
@@ -35,16 +36,17 @@ public class ChatLayoutManager extends LinearLayoutManager {
     public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
         if (state.getItemCount() > 0) {
             if (initialPosition >= 0) {
-                S.s("initialPosition >= 0");
                 scrollToPositionWithOffset(initialPosition, initialOffset);
                 initialPosition = -1;
                 initialOffset = -1;
             } else {
                 int extent = computeVerticalScrollExtent(state);
                 int range = computeVerticalScrollRange(state);
+                boolean extentChanged = extent > 0 && extentLast > 0 && extent != extentLast;
+                extentLast = extent;
                 int lastItemPosition = Math.max(state.getItemCount() - 1, 0);
-                if (range > extent && isLastItemVisible && !isCurrentScrolling) {
-                    scrollToPositionWithOffset(lastItemPosition, 0);
+                if (range > extent && isLastItemVisible && !isCurrentScrolling && extentChanged) {
+                    scrollToPositionWithOffset(lastItemPosition, -123456789);
                 }
             }
         }

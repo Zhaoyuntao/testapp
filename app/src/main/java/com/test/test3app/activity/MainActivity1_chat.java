@@ -17,7 +17,7 @@ import im.thebot.chat.mvp.presenter.ChatPresenter;
 import im.thebot.chat.ui.adapter.ChatAdapter;
 import im.turbo.baseui.chat.ChatLayoutManager;
 
-public class MainActivity1_unknown extends BaseActivity {
+public class MainActivity1_chat extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -11,7 +11,7 @@ import im.turbo.basetools.util.ValueSafeTransfer;
  * description:
  */
 public class SdkFactory {
-    private static final MessageSdk chatSdk = ValueSafeTransfer.from("com.sdk.chat.api.MessageSdkImpl");
+    private static final MessageSdk chatSdk = new MessageSdk();
 
     @NonNull
     public static MessageSdk getChatSdk() {

@@ -25,13 +25,6 @@ public abstract class BaseCell<M extends MessageBeanForUI> {
     public BaseCell() {
     }
 
-    //    public <T extends View> T findViewById(@IdRes int id) {
-//        return root.findViewById(id);
-//    }
-//
-//    public Context getContext() {
-//        return root.getContext();
-//    }
     final public void setPresenter(ChatPresenter presenter) {
         this.presenter = presenter;
     }
@@ -161,7 +154,7 @@ public abstract class BaseCell<M extends MessageBeanForUI> {
     }
 
     public boolean isSupportClick() {
-        return true;
+        return !presenter.isSelecting();
     }
 
     public boolean isSupportLongClick() {

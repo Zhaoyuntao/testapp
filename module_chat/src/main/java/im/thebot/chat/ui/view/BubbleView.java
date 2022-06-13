@@ -81,31 +81,33 @@ public class BubbleView extends ChatViewGroup {
         int childCount = getChildCount();
         int paddingStart = getPaddingStart();
         int paddingEnd = getPaddingEnd();
-        int maxWidth = 0;
         int maxHeight = 0;
         int paddingTop = getPaddingTop();
         int paddingBottom = getPaddingBottom();
         int measureCount = 0;
-//        S.v(true, "BubbleView.onMeasure: --------------------------------------------------------> ", widthMeasureSpec, heightMeasureSpec, this);
+        boolean useMaxWidth = MeasureSpec.getMode(widthMeasureSpec) != MeasureSpec.AT_MOST;
+        int childMaxWidth = 0;
+        int selfMaxWidth = MeasureSpec.getSize(widthMeasureSpec);
+        S.v(true, "BubbleView.onMeasure: --------------------------------------------------------> ", widthMeasureSpec, heightMeasureSpec, this);
         for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);
             if (child != null && child.getVisibility() != GONE) {
                 MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
-                lp.width = LayoutParams.WRAP_CONTENT;
+                lp.width = useMaxWidth ? LayoutParams.MATCH_PARENT : LayoutParams.WRAP_CONTENT;
 //                S.s(true, ">>>>>> [" + child.getClass().getSimpleName() + "].measure  -------> " + lp.width + " " + lp.height);
                 measureChildWithMargins(child, widthMeasureSpec, heightMeasureSpec, lp);
                 int childWidth = child.getMeasuredWidth();
                 int childHeight = child.getMeasuredHeight();
 //                S.s(true, ">>>>>> [" + child.getClass().getSimpleName() + "].measure result w:" + childWidth + " h:" + childHeight + "  leftMargin:" + lp.leftMargin + " rightMargin:" + lp.rightMargin);
-                maxWidth = Math.max(maxWidth, childWidth + lp.leftMargin + lp.rightMargin);
+                childMaxWidth = Math.max(childMaxWidth, childWidth + lp.leftMargin + lp.rightMargin);
                 maxHeight += (childHeight + lp.topMargin + lp.bottomMargin);
                 measureCount++;
             }
         }
 //        S.s(true, "first finish --------------------------------------------------------------------------------------------------------------- result: w:" + maxWidth + " h:" + maxHeight);
-        maxWidth += (paddingStart + paddingEnd);
+        childMaxWidth += (paddingStart + paddingEnd);
         int height;
-        if (measureCount <= 1) {
+        if (useMaxWidth || measureCount <= 1) {
             height = maxHeight;
         } else {
             height = 0;
@@ -115,7 +117,7 @@ public class BubbleView extends ChatViewGroup {
                     MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
                     lp.width = LayoutParams.MATCH_PARENT;
 //                S.s(true, ">>>>>> [" + child.getClass().getSimpleName() + "].measure  -------> " + lp.width + " " + lp.height);
-                    int childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(maxWidth, MeasureSpec.EXACTLY);
+                    int childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(childMaxWidth, MeasureSpec.EXACTLY);
                     measureChildWithMargins(child, childWidthMeasureSpec, heightMeasureSpec, lp);
                     int childWidth = child.getMeasuredWidth();
                     int childHeight = child.getMeasuredHeight();
@@ -126,7 +128,7 @@ public class BubbleView extends ChatViewGroup {
         }
         height += (paddingTop + paddingBottom);
 //        S.s(true, "second finish ------------------------------------------------- result: w:" + maxWidth + " h:" + height);
-        setMeasuredDimension(maxWidth, height);
+        setMeasuredDimension(useMaxWidth ? selfMaxWidth : childMaxWidth, height);
     }
 
     @Override
@@ -171,16 +173,18 @@ public class BubbleView extends ChatViewGroup {
 
     @Override
     public void draw(Canvas canvas) {
-        int width = getWidth();
-        int height = getHeight();
-        setPath(width, height);
-        paint.reset();
-        paint.setColor(isPressed() ? backgroundColorPressed : backgroundColor);
-        paint.setShadowLayer(shadow, shadow / 2f, shadow / 2f, backgroundShadowColor);
-        canvas.save();
-        canvas.setDrawFilter(paintFlagsDrawFilter);
-        canvas.drawPath(path, paint);
-        canvas.restore();
+        if (Gravity.getAbsoluteGravity(gravity, getLayoutDirection()) != Gravity.CENTER) {
+            int width = getWidth();
+            int height = getHeight();
+            setPath(width, height);
+            paint.reset();
+            paint.setColor(isPressed() ? backgroundColorPressed : backgroundColor);
+            paint.setShadowLayer(shadow, shadow / 2f, shadow / 2f, backgroundShadowColor);
+            canvas.save();
+            canvas.setDrawFilter(paintFlagsDrawFilter);
+            canvas.drawPath(path, paint);
+            canvas.restore();
+        }
         super.draw(canvas);
     }
 

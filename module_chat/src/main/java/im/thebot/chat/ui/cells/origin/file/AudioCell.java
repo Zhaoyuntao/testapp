@@ -5,12 +5,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatSeekBar;
 
 import com.example.module_chat.R;
 
 import im.thebot.chat.api.chat.message.AudioMessageForUI;
 import im.thebot.chat.ui.cells.origin.base.BaseFileCell;
+import im.thebot.chat.ui.view.ChatSlideProgressView;
 import im.turbo.baseui.chat.SmoothSwitchFrameLayout;
 
 
@@ -24,10 +24,8 @@ public class AudioCell extends BaseFileCell<AudioMessageForUI> {
     private ImageView playView;
     private ImageView playingView;
     private TextView durationView;
-    private ImageView unreadView;
-    private AppCompatSeekBar slider;
+    private ChatSlideProgressView progressView;
     private SmoothSwitchFrameLayout smoothSwitchFrameLayout;
-    private static final int SLIDER_MAX_RANGE = 10000;
 
     public AudioCell(Context context) {
         super(context);
@@ -45,11 +43,8 @@ public class AudioCell extends BaseFileCell<AudioMessageForUI> {
 
     @Override
     protected void initTextTypeView(@NonNull Context context) {
-        slider = findViewById(R.id.slider_audio_chat_cell);
-        slider.setMax(SLIDER_MAX_RANGE);
-        slider.setProgress(0);
+        progressView = findViewById(R.id.audio_chat_cell_play_progress);
         playView = findViewById(R.id.audio_conversation_cell_play);
-        unreadView = findViewById(R.id.audio_chat_cell_unread_point);
         playingView = findViewById(R.id.audio_chat_cell_playing);
         durationView = findViewById(R.id.audio_chat_cell_duration);
         smoothSwitchFrameLayout = findViewById(R.id.audio_chat_cell_play_switch);
@@ -67,7 +62,22 @@ public class AudioCell extends BaseFileCell<AudioMessageForUI> {
 
     @Override
     protected void onFileMessageInit(@NonNull AudioMessageForUI message) {
+        progressView.setCallBack(new ChatSlideProgressView.CallBack() {
+            @Override
+            public void whenStartDragging(float percent) {
 
+            }
+
+            @Override
+            public void whenDragging(float percent) {
+
+            }
+
+            @Override
+            public void whenStopDragging(float percent) {
+
+            }
+        });
     }
 
     @Override

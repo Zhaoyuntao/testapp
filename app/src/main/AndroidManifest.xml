@@ -52,7 +52,7 @@
         <activity android:name=".activity.MainActivity_95_textview" />
         <activity android:name=".activity.MainActivity93_threadPool" />
         <activity android:name=".activity.MainActivity91_Qmoji" />
-        <activity android:name=".activity.MainActivity1_unknown" />
+        <activity android:name=".activity.MainActivity1_chat" />
         <activity android:name=".activity.MainActivity92_huawei_meeting" />
         <activity android:name=".activity.MainActivity9_openGL" />
         <activity android:name=".activity.MainActivity8_permission" />

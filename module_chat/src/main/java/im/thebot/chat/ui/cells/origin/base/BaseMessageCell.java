@@ -97,11 +97,6 @@ public abstract class BaseMessageCell<M extends MessageBeanForUI> extends BaseCe
         return R.color.white;
     }
 
-    @Override
-    public boolean isSupportClick() {
-        return !presenter.isSelecting();
-    }
-
     public void onSetTimestamp(@NonNull M messageBean, String timeString) {
 
     }

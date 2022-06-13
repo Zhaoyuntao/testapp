@@ -1,5 +1,6 @@
 package im.thebot.chat.mvp.presenter;
 
+import im.thebot.chat.api.chat.message.AudioMessageForUI;
 import im.thebot.chat.api.chat.message.MessageBeanForUI;
 import im.thebot.chat.api.chat.message.TextMessageForUI;
 import im.thebot.user.ContactUtil;
@@ -16,43 +17,66 @@ public class ChatPresenter {
     ListItemSelector<MessageBeanForUI> selector = new ListItemSelector<>();
 
     public ChatPresenter() {
-        long time = System.currentTimeMillis();
 
         TextMessageForUI message0 = new TextMessageForUI();
-        message0.setSessionId(ContactUtil.uidGroup);
         message0.setSenderUid(ContactUtil.uidMe);
-        message0.setTimeSend(time++);
         message0.setContent("HelloHello");
 
         TextMessageForUI message1 = new TextMessageForUI();
-        message1.setSessionId(ContactUtil.uidGroup);
         message1.setSenderUid(ContactUtil.uidMe);
-        message1.setTimeSend(time++);
         message1.setContent("Hello\nHello\nHello\nHello");
 
         TextMessageForUI message2 = new TextMessageForUI();
-        message2.setSessionId(ContactUtil.uidGroup);
         message2.setSenderUid(ContactUtil.uidOther);
         message2.setMessageReply(message0);
-        message2.setTimeSend(time++);
         message2.setContent("Hello\nHello\nHello\nHello");
 
         TextMessageForUI message3 = new TextMessageForUI();
-        message3.setSessionId(ContactUtil.uidGroup);
         message3.setSenderUid(ContactUtil.uidOther2);
         message3.setMessageReply(message1);
-        message3.setTimeSend(time++);
         message3.setContent("123455");
 
-//        selector.addData(message0);
-//        selector.addData(message1);
-//        selector.addData(message2);
-        selector.addData(message3);
+        AudioMessageForUI audioMessage = new AudioMessageForUI();
+        audioMessage.setSenderUid(ContactUtil.uidOther2);
+        audioMessage.setAudioDuration(3000);
+        audioMessage.setAudioPlayedTime(1);
+
+        TextMessageForUI message4 = new TextMessageForUI();
+        message4.setSenderUid(ContactUtil.uidOther2);
+        message4.setMessageReply(message1);
+        message4.setContent("123455");
+        TextMessageForUI message5 = new TextMessageForUI();
+        message5.setSenderUid(ContactUtil.uidOther2);
+        message5.setMessageReply(message1);
+        message5.setContent("123455");
+        TextMessageForUI message6 = new TextMessageForUI();
+        message6.setSenderUid(ContactUtil.uidOther2);
+        message6.setMessageReply(message1);
+        message6.setContent("123455");
+        TextMessageForUI message7 = new TextMessageForUI();
+        message7.setSenderUid(ContactUtil.uidOther2);
+        message7.setMessageReply(message1);
+        message7.setContent("123455");
+
+        selector.addData(message0);
+        selector.addData(message1);
+        selector.addData(message2);
+        selector.addData(message7);
+        selector.addData(audioMessage);
+        selector.addData(message4);
+        selector.addData(message5);
+        selector.addData(message6);
+        selector.addData(message7);
 
         ValueSafeTransfer.iterate(selector.getData(), new ValueSafeTransfer.ElementIterator<MessageBeanForUI>() {
+            long time = System.currentTimeMillis();
+
             @Override
-            public MessageBeanForUI element(int position, MessageBeanForUI messageBeanForUI) {
-                messageBeanForUI.setCanBeReplied(true);
+            public MessageBeanForUI element(int position, MessageBeanForUI message) {
+                audioMessage.setSessionId(ContactUtil.uidGroup);
+                message.setCanBeReplied(true);
+                message.setTimeSend(time++);
+                message.setUUID(String.valueOf(message.getTimeSend()));
                 return null;
             }
         });
