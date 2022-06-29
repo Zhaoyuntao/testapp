@@ -49,10 +49,10 @@ public class ChatHeadLayout extends ChatViewGroup {
         headRect = new Rect();
         float radius;
         if (attrs != null) {
-            TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.ExactlyFrameLayout);
-            radius = typedArray.getDimensionPixelSize(R.styleable.ExactlyFrameLayout_ExactlyFrameLayout_radius, 0);
-            headWidth = typedArray.getDimensionPixelSize(R.styleable.ExactlyFrameLayout_ExactlyFrameLayout_headWidth, 0);
-            headColor = typedArray.getColor(R.styleable.ExactlyFrameLayout_ExactlyFrameLayout_headColor, defaultHeadColor);
+            TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.ChatHeadLayout);
+            radius = typedArray.getDimensionPixelSize(R.styleable.ChatHeadLayout_ChatHeadLayout_radius, 0);
+            headWidth = typedArray.getDimensionPixelSize(R.styleable.ChatHeadLayout_ChatHeadLayout_headWidth, 0);
+            headColor = typedArray.getColor(R.styleable.ChatHeadLayout_ChatHeadLayout_headColor, defaultHeadColor);
             typedArray.recycle();
         } else {
             radius = 0;
@@ -104,7 +104,7 @@ public class ChatHeadLayout extends ChatViewGroup {
         width += (getPaddingStart() + getPaddingEnd());
         height += (getPaddingTop() + getPaddingBottom());
         setMeasuredDimension(width, height);
-//        S.ve(true, "ExactlyFrameLayout.onMeasure: ----------------------------->[w:" + width + "][h:" + height + "] ", widthMeasureSpec, heightMeasureSpec, this);
+//        S.ve(true, "ChatHeadLayout.onMeasure: ----------------------------->[w:" + width + "][h:" + height + "] ", widthMeasureSpec, heightMeasureSpec, this);
     }
 
     @Override
@@ -117,7 +117,7 @@ public class ChatHeadLayout extends ChatViewGroup {
         int childCount = getChildCount();
         int paddingStart = getPaddingStart();
         int paddingTop = getPaddingTop();
-//        S.e("ExactlyFrameLayout.layout: -----------------------------> l:" + l + "  r:" + r);
+//        S.e("ChatHeadLayout.layout: -----------------------------> l:" + l + "  r:" + r);
         if (childCount > 0) {
             View child = getChildAt(0);
             if (child == null || child.getVisibility() == GONE) {

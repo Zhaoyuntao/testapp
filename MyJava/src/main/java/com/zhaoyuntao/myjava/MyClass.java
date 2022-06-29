@@ -39,9 +39,11 @@ public class MyClass {
 //        test(PatternUtils.WEB_URL, "撒库拉代码了123.233.23.2卡里打卡啦");
 //        test(PatternUtils.WEB_URL, "撒库拉代码了yuntao.zhao@gmail.com卡里打卡啦");
 
-        test(PatternUtils.PATTERN_MENTION, "@\u2068Hello world\u2068");
+//        test(PatternUtils.PATTERN_MENTION, "@\u2068Hello world\u2068");
+//
+//        S.s(PatternUtils.matched(".*((?i)json).*","DbJson"));
 
-        S.s(PatternUtils.matched(".*((?i)json).*","DbJson"));
+        S.s("select_*_from_A_where_a\\_a=_1".replaceAll("(?<!\\\\)_", " ").replaceAll("\\\\_","_"));
     }
 
     public static void test(String patternString, String content) {

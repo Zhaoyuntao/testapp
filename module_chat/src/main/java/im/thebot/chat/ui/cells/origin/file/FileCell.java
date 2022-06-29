@@ -35,10 +35,6 @@ public class FileCell extends BaseFileCell<FileMessageForUI> {
     private View backgroundView;
     private TProgressView progressView;
 
-    public FileCell(Context context) {
-        super(context);
-    }
-
     @Override
     public int setLayout() {
         return R.layout.layout_chat_cell_item_file;

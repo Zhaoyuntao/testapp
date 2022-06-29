@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:background="#f2f2f7"
-    tools:context=".activity.MainActivity6_pay">
+    tools:context=".activity.Activity_6_pay">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -8,6 +8,7 @@ import im.thebot.api.chat.constant.FileStatusCode;
 import im.thebot.api.chat.listener.FileStatusBean;
 import im.thebot.chat.api.chat.listener.FileListener;
 import im.thebot.chat.api.chat.message.BaseFileMessageForUI;
+import im.thebot.chat.api.chat.message.MessageBeanForUI;
 
 /**
  * created by zhaoyuntao
@@ -46,5 +47,9 @@ public class MessageSdk {
 
     public void cancelUploadFile(String sessionId, String uuid) {
 
+    }
+
+    public MessageBeanForUI loadMessage(String sessionId, String uuid) {
+        return null;
     }
 }

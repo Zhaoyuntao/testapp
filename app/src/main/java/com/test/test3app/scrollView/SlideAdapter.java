@@ -78,7 +78,7 @@ public class SlideAdapter extends RecyclerView.Adapter<SlideAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         final String text = mList.get(position);
-        SlideLayout.SlideLayoutParams layoutParams = (SlideLayout.SlideLayoutParams) holder.rootView.getLayoutParams();
+        SlideLayoutOld.SlideLayoutParams layoutParams = (SlideLayoutOld.SlideLayoutParams) holder.rootView.getLayoutParams();
         if (position % 2 == 0) {
             holder.slideLayout.setTag(" ");
             layoutParams.setMarginEnd(UiUtils.dipToPx(48));
@@ -130,7 +130,7 @@ public class SlideAdapter extends RecyclerView.Adapter<SlideAdapter.ViewHolder> 
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView textView;
-        SlideLayout slideLayout;
+        SlideLayoutOld slideLayout;
         TextCellContainer textCellContainer;
         ViewGroup rootView;
         BubbleView bubbleView;
@@ -140,7 +140,7 @@ public class SlideAdapter extends RecyclerView.Adapter<SlideAdapter.ViewHolder> 
             super(itemView);
             slideLayout = itemView.findViewById(R.id.slide_view);
             bubbleView = itemView.findViewById(R.id.bubble_view);
-            slideLayout.setSlideListener(new SlideLayout.SlideListener() {
+            slideLayout.setSlideListener(new SlideLayoutOld.SlideListener() {
                 @Override
                 public void onFingerUp(boolean slideToRight) {
 //                    S.s("onFingerUp: slideToRight: " + slideToRight);
@@ -165,7 +165,7 @@ public class SlideAdapter extends RecyclerView.Adapter<SlideAdapter.ViewHolder> 
             textCellContainer = itemView.findViewById(R.id.text_conversation_cell_simple_text);
             rootView = itemView.findViewById(R.id.message_root_view);
             textView = itemView.findViewById(R.id.cell_text);
-            SlideLayout.SlideLayoutParams slideLayoutParams = (SlideLayout.SlideLayoutParams) rootView.getLayoutParams();
+            SlideLayoutOld.SlideLayoutParams slideLayoutParams = (SlideLayoutOld.SlideLayoutParams) rootView.getLayoutParams();
             slideLayoutParams.gravity = Gravity.END;
             slideLayout.setOnClickListener(new View.OnClickListener() {
                 @Override

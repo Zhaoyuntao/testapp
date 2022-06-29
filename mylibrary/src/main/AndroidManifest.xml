@@ -1,2 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.doctor.mylibrary" />
+    package="com.doctor.mylibrary">
+
+    <application>
+
+        <activity
+            android:name="im.turbo.baseui.permission.PermissionBridgeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="behind"
+            android:theme="@style/Transparent" />
+    </application>
+</manifest>

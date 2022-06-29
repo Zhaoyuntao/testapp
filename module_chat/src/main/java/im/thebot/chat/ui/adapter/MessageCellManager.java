@@ -150,35 +150,34 @@ public class MessageCellManager {
     /**
      * get cell view by message type
      *
-     * @param context
      * @param viewType
      * @return
      */
-    public static BaseMessageCell<?> getChatCellByViewType(Context context, @MessageCellCode int viewType) {
+    public static BaseMessageCell<?> getChatCellByViewType(@MessageCellCode int viewType) {
         switch (viewType) {
             case TYPE_CELL_DELETED:
-                return new WithdrawCell(context);
+                return new WithdrawCell();
             case TYPE_CELL_DEBUG_LOG:
-                return new DebugLogCell(context);
+                return new DebugLogCell();
             case TYPE_CELL_DEBUG_COMMAND:
-                return new DebugCommandCell(context);
+                return new DebugCommandCell();
             case TYPE_CELL_GROUP_EVENT:
-                return new SystemEventCell(context);
+                return new SystemEventCell();
             case TYPE_CELL_FILE:
-                return new FileCell(context);
+                return new FileCell();
             case TYPE_CELL_IMAGE:
-                return new ImageCell(context);
+                return new ImageCell();
             case TYPE_CELL_VIDEO:
-                return new VideoCell(context);
+                return new VideoCell();
             case TYPE_CELL_TEXT:
-                return new TextCell(context);
+                return new TextCell();
             case TYPE_CELL_AUDIO:
-                return new AudioCell(context);
+                return new AudioCell();
             case TYPE_CELL_LOCATION:
-                return new LocationCell(context);
+                return new LocationCell();
             case TYPE_CELL_UNKNOWN:
             default:
-                return new UnsupportedCell(context);
+                return new UnsupportedCell();
         }
     }
 

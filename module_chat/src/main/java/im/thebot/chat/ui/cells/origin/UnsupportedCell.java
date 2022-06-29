@@ -18,10 +18,6 @@ import im.thebot.chat.ui.cells.origin.base.BaseMessageCell;
 public class UnsupportedCell extends BaseMessageCell<UnsupportedMessageForUI> {
     private TextView textView;
 
-    public UnsupportedCell(Context context) {
-        super();
-    }
-
     @Override
     public int setLayout() {
         return R.layout.layout_chat_cell_item_unsupported;

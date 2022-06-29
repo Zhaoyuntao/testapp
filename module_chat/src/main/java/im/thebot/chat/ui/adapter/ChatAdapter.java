@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.module_chat.R;
@@ -24,6 +25,7 @@ import im.thebot.user.ContactUtil;
 import im.turbo.basetools.selector.DiffHelper;
 import im.turbo.basetools.time.TimeUtils;
 import im.turbo.baseui.clicklistener.AvoidDoubleClickListener;
+import im.turbo.utils.log.S;
 
 /**
  * created by zhaoyuntao
@@ -46,7 +48,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatItemHolder> implements
     @Override
     public ChatItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int originType) {
         int viewType = MessageCellManager.getItemViewTypeFromOriginType(originType);
-        BaseMessageCell baseMessageCell = MessageCellManager.getChatCellByViewType(parent.getContext(), viewType);
+        BaseMessageCell baseMessageCell = MessageCellManager.getChatCellByViewType(viewType);
         int flags = MessageCellManager.getFlagsFromOriginType(originType);
         baseMessageCell.setPresenter(presenter);
         if (MessageCellManager.containsFlagInItemViewType(flags, MessageCellFlag.FLAG_GRAVITY_LEFT)) {

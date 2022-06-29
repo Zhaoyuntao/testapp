@@ -21,6 +21,7 @@
         android:layout_marginTop="20dp"
         android:paddingStart="50dp"
         android:paddingEnd="0dp"
+        android:visibility="gone"
         android:background="@color/white"
         app:TProgressView_rotateDuration="2000"
         app:TProgressView_strokeColor="#00ff00"
@@ -35,6 +36,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="20dp"
         android:background="@color/white"
+        android:visibility="gone"
         android:padding="5dp"
         app:TProgressView_rotateDuration="1000" />
 
@@ -57,7 +59,7 @@
         android:orientation="horizontal"
         android:padding="10dp">
 
-        <com.test.test3app.textview.AutoSizeTextView
+        <im.thebot.common.ui.chat.AutoSizeTextView
             android:id="@+id/mode_downloading"
             android:layout_width="0dp"
             android:layout_height="50dp"
@@ -70,7 +72,7 @@
             android:text="downloading"
             android:textColor="@color/white" />
 
-        <com.test.test3app.textview.AutoSizeTextView
+        <im.thebot.common.ui.chat.AutoSizeTextView
             android:id="@+id/mode_success"
             android:layout_width="0dp"
             android:layout_height="50dp"
@@ -82,7 +84,7 @@
             android:text="Success"
             android:textColor="@color/white" />
 
-        <com.test.test3app.textview.AutoSizeTextView
+        <im.thebot.common.ui.chat.AutoSizeTextView
             android:id="@+id/mode_failed"
             android:layout_width="0dp"
             android:layout_height="50dp"
@@ -94,7 +96,7 @@
             android:text="failed"
             android:textColor="@color/white" />
 
-        <com.test.test3app.textview.AutoSizeTextView
+        <im.thebot.common.ui.chat.AutoSizeTextView
             android:id="@+id/mode_canceled"
             android:layout_width="0dp"
             android:layout_height="50dp"

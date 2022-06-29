@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.example.module_chat.R;
+import com.zhaoyuntao.androidutils.tools.TextMeasure;
 
 /**
  * created by zhaoyuntao
@@ -21,36 +22,44 @@ import com.example.module_chat.R;
  * description:
  */
 public class AutoSizeTextView extends AppCompatTextView {
+    private boolean singleLine;
+    private float radius;
+
     public AutoSizeTextView(@NonNull Context context) {
         super(context);
-        setSingleLine();
         set(null);
     }
 
     public AutoSizeTextView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        setSingleLine();
         set(attrs);
     }
 
     public AutoSizeTextView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setSingleLine();
         set(attrs);
     }
 
     private void set(AttributeSet attrs) {
         if (attrs != null) {
             TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.AutoSizeTextView);
-            float radius = typedArray.getDimensionPixelSize(R.styleable.AutoSizeTextView_autoRadius, 0);
-            if (radius > 0) {
-                setCornerRadius(radius);
-            }
+            radius = typedArray.getDimensionPixelSize(R.styleable.AutoSizeTextView_autoRadius, 0);
+            singleLine = typedArray.getBoolean(R.styleable.AutoSizeTextView_singleLine, true);
+
             typedArray.recycle();
+        } else {
+            singleLine = true;
+        }
+        if (singleLine) {
+            setSingleLine();
+        }
+        if (radius > 0) {
+            setCornerRadius(radius);
         }
     }
 
     public void setCornerRadius(float cornerRadius) {
+        this.radius = cornerRadius;
         setClipToOutline(true);
         setOutlineProvider(new ViewOutlineProvider() {
             @Override
@@ -63,12 +72,30 @@ public class AutoSizeTextView extends AppCompatTextView {
     @Override
     public void layout(int l, int t, int r, int b) {
         super.layout(l, t, r, b);
-        int width = r - l;
-        if (width > 0) {
+        int width = getMeasuredWidth() - getPaddingStart() - getPaddingEnd();
+        if (singleLine && width > 0) {
             CharSequence text = getText();
             if (!TextUtils.isEmpty(text)) {
-                float textSize = 20f - (text.length() - 8) * 1.5f;
-                setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+                float textWidth = TextMeasure.measure(text.toString(), getTextSize())[0];
+                if (textWidth > width) {
+                    float textSize = getTextSize() / (textWidth / width);
+                    setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void setText(CharSequence text, BufferType type) {
+        super.setText(text, type);
+        int width = getMeasuredWidth() - getPaddingStart() - getPaddingEnd();
+        if (singleLine && width > 0) {
+            if (!TextUtils.isEmpty(text)) {
+                float textWidth = TextMeasure.measure(text.toString(), getTextSize())[0];
+                if (textWidth > width) {
+                    float textSize = getTextSize() / (textWidth / width);
+                    setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+                }
             }
         }
     }

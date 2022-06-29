@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.test.test3app.BaseActivity;
+import base.ui.BaseActivity;
 import com.test.test3app.CommonBean;
 import com.test.test3app.CommonImageAdapter;
 import com.test.test3app.R;

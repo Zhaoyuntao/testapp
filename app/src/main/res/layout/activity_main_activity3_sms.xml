@@ -8,7 +8,7 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingTop="50dp"
-    tools:context=".activity.MainActivity3_sms">
+    tools:context=".activity.Activity_3_sms">
 
     <FrameLayout
         android:layout_width="match_parent"

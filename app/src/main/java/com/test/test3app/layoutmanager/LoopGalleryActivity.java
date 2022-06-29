@@ -2,7 +2,7 @@ package com.test.test3app.layoutmanager;
 
 import android.os.Bundle;
 
-import com.test.test3app.BaseActivity;
+import base.ui.BaseActivity;
 import com.test.test3app.R;
 
 public class LoopGalleryActivity extends BaseActivity {

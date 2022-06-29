@@ -24,10 +24,6 @@ public class SystemEventCell extends BaseMessageCell<BaseEventMessageForUI> {
     private TextView contentView;
     private BaseEventMessageForUI messageBean;
 
-    public SystemEventCell(Context context) {
-        super();
-    }
-
     @Override
     public int setLayout() {
         return R.layout.layout_chat_cell_item_system_event;

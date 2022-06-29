@@ -81,7 +81,7 @@
             android:textColor="@color/white"
             android:textSize="30sp" />
 
-        <com.test.test3app.textview.AutoSizeTextView
+        <im.thebot.common.ui.chat.AutoSizeTextView
             android:id="@+id/once_push"
             android:layout_width="100dp"
             android:layout_height="100dp"

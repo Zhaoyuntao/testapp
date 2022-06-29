@@ -17,7 +17,6 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.module_chat.R;
-import com.zhaoyuntao.androidutils.tools.B;
 
 import im.thebot.api.chat.constant.MessageStatusCode;
 import im.thebot.chat.api.chat.message.MessageBeanForUI;
@@ -25,16 +24,14 @@ import im.thebot.chat.ui.cells.drawable.HighLightDrawable;
 import im.thebot.chat.ui.cells.origin.base.BaseMessageCell;
 import im.thebot.chat.ui.cells.origin.base.BaseReplyCell;
 import im.thebot.chat.ui.view.BubbleView;
-import im.thebot.chat.ui.view.ChatTimeUtils;
 import im.thebot.chat.ui.view.ChatHeadLayout;
+import im.thebot.chat.ui.view.ChatTimeUtils;
 import im.thebot.chat.ui.view.SlideLayout;
 import im.thebot.chat.ui.view.SlideLayoutContent;
 import im.thebot.common.UserNameView;
 import im.thebot.user.ContactUtil;
 import im.turbo.baseui.imageview.AnimateImageView;
 import im.turbo.baseui.utils.UiUtils;
-import im.turbo.thread.SafeRunnable;
-import im.turbo.thread.ThreadPool;
 import im.turbo.utils.ResourceUtils;
 
 /**
@@ -83,14 +80,6 @@ final public class ChatItemHolder extends RecyclerView.ViewHolder {
         initSenderName();
         initSendTime();
         initElevation();
-
-        ThreadPool.runUiDelayed(200, new SafeRunnable(itemView) {
-            @Override
-            protected void runSafely() {
-                replyMessageContainerView.setHeadColor(B.getRandomColor());
-                ThreadPool.runUiDelayed(200, this);
-            }
-        });
     }
 
     private void changeLayoutParams() {

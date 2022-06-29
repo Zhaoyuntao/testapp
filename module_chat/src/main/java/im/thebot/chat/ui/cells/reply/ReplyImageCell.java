@@ -47,10 +47,10 @@ public class ReplyImageCell extends BaseReplyCell<ImageMessageForUI> {
     }
 
     private void loadPicture(@NonNull ImageMessageForUI message) {
-        if (TextUtils.isEmpty(message.getFileLocalPath())) {
-            imageView.setImageBase64(message.getImagePreviewBase64());
-        } else {
-            imageView.setImageLocal(message.getFileLocalPath());
-        }
+//        if (TextUtils.isEmpty(message.getFileLocalPath())) {
+//            imageView.setImageBase64(message.getImagePreviewBase64());
+//        } else {
+//            imageView.setImageLocal(message.getFileLocalPath());
+//        }
     }
 }

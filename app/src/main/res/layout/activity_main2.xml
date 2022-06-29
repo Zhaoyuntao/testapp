@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#eeeeee"
-    tools:context=".activity.MainActivity2_record">
+    tools:context=".activity.Activity_2_record">
 
     <Button
         android:layout_margin="10dp"

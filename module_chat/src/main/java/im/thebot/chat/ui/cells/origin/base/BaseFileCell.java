@@ -39,10 +39,6 @@ public abstract class BaseFileCell<M extends BaseFileMessageForUI> extends BaseT
     private FileListener fileListener;
     private final boolean logOpen = false;
 
-    public BaseFileCell(Context context) {
-        super(context);
-    }
-
     @Override
     public boolean showMessageForwardView() {
         return true;
@@ -89,10 +85,20 @@ public abstract class BaseFileCell<M extends BaseFileMessageForUI> extends BaseT
         }
         FileStatusBean fileStatus = SdkFactory.getChatSdk().getFileStatus(getMessage().getSessionId(), getMessage().getUUID());
         updateFileState(fileStatus);
+        onRegisterListener();
+    }
+
+    protected void onRegisterListener() {
+
     }
 
     private void unregisterListener() {
-        SdkFactory.getChatSdk().unregisterFileListener(fileListener);
+        SdkFactory.getFileSdk().unregisterFileListener(fileListener);
+        onUnregisterListener();
+    }
+
+    protected void onUnregisterListener() {
+
     }
 
     private void updateFileState(@NonNull FileStatusBean fileStatus) {

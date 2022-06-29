@@ -23,7 +23,7 @@
         android:background="#00000000"
         tools:background="#ff0099" />
 
-    <com.test.test3app.scrollView.SlideLayout
+    <com.test.test3app.scrollView.SlideLayoutOld
         android:id="@+id/slide_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
 
             </im.thebot.chat.ui.view.BubbleView>
         </LinearLayout>
-    </com.test.test3app.scrollView.SlideLayout>
+    </com.test.test3app.scrollView.SlideLayoutOld>
 
     <FrameLayout
         android:id="@+id/debug_message_container"

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ZSwitchButton">
+        <attr name="ZSwitchButton_ThumbDrawable" format="reference" />
+        <attr name="ZSwitchButton_ThumbColor" format="color|reference" />
+        <attr name="ZSwitchButton_ThumbMargin" format="dimension|reference" />
+        <attr name="ZSwitchButton_ThumbMarginTop" format="dimension|reference" />
+        <attr name="ZSwitchButton_ThumbMarginBottom" format="dimension|reference" />
+        <attr name="ZSwitchButton_ThumbMarginLeft" format="dimension|reference" />
+        <attr name="ZSwitchButton_ThumbMarginRight" format="dimension|reference" />
+        <attr name="ZSwitchButton_ThumbWidth" format="dimension|reference" />
+        <attr name="ZSwitchButton_ThumbHeight" format="dimension|reference" />
+        <attr name="ZSwitchButton_ThumbRadius" format="dimension|reference" />
+        <attr name="ZSwitchButton_BackRadius" format="dimension|reference" />
+        <attr name="ZSwitchButton_BackDrawable" format="reference" />
+        <attr name="ZSwitchButton_BackColor" format="color|reference" />
+        <attr name="ZSwitchButton_FadeBack" format="boolean" />
+        <attr name="ZSwitchButton_ThumbRangeRatio" format="float" />
+        <attr name="ZSwitchButton_AnimationDuration" format="integer" />
+        <attr name="ZSwitchButton_TintColor" format="color|reference" />
+        <attr name="ZSwitchButton_TextOn" format="string" />
+        <attr name="ZSwitchButton_TextOff" format="string" />
+        <attr name="ZSwitchButton_TextThumbInset" format="dimension" />
+        <attr name="ZSwitchButton_TextExtra" format="dimension" />
+        <attr name="ZSwitchButton_TextAdjust" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="AnimateImageView">
+        <attr name="AnimateImageView_animationMode" format="string">
+            <enum name="scale" value="1" />
+            <enum name="flip" value="2" />
+        </attr>
+        <attr name="AnimateImageView_animationDuration" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="PercentImageView">
+        <attr name="PercentImageView_srcPercent" format="float" />
+    </declare-styleable>
+    <declare-styleable name="AutoSizeTextView">
+        <attr name="autoRadius" format="dimension" />
+        <attr name="singleLine" format="boolean" />
+    </declare-styleable>
+</resources>

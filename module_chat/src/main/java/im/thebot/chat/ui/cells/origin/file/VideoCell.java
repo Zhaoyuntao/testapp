@@ -48,10 +48,6 @@ public class VideoCell extends BaseFileCell<VideoMessageForUI> {
     private AnimateImageView statusViewInVideo;
     private View shadowView;
 
-    public VideoCell(Context context) {
-        super(context);
-    }
-
     @Override
     public int setLayout() {
         return R.layout.layout_chat_cell_item_file_video;
@@ -237,7 +233,8 @@ public class VideoCell extends BaseFileCell<VideoMessageForUI> {
         textContainer.setVisibility(hasText ? VISIBLE : GONE);
         timeViewInVideo.setVisibility(hasText ? GONE : VISIBLE);
         shadowView.setVisibility(hasText ? GONE : VISIBLE);
-        imageView.adjustViewSize(message.getVideoWidth(), message.getVideoHeight());
+//        imageView.adjustViewSize(message.getVideoWidth(), message.getVideoHeight());
+        imageView.bindMessage(message);
         long duration = message.getVideoDuration();
         String durationString = TimeUtils.formatLongToDuration(duration);
 //        S.s("duration:" + duration + " " + durationString);
@@ -368,10 +365,10 @@ public class VideoCell extends BaseFileCell<VideoMessageForUI> {
     @Override
     protected void loadMedia(@NonNull VideoMessageForUI message) {
 //        S.s("message.getVideoWidth(), message.getVideoHeight():" + message.getVideoWidth() + ",   " + message.getVideoHeight());
-        if (TextUtils.isEmpty(message.getFileLocalPath())) {
-            imageView.setImageBase64(message.getVideoPreviewBase64());
-        } else {
-            imageView.setVideoLocal(message.getFileLocalPath());
-        }
+//        if (TextUtils.isEmpty(message.getFileLocalPath())) {
+//            imageView.setImageBase64(message.getVideoPreviewBase64());
+//        } else {
+//            imageView.setVideoLocal(message.getFileLocalPath());
+//        }
     }
 }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
+    android:layout_height="62dp"
     android:background="@null"
     android:orientation="horizontal"
     android:padding="5dp"
@@ -11,22 +11,29 @@
 
     <FrameLayout
         android:id="@+id/audio_chat_cell_face_view_container"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
         android:layout_marginStart="3dp"
-        android:background="#9988ff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="#9988ff">
 
         <im.thebot.common.UserFaceView
             android:id="@+id/audio_chat_cell_face_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/audio_chat_cell_mic_icon"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_gravity="end|bottom"
+            android:src="@drawable/svg_input_bar_mic" />
     </FrameLayout>
 
-    <im.turbo.baseui.chat.SmoothSwitchFrameLayout
-        android:id="@+id/audio_chat_cell_play_switch"
+    <FrameLayout
+        android:id="@+id/audio_chat_cell_container"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_gravity="center"
@@ -35,35 +42,49 @@
         app:layout_constraintTop_toTopOf="@+id/audio_chat_cell_face_view_container"
         tools:background="#ff0099">
 
-        <ImageView
-            android:id="@+id/audio_chat_cell_playing"
+        <im.turbo.baseui.chat.SmoothSwitchFrameLayout
+            android:id="@+id/audio_chat_cell_play_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/audio_cell_playing_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/svg_chat_cell_message_audio_pause" />
+
+            <ImageView
+                android:id="@+id/audio_cell_play_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/svg_chat_cell_message_audio_play" />
+        </im.turbo.baseui.chat.SmoothSwitchFrameLayout>
+
+        <im.turbo.baseui.progress.TProgressView
+            android:id="@+id/audio_cell_download_progress_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:src="@drawable/svg_chat_cell_message_audio_pause" />
+            app:TProgressView_strokeWidth="3dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </FrameLayout>
 
-        <ImageView
-            android:id="@+id/audio_conversation_cell_play"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:src="@drawable/svg_chat_cell_message_audio_play" />
-    </im.turbo.baseui.chat.SmoothSwitchFrameLayout>
-
-    <im.thebot.chat.ui.view.ChatSlideProgressView
+    <im.thebot.chat.ui.view.AudioPlayProgressView
         android:id="@+id/audio_chat_cell_play_progress"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        app:ChatSlideProgressView_colorProgress="@color/white"
-        app:ChatSlideProgressView_colorProgressBack="@color/grey00_55ffffff"
-        app:ChatSlideProgressView_radiusCircle="6dp"
-        app:ChatSlideProgressView_style="dotted"
-        app:ChatSlideProgressView_widthProgress="2dp"
-        app:layout_constraintBottom_toBottomOf="@+id/audio_chat_cell_play_switch"
+        app:AudioPlayProgressView_progressBackColor="@color/color_chat_audio_cell_progress"
+        app:AudioPlayProgressView_progressColor="@color/color_chat_audio_cell_progress_foreground"
+        app:AudioPlayProgressView_sliderRadius="6dp"
+        app:TSlideProgressView_style="dotted"
+        app:layout_constraintBottom_toBottomOf="@+id/audio_chat_cell_container"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/audio_chat_cell_play_switch"
-        app:layout_constraintTop_toTopOf="@+id/audio_chat_cell_play_switch" />
+        app:layout_constraintStart_toEndOf="@+id/audio_chat_cell_container"
+        app:layout_constraintTop_toTopOf="@+id/audio_chat_cell_container" />
 
     <TextView
         android:id="@+id/audio_chat_cell_duration"
@@ -80,7 +101,7 @@
         android:textColor="#7b7b7b"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/audio_chat_cell_play_switch"
+        app:layout_constraintStart_toEndOf="@+id/audio_chat_cell_container"
         app:layout_constraintTop_toBottomOf="@+id/audio_chat_cell_play_progress" />
 
     <include

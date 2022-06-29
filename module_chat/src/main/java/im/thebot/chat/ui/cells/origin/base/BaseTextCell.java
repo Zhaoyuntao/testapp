@@ -32,10 +32,6 @@ import im.turbo.callback.CommonDataCallback;
 public abstract class BaseTextCell<T extends BaseTextMessageForUI> extends BaseMessageCell<T> {
     private CellTextView contentView;
 
-    public BaseTextCell(Context context) {
-        super();
-    }
-
     @CallSuper
     @Override
     final public void initView(@NonNull Context context) {

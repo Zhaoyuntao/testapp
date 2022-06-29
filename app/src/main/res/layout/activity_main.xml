@@ -7,7 +7,7 @@
     android:paddingTop="50dp"
     android:paddingEnd="10dp"
     android:paddingBottom="50dp"
-    tools:context=".activity.MainActivity">
+    tools:context=".activity.Activity0">
 
     <GridLayout
         android:id="@+id/grid_main"

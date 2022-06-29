@@ -20,10 +20,6 @@ public class WithdrawCell extends BaseMessageCell<WithdrawMessageForUI> {
     private ImageView iconView;
     private TextView contentView;
 
-    public WithdrawCell(Context context) {
-        super();
-    }
-
     @Override
     public int setLayout() {
         return R.layout.layout_chat_cell_item_withdraw;

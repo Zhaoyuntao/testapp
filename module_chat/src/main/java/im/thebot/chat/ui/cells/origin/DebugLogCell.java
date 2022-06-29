@@ -23,10 +23,6 @@ import im.turbo.callback.CommonDataCallback;
 public class DebugLogCell extends BaseMessageCell<DebugLogMessageForUI> {
     private TextView contentView;
 
-    public DebugLogCell(Context context) {
-        super();
-    }
-
     @Override
     public int setLayout() {
         return R.layout.layout_chat_cell_item_debug_log;

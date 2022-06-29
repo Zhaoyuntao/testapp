@@ -2,8 +2,6 @@ package im.thebot.chat.ui.view;
 
 import com.example.module_chat.R;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 import im.turbo.basetools.time.TimeUtils;

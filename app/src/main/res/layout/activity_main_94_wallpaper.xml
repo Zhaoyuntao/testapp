@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/red"
     android:orientation="vertical"
-    tools:context=".activity.MainActivity_94_wallpaper">
+    tools:context=".activity.Activity_94_wallpaper">
 
     <TextView
         android:id="@+id/actionbar"
@@ -47,6 +47,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@null" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view3"
                 android:layout_width="0dp"
@@ -72,9 +73,10 @@
 
             <TextView
                 android:id="@+id/jump"
-                android:layout_width="80dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
+                android:layout_weight="1"
                 android:background="#000000"
                 android:gravity="center"
                 android:text="jump"
@@ -83,9 +85,10 @@
 
             <TextView
                 android:id="@+id/add100"
-                android:layout_width="80dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
+                android:layout_weight="1"
                 android:background="#000000"
                 android:gravity="center"
                 android:text="100"
@@ -94,9 +97,10 @@
 
             <TextView
                 android:id="@+id/add6"
-                android:layout_width="80dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
+                android:layout_weight="1"
                 android:background="#000000"
                 android:gravity="center"
                 android:text="6"
@@ -105,12 +109,25 @@
 
             <TextView
                 android:id="@+id/change"
-                android:layout_width="80dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
+                android:layout_weight="1"
                 android:background="#000000"
                 android:gravity="center"
                 android:text="12 -> 13"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/add"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:background="#000000"
+                android:gravity="center"
+                android:text="+-"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
         </LinearLayout>

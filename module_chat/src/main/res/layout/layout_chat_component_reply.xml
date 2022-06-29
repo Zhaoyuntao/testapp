@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<im.turbo.baseui.expandview.BottomExpandView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/reply_message_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="7dp"
+    android:paddingTop="7dp"
+    android:paddingEnd="7dp"
+    android:paddingBottom="0dp"
+    android:visibility="gone"
+    tools:background="#ff9999"
+    tools:layout_gravity="center"
+    tools:layout_height="100dp"
+    tools:visibility="visible">
+
+    <im.thebot.chat.ui.view.ChatHeadLayout
+        android:id="@+id/reply_message_container_conversation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/shape_background_input_bar_reply"
+        android:orientation="horizontal"
+        app:ChatHeadLayout_headWidth="4dp"
+        app:ChatHeadLayout_radius="8dp"
+        tools:background="#ff88ff"
+        tools:layout_height="100dp" />
+
+    <FrameLayout
+        android:id="@+id/button_cancel_reply_message_conversation"
+        android:layout_width="32dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="top|end">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="2dp"
+            android:background="@drawable/shape_oval_white_reply_close"
+            android:padding="1dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/svg_chat_close_grey" />
+    </FrameLayout>
+</im.turbo.baseui.expandview.BottomExpandView>

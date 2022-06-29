@@ -10,8 +10,6 @@ import androidx.annotation.NonNull;
 import com.example.module_chat.R;
 
 import im.thebot.chat.api.chat.message.MessageBeanForUI;
-import im.thebot.chat.mvp.presenter.ChatPresenter;
-import im.turbo.basetools.preconditions.Preconditions;
 
 /**
  * created by zhaoyuntao
@@ -25,10 +23,6 @@ public abstract class BaseMessageCell<M extends MessageBeanForUI> extends BaseCe
     private boolean showSenderName;
     private boolean showNewMessageLine;
     private int gravity;
-
-    public BaseMessageCell() {
-        super();
-    }
 
     public boolean showMessageStatusView() {
         return true;

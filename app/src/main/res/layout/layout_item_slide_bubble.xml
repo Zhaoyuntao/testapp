@@ -5,7 +5,7 @@
     android:background="#aaaaaa"
     android:orientation="vertical">
 
-    <com.test.test3app.scrollView.SlideLayout
+    <com.test.test3app.scrollView.SlideLayoutOld
         android:id="@+id/slide1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,5 +39,5 @@
                 </FrameLayout>
             </im.thebot.chat.ui.view.BubbleView>
         </LinearLayout>
-    </com.test.test3app.scrollView.SlideLayout>
+    </com.test.test3app.scrollView.SlideLayoutOld>
 </LinearLayout>

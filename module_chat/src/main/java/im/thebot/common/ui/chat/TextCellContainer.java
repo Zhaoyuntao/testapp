@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import im.thebot.chat.ui.view.ChatViewGroup;
 import im.turbo.basetools.preconditions.Preconditions;
 import im.turbo.baseui.utils.UiUtils;
-import im.turbo.utils.log.S;
 
 
 public class TextCellContainer extends ChatViewGroup {
@@ -54,7 +53,7 @@ public class TextCellContainer extends ChatViewGroup {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int w_max = MeasureSpec.getSize(widthMeasureSpec);
-        S.ve(true, "ChatCellContainer.onMeasure ------------>", widthMeasureSpec, heightMeasureSpec, this);
+//        S.ve(true, "ChatCellContainer.onMeasure ------------>", widthMeasureSpec, heightMeasureSpec, this);
 
         int paddingStart = getPaddingStart();
         int paddingEnd = getPaddingEnd();
@@ -70,7 +69,7 @@ public class TextCellContainer extends ChatViewGroup {
         MarginLayoutParams tailLP = (MarginLayoutParams) tailView.getLayoutParams();
         tailLP.width = LayoutParams.WRAP_CONTENT;
         measureChildWithMargins(tailView, widthMeasureSpec, heightMeasureSpec, tailLP);
-        S.s("measure tail: w:" + tailView.getMeasuredWidth() + "  ms:" + tailLP.getMarginStart());
+//        S.s("measure tail: w:" + tailView.getMeasuredWidth() + "  ms:" + tailLP.getMarginStart());
 
         int wTail = tailView.getMeasuredWidth();
         int hTail = tailView.getMeasuredHeight();
@@ -118,7 +117,7 @@ public class TextCellContainer extends ChatViewGroup {
         if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.EXACTLY) {
             width = w_max;
         }
-        S.s("result: w:" + width + " h:" + height);
+//        S.s("result: w:" + width + " h:" + height);
         setMeasuredDimension(width, height);
     }
 
@@ -150,7 +149,7 @@ public class TextCellContainer extends ChatViewGroup {
             leftTail = rightTail - tailView.getMeasuredWidth();
         }
         contentView.layout(leftContent, topContent, rightContent, bottomContent);
-        S.s("layout tail: l:" + leftTail + " r:" + rightTail + " w:" + tailView.getMeasuredWidth() + "  ms:" + tailLP.getMarginStart());
+//        S.s("layout tail: l:" + leftTail + " r:" + rightTail + " w:" + tailView.getMeasuredWidth() + "  ms:" + tailLP.getMarginStart());
         tailView.layout(leftTail, topTail, rightTail, bottomTail);
     }
 }

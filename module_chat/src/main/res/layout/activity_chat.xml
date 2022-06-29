@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/default_wallpaper">
+
+    <im.turbo.baseui.chat.ChatRecyclerView
+        android:id="@+id/chat_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/input_bar_root_view"
+        android:background="@null"
+        android:scrollbarSize="4dp"
+        android:scrollbars="vertical" />
+
+    <include layout="@layout/layout_chat_component_input_bar" />
+
+    <include layout="@layout/layout_chat_component_record" />
+</RelativeLayout>

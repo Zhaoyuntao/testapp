@@ -44,7 +44,7 @@
         android:orientation="horizontal"
         android:padding="20dp">
 
-        <com.test.test3app.textview.AutoSizeTextView
+        <im.thebot.common.ui.chat.AutoSizeTextView
             android:id="@+id/setreceived"
             android:layout_width="0dp"
             android:layout_height="50dp"
@@ -54,7 +54,7 @@
             android:text="received"
             android:textColor="@color/white" />
 
-        <com.test.test3app.textview.AutoSizeTextView
+        <im.thebot.common.ui.chat.AutoSizeTextView
             android:id="@+id/setread"
             android:layout_width="0dp"
             android:layout_height="50dp"

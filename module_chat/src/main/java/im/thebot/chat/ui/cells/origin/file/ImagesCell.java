@@ -16,10 +16,6 @@ import im.thebot.chat.ui.cells.origin.base.BaseFileCell;
  */
 public class ImagesCell extends BaseFileCell<ImagesMessageForUI> {
 
-    public ImagesCell(Context context) {
-        super(context);
-    }
-
     @Override
     public int setLayout() {
         return R.layout.layout_chat_cell_item_file_images;

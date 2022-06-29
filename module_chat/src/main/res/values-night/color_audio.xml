@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  Audio record  -->
+    <color name="color_chat_input_bar_audio_record">#00a983</color>
+    <color name="color_chat_record_background">#1f2c33</color>
+    <color name="color_chat_record_text_color">#ffffff</color>
+    <color name="color_chat_record_text_color_center">#a0a0a0</color>
+    <!--  Audio draft  -->
+    <color name="color_chat_record_draft_background">#1f2c33</color>
+    <color name="color_chat_record_draft_background_progress">#2a3c45</color>
+    <color name="color_chat_record_draft_progress">#556269</color>
+    <color name="color_chat_record_draft_progress_foreground">#a0a0a0</color>
+    <color name="color_chat_record_draft_progress_slider">#ffffff</color>
+    <!--  Audio cell  -->
+    <color name="color_chat_audio_cell_progress">#4e565c</color>
+    <color name="color_chat_audio_cell_progress_foreground">#858585</color>
+    <color name="color_chat_audio_cell_progress_slider">#25d466</color>
+    <color name="color_chat_audio_cell_progress_slider_played">#009ee2</color>
+    <color name="color_chat_audio_cell_progress_slider_me">#8597a0</color>
+</resources>

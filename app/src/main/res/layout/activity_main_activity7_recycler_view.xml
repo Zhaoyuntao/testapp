@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.MainActivity7_ListView">
+    tools:context=".activity.Activity_7_ListView">
 
     <ListView
         android:id="@+id/country_code_list"

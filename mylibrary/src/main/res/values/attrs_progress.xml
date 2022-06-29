@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TProgressView">
+        <attr name="TProgressView_drawablePadding" format="dimension" />
+        <attr name="TProgressView_strokeColorBack" format="color" />
+        <attr name="TProgressView_strokeColor" format="color" />
+        <attr name="TProgressView_strokeColorRotate" format="color" />
+        <attr name="TProgressView_strokeRound" format="boolean" />
+        <attr name="TProgressView_strokeWidth" format="dimension" />
+        <attr name="TProgressView_strokeShadowWidth" format="dimension" />
+        <attr name="TProgressView_strokeShadowColor" format="color" />
+        <attr name="TProgressView_rotateDuration" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="TSlideProgressView">
+        <attr name="TSlideProgressView_widthProgress" format="dimension" />
+        <attr name="TSlideProgressView_roundProgress" format="boolean" />
+        <attr name="TSlideProgressView_radiusCircle" format="dimension" />
+        <attr name="TSlideProgressView_colorSlider" format="color" />
+        <attr name="TSlideProgressView_colorProgress" format="color" />
+        <attr name="TSlideProgressView_colorProgressBack" format="color" />
+        <attr name="TSlideProgressView_style" format="string">
+            <enum name="line" value="0" />
+            <enum name="dotted" value="1" />
+        </attr>
+    </declare-styleable>
+</resources>

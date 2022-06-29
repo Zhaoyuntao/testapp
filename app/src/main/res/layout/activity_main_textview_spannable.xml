@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MainActivity_97_textview_spannable">
+    tools:context=".activity.Activity_97_textview_spannable">
 
     <com.test.test3app.textview_spannable.BlueTextView
         android:id="@+id/textview"

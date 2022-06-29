@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.test.test3app.R;
 import com.test.test3app.fastrecordviewnew.UiUtils;
-import com.test.test3app.scrollView.SlideLayout;
+import com.test.test3app.scrollView.SlideLayoutOld;
 import com.zhaoyuntao.androidutils.tools.S;
 
 import java.util.ArrayList;
@@ -119,7 +119,7 @@ public class SlideBubbleAdapter extends RecyclerView.Adapter<SlideBubbleAdapter.
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        SlideLayout slideLayout;
+        SlideLayoutOld slideLayout;
         TextCellContainer textCellContainer;
         LinearLayout rootView;
         BubbleView bubbleView;
@@ -134,7 +134,7 @@ public class SlideBubbleAdapter extends RecyclerView.Adapter<SlideBubbleAdapter.
             slideLayout = itemView.findViewById(R.id.slide1);
             bubbleView = itemView.findViewById(R.id.bubble1);
             container = itemView.findViewById(R.id.container_message);
-            slideLayout.setSlideListener(new SlideLayout.SlideListener() {
+            slideLayout.setSlideListener(new SlideLayoutOld.SlideListener() {
                 @Override
                 public void onFingerUp(boolean slideToRight) {
 //                    S.s("onFingerUp: slideToRight: " + slideToRight);
@@ -159,7 +159,7 @@ public class SlideBubbleAdapter extends RecyclerView.Adapter<SlideBubbleAdapter.
             textCellContainer = itemView.findViewById(R.id.ztextview1);
             rootView = itemView.findViewById(R.id.message_root_view);
             textView = itemView.findViewById(R.id.text_view_1);
-            SlideLayout.SlideLayoutParams slideLayoutParams = (SlideLayout.SlideLayoutParams) rootView.getLayoutParams();
+            SlideLayoutOld.SlideLayoutParams slideLayoutParams = (SlideLayoutOld.SlideLayoutParams) rootView.getLayoutParams();
             slideLayoutParams.gravity = Gravity.END;
             slideLayout.setOnClickListener(new View.OnClickListener() {
                 @Override

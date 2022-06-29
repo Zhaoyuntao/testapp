@@ -4,79 +4,86 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
-    android:orientation="vertical"
     android:background="#330000"
-    tools:context=".activity.MainActivity5_takephoto">
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".activity.Activity_5_takephoto">
 
-    <com.zhaoyuntao.androidutils.component.ZButton
+    <im.thebot.chat.ui.view.ChatScaleImageView
         android:id="@+id/photo"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:background="#ff0000"
         android:layout_marginBottom="20dp"
-        app:ZButton_style_img_back="center"
-        app:ZButton_img_back="@drawable/bitmap"/>
+        android:layout_weight="1"/>
+
     <com.zhaoyuntao.androidutils.component.ZButton
         android:id="@+id/click"
-        android:layout_gravity="bottom|center_horizontal"
         android:layout_width="200dp"
         android:layout_height="40dp"
+        android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="20dp"
         app:ZButton_color_back="#bb0000"
+        app:ZButton_color_back_click="#dd0000"
         app:ZButton_color_border="@color/black"
-        app:ZButton_textsize="20sp"
+        app:ZButton_radius="2dp"
         app:ZButton_text_center="Take Photo"
         app:ZButton_textcolor="@color/white"
         app:ZButton_textcolor_click="@color/white"
-        app:ZButton_color_back_click="#dd0000"
-        app:ZButton_w_border="1dp"
-        app:ZButton_radius="2dp"/>
+        app:ZButton_textsize="20sp"
+        app:ZButton_w_border="1dp" />
+
     <com.zhaoyuntao.androidutils.component.ZButton
         android:id="@+id/click2"
-        android:layout_gravity="bottom|center_horizontal"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        app:ZButton_color_back="#bb0000"
-        app:ZButton_color_border="@color/black"
+        android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="20dp"
-        app:ZButton_textsize="20sp"
+        app:ZButton_color_back="#bb0000"
+        app:ZButton_color_back_click="#dd0000"
+        app:ZButton_color_border="@color/black"
+        app:ZButton_radius="2dp"
         app:ZButton_text_center="play music"
         app:ZButton_textcolor="@color/white"
         app:ZButton_textcolor_click="@color/white"
-        app:ZButton_color_back_click="#dd0000"
-        app:ZButton_w_border="1dp"
-        app:ZButton_radius="2dp"/>
+        app:ZButton_textsize="20sp"
+        app:ZButton_w_border="1dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:gravity="center"
         android:orientation="horizontal">
+
         <com.test.test3app.faceview.BlueFaceView
             android:id="@+id/face1"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal" />
+
         <com.test.test3app.faceview.BlueFaceView
             android:id="@+id/face2"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal" />
+
         <com.test.test3app.faceview.BlueFaceView
             android:id="@+id/face3"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal" />
+
         <com.test.test3app.faceview.BlueFaceView
             android:id="@+id/face4"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal" />
+
         <com.test.test3app.faceview.BlueFaceView
             android:id="@+id/face5"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
 

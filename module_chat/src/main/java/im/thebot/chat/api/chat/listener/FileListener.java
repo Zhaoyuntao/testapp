@@ -32,7 +32,7 @@ public abstract class FileListener {
 
     public abstract void onFileStatusChanged(@NonNull FileStatusBean fileStatus);
 
-    final public boolean match(String key) {
+    public boolean match(String key) {
         return TextUtils.equals(this.key, ALL) || TextUtils.equals(this.key, key);
     }
 

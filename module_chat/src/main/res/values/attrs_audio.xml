@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AudioPlayProgressView">
+        <attr name="AudioPlayProgressView_sliderRadius" format="dimension" />
+        <attr name="AudioPlayProgressView_sliderColor" format="color" />
+        <attr name="AudioPlayProgressView_progressColor" format="color" />
+        <attr name="AudioPlayProgressView_progressBackColor" format="color" />
+    </declare-styleable>
+
+</resources>

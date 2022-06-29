@@ -41,10 +41,6 @@ public class ImageCell extends BaseFileCell<ImageMessageForUI> {
     private ImageView retryViewIcon;
     private TextView retryViewText;
 
-    public ImageCell(Context context) {
-        super(context);
-    }
-
     @Override
     public int setLayout() {
         return R.layout.layout_chat_cell_item_file_image;
@@ -230,7 +226,8 @@ public class ImageCell extends BaseFileCell<ImageMessageForUI> {
         textContainer.setVisibility(hasText ? VISIBLE : GONE);
         timeViewInImage.setVisibility(hasText ? GONE : VISIBLE);
         shadowView.setVisibility(hasText ? GONE : VISIBLE);
-        imageView.adjustViewSize(message.getImageWidth(), message.getImageHeight());
+        imageView.bindMessage(message);
+//        imageView.adjustViewSize(message.getImageWidth(), message.getImageHeight());
     }
 
     private void showRetryUpload() {
@@ -348,10 +345,10 @@ public class ImageCell extends BaseFileCell<ImageMessageForUI> {
 
     @Override
     protected void loadMedia(@NonNull ImageMessageForUI message) {
-        if (TextUtils.isEmpty(message.getFileLocalPath())) {
-            imageView.setImageBase64(message.getImagePreviewBase64());
-        } else {
-            imageView.setImageLocal(message.getFileLocalPath());
-        }
+//        if (TextUtils.isEmpty(message.getFileLocalPath())) {
+//            imageView.setImageBase64(message.getImagePreviewBase64());
+//        } else {
+//            imageView.setImageLocal(message.getFileLocalPath());
+//        }
     }
 }

@@ -19,10 +19,6 @@ import im.thebot.chat.ui.view.ChatImageView;
 public class LocationCell extends BaseMessageCell<LocationMessageForUI> {
     private ChatImageView mapView;
 
-    public LocationCell(Context context) {
-        super();
-    }
-
     @Override
     public int setLayout() {
         return R.layout.layout_chat_cell_item_location;

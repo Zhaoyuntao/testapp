@@ -20,7 +20,6 @@ import com.example.module_chat.R;
 
 import im.turbo.baseui.utils.UiUtils;
 import im.turbo.utils.ResourceUtils;
-import im.turbo.utils.log.S;
 
 /**
  * created by zhaoyuntao
@@ -88,7 +87,7 @@ public class BubbleView extends ChatViewGroup {
         boolean useMaxWidth = MeasureSpec.getMode(widthMeasureSpec) != MeasureSpec.AT_MOST;
         int childMaxWidth = 0;
         int selfMaxWidth = MeasureSpec.getSize(widthMeasureSpec);
-        S.v(true, "BubbleView.onMeasure: --------------------------------------------------------> ", widthMeasureSpec, heightMeasureSpec, this);
+//        S.v(true, "BubbleView.onMeasure: --------------------------------------------------------> ", widthMeasureSpec, heightMeasureSpec, this);
         for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);
             if (child != null && child.getVisibility() != GONE) {

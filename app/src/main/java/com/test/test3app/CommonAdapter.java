@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.test.test3app.wallpaper.DiffHelper;
 import com.test.test3app.wallpaper.ListItemSelector;
@@ -23,24 +24,12 @@ import java.util.Map;
  * on 25/11/2021
  * description:
  */
-public class CommonAdapter extends ListAdapter<CommonBean, CommonHolder> {
+public class CommonAdapter extends RecyclerView.Adapter<CommonHolder> {
     private OnItemClickListener onItemClickListener;
     private ListItemSelector<CommonBean> selector = new ListItemSelector<>();
     private Map<String, Integer> colorMap = new HashMap<>();
 
     public CommonAdapter(int count) {
-        super(new DiffUtil.ItemCallback<CommonBean>() {
-            @Override
-            public boolean areItemsTheSame(@NonNull CommonBean oldItem, @NonNull CommonBean newItem) {
-                return oldItem.id.equals(newItem.id);
-            }
-
-            @Override
-            public boolean areContentsTheSame(@NonNull CommonBean oldItem, @NonNull CommonBean newItem) {
-                return TextUtils.equals(oldItem.id, newItem.id);
-            }
-        });
-
         initData(count);
     }
 
@@ -51,16 +40,10 @@ public class CommonAdapter extends ListAdapter<CommonBean, CommonHolder> {
             commonBean.id = String.valueOf(i);
             list.add(commonBean);
         }
-        submitList(list);
+        selector.setData(list);
+        notifyDataSetChanged();
     }
 
-    @Override
-    public void submitList(List<CommonBean> list) {
-        this.selector.setData(list);
-        super.submitList(list);
-    }
-
-    private int index;
 
     @NonNull
     @Override
@@ -78,7 +61,7 @@ public class CommonAdapter extends ListAdapter<CommonBean, CommonHolder> {
     public void onBindViewHolder(@NonNull CommonHolder holder, int position2) {
         int position = holder.getBindingAdapterPosition();
 //        S.s("onBindViewHolder:" + position);
-        CommonBean commonBean = getCurrentList().get(position);
+        CommonBean commonBean = selector.get(position);
         holder.itemView.setTag("position:" + position + " " + commonBean.id);
         holder.textView.setText(commonBean.id);
 //        if (position == 12) {
@@ -112,6 +95,11 @@ public class CommonAdapter extends ListAdapter<CommonBean, CommonHolder> {
         onBindViewHolder(holder, position);
     }
 
+    @Override
+    public int getItemCount() {
+        return selector.size();
+    }
+
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
@@ -123,6 +111,16 @@ public class CommonAdapter extends ListAdapter<CommonBean, CommonHolder> {
 
     public void setColor(String position, int parseColor) {
         colorMap.put(position, parseColor);
+    }
+
+    public void add(  CommonBean hello) {
+        selector.addData(selector.size(),hello);
+        notifyItemInserted(selector.size()-1);
+    }
+
+    public void remove() {
+        selector.remove(selector.size()-1);
+        notifyItemRemoved(selector.size());
     }
 
     public interface OnItemClickListener {

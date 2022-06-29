@@ -1,3 +1,4 @@
 <resources>
     <string name="chats_listview_messagenumber">%1$s messages</string>
+    <string name="slide_to_cancel">Slide to cancel</string>
 </resources>

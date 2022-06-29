@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import im.thebot.chat.api.chat.message.MessageBeanForUI;
 import im.thebot.chat.mvp.presenter.ChatPresenter;
 import im.turbo.basetools.preconditions.Preconditions;
+import im.turbo.thread.SafeRunnable;
+import im.turbo.thread.ThreadPool;
 
 /**
  * created by zhaoyuntao
@@ -18,6 +20,9 @@ import im.turbo.basetools.preconditions.Preconditions;
  * description:
  */
 public abstract class BaseCell<M extends MessageBeanForUI> {
+    protected static final int GONE = View.GONE;
+    protected static final int VISIBLE = View.VISIBLE;
+
     private M m;
     private View rootView;
     private ChatPresenter presenter;
@@ -183,5 +188,14 @@ public abstract class BaseCell<M extends MessageBeanForUI> {
 
     public void setOnLongClickListener(View.OnLongClickListener listener) {
         rootView.setOnLongClickListener(listener);
+    }
+
+    final protected void runUI(Runnable runnable) {
+        ThreadPool.runUi(new SafeRunnable(rootView) {
+            @Override
+            protected void runSafely() {
+                runnable.run();
+            }
+        });
     }
 }

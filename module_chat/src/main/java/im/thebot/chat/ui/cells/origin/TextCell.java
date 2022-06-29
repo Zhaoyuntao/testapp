@@ -17,9 +17,6 @@ import im.turbo.basetools.utils.StringUtils;
  * description:
  */
 public class TextCell extends BaseTextCell<TextMessageForUI> {
-    public TextCell(Context context) {
-        super(context);
-    }
 
     @Override
     public int setLayout() {

@@ -28,7 +28,7 @@
             android:value="ca-app-pub-3940256099942544~3347511713" />
 
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.Activity0"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="sensor"
             android:theme="@style/Theme.AppCompat">
@@ -39,56 +39,57 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.MainActivity_990_cell"
+            android:name=".activity.Activity_990_cell"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".activity.MainActivity_99_dark_mode" />
-        <activity android:name=".activity.MainActivity_98_sticker_reply" />
-        <activity android:name=".activity.MainActivity_996_expand" />
-        <activity android:name=".activity.MainActivity_97_textview_spannable" />
+        <activity android:name=".activity.Activity_99_dark_mode" />
+        <activity android:name=".activity.Activity_98_sticker_reply" />
+        <activity android:name=".activity.Activity_996_expand" />
+        <activity android:name=".activity.Activity_97_textview_spannable" />
         <activity
-            android:name=".activity.MainActivity_94_wallpaper"
+            android:name=".activity.Activity_94_wallpaper"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".activity.MainActivity_95_textview" />
-        <activity android:name=".activity.MainActivity93_threadPool" />
-        <activity android:name=".activity.MainActivity91_Qmoji" />
-        <activity android:name=".activity.MainActivity1_chat" />
-        <activity android:name=".activity.MainActivity92_huawei_meeting" />
-        <activity android:name=".activity.MainActivity9_openGL" />
-        <activity android:name=".activity.MainActivity8_permission" />
-        <activity android:name=".activity.MainActivity7_ListView" />
-        <activity android:name=".activity.MainActivity6_pay" />
-        <activity android:name=".activity.MainActivity5_takephoto" />
-        <activity android:name=".activity.MainActivity4_grouptips" />
-        <activity android:name=".activity.MainActivity3_sms" />
-        <activity android:name=".activity.MainActivity2_record" />
-        <activity android:name=".activity.MainActivity_96_faceview" />
-        <activity android:name=".activity.MainActivity_991_calculate" />
-        <activity android:name=".activity.MainActivity_997_cameraWallpaper" />
-        <activity android:name=".activity.MainActivity_998_nest" />
-        <activity android:name=".activity.MainActivity_999_loading" />
-        <activity android:name=".activity.MainActivity_9991_animateimageview" />
-        <activity android:name=".activity.MainActivity_9992_windowContentTransition" />
-        <activity android:name=".activity.MainActivity_9993_wam" />
-        <activity android:name=".activity.MainActivity_9994_new_permission" />
-        <activity android:name=".activity.MainActivity_9996_bubble" />
+        <activity android:name=".activity.Activity_95_textview" />
+        <activity android:name=".activity.Activity_93_threadPool" />
+        <activity android:name=".activity.Activity_91_Qmoji" />
+        <activity android:name="im.thebot.chat.ui.ChatActivity" />
+        <activity android:name=".activity.Activity_92_huawei_meeting" />
+        <activity android:name=".activity.Activity_9_openGL" />
+        <activity android:name=".activity.Activity_8_unknown" />
+        <activity android:name=".activity.Activity_7_ListView" />
+        <activity android:name=".activity.Activity_6_pay" />
+        <activity android:name=".activity.Activity_5_takephoto" />
+        <activity android:name=".activity.Activity_4_grouptips" />
+        <activity android:name=".activity.Activity_3_sms" />
+        <activity android:name=".activity.Activity_2_record" />
+        <activity android:name=".activity.Activity_96_faceview" />
+        <activity android:name=".activity.Activity_991_calculate" />
+        <activity android:name=".activity.Activity_997_cameraWallpaper" />
+        <activity android:name=".activity.Activity_998_nest" />
+        <activity android:name=".activity.Activity_999_loading" />
+        <activity android:name=".activity.Activity_9991_animateimageview" />
+        <activity android:name=".activity.Activity_9992_windowContentTransition" />
+        <activity android:name=".activity.Activity_9993_wam" />
+        <activity android:name=".activity.Activity_9994_permission" />
+        <activity android:name=".activity.Activity_9996_bubble" />
+        <activity android:name=".activity.Activity_9997_dir" />
         <activity
-            android:name=".activity.MainActivity_9995_mention"
+            android:name=".activity.Activity_9995_mention"
             android:windowSoftInputMode="adjustResize" />
 
         <activity android:name=".windowtransition.gridtopager.MainActivity_google" />
         <activity
-            android:name=".activity.MainActivity_994_gallery_pager"
+            android:name=".activity.Activity_994_gallery_pager"
             android:theme="@style/Theme.AppCompat" />
         <activity
-            android:name=".activity.MainActivity_995_popwindow"
+            android:name=".activity.Activity_995_popwindow"
             android:theme="@style/Theme.AppCompat"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activity.MainActivity_992_drawerLayout"
+            android:name=".activity.Activity_992_drawerLayout"
             android:theme="@style/Theme.AppCompat" />
         <activity
-            android:name=".activity.MainActivity_993_slide"
+            android:name=".activity.Activity_993_slide"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".MainActivity_inputbar"

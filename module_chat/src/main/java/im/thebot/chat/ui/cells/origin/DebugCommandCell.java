@@ -19,10 +19,6 @@ import im.turbo.basetools.clipboard.ClipBoardUtils;
 public class DebugCommandCell extends BaseMessageCell<DebugCommandMessageForUI> {
     private TextView contentView;
 
-    public DebugCommandCell(Context context) {
-        super();
-    }
-
     @Override
     public int setLayout() {
         return R.layout.layout_chat_cell_item_debug_command;
