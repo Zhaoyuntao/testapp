@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
 
 import androidx.annotation.ColorInt;
@@ -27,6 +29,9 @@ public class AudioPlayProgressView extends AudioRecordingProgressView {
     private final int colorProgress;
     private final int colorProgressBackground;
     private final float radiusCircle;
+    private final float minMove;
+    private long timeDown;
+    private boolean isDragging;
 
     private int colorSlider;
 
@@ -36,7 +41,8 @@ public class AudioPlayProgressView extends AudioRecordingProgressView {
     private float xLast;
     private ValueAnimator animatorSmooth;
     private float percentForDraw;
-    private boolean isFingerPressed;
+    private SlideInterrupter slideInterrupter;
+
 
     public AudioPlayProgressView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -54,11 +60,23 @@ public class AudioPlayProgressView extends AudioRecordingProgressView {
             colorProgressBackground = ContextCompat.getColor(getContext(), R.color.color_chat_record_draft_progress);
             colorSlider = ContextCompat.getColor(getContext(), R.color.color_chat_record_draft_progress_slider);
         }
+        minMove = ViewConfiguration.get(context).getScaledTouchSlop();
         setPaddingRelative((int) radiusCircle, 0, (int) radiusCircle, 0);
     }
 
     public void setOnProgressChangedListener(OnProgressChangedListener onProgressChangedListener) {
         this.onProgressChangedListener = onProgressChangedListener;
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int height;
+        if (MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.EXACTLY) {
+            height = MeasureSpec.getSize(heightMeasureSpec);
+        } else {
+            height = (int) (Math.max(radiusCircle, dotRadius)) * 2 + getPaddingBottom() + getPaddingTop();
+        }
+        setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), height);
     }
 
     @Override
@@ -101,11 +119,11 @@ public class AudioPlayProgressView extends AudioRecordingProgressView {
     }
 
     public void setPercent(float percent, boolean animate) {
-        if (percent >= 0 && percent <= 1 && !isFingerPressed) {
+        if (percent >= 0 && percent <= 1 && !isDragging) {
             float percentBefore = this.percentForDraw;
             this.percent = percent;
             if (onProgressChangedListener != null) {
-                onProgressChangedListener.onProgressChanged(percent, ProgressAction.ACTION_NOT_TOUCH);
+                onProgressChangedListener.onProgressChanged(percent, false);
             }
             if (animatorSmooth != null && animatorSmooth.isRunning()) {
                 animatorSmooth.cancel();
@@ -114,7 +132,7 @@ public class AudioPlayProgressView extends AudioRecordingProgressView {
                 float difference = percent - percentBefore;
                 animatorSmooth = ValueAnimator.ofFloat(0, 1);
                 animatorSmooth.setInterpolator(new DecelerateInterpolator());
-                animatorSmooth.setDuration(300);
+                animatorSmooth.setDuration(200);
                 animatorSmooth.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator animation) {
@@ -144,35 +162,34 @@ public class AudioPlayProgressView extends AudioRecordingProgressView {
         return percent;
     }
 
-    float min_move = 1;
-
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        getParent().requestDisallowInterceptTouchEvent(true);
+        if (slideInterrupter != null && !slideInterrupter.canSlide()) {
+            return super.onTouchEvent(event);
+        }
         float max_position = getWidth() - radiusCircle - getPaddingEnd();
         float min_position = getPaddingStart() + radiusCircle;
-        isFingerPressed = event.getAction() != MotionEvent.ACTION_CANCEL && event.getAction() != MotionEvent.ACTION_UP;
         cancelAnimation();
-        @ProgressAction
-        int action = ProgressAction.ACTION_NOT_TOUCH;
+        long now = SystemClock.elapsedRealtime();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                timeDown = now;
                 float xNow = event.getX();
                 xLast = xNow;
-                if (xNow > max_position) {
-                    percent = 1;
-                } else if (xNow < min_position) {
-                    percent = 0;
-                } else {
-                    percent = (xNow - min_position) / (max_position - min_position);
-                }
-                action = ProgressAction.ACTION_PRESS_DOWN;
                 break;
             case MotionEvent.ACTION_MOVE:
                 xNow = event.getX();
                 float distance_move = xNow - xLast;
-                if (Math.abs(distance_move) >= min_move) {
+                boolean isLastTimeDragging = isDragging;
+                isDragging = isDragging || Math.abs(distance_move) >= minMove;
+                if (isDragging) {
+                    if (!isLastTimeDragging) {
+                        if (onProgressChangedListener != null) {
+                            onProgressChangedListener.onStartDragging();
+                        }
+                    }
+                    getParent().requestDisallowInterceptTouchEvent(true);
                     xLast = xNow;
                     if (xNow > max_position) {
                         percent = 1;
@@ -181,36 +198,42 @@ public class AudioPlayProgressView extends AudioRecordingProgressView {
                     } else {
                         percent = (xNow - min_position) / (max_position - min_position);
                     }
-                    action = ProgressAction.ACTION_MOVE;
+                    percentForDraw = percent;
+                    postInvalidate();
+                    if (onProgressChangedListener != null) {
+                        onProgressChangedListener.onDragging(percent);
+                    }
                 }
+                break;
+            case MotionEvent.ACTION_CANCEL:
+                isDragging = false;
                 break;
             case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_CANCEL:
                 xNow = event.getX();
-                if (xNow > max_position) {
-                    percent = 1;
-                } else if (xNow < min_position) {
-                    percent = 0;
-                } else {
-                    percent = (xNow - min_position) / (max_position - min_position);
+                if (!isDragging && now - timeDown < 200) {
+                    if (onProgressChangedListener != null) {
+                        onProgressChangedListener.onStartDragging();
+                    }
+                    if (xNow > max_position) {
+                        percent = 1;
+                    } else if (xNow < min_position) {
+                        percent = 0;
+                    } else {
+                        percent = (xNow - min_position) / (max_position - min_position);
+                    }
+                    percentForDraw = percent;
+                    postInvalidate();
                 }
-                action = ProgressAction.ACTION_UP;
+                if (onProgressChangedListener != null) {
+                    onProgressChangedListener.onProgressChanged(percent, true);
+                }
+                isDragging = false;
                 break;
-        }
-        percentForDraw = percent;
-        postInvalidate();
-        if (onProgressChangedListener != null) {
-            onProgressChangedListener.onProgressChanged(percent, action);
         }
         return true;
     }
 
-    public void setColorSlider(@ColorInt int color) {
-        this.colorSlider = color;
-        postInvalidate();
-    }
-
-    public interface OnProgressChangedListener {
-        void onProgressChanged(float percent, @ProgressAction int action);
+    public void setSlideInterrupter(SlideInterrupter slideInterrupter) {
+        this.slideInterrupter = slideInterrupter;
     }
 }

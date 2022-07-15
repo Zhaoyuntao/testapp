@@ -25,7 +25,7 @@
         <attr name="ZSwitchButton_TextAdjust" format="dimension" />
     </declare-styleable>
     <declare-styleable name="AnimateImageView">
-        <attr name="AnimateImageView_animationMode" format="string">
+        <attr name="AnimateImageView_animationMode" format="enum">
             <enum name="scale" value="1" />
             <enum name="flip" value="2" />
         </attr>
@@ -37,5 +37,54 @@
     <declare-styleable name="AutoSizeTextView">
         <attr name="autoRadius" format="dimension" />
         <attr name="singleLine" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="BottomExpandView">
+        <attr name="BottomExpandView_maxHeight" format="dimension" />
+        <attr name="BottomExpandView_maxWidth" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="SmoothLayoutFrameLayout">
+        <attr name="SmoothLayoutFrameLayout_animatorInterpolator" format="enum">
+            <enum name="Linear" value="0" />
+            <enum name="Accelerate" value="1" />
+            <enum name="Decelerate" value="2" />
+            <enum name="AccelerateDecelerate" value="3" />
+            <enum name="Overshoot" value="4" />
+        </attr>
+        <attr name="SmoothLayoutFrameLayout_animatorDuration" format="integer" />
+        <attr name="SmoothLayoutFrameLayout_minHeight" format="dimension" />
+        <attr name="SmoothLayoutFrameLayout_minWidth" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="SmoothScaleFrameLayout">
+        <attr name="SmoothScaleFrameLayout_animatorInterpolator" format="enum">
+            <enum name="Linear" value="0" />
+            <enum name="Accelerate" value="1" />
+            <enum name="Decelerate" value="2" />
+            <enum name="AccelerateDecelerate" value="3" />
+            <enum name="Overshoot" value="4" />
+        </attr>
+        <attr name="SmoothScaleFrameLayout_scaleDirection" format="enum">
+            <enum name="all" value="0" />
+            <enum name="horizontal" value="1" />
+            <enum name="vertical" value="2" />
+        </attr>
+        <attr name="SmoothScaleFrameLayout_animatorDuration" format="integer" />
+        <attr name="SmoothScaleFrameLayout_useAnimator" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="SmoothTranslateFrameLayout">
+        <attr name="SmoothTranslateFrameLayout_animatorInterpolator" format="enum">
+            <enum name="Linear" value="0" />
+            <enum name="Accelerate" value="1" />
+            <enum name="Decelerate" value="2" />
+            <enum name="AccelerateDecelerate" value="3" />
+            <enum name="Overshoot" value="4" />
+        </attr>
+        <attr name="SmoothTranslateFrameLayout_translateDirection" format="enum">
+            <enum name="left" value="0" />
+            <enum name="top" value="1" />
+            <enum name="right" value="2" />
+            <enum name="bottom" value="3" />
+        </attr>
+        <attr name="SmoothTranslateFrameLayout_animatorDuration" format="integer" />
+        <attr name="SmoothTranslateFrameLayout_useAnimator" format="boolean" />
     </declare-styleable>
 </resources>

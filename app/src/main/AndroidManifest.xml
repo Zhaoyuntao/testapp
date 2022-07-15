@@ -55,7 +55,7 @@
         <activity android:name="im.thebot.chat.ui.ChatActivity" />
         <activity android:name=".activity.Activity_92_huawei_meeting" />
         <activity android:name=".activity.Activity_9_openGL" />
-        <activity android:name=".activity.Activity_8_unknown" />
+        <activity android:name=".activity.Activity_8_smoothSwitch" />
         <activity android:name=".activity.Activity_7_ListView" />
         <activity android:name=".activity.Activity_6_pay" />
         <activity android:name=".activity.Activity_5_takephoto" />

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:paddingTop="1px">
 
     <TextView
@@ -16,4 +17,29 @@
         android:text="Hello"
         android:textColor="@color/white"
         android:textSize="30sp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <im.thebot.chat.ui.view.SlideLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="#000000"
+            android:src="@drawable/svg_download_white" />
+
+        <im.thebot.chat.ui.view.SlideLayoutContent
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:paddingTop="50dp"
+            android:paddingBottom="50dp"
+            android:background="#ff9900">
+
+            <im.thebot.chat.ui.view.TSlideProgressView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="#ff0000" />
+
+        </im.thebot.chat.ui.view.SlideLayoutContent>
+    </im.thebot.chat.ui.view.SlideLayout>
+</LinearLayout>

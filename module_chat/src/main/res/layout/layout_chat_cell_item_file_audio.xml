@@ -42,7 +42,7 @@
         app:layout_constraintTop_toTopOf="@+id/audio_chat_cell_face_view_container"
         tools:background="#ff0099">
 
-        <im.turbo.baseui.chat.SmoothSwitchFrameLayout
+        <im.turbo.baseui.chat.SmoothScaleFrameLayout
             android:id="@+id/audio_chat_cell_play_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -60,7 +60,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
                 android:src="@drawable/svg_chat_cell_message_audio_play" />
-        </im.turbo.baseui.chat.SmoothSwitchFrameLayout>
+        </im.turbo.baseui.chat.SmoothScaleFrameLayout>
 
         <im.turbo.baseui.progress.TProgressView
             android:id="@+id/audio_cell_download_progress_view"
@@ -80,7 +80,6 @@
         app:AudioPlayProgressView_progressBackColor="@color/color_chat_audio_cell_progress"
         app:AudioPlayProgressView_progressColor="@color/color_chat_audio_cell_progress_foreground"
         app:AudioPlayProgressView_sliderRadius="6dp"
-        app:TSlideProgressView_style="dotted"
         app:layout_constraintBottom_toBottomOf="@+id/audio_chat_cell_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/audio_chat_cell_container"

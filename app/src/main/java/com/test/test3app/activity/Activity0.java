@@ -34,7 +34,6 @@ public class Activity0 extends BaseActivity {
         zRouters.add(new ZRouter("take photo", Activity_5_takephoto.class));
         zRouters.add(new ZRouter("pay", Activity_6_pay.class));
         zRouters.add(new ZRouter("recyclerView", Activity_7_ListView.class));
-        zRouters.add(new ZRouter("permission", Activity_8_unknown.class));
         zRouters.add(new ZRouter("openGL", Activity_9_openGL.class));
         zRouters.add(new ZRouter("Qmoji", Activity_91_Qmoji.class));
         zRouters.add(new ZRouter("huawei meeting", Activity_92_huawei_meeting.class));
@@ -58,14 +57,14 @@ public class Activity0 extends BaseActivity {
         zRouters.add(new ZRouter("slide", Activity_993_slide.class));
         zRouters.add(new ZRouter("bubble", Activity_9996_bubble.class));
         zRouters.add(new ZRouter("cell", Activity_990_cell.class));
-        zRouters.add(new ZRouter("wallpaper", Activity_94_wallpaper.class));
         zRouters.add(new ZRouter("dark mode", Activity_99_dark_mode.class));
         zRouters.add(new ZRouter("Dir", Activity_9997_dir.class));
         zRouters.add(new ZRouter("NewPermission", Activity_9994_permission.class));
+        zRouters.add(new ZRouter("smooth", Activity_8_smoothSwitch.class));
+        zRouters.add(new ZRouter("wallpaper", Activity_94_wallpaper.class));
         zRouters.add(new ZRouter("Event", ChatActivity.class));
 
         init(zRouters, savedInstanceState == null);
-
     }
 
     private void init(List<ZRouter> zRouters, boolean jump) {

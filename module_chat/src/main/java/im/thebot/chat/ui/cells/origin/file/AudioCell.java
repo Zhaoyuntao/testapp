@@ -13,18 +13,18 @@ import androidx.core.content.ContextCompat;
 import com.example.module_chat.R;
 import com.sdk.chat.file.audio.AudioListener;
 import com.sdk.chat.file.audio.AudioStatusBean;
-import com.sdk.chat.file.audio.AudioStatusCode;
+import com.sdk.chat.file.audio.AudioPlayStatusCode;
 
 import im.thebot.SdkFactory;
 import im.thebot.api.chat.constant.FileStatusCode;
 import im.thebot.chat.api.chat.message.AudioMessageForUI;
 import im.thebot.chat.ui.cells.origin.base.BaseFileCell;
 import im.thebot.chat.ui.view.AudioPlayProgressView;
-import im.thebot.chat.ui.view.ProgressAction;
+import im.thebot.chat.ui.view.OnProgressChangedListener;
 import im.thebot.common.UserFaceView;
 import im.turbo.basetools.state.StateFetchListener;
 import im.turbo.basetools.time.TimeUtils;
-import im.turbo.baseui.chat.SmoothSwitchFrameLayout;
+import im.turbo.baseui.chat.SmoothScaleFrameLayout;
 import im.turbo.baseui.permission.Permission;
 import im.turbo.baseui.permission.PermissionResult;
 import im.turbo.baseui.permission.PermissionUtils;
@@ -46,7 +46,7 @@ public class AudioCell extends BaseFileCell<AudioMessageForUI> {
     private TextView durationView;
     private ImageView micIconView;
     private UserFaceView userFaceView;
-    private SmoothSwitchFrameLayout playContainer;
+    private SmoothScaleFrameLayout playContainer;
     private AudioPlayProgressView playProgressView;
     private TProgressView downLoadProgressView;
 
@@ -84,25 +84,25 @@ public class AudioCell extends BaseFileCell<AudioMessageForUI> {
     protected void onFileMessageInit(@NonNull AudioMessageForUI message) {
         userFaceView.bindUid(message.getSenderUid());
         durationView.setText(TimeUtils.formatLongToDuration(message.getAudioDuration()));
-        playProgressView.setOnProgressChangedListener(new AudioPlayProgressView.OnProgressChangedListener() {
-            private boolean currentPlaying;
+        playProgressView.setOnProgressChangedListener(new OnProgressChangedListener() {
+            private boolean isPlayingBeforePause;
 
             @Override
-            public void onProgressChanged(float percent, @ProgressAction int action) {
-                durationView.setText(TimeUtils.formatLongToDuration(calculateCurrentPlayingProgress()));
-                if (action == ProgressAction.ACTION_PRESS_DOWN) {
-                    currentPlaying = SdkFactory.getAudioSdk().getAudioStatus(getMessage().getSessionId(), getMessage().getUUID()).getAudioStatusCode() == AudioStatusCode.STATUS_AUDIO_PLAYING;
-                    if (currentPlaying) {
-                        getPresenter().pausePlayingAudio();
-                    }
-                } else if (action == ProgressAction.ACTION_UP) {
-                    if (currentPlaying) {
-                        getPresenter().playAudio(getMessage(), calculateCurrentPlayingProgress());
-                        currentPlaying = false;
+            public void onStartDragging() {
+                isPlayingBeforePause = SdkFactory.getAudioSdk().getAudioStatus(message.getSessionId(), message.getUUID()).getAudioStatusCode() == AudioPlayStatusCode.STATUS_AUDIO_PLAYING;
+            }
+
+            @Override
+            public void onProgressChanged(float percent, boolean dragByUser) {
+                if (dragByUser) {
+                    if (isPlayingBeforePause) {
+                        isPlayingBeforePause = false;
+                        getPresenter().playAudio(getMessage(), (int) (getMessage().getAudioDuration() * percent));
                     }
                 }
             }
         });
+
 
         playView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,8 +133,8 @@ public class AudioCell extends BaseFileCell<AudioMessageForUI> {
         });
     }
 
-    private long calculateCurrentPlayingProgress() {
-        return (long) (getMessage().getAudioDuration() * playProgressView.getPercent());
+    private int calculateCurrentPlayingProgress() {
+        return (int) (getMessage().getAudioDuration() * playProgressView.getPercent());
     }
 
     @Override
@@ -143,7 +143,7 @@ public class AudioCell extends BaseFileCell<AudioMessageForUI> {
             listener = new AudioListener(getMessage().getUUID()) {
                 @Override
                 public void onAudioStatusChanged(@NonNull AudioStatusBean status) {
-                    if (status.getAudioStatusCode() == AudioStatusCode.STATUS_AUDIO_NOT_PLAYING) {
+                    if (status.getAudioStatusCode() == AudioPlayStatusCode.STATUS_AUDIO_NOT_PLAYING) {
                         S.s("onAudioStatusChanged:" + status.getAudioStatusCode() + " " + status.getPercent() + " " + status.getErrorMessage());
                     }
                     ThreadPool.runUi(new SafeRunnable(getContext()) {
@@ -176,16 +176,16 @@ public class AudioCell extends BaseFileCell<AudioMessageForUI> {
             audioStatus = SdkFactory.getAudioSdk().getAudioStatus(getMessage().getSessionId(), getMessage().getUUID());
         }
         switch (audioStatus.getAudioStatusCode()) {
-            case AudioStatusCode.STATUS_AUDIO_START:
+            case AudioPlayStatusCode.STATUS_AUDIO_START:
                 setPlaying(audioStatus.getPercent(), false);
                 break;
-            case AudioStatusCode.STATUS_AUDIO_NOT_PLAYING:
+            case AudioPlayStatusCode.STATUS_AUDIO_NOT_PLAYING:
                 setNotPlaying();
                 break;
-            case AudioStatusCode.STATUS_AUDIO_PLAYING:
+            case AudioPlayStatusCode.STATUS_AUDIO_PLAYING:
                 setPlaying(audioStatus.getPercent(), true);
                 break;
-            case AudioStatusCode.STATUS_AUDIO_PAUSED:
+            case AudioPlayStatusCode.STATUS_AUDIO_PAUSED:
                 setPausePlaying(audioStatus.getPercent());
                 break;
         }
@@ -200,22 +200,21 @@ public class AudioCell extends BaseFileCell<AudioMessageForUI> {
         if (playContainer.getVisibility() != VISIBLE) {
             playContainer.setVisibility(View.VISIBLE);
         }
-        if (playContainer.getIndex() != SmoothSwitchFrameLayout.INDEX_SECOND) {
-            playContainer.switchIndex(SmoothSwitchFrameLayout.INDEX_SECOND);
+        if (playContainer.getIndex() != SmoothScaleFrameLayout.INDEX_SECOND) {
+            playContainer.switchIndex(SmoothScaleFrameLayout.INDEX_SECOND);
         }
         playProgressView.setPercent(percent, animate);
         AudioMessageForUI message = getMessage();
         int color = message.isSelf() ? colorSliderSelf : colorSliderPlayed;
         micIconView.setImageTintList(ColorStateList.valueOf(color));
-        playProgressView.setColorSlider(color);
     }
 
     private void setPausePlaying(float percent) {
         if (playContainer.getVisibility() != VISIBLE) {
             playContainer.setVisibility(View.VISIBLE);
         }
-        if (playContainer.getIndex() != SmoothSwitchFrameLayout.INDEX_DEFAULT) {
-            playContainer.switchIndex(SmoothSwitchFrameLayout.INDEX_DEFAULT);
+        if (playContainer.getIndex() != SmoothScaleFrameLayout.INDEX_DEFAULT) {
+            playContainer.switchIndex(SmoothScaleFrameLayout.INDEX_DEFAULT);
         }
         playProgressView.setPercent(percent, false);
     }
@@ -224,8 +223,8 @@ public class AudioCell extends BaseFileCell<AudioMessageForUI> {
         if (playContainer.getVisibility() != VISIBLE) {
             playContainer.setVisibility(View.VISIBLE);
         }
-        if (playContainer.getIndex() != SmoothSwitchFrameLayout.INDEX_DEFAULT) {
-            playContainer.switchIndex(SmoothSwitchFrameLayout.INDEX_DEFAULT);
+        if (playContainer.getIndex() != SmoothScaleFrameLayout.INDEX_DEFAULT) {
+            playContainer.switchIndex(SmoothScaleFrameLayout.INDEX_DEFAULT);
         }
         AudioMessageForUI message = getMessage();
         int color;
@@ -235,7 +234,6 @@ public class AudioCell extends BaseFileCell<AudioMessageForUI> {
             color = (message.getAudioPlayedTime() > 0 || message.getAudioPlayedProgress() > 0) ? colorSliderPlayed : colorSliderNotPlayed;
         }
         micIconView.setImageTintList(ColorStateList.valueOf(color));
-        playProgressView.setColorSlider(color);
         playProgressView.setPercent(0, false);
     }
 

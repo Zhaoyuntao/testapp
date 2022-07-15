@@ -2,6 +2,7 @@ package com.sdk.chat.file.audio;
 
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.SystemClock;
 
 import androidx.annotation.NonNull;
 
@@ -22,101 +23,117 @@ import im.turbo.utils.log.S;
 public class AudioPlayer {
     private TMediaPlayer mediaPlayer;
     private final AudioFilePacket audioFilePacket;
+    private final AudioPlayListener audioPlayListener;
+    private final Thread progressThread;
 
-    public AudioPlayer(@NonNull AudioFilePacket audioFilePacket) {
+    public AudioPlayer(@NonNull AudioFilePacket audioFilePacket, @NonNull AudioPlayListener audioPlayListener) {
         Preconditions.checkNotNull(audioFilePacket);
         Preconditions.checkNotEmpty(audioFilePacket.getFilePath());
+        Preconditions.checkNotNull(audioPlayListener);
+        this.audioPlayListener = audioPlayListener;
         this.audioFilePacket = audioFilePacket;
-    }
-
-    public void start(long startPosition) {
-        if (!PermissionUtils.hasPermission(ResourceUtils.getApplication(), Permission.READ_EXTERNAL_STORAGE)) {
-            S.e("no permission");
-            return;
-        }
-        ThreadPool.runIO(new Runnable() {
+        this.progressThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                _startPlay(startPosition);
+                int duration = getDuration();
+                int startPosition = getStartPosition();
+                long startTime = SystemClock.elapsedRealtime();
+                while (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    long now = SystemClock.elapsedRealtime();
+                    int currentPosition = (int) (now - startTime) + startPosition;
+                    int position = Math.min(duration, currentPosition);
+                    audioPlayListener.onPlaying(audioFilePacket.getUuid(), position, duration);
+                    try {
+                        Thread.sleep(30);
+                    } catch (InterruptedException e) {
+                        break;
+                    }
+                }
             }
         });
     }
 
-    private void _startPlay(long startPosition) {
+    public void start() {
+        if (!PermissionUtils.hasPermission(ResourceUtils.getApplication(), Permission.READ_EXTERNAL_STORAGE)) {
+            S.e("no permission");
+            return;
+        }
+        _startPlay();
+    }
+
+    private void _startPlay() {
         if (mediaPlayer != null && mediaPlayer.isPlaying()) {
             S.e("isPlaying");
             return;
         }
-        if (mediaPlayer != null && mediaPlayer.isPaused()) {
-            S.s("isPaused");
-        } else {
-            mediaPlayer = new TMediaPlayer();
-            mediaPlayer.reset();
-            try {
-                mediaPlayer.setDataSource(audioFilePacket.getFilePath());
-            } catch (IOException e) {
-                S.e(e);
-                AudioNotifier.getInstance().notifyPlayingStopped(audioFilePacket.getUuid(), mediaPlayer.getCurrentPosition(), mediaPlayer.getDuration(), "stopped by set data error:" + e.getMessage());
-                return;
-            }
-            try {
-                mediaPlayer.prepare();
-            } catch (IOException e) {
-                S.e(e);
-                AudioNotifier.getInstance().notifyPlayingStopped(audioFilePacket.getUuid(), mediaPlayer.getCurrentPosition(), mediaPlayer.getDuration(), "stopped by prepare error:" + e.getMessage());
-                return;
-            }
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mediaPlayer.setVolume(1, 1);
-            mediaPlayer.seekTo((int) startPosition);
-            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    AudioNotifier.getInstance().notifyPlayingStopped(audioFilePacket.getUuid(), mp.getCurrentPosition(), mp.getDuration(), "stopped after playing completed");
-                    releaseMediaPlayer();
-                }
-            });
-            mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-                @Override
-                public boolean onError(MediaPlayer mp, int what, int extra) {
-                    AudioNotifier.getInstance().notifyPlayingStopped(audioFilePacket.getUuid(), mp.getCurrentPosition(), mp.getDuration(), "stopped by error:" + what + " " + extra);
-                    releaseMediaPlayer();
-                    return false;
-                }
-            });
+        mediaPlayer = new TMediaPlayer();
+        mediaPlayer.reset();
+        try {
+            mediaPlayer.setDataSource(audioFilePacket.getFilePath());
+        } catch (IOException e) {
+            S.e(e);
+            audioPlayListener.onError(audioFilePacket.getUuid(), -1, "stopped by set data error:" + e.getMessage());
+            return;
         }
-        mediaPlayer.seekTo((int) startPosition);
+        try {
+            mediaPlayer.prepare();
+        } catch (IOException e) {
+            S.e(e);
+            audioPlayListener.onError(audioFilePacket.getUuid(), -1, "stopped by prepare error:" + e.getMessage());
+            return;
+        }
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mediaPlayer.setVolume(1, 1);
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                audioPlayListener.onStop(audioFilePacket.getUuid(), 0, getDuration());
+                releaseMediaPlayer();
+            }
+        });
+        mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+                audioPlayListener.onError(audioFilePacket.getUuid(), -1, "stopped by error:" + what + " " + extra);
+                releaseMediaPlayer();
+                return false;
+            }
+        });
+        mediaPlayer.seekTo(audioFilePacket.getStartPosition());
         mediaPlayer.start();
-        AudioNotifier.getInstance().notifyPlayingStart(audioFilePacket.getUuid(), mediaPlayer.getCurrentPosition(), mediaPlayer.getDuration());
+        int duration = getDuration();
+        audioPlayListener.onStart(audioFilePacket.getUuid(), Math.min(duration, mediaPlayer.getCurrentPosition()), duration);
         startProgressLoop();
     }
 
     private void startProgressLoop() {
-        new Thread(() -> {
-            while (mediaPlayer != null && mediaPlayer.isPlaying()) {
-                AudioNotifier.getInstance().notifyPlaying(audioFilePacket.getUuid(), mediaPlayer.getCurrentPosition(), mediaPlayer.getDuration());
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    break;
-                }
+        progressThread.start();
+    }
+
+    private int getDuration() {
+        return audioFilePacket.getDuration();
+    }
+
+    private int getStartPosition() {
+        return audioFilePacket.getStartPosition();
+    }
+
+    public void stop(boolean callListener) {
+        int duration = getDuration();
+        int position = 0;
+        if (mediaPlayer != null) {
+            if (mediaPlayer.isPlaying()) {
+                mediaPlayer.stop();
             }
-        }).start();
-    }
-
-    public void pause() {
-        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-            mediaPlayer.pause();
-            AudioNotifier.getInstance().notifyPlayingPaused(audioFilePacket.getUuid(), mediaPlayer.getCurrentPosition(), mediaPlayer.getDuration());
+            position = mediaPlayer.getCurrentPosition();
+            releaseMediaPlayer();
+            if (progressThread != null) {
+                progressThread.interrupt();
+            }
+            if (callListener) {
+                audioPlayListener.onStop(audioFilePacket.getUuid(), Math.min(duration, position), duration);
+            }
         }
-    }
-
-    public void stop() {
-        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-            mediaPlayer.stop();
-            AudioNotifier.getInstance().notifyPlayingStopped(audioFilePacket.getUuid(), mediaPlayer.getCurrentPosition(), mediaPlayer.getDuration(), "stopped by user");
-        }
-        releaseMediaPlayer();
     }
 
     public void cancel() {
@@ -131,10 +148,6 @@ public class AudioPlayer {
         return mediaPlayer == null ? 0 : mediaPlayer.getCurrentPosition();
     }
 
-    public long getDuration() {
-        return mediaPlayer == null ? audioFilePacket.getDuration() : mediaPlayer.getDuration();
-    }
-
     private void releaseMediaPlayer() {
         if (mediaPlayer != null) {
             mediaPlayer.release();
@@ -146,7 +159,17 @@ public class AudioPlayer {
         return mediaPlayer != null && mediaPlayer.isPlaying();
     }
 
-    public boolean isPaused() {
-        return mediaPlayer != null && mediaPlayer.isPaused();
+    public String getUUID() {
+        return audioFilePacket.getUuid();
+    }
+
+    public interface AudioPlayListener {
+        void onStart(String uuid, int progress, int total);
+
+        void onPlaying(String uuid, int progress, int total);
+
+        void onStop(String uuid, int progress, int total);
+
+        void onError(String uuid, int errorCode, String errorMessage);
     }
 }

@@ -1,7 +1,13 @@
 package com.sdk.chat.file.audio;
 
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import im.thebot.chat.api.chat.message.MessageBeanForUI;
+import im.turbo.basetools.preconditions.Preconditions;
+import im.turbo.utils.log.S;
 
 /**
  * created by zhaoyuntao
@@ -12,8 +18,9 @@ public class MessageAudioHelper {
     private static AudioRecorder audioRecorder;
     private static AudioPlayer audioPlayer;
 
-    public static void startRecord(@NonNull AudioRecorder.AudioRecordListener audioRecordListener) {
-        pausePlaying();
+    public static void startRecord(@NonNull String uuid, @NonNull AudioRecordListener audioRecordListener) {
+        Preconditions.checkNotEmpty(uuid);
+        stopPlaying();
         if (audioRecorder != null) {
             if (audioRecorder.isRecording()) {
                 return;
@@ -24,13 +31,13 @@ public class MessageAudioHelper {
             }
             audioRecorder = null;
         }
-        audioRecorder = new AudioRecorder(audioRecordListener);
+        audioRecorder = new AudioRecorder(uuid, audioRecordListener);
         audioRecorder.startRecord();
     }
 
-    public static void stopRecord() {
+    public static void finishRecord() {
         if (audioRecorder != null) {
-            audioRecorder.stopRecord();
+            audioRecorder.finishRecord();
             audioRecorder = null;
         }
     }
@@ -51,14 +58,7 @@ public class MessageAudioHelper {
         return audioRecorder != null && audioRecorder.isRecording();
     }
 
-    public static void startPlaying(@NonNull String sessionId, @NonNull String uuid, long position) {
-        if (isRecording()) {
-            AudioNotifier.getInstance().notifyPlayingStopped(uuid, 0, 0, "is recording");
-            return;
-        }
-    }
-
-    public static void playDebug(@NonNull AudioFilePacket audioFilePacket, long position) {
+    public static void startPlay(@NonNull AudioFilePacket audioFilePacket, int position) {
         if (isRecording()) {
             AudioNotifier.getInstance().notifyPlayingStopped(audioFilePacket.getUuid(), position, audioFilePacket.getDuration(), "is recording");
             return;
@@ -67,40 +67,49 @@ public class MessageAudioHelper {
             AudioNotifier.getInstance().notifyPlayingStopped(audioFilePacket.getUuid(), position, audioFilePacket.getDuration(), "play error:" + audioFilePacket.getErrorMessage());
             return;
         }
-        pausePlaying();
-        audioPlayer = new AudioPlayer(audioFilePacket);
-        audioPlayer.start(position);
-    }
-
-    public static void pausePlaying() {
         if (audioPlayer != null) {
-            if (audioPlayer.isPaused()) {
-                audioPlayer.cancel();
-            } else if (audioPlayer.isPlaying()) {
-                audioPlayer.pause();
-                audioPlayer.cancel();
-            }
+            audioPlayer.stop(!TextUtils.equals(audioFilePacket.getUuid(), audioPlayer.getUUID()));
         }
+        audioPlayer = new AudioPlayer(audioFilePacket, new AudioPlayer.AudioPlayListener() {
+            @Override
+            public void onStart(String uuid, int progress, int total) {
+                AudioNotifier.getInstance().notifyPlayingStart(uuid, progress, total);
+            }
+
+            @Override
+            public void onPlaying(String uuid, int progress, int total) {
+                AudioNotifier.getInstance().notifyPlaying(uuid, progress, total);
+            }
+
+            @Override
+            public void onStop(String uuid, int progress, int total) {
+                AudioNotifier.getInstance().notifyPlayingStopped(uuid, progress, total, null);
+                audioPlayer = null;
+            }
+
+            @Override
+            public void onError(String uuid, int errorCode, String errorMessage) {
+                AudioNotifier.getInstance().notifyPlayingStopped(audioFilePacket.getUuid(), position, audioFilePacket.getDuration(), errorMessage);
+            }
+        });
+        audioPlayer.start();
     }
 
     public static void stopPlaying() {
         if (audioPlayer != null) {
-            audioPlayer.stop();
+            audioPlayer.stop(true);
+            audioPlayer = null;
         }
-    }
-
-    private static long getPlayingProgress() {
-        //todo
-        return 0;
     }
 
     public static boolean isPlaying() {
         return audioPlayer != null && audioPlayer.isPlaying();
     }
 
-    public static void dropAudio() {
+    public static void cancelRecord() {
         if (audioRecorder != null) {
             audioRecorder.dropAudio();
+            audioRecorder = null;
         }
     }
 

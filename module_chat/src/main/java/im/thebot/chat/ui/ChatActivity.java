@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
 
@@ -29,7 +30,9 @@ import im.thebot.chat.ui.view.AudioRecordView;
 import im.turbo.baseui.chat.ChatEditText;
 import im.turbo.baseui.chat.ChatLayoutManager;
 import im.turbo.baseui.chat.ChatRecyclerView;
-import im.turbo.baseui.chat.SmoothSwitchFrameLayout;
+import im.turbo.baseui.chat.SmoothScaleFrameLayout;
+import im.turbo.baseui.chat.SmoothTranslateFrameLayout;
+import im.turbo.baseui.expandview.BottomExpandView;
 import im.turbo.baseui.permission.Permission;
 import im.turbo.baseui.permission.PermissionResult;
 import im.turbo.baseui.permission.PermissionUtils;
@@ -42,17 +45,42 @@ public class ChatActivity extends BaseActivity {
 
     AudioBucketView canView1;
     View emojiIconView;
-    SmoothSwitchFrameLayout smoothSwitchFrameLayout;
+    SmoothScaleFrameLayout smoothScaleFrameLayout;
     ChatRecyclerView chatView;
+    ViewGroup inputBarContainer;
     ViewGroup edittextBarContainer;
+    BottomExpandView replyContainer;
 
     ChatPresenter chatPresenter;
     ChatAdapter chatAdapter;
+
+    View recordButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
+        View officialMenuBar = findViewById(R.id.input_menu_bar_official_account_chat);
+        View inputBar = findViewById(R.id.input_bar_root_view);
+        SmoothTranslateFrameLayout smoothTranslateFrameLayout = findViewById(R.id.test2);
+
+        officialMenuBar.findViewById(R.id.official_button_input_bar_container).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                smoothTranslateFrameLayout.switchIndex(SmoothTranslateFrameLayout.INDEX_SECOND);
+//                inputBar.setVisibility(View.VISIBLE);
+//                officialMenuBar.setVisibility(View.GONE);
+            }
+        });
+        inputBar.findViewById(R.id.official_button_input_bar_container).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                smoothTranslateFrameLayout.switchIndex(SmoothTranslateFrameLayout.INDEX_DEFAULT);
+//                officialMenuBar.setVisibility(View.VISIBLE);
+//                inputBar.setVisibility(View.GONE);
+            }
+        });
 
         chatView = findViewById(R.id.chat_recycler_view);
         chatView.setLayoutManager(new ChatLayoutManager(activity()));
@@ -90,7 +118,7 @@ public class ChatActivity extends BaseActivity {
 
             @Override
             public void onSlideMessage(@NonNull MessageBeanForUI messageBean) {
-
+                replyContainer.expand();
             }
 
             @Override
@@ -105,9 +133,18 @@ public class ChatActivity extends BaseActivity {
         audioDraftView = findViewById(R.id.audio_draft_view);
         canView1 = findViewById(R.id.garbage_can_0);
         emojiIconView = findViewById(R.id.button_chat_input_bar_emoji);
-        smoothSwitchFrameLayout = findViewById(R.id.double_switch_view_chat_record);
+        smoothScaleFrameLayout = findViewById(R.id.double_switch_view_chat_record);
+        inputBarContainer = findViewById(R.id.input_bar_container);
         edittextBarContainer = findViewById(R.id.input_bar_edittext_container);
-
+        recordButton = findViewById(R.id.button_chat_input_bar_record);
+        replyContainer = findViewById(R.id.reply_message_container);
+        View closeReply = findViewById(R.id.button_cancel_reply_message_conversation);
+        closeReply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replyContainer.shrink();
+            }
+        });
         editText1.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -121,7 +158,7 @@ public class ChatActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                smoothSwitchFrameLayout.switchIndex(TextUtils.isEmpty(s) ? SmoothSwitchFrameLayout.INDEX_DEFAULT : SmoothSwitchFrameLayout.INDEX_SECOND);
+                smoothScaleFrameLayout.switchIndex(TextUtils.isEmpty(s) ? SmoothScaleFrameLayout.INDEX_DEFAULT : SmoothScaleFrameLayout.INDEX_SECOND);
                 setAudioRecordLockedState(false);
             }
         });
@@ -144,6 +181,7 @@ public class ChatActivity extends BaseActivity {
             }
         });
 
+        audioRecordView.setPressPositionView(recordButton);
         audioRecordView.setListener(new AudioRecordView.AudioRecordViewListener() {
             @Override
             public void onFingerSliding(boolean horizontal) {
@@ -160,13 +198,13 @@ public class ChatActivity extends BaseActivity {
 
             @Override
             public void onViewClosed() {
-                smoothSwitchFrameLayout.setVisibility(View.VISIBLE);
+                smoothScaleFrameLayout.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onFingerSlideLocked(long durationMills) {
                 setAudioRecordLockedState(true);
-                audioDraftView.setRecordingInitData(getPresenter().getAudioDraft().getVolumes(), durationMills);
+                audioDraftView.setRecordingInitData(getPresenter().getAudioDraftVolumes(), durationMills);
             }
 
             @Override
@@ -175,7 +213,7 @@ public class ChatActivity extends BaseActivity {
                 boolean hasPermission = PermissionUtils.hasPermission(activity(), Permission.RECORD_AUDIO);
                 if (hasPermission) {
                     S.s("start...");
-                    smoothSwitchFrameLayout.setVisibility(View.INVISIBLE);
+                    smoothScaleFrameLayout.setVisibility(View.INVISIBLE);
                     setEdittextState(false, true);
                     getPresenter().startRecord();
                 } else {
@@ -227,11 +265,6 @@ public class ChatActivity extends BaseActivity {
             }
 
             @Override
-            public void onPausePlay() {
-                getPresenter().pausePlayingAudio();
-            }
-
-            @Override
             public boolean isPlayingDraft() {
                 return getPresenter().isAudioDraftPlaying();
             }
@@ -257,10 +290,8 @@ public class ChatActivity extends BaseActivity {
 
     private void setAudioRecordLockedState(boolean locked) {
         audioDraftView.setVisibility(locked ? View.VISIBLE : View.GONE);
-        if (locked) {
-            audioDraftView.registerListener(getPresenter().getUuidForAudioRecord());
-        }
-        audioRecordView.setCanRecord(!locked && smoothSwitchFrameLayout.getIndex() == SmoothSwitchFrameLayout.INDEX_DEFAULT);
+        inputBarContainer.setVisibility(locked ? View.GONE : View.VISIBLE);
+        audioRecordView.setCanRecord(!locked);
         setEdittextState(false, locked);
     }
 
@@ -275,7 +306,7 @@ public class ChatActivity extends BaseActivity {
     }
 
     public void onStartRecord() {
-        audioDraftView.start();
+        audioDraftView.performStartRecoding();
     }
 
     public void onRecording(float volume, long duration) {

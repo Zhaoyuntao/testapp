@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -13,6 +14,8 @@ import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+
+import com.doctor.mylibrary.R;
 
 /**
  * created by zhaoyuntao
@@ -40,6 +43,7 @@ public class BottomExpandView extends FrameLayout {
     private float expansion;
     private int orientation = VERTICAL;
     private int state;
+    private int maxWidth, maxHeight;
     private VisibleListener visibleListener;
     private Interpolator interpolator = new LinearInterpolator();
 
@@ -54,6 +58,12 @@ public class BottomExpandView extends FrameLayout {
         super(context, attrs);
         state = expansion == 0 ? State.COLLAPSED : State.EXPANDED;
         setParallax(parallax);
+        if (attrs != null) {
+            TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.BottomExpandView);
+            maxWidth = typedArray.getDimensionPixelSize(R.styleable.BottomExpandView_BottomExpandView_maxWidth, 0);
+            maxHeight = typedArray.getDimensionPixelSize(R.styleable.BottomExpandView_BottomExpandView_maxHeight, 0);
+            typedArray.recycle();
+        }
     }
 
     public void setVisibleListener(VisibleListener visibleListener) {
@@ -85,6 +95,16 @@ public class BottomExpandView extends FrameLayout {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        if (maxWidth > 0) {
+            int size = MeasureSpec.getSize(widthMeasureSpec);
+            int mode = MeasureSpec.getMode(widthMeasureSpec);
+            widthMeasureSpec = MeasureSpec.makeMeasureSpec(Math.min(size, maxWidth), mode);
+        }
+        if (maxHeight > 0) {
+            int size = MeasureSpec.getSize(heightMeasureSpec);
+            int mode = MeasureSpec.getMode(heightMeasureSpec);
+            heightMeasureSpec = MeasureSpec.makeMeasureSpec(Math.min(size, maxHeight), mode);
+        }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int width = getMeasuredWidth();
         int height = getMeasuredHeight();
@@ -227,6 +247,13 @@ public class BottomExpandView extends FrameLayout {
             animateSize(targetExpansion);
         } else {
             setExpansion(targetExpansion);
+            if (visibleListener != null) {
+                if (isExpanded()) {
+                    visibleListener.onVisible();
+                } else {
+                    visibleListener.onGone();
+                }
+            }
         }
     }
 

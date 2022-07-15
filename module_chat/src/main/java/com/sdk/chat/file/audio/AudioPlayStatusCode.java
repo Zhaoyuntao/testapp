@@ -4,12 +4,12 @@ import androidx.annotation.IntDef;
 
 //file and picture
 @IntDef({
-        AudioStatusCode.STATUS_AUDIO_NOT_PLAYING,
-        AudioStatusCode.STATUS_AUDIO_START,
-        AudioStatusCode.STATUS_AUDIO_PLAYING,
-        AudioStatusCode.STATUS_AUDIO_PAUSED
+        AudioPlayStatusCode.STATUS_AUDIO_NOT_PLAYING,
+        AudioPlayStatusCode.STATUS_AUDIO_START,
+        AudioPlayStatusCode.STATUS_AUDIO_PLAYING,
+        AudioPlayStatusCode.STATUS_AUDIO_PAUSED
 })
-public @interface AudioStatusCode {
+public @interface AudioPlayStatusCode {
     int STATUS_AUDIO_NOT_PLAYING = 0;
     int STATUS_AUDIO_START = 1;
     int STATUS_AUDIO_PLAYING = 2;

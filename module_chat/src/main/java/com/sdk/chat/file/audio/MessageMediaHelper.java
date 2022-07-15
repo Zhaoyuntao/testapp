@@ -14,7 +14,7 @@ import im.turbo.basetools.util.ValueSafeTransfer;
  */
 public class MessageMediaHelper {
 
-    public static long getAudioDuration(String localPath) {
+    public static int getAudioDuration(String localPath) {
         if (TextUtils.isEmpty(localPath) || !new File(localPath).exists()) {
             return 0;
         }

@@ -12,16 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.module_chat.R;
-import com.sdk.chat.file.audio.AudioListener;
-import com.sdk.chat.file.audio.AudioStatusBean;
-import com.sdk.chat.file.audio.AudioStatusCode;
 
-import im.thebot.SdkFactory;
 import im.turbo.basetools.preconditions.Preconditions;
 import im.turbo.basetools.time.TimeUtils;
-import im.turbo.baseui.chat.SmoothSwitchFrameLayout;
-import im.turbo.thread.SafeRunnable;
-import im.turbo.thread.ThreadPool;
+import im.turbo.baseui.chat.SmoothScaleFrameLayout;
 
 /**
  * created by zhaoyuntao
@@ -30,18 +24,18 @@ import im.turbo.thread.ThreadPool;
  */
 public class AudioDraftView extends FrameLayout {
     //Recording.
-    private static final int INDEX_PAUSE = SmoothSwitchFrameLayout.INDEX_DEFAULT;
-    private static final int INDEX_RECORD = SmoothSwitchFrameLayout.INDEX_SECOND;
+    private static final int INDEX_PAUSE = SmoothScaleFrameLayout.INDEX_DEFAULT;
+    private static final int INDEX_RECORD = SmoothScaleFrameLayout.INDEX_SECOND;
     private final ViewGroup audioRecordContainer;
     private final AudioRecordingProgressView audioRecordProgressView;
     private final AudioPlayProgressView audioPlayProgressView;
     private final TextView audioRecordDurationView;
     //Pause.
-    private static final int INDEX_PLAY = SmoothSwitchFrameLayout.INDEX_DEFAULT;
-    private static final int INDEX_PLAYING = SmoothSwitchFrameLayout.INDEX_SECOND;
+    private static final int INDEX_PLAY = SmoothScaleFrameLayout.INDEX_DEFAULT;
+    private static final int INDEX_PLAYING = SmoothScaleFrameLayout.INDEX_SECOND;
     private final ViewGroup audioPlayContainer;
     private final TextView audioPlayDurationView;
-    private final SmoothSwitchFrameLayout audioPlaySwitchContainer;
+    private final SmoothScaleFrameLayout audioPlaySwitchContainer;
     private final View pausePlayButton;
     private final View playButton;
     //Bottom operators.
@@ -49,15 +43,13 @@ public class AudioDraftView extends FrameLayout {
     private final View sendButton;
     private final View resumeRecordButton;
     private final View pauseRecordButton;
-    private final SmoothSwitchFrameLayout recordAndPauseSwitchContainer;
-    private AudioListener audioListener;
-    private String uuid;
+    private final SmoothScaleFrameLayout recordAndPauseSwitchContainer;
 
     private AudioDraftListener listener;
 
     public AudioDraftView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs, 0);
-        LayoutInflater.from(context).inflate(R.layout.layout_chat_component_record_draft, this, true);
+        LayoutInflater.from(context).inflate(R.layout.layout_record_draft_view, this, true);
 
         //Recording.
         audioRecordContainer = findViewById(R.id.audio_draft_view_container_recording);
@@ -99,24 +91,24 @@ public class AudioDraftView extends FrameLayout {
         pausePlayButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                getListener().onPausePlay();
+                getListener().pausePlaying();
             }
         });
-        audioPlayProgressView.setOnProgressChangedListener(new AudioPlayProgressView.OnProgressChangedListener() {
-            private boolean currentPlaying;
+        audioPlayProgressView.setOnProgressChangedListener(new OnProgressChangedListener() {
+            private boolean isPlayingBeforePause;
 
             @Override
-            public void onProgressChanged(float percent, @ProgressAction int action) {
-                audioPlayDurationView.setText(TimeUtils.formatLongToDuration((long) (getListener().getAudioDuration() * audioPlayProgressView.getPercent())));
-                if (action == ProgressAction.ACTION_PRESS_DOWN) {
-                    currentPlaying = getListener().isPlayingDraft();
-                    if (currentPlaying) {
-                        getListener().pausePlaying();
-                    }
-                } else if (action == ProgressAction.ACTION_UP) {
-                    if (currentPlaying) {
+            public void onStartDragging() {
+                isPlayingBeforePause = getListener().isPlayingDraft();
+            }
+
+            @Override
+            public void onProgressChanged(float percent, boolean dragByUser) {
+                if (dragByUser) {
+                    audioPlayDurationView.setText(TimeUtils.formatLongToDuration((long) (getListener().getAudioDuration() * audioPlayProgressView.getPercent())));
+                    if (isPlayingBeforePause) {
+                        isPlayingBeforePause = false;
                         getListener().onPlay(percent);
-                        currentPlaying = false;
                     }
                 }
             }
@@ -130,16 +122,15 @@ public class AudioDraftView extends FrameLayout {
             audioRecordProgressView.stop();
         });
         resumeRecordButton.setOnClickListener(v -> {
-            switchToRecodingState();
-            getListener().onResumeRecord();
+            performStartRecoding();
         });
         pauseRecordButton.setOnClickListener(v -> {
-            switchToPauseRecordingState();
-            getListener().onPauseRecord();
+            performPauseRecording();
         });
     }
 
-    private void switchToRecodingState() {
+    public void performStartRecoding() {
+        getListener().onResumeRecord();
         recordAndPauseSwitchContainer.switchIndex(INDEX_PAUSE);
         if (audioRecordProgressView.isPaused()) {
             audioRecordProgressView.resume();
@@ -150,8 +141,8 @@ public class AudioDraftView extends FrameLayout {
         audioPlayContainer.setVisibility(GONE);
     }
 
-    private void switchToPauseRecordingState() {
-        updatePlayState(null);
+    public void performPauseRecording() {
+        getListener().onPauseRecord();
         recordAndPauseSwitchContainer.switchIndex(INDEX_RECORD);
         audioRecordProgressView.pause();
         audioRecordContainer.setVisibility(GONE);
@@ -160,10 +151,6 @@ public class AudioDraftView extends FrameLayout {
 
     public void postVolume(float volume) {
         audioRecordProgressView.setCurrentVolume(volume);
-    }
-
-    public void start() {
-        switchToRecodingState();
     }
 
     public void debugStop() {
@@ -187,89 +174,26 @@ public class AudioDraftView extends FrameLayout {
         audioRecordDurationView.setText(TimeUtils.formatLongToDuration(duration));
     }
 
-    public void registerListener(String uuid) {
-        this.uuid = uuid;
-        if (audioListener == null) {
-            audioListener = new AudioListener(uuid) {
-                @Override
-                public void onAudioStatusChanged(@NonNull AudioStatusBean audioStatus) {
-                    ThreadPool.runUi(new SafeRunnable(AudioDraftView.this) {
-                        @Override
-                        protected void runSafely() {
-                            updatePlayState(audioStatus);
-                        }
-                    });
-                }
-            };
-        } else {
-            audioListener.setKey(uuid);
-        }
-        SdkFactory.getAudioSdk().registerAudioPlayListener(audioListener);
-    }
-
-    private void updatePlayState(@Nullable AudioStatusBean audioStatus) {
-        if (audioStatus == null) {
-            setNotPlaying(SdkFactory.getAudioSdk().getAudioDraft().getDuration());
-        } else {
-            switch (audioStatus.getAudioStatusCode()) {
-                case AudioStatusCode.STATUS_AUDIO_START:
-                    setPlaying(audioStatus.getPercent(), audioStatus.getProgress(), false);
-                    break;
-                case AudioStatusCode.STATUS_AUDIO_NOT_PLAYING:
-                    setNotPlaying(audioStatus.getTotal());
-                    break;
-                case AudioStatusCode.STATUS_AUDIO_PLAYING:
-                    setPlaying(audioStatus.getPercent(), audioStatus.getProgress(), true);
-                    break;
-                case AudioStatusCode.STATUS_AUDIO_PAUSED:
-                    setPausePlaying(audioStatus.getPercent(), audioStatus.getProgress());
-                    break;
-            }
-        }
-    }
-
-    private void setPlaying(float percent, long currentPosition, boolean animate) {
-        if (audioPlaySwitchContainer.getIndex() != SmoothSwitchFrameLayout.INDEX_SECOND) {
-            audioPlaySwitchContainer.switchIndex(SmoothSwitchFrameLayout.INDEX_SECOND);
+    public void setPlaying(float percent, long currentPosition, boolean animate) {
+        if (audioPlaySwitchContainer.getIndex() != SmoothScaleFrameLayout.INDEX_SECOND) {
+            audioPlaySwitchContainer.switchIndex(SmoothScaleFrameLayout.INDEX_SECOND);
         }
         audioPlayDurationView.setText(TimeUtils.formatLongToDuration(currentPosition));
         audioPlayProgressView.setPercent(percent, animate);
     }
 
-    private void setPausePlaying(float percent, long currentPosition) {
-        if (audioPlaySwitchContainer.getIndex() != SmoothSwitchFrameLayout.INDEX_DEFAULT) {
-            audioPlaySwitchContainer.switchIndex(SmoothSwitchFrameLayout.INDEX_DEFAULT);
+    public void performPausePlaying() {
+        if (audioPlaySwitchContainer.getIndex() != INDEX_PLAY) {
+            audioPlaySwitchContainer.switchIndex(INDEX_PLAY);
         }
-        audioPlayDurationView.setText(TimeUtils.formatLongToDuration(currentPosition));
-        audioPlayProgressView.setPercent(percent, false);
     }
 
-    private void setNotPlaying(long duration) {
+    public void setNotPlaying(float percent, long currentPosition, long duration) {
         if (audioPlaySwitchContainer.getIndex() != INDEX_PLAY) {
             audioPlaySwitchContainer.switchIndex(INDEX_PLAY);
         }
         audioPlayDurationView.setText(TimeUtils.formatLongToDuration(duration));
-        audioPlayProgressView.setPercent(0, false);
-    }
-
-    private void unregisterListener() {
-        if (audioListener != null) {
-            SdkFactory.getAudioSdk().unregisterAudioPlayListener(audioListener);
-        }
-    }
-
-    @Override
-    public void setVisibility(int visibility) {
-        super.setVisibility(visibility);
-        if (visibility != VISIBLE) {
-            unregisterListener();
-        }
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        unregisterListener();
+        audioPlayProgressView.setPercent(percent, false);
     }
 
     public interface AudioDraftListener {
@@ -282,8 +206,6 @@ public class AudioDraftView extends FrameLayout {
         void onResumeRecord();
 
         void onPlay(float percent);
-
-        void onPausePlay();
 
         boolean isPlayingDraft();
 

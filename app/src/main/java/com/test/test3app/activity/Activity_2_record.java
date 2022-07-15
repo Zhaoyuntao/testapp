@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import base.ui.BaseActivity;
 import com.test.test3app.R;
-import com.test.test3app.fastrecordview.AudioRecordView;
+import com.test.test3app.fastrecordview.AudioRecordViewOld2;
 import com.test.test3app.fastrecordview.DoubleSwitchView;
 import com.test.test3app.fastrecordview.FastRecordView;
 import com.test.test3app.fastrecordviewnew.ZImageButton;
@@ -25,7 +25,7 @@ import java.util.List;
 public class Activity_2_record extends BaseActivity {
 
     DoubleSwitchView changeIconButton;
-    AudioRecordView audioRecordView;
+    AudioRecordViewOld2 audioRecordView;
     FastRecordView fastRecordView;
     ListView listView;
 

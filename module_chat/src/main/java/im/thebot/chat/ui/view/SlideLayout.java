@@ -139,9 +139,11 @@ public class SlideLayout extends ViewGroup {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        long now = SystemClock.elapsedRealtime();
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 xDown = ev.getRawX();
+                timeDown = now;
                 xLast = xDown;
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -160,6 +162,7 @@ public class SlideLayout extends ViewGroup {
         long now = SystemClock.elapsedRealtime();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                xDown = event.getRawX();
                 isDistanceOver = false;
                 isTimeOut = false;
                 isLongClicking = false;
@@ -171,6 +174,7 @@ public class SlideLayout extends ViewGroup {
                 isDistanceOver = isDistanceOver || Math.abs(x - xDown) > touchSlop;
                 isTimeOut = (now - timeDown) > longClickTimeOut;
                 if (canSlide() && !isLongClicking && isDistanceOver) {
+                    getParent().requestDisallowInterceptTouchEvent(true);
                     int scrolledXDistance = (int) (xLast - x);
                     if (getScrollX() + scrolledXDistance > 0) {
                         scrollTo(0, 0);
@@ -206,10 +210,10 @@ public class SlideLayout extends ViewGroup {
                 }
                 break;
             case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_CANCEL:
                 if (!isDistanceOver && !isTimeOut) {
                     performClick();
                 }
+            case MotionEvent.ACTION_CANCEL:
                 isDistanceOver = false;
                 isTimeOut = false;
                 isLongClicking = false;
@@ -224,7 +228,6 @@ public class SlideLayout extends ViewGroup {
                     changeTailAlpha(0);
                     listener.onFingerUp(getScrollX() <= -rightBorder || childView.getScrollX() < 0);
                 }
-                break;
         }
         return super.onTouchEvent(event);
     }

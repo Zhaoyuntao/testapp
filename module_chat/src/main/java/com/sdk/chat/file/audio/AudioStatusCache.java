@@ -22,20 +22,20 @@ public class AudioStatusCache {
 
     @NonNull
     public AudioStatusBean setPlaying(@NonNull String key, long progress, long total) {
-        return set(key, AudioStatusCode.STATUS_AUDIO_PLAYING, progress, total);
+        return set(key, AudioPlayStatusCode.STATUS_AUDIO_PLAYING, progress, total);
     }
 
     @NonNull
     public AudioStatusBean setPlayingStopped(@NonNull String key, long progress, long total, @Nullable String errorMessage) {
-        return set(key, AudioStatusCode.STATUS_AUDIO_NOT_PLAYING, progress, total, errorMessage);
+        return set(key, AudioPlayStatusCode.STATUS_AUDIO_NOT_PLAYING, progress, total, errorMessage);
     }
 
     public AudioStatusBean setPlayingPaused(@NonNull String key, long progress, long total) {
-        return set(key, AudioStatusCode.STATUS_AUDIO_PAUSED, progress, total);
+        return set(key, AudioPlayStatusCode.STATUS_AUDIO_PAUSED, progress, total);
     }
 
     public AudioStatusBean setPlayingStart(@NonNull String key, long progress, long total) {
-        return set(key, AudioStatusCode.STATUS_AUDIO_START, progress, total);
+        return set(key, AudioPlayStatusCode.STATUS_AUDIO_START, progress, total);
     }
 
     @Nullable
@@ -52,20 +52,20 @@ public class AudioStatusCache {
     //---------- private
 
     @NonNull
-    private AudioStatusBean set(@NonNull String key, @AudioStatusCode int status) {
+    private AudioStatusBean set(@NonNull String key, @AudioPlayStatusCode int status) {
         return set(key, status, null);
     }
 
     @NonNull
-    private AudioStatusBean set(@NonNull String key, @AudioStatusCode int status, String errorMessage) {
+    private AudioStatusBean set(@NonNull String key, @AudioPlayStatusCode int status, String errorMessage) {
         return set(key, status, 0, 0, errorMessage);
     }
 
-    private AudioStatusBean set(@NonNull String key, @AudioStatusCode int status, long progress, long total) {
+    private AudioStatusBean set(@NonNull String key, @AudioPlayStatusCode int status, long progress, long total) {
         return set(key, status, progress, total, null);
     }
 
-    private AudioStatusBean set(@NonNull String key, @AudioStatusCode int status, long progress, long total, String errorMessage) {
+    private AudioStatusBean set(@NonNull String key, @AudioPlayStatusCode int status, long progress, long total, String errorMessage) {
         Preconditions.checkNotEmpty(key);
         AudioStatusBean statusBean = audioStatusCache.get(key);
         if (statusBean == null) {

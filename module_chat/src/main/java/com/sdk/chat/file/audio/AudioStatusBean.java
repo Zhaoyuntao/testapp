@@ -8,23 +8,23 @@ package com.sdk.chat.file.audio;
  */
 public class AudioStatusBean {
     private String key;
-    @AudioStatusCode
+    @AudioPlayStatusCode
     private int audioStatusCode;
     private long progress;
     private long total;
     private String errorMessage;
 
-    public AudioStatusBean(String key, @AudioStatusCode int audioStatusCode) {
+    public AudioStatusBean(String key, @AudioPlayStatusCode int audioStatusCode) {
         this.key = key;
         this.audioStatusCode = audioStatusCode;
     }
 
-    @AudioStatusCode
+    @AudioPlayStatusCode
     public int getAudioStatusCode() {
         return audioStatusCode;
     }
 
-    public void setAudioStatusCode(@AudioStatusCode int audioStatusCode) {
+    public void setAudioStatusCode(@AudioPlayStatusCode int audioStatusCode) {
         this.audioStatusCode = audioStatusCode;
     }
 

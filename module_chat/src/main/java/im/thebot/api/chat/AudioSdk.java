@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import com.sdk.chat.file.audio.AudioFilePacket;
 import com.sdk.chat.file.audio.AudioListener;
 import com.sdk.chat.file.audio.AudioNotifier;
-import com.sdk.chat.file.audio.AudioRecorder;
+import com.sdk.chat.file.audio.AudioRecordListener;
 import com.sdk.chat.file.audio.AudioStatusBean;
 import com.sdk.chat.file.audio.MessageAudioHelper;
 
@@ -15,16 +15,16 @@ import com.sdk.chat.file.audio.MessageAudioHelper;
  * description:
  */
 public class AudioSdk {
-    public void startRecord(@NonNull AudioRecorder.AudioRecordListener audioRecordListener) {
-        MessageAudioHelper.startRecord(audioRecordListener);
+    public void startRecord(@NonNull String uuid,@NonNull AudioRecordListener audioRecordListener) {
+        MessageAudioHelper.startRecord(uuid,audioRecordListener);
     }
 
     public void stopRecord() {
-        MessageAudioHelper.stopRecord();
+        MessageAudioHelper.finishRecord();
     }
 
-    public void startPlay(@NonNull AudioFilePacket audioFilePacket, long position) {
-        MessageAudioHelper.playDebug(audioFilePacket, position);
+    public void startPlay(@NonNull AudioFilePacket audioFilePacket, int position) {
+        MessageAudioHelper.startPlay(audioFilePacket, position);
     }
 
     public void resumeRecord() {
@@ -32,7 +32,7 @@ public class AudioSdk {
     }
 
     public void pausePlayingAudio() {
-        MessageAudioHelper.pausePlaying();
+        MessageAudioHelper.stopPlaying();
     }
 
     public void stopPlayingAudio() {
@@ -59,8 +59,8 @@ public class AudioSdk {
         MessageAudioHelper.pauseRecord();
     }
 
-    public void dropAudio() {
-        MessageAudioHelper.dropAudio();
+    public void cancelRecord() {
+        MessageAudioHelper.cancelRecord();
     }
 
     public AudioFilePacket getAudioDraft() {

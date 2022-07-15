@@ -382,7 +382,7 @@ public class AudioBucketView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.save();
-//        canvas.drawColor(Color.argb(60, 0, 0, 0));
+        canvas.drawColor(Color.argb(60, 0, 0, 0));
         if (!overturn && getLayoutDirection() == LAYOUT_DIRECTION_RTL) {
             overturn = true;
             matrix.preScale(-1, 1, getWidth() / 2f, getHeight() / 2f);

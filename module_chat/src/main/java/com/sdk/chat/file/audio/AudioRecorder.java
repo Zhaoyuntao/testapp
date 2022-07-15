@@ -13,6 +13,7 @@ import com.instanza.cocovoice.AudioUtil;
 import java.io.File;
 import java.io.IOException;
 
+import im.turbo.basetools.observer.ObjectHolder;
 import im.turbo.basetools.preconditions.Preconditions;
 import im.turbo.baseui.permission.Permission;
 import im.turbo.baseui.permission.PermissionUtils;
@@ -25,12 +26,13 @@ import im.turbo.utils.ResourceUtils;
  * description:
  */
 public class AudioRecorder {
+    private final String uuid;
     private AudioRecord audioRecord;
-    private final AudioRecordListener audioRecordListener;
+    private final ObjectHolder<AudioRecordListener> audioRecordListenerObjectHolder;
     private final int sampleRateHZ = 8000;
     private File tmpRecordFile;
     private final long handle;
-
+    private long timeStart;
 
     @IntDef({
             RecordResult.NON,
@@ -47,18 +49,25 @@ public class AudioRecorder {
 
     @RecordResult
     private int recordResult;
-    private long duration;
+    private int duration;
 
-    public AudioRecorder(@NonNull AudioRecordListener audioRecordListener) {
+    public AudioRecorder(@NonNull String uuid, @NonNull AudioRecordListener audioRecordListener) {
+        Preconditions.checkNotEmpty(uuid);
         Preconditions.checkNotNull(audioRecordListener);
+        this.uuid = uuid;
         this.tmpRecordFile = new File(ResourceUtils.getApplication().getCacheDir(), "audio-tmp-" + SystemClock.elapsedRealtime() + ".amr");
         handle = AudioUtil.init(tmpRecordFile.getAbsolutePath());
-        this.audioRecordListener = audioRecordListener;
+        this.audioRecordListenerObjectHolder = new ObjectHolder<>(audioRecordListener, "audioRecordListener", true);
     }
 
     public void startRecord() {
+        long now = SystemClock.elapsedRealtime();
+        if ((timeStart > 0 && (now - timeStart) < 1000) || isRecording()) {
+            return;
+        }
+        timeStart = now;
         if (!PermissionUtils.hasPermission(ResourceUtils.getApplication(), Permission.RECORD_AUDIO)) {
-            audioRecordListener.onError("No permission");
+            onError("No permission");
             return;
         }
         ThreadPool.runIO(new Runnable() {
@@ -82,7 +91,7 @@ public class AudioRecorder {
             try {
                 boolean created = tmpRecordFile.createNewFile();
                 if (!created) {
-                    audioRecordListener.onError("create file failed");
+                    onError("create file failed");
                     duration = 0;
                     return;
                 }
@@ -91,11 +100,11 @@ public class AudioRecorder {
             }
         }
         if (audioRecord.getState() != AudioRecord.STATE_INITIALIZED) {
-            audioRecordListener.onError("audioRecord not initialized");
+            onError("audioRecord not initialized");
             return;
         }
         audioRecord.startRecording();
-        audioRecordListener.onRecordStart(new float[]{0}, duration);
+        onRecordStart(new float[]{0}, duration);
 
         long timeLastTime = 0;
         while (audioRecord.getRecordingState() == AudioRecord.RECORDSTATE_RECORDING) {
@@ -108,7 +117,8 @@ public class AudioRecorder {
             }
             duration += (timeNow - timeLastTime);
             timeLastTime = timeNow;
-            audioRecordListener.onRecording(0, duration);
+            //todo volume.
+            onRecording(0, duration);
             byte[] buffer = new byte[bufferSize];
             int readLength = audioRecord.read(buffer, 0, bufferSize);
             int encodeResult = AudioUtil.processAndEncode(handle, buffer, readLength);
@@ -129,20 +139,62 @@ public class AudioRecorder {
         AudioFilePacket audioFilePacket = getAudioDraft();
         if (recordResult == RecordResult.FINISH) {
             AudioUtil.destroy(handle);
-            audioRecordListener.onRecordEnd(audioFilePacket);
+            onRecordEnd(audioFilePacket);
         } else if (recordResult == RecordResult.PAUSE) {
-            audioRecordListener.onRecordPause(audioFilePacket);
+            onRecordPause(audioFilePacket);
         } else if (recordResult == RecordResult.DROP) {
             AudioUtil.destroy(handle);
             if (tmpRecordFile.exists()) {
                 tmpRecordFile.delete();
                 tmpRecordFile = null;
             }
+            onAudioDropped(audioFilePacket);
+        }
+    }
+
+    private void onError(String errorMessage) {
+        AudioRecordListener audioRecordListener = audioRecordListenerObjectHolder.getObject();
+        if (audioRecordListener != null) {
+            audioRecordListener.onError(errorMessage);
+        }
+    }
+
+    private void onRecordStart(float[] volumes, long duration) {
+        AudioRecordListener audioRecordListener = audioRecordListenerObjectHolder.getObject();
+        if (audioRecordListener != null) {
+            audioRecordListener.onRecordStart(volumes, duration);
+        }
+    }
+
+    private void onRecording(float volume, long duration) {
+        AudioRecordListener audioRecordListener = audioRecordListenerObjectHolder.getObject();
+        if (audioRecordListener != null) {
+            audioRecordListener.onRecording(volume, duration);
+        }
+    }
+
+    private void onRecordEnd(AudioFilePacket audioFilePacket) {
+        AudioRecordListener audioRecordListener = audioRecordListenerObjectHolder.getObject();
+        if (audioRecordListener != null) {
+            audioRecordListener.onRecordEnd(audioFilePacket);
+        }
+    }
+
+    private void onRecordPause(AudioFilePacket audioFilePacket) {
+        AudioRecordListener audioRecordListener = audioRecordListenerObjectHolder.getObject();
+        if (audioRecordListener != null) {
+            audioRecordListener.onRecordPause(audioFilePacket);
+        }
+    }
+
+    private void onAudioDropped(AudioFilePacket audioFilePacket) {
+        AudioRecordListener audioRecordListener = audioRecordListenerObjectHolder.getObject();
+        if (audioRecordListener != null) {
             audioRecordListener.onAudioDropped(audioFilePacket);
         }
     }
 
-    public void stopRecord() {
+    public void finishRecord() {
         this.recordResult = RecordResult.FINISH;
         if (isRecording()) {
             audioRecord.stop();
@@ -183,22 +235,8 @@ public class AudioRecorder {
             audioFilePacket.setFilePath(tmpRecordFile.getAbsolutePath());
             audioFilePacket.setFileSize(tmpRecordFile.length());
             audioFilePacket.setDuration(duration);
+            audioFilePacket.setUuid(uuid);
         }
         return audioFilePacket;
     }
-
-    public interface AudioRecordListener {
-        void onRecordStart(float[] volumes, long duration);
-
-        void onRecording(float pitch, long duration);
-
-        void onRecordEnd(@NonNull AudioFilePacket audioFilePacket);
-
-        void onError(String errorMessage);
-
-        void onAudioDropped(@NonNull AudioFilePacket audioFilePacket);
-
-        void onRecordPause(@NonNull AudioFilePacket audioFilePacket);
-    }
-
 }

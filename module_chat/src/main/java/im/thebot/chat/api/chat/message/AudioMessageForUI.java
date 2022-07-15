@@ -10,7 +10,7 @@ import im.thebot.api.chat.constant.MessageTypeCode;
  * description:
  */
 public class AudioMessageForUI extends BaseFileMessageForUI {
-    private long audioDuration;
+    private int audioDuration;
     private long audioPlayedTime;
     private long audioPlayedProgress;
 
@@ -18,11 +18,11 @@ public class AudioMessageForUI extends BaseFileMessageForUI {
         super(MessageTypeCode.kChatMsgType_Audio);
     }
 
-    public long getAudioDuration() {
+    public int getAudioDuration() {
         return audioDuration;
     }
 
-    public void setAudioDuration(long audioDuration) {
+    public void setAudioDuration(int audioDuration) {
         this.audioDuration = audioDuration;
     }
 

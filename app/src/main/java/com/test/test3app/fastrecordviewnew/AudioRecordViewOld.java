@@ -34,7 +34,7 @@ import com.zhaoyuntao.androidutils.tools.TextMeasure;
  * description:
  * the main part of audio record view, include a clickable circle and a lock area.
  */
-public class AudioRecordView extends View implements TouchEvent {
+public class AudioRecordViewOld extends View implements TouchEvent {
 
 
     //------- circle part
@@ -132,19 +132,19 @@ public class AudioRecordView extends View implements TouchEvent {
     private int h_view;
     private boolean showWaitSend;
 
-    public AudioRecordView(Context context) {
+    public AudioRecordViewOld(Context context) {
         super(context);
         init();
         init2();
     }
 
-    public AudioRecordView(Context context, @Nullable AttributeSet attrs) {
+    public AudioRecordViewOld(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
         init2();
     }
 
-    public AudioRecordView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public AudioRecordViewOld(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
         init2();
@@ -685,7 +685,7 @@ public class AudioRecordView extends View implements TouchEvent {
 //            float y_line = y_start_circle - distance_move_y_max;
 //            canvas.drawLine(0, y_line, canvas.getWidth(), y_line, paint);
 //        }
-        String text_during = AudioRecordView.this.textOfDuration;
+        String text_during = AudioRecordViewOld.this.textOfDuration;
 
         //-------------- wait send,contains 3 part:delete,duration,send.
         if (showWaitSend && !TextUtils.isEmpty(text_during)) {

@@ -3,8 +3,8 @@ package im.thebot.chat.mvp.presenter;
 import androidx.annotation.NonNull;
 
 import com.sdk.chat.file.audio.AudioFilePacket;
-import com.sdk.chat.file.audio.AudioRecorder;
-import com.sdk.chat.file.audio.AudioStatusCode;
+import com.sdk.chat.file.audio.AudioRecordListener;
+import com.sdk.chat.file.audio.AudioPlayStatusCode;
 import com.sdk.chat.file.audio.MessageMediaHelper;
 
 import im.thebot.SdkFactory;
@@ -174,7 +174,7 @@ public class ChatPresenter {
         return selector.size();
     }
 
-    public void playAudio(AudioMessageForUI message, long calculateCurrentPlayingProgress) {
+    public void playAudio(AudioMessageForUI message, int calculateCurrentPlayingProgress) {
         AudioFilePacket audioFilePacket = new AudioFilePacket();
         audioFilePacket.setFileSize(message.getFileSize());
         audioFilePacket.setFilePath(message.getFileLocalPath());
@@ -189,7 +189,7 @@ public class ChatPresenter {
         if (audioFilePacket != null) {
             audioFilePacket.setUuid(uuidForAudioRecord);
             if (!audioFilePacket.hasError()) {
-                SdkFactory.getAudioSdk().startPlay(audioFilePacket, (long) (audioFilePacket.getDuration() * percent));
+                SdkFactory.getAudioSdk().startPlay(audioFilePacket, (int) (audioFilePacket.getDuration() * percent));
             }
         }
     }
@@ -210,11 +210,11 @@ public class ChatPresenter {
         this.uuidForAudioRecord = uuidForAudioRecord;
     }
 
-    private AudioRecorder.AudioRecordListener audioRecordListener;
+    private AudioRecordListener audioRecordListener;
 
-    public AudioRecorder.AudioRecordListener getRecordListener() {
+    public AudioRecordListener getRecordListener() {
         if (audioRecordListener == null) {
-            audioRecordListener = new AudioRecorder.AudioRecordListener() {
+            audioRecordListener = new AudioRecordListener() {
                 @Override
                 public void onRecordStart(float[] volumes, long audioDuration) {
                     runUI(() -> getView().onStartRecord());
@@ -265,7 +265,7 @@ public class ChatPresenter {
     }
 
     public void startRecord() {
-        SdkFactory.getAudioSdk().startRecord(getRecordListener());
+//        SdkFactory.getAudioSdk().startRecord(getRecordListener());
     }
 
     public AudioFilePacket getAudioDraft() {
@@ -277,7 +277,7 @@ public class ChatPresenter {
     }
 
     public void dropAudio() {
-        SdkFactory.getAudioSdk().dropAudio();
+        SdkFactory.getAudioSdk().cancelRecord();
     }
 
     public void finishRecord() {
@@ -305,6 +305,11 @@ public class ChatPresenter {
     }
 
     public boolean isAudioDraftPlaying() {
-        return SdkFactory.getAudioSdk().getAudioStatus(getSessionId(), uuidForAudioRecord).getAudioStatusCode() == AudioStatusCode.STATUS_AUDIO_PLAYING;
+        return SdkFactory.getAudioSdk().getAudioStatus(getSessionId(), uuidForAudioRecord).getAudioStatusCode() == AudioPlayStatusCode.STATUS_AUDIO_PLAYING;
+    }
+
+    public float[] getAudioDraftVolumes() {
+        AudioFilePacket audioFilePacket = getAudioDraft();
+        return audioFilePacket == null ? null : audioFilePacket.getVolumes();
     }
 }

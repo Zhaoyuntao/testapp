@@ -5,10 +5,12 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
@@ -18,6 +20,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import com.example.module_chat.R;
@@ -46,6 +49,8 @@ public class AudioRecordView extends View {
     private final float fingerSlideDistanceXMin, fingerSlideDistanceYMin;
     private float fingerMoveDistanceX, fingerMoveDistanceY;
     private AudioRecordViewListener listener;
+    private View pressPositionView;
+    private final float marginStartFinal, marginEndFinal, marginTopFinal, marginBottomFinal;
     //Animators.
     private ValueAnimator translateAnimator;
     private ValueAnimator linearScaleAnimator;
@@ -57,7 +62,7 @@ public class AudioRecordView extends View {
     private final float buttonScalePercentMax = 2.2f;
     private final float buttonRadiusFinal;
     private final Drawable buttonDrawable;
-    private final RectF buttonClickRect;
+    private final Rect pressPositionRect;
     private final int buttonBackgroundColor;
     private final float buttonDrawablePercent;
     private float buttonScalePercent;
@@ -121,10 +126,14 @@ public class AudioRecordView extends View {
         paint.setAntiAlias(true);
         paintFlagsDrawFilter = new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG);
         //Button circle.
-        buttonClickRect = new RectF();
+        pressPositionRect = new Rect();
         fingerMoveDistanceYMax = UiUtils.dipToPx(100);
         fingerMoveDistanceXMax = UiUtils.dipToPx(100);
         fingerSlideDistanceXMin = UiUtils.dipToPx(1);
+        marginStartFinal = UiUtils.dipToPx(8);
+        marginEndFinal = UiUtils.dipToPx(8);
+        marginTopFinal = UiUtils.dipToPx(8);
+        marginBottomFinal = UiUtils.dipToPx(8);
         buttonRadiusFinal = UiUtils.dipToPx(23);
         fingerSlideDistanceYMin = 0;
         buttonScalePercent = 1;
@@ -178,6 +187,12 @@ public class AudioRecordView extends View {
         lockArrowDrawableHeightFinal = UiUtils.dipToPx(28);
         lockArrowDrawableMarginTop = UiUtils.dipToPx(46);
         lockArrowDrawableYWaveTranslateRange = UiUtils.dipToPx(10);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int lockBackGroundHeight = (int) (marginBottomFinal + lockBackgroundMarginBottomFinal + lockBackgroundHeightFinal);
+        setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), (int) (lockBackGroundHeight + fingerMoveDistanceYMax + buttonLockedRadiusFinal + marginTopFinal));
     }
 
     @Override
@@ -476,6 +491,10 @@ public class AudioRecordView extends View {
         }
     }
 
+    private boolean isLockedShrinkAnimatorRunning() {
+        return lockedShrinkAnimator != null && lockedShrinkAnimator.isRunning();
+    }
+
     private void cancelLockedShrinkAlphaAnimation() {
         if (lockedShrinkAlphaAnimator != null && lockedShrinkAlphaAnimator.isRunning()) {
             lockedShrinkAlphaAnimator.cancel();
@@ -619,20 +638,20 @@ public class AudioRecordView extends View {
     }
 
     private boolean isPointInView(MotionEvent event) {
-        //Button click rect.
-        int buttonBackgroundCircleLeft = (int) (getButtonCenterX() - buttonRadiusFinal);
-        int buttonBackgroundCircleRight = (int) (getButtonCenterX() + buttonRadiusFinal);
-        int buttonBackgroundCircleTop = (int) (getButtonCenterY() - buttonRadiusFinal);
-        int buttonBackgroundCircleBottom = (int) (getButtonCenterY() + buttonRadiusFinal);
-        buttonClickRect.set(buttonBackgroundCircleLeft, buttonBackgroundCircleTop, buttonBackgroundCircleRight, buttonBackgroundCircleBottom);
-        return buttonClickRect.contains((int) event.getX(), (int) event.getY());
+        if (pressPositionView == null
+                || pressPositionView.getVisibility() != VISIBLE
+                || pressPositionView.getMeasuredWidth() <= 10 || pressPositionView.getMeasuredHeight() <= 10) {
+            return false;
+        }
+        pressPositionView.getGlobalVisibleRect(pressPositionRect);
+        return pressPositionRect.contains((int) event.getRawX(), (int) event.getRawY());
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.setDrawFilter(paintFlagsDrawFilter);
 
-        if (!downInButton && !isScaleAnimationRunning() && !isTransAnimationRunning()) {
+        if (!downInButton && !isScaleAnimationRunning() && !isTransAnimationRunning() && !isLockedShrinkAnimatorRunning()) {
             return;
         }
         //Slide background.
@@ -653,9 +672,7 @@ public class AudioRecordView extends View {
 
     private void drawSlideBackground(Canvas canvas) {
         //Slide background.
-        float fingerMoveDistanceYPercent = fingerMoveDistanceY / fingerMoveDistanceYMax;
-        float fingerMoveDistanceXPercent = fingerMoveDistanceX / fingerMoveDistanceXMax;
-        float slideBackgroundWidth = getWidth() - getPaddingStart() - getPaddingEnd() - slideBackgroundMarginStartFinal - slideBackgroundMarginEndFinal - fingerMoveDistanceX - buttonRadiusFinal * 2;
+        float slideBackgroundWidth = getWidth() - marginStartFinal - marginEndFinal - slideBackgroundMarginStartFinal - slideBackgroundMarginEndFinal - fingerMoveDistanceX - buttonRadiusFinal * 2;
         float slideBackgroundLeft;
         float slideBackgroundRight;
         if (isRTL()) {
@@ -680,7 +697,7 @@ public class AudioRecordView extends View {
 
     private void drawAudioIcon(Canvas canvas) {
         //Slide background.
-        float slideBackgroundWidth = getWidth() - getPaddingStart() - getPaddingEnd() - slideBackgroundMarginStartFinal - slideBackgroundMarginEndFinal - fingerMoveDistanceX - buttonRadiusFinal * 2;
+        float slideBackgroundWidth = getWidth() - marginStartFinal - marginEndFinal - slideBackgroundMarginStartFinal - slideBackgroundMarginEndFinal - fingerMoveDistanceX - buttonRadiusFinal * 2;
         float audioIconLeft;
         if (isRTL()) {
             audioIconLeft = getAudioIconX() - audioIconWidthFinal - slideBackgroundWidth * (1 - slideBackgroundXAnimateTranslatePercent);
@@ -699,7 +716,7 @@ public class AudioRecordView extends View {
 
     private void drawTimeDuration(Canvas canvas) {
         //Slide background.
-        float slideBackgroundWidth = getWidth() - getPaddingStart() - getPaddingEnd() - slideBackgroundMarginStartFinal - slideBackgroundMarginEndFinal - fingerMoveDistanceX - buttonRadiusFinal * 2;
+        float slideBackgroundWidth = getWidth() - marginStartFinal - marginEndFinal - slideBackgroundMarginStartFinal - slideBackgroundMarginEndFinal - fingerMoveDistanceX - buttonRadiusFinal * 2;
         paint.setTextSize(timeDurationTextSizePx);
         String timeDurationString = TimeUtils.formatLongToDuration(timeDurationMills);
         float timeDurationLeft;
@@ -722,7 +739,7 @@ public class AudioRecordView extends View {
 
     private void drawCancelString(Canvas canvas) {
         //Slide background.
-        float slideBackgroundWidth = getWidth() - getPaddingStart() - getPaddingEnd() - slideBackgroundMarginStartFinal - slideBackgroundMarginEndFinal - fingerMoveDistanceX - buttonRadiusFinal * 2;
+        float slideBackgroundWidth = getWidth() - marginStartFinal - marginEndFinal - slideBackgroundMarginStartFinal - slideBackgroundMarginEndFinal - fingerMoveDistanceX - buttonRadiusFinal * 2;
         paint.setTextSize(cancelStringTextSizePx);
         float cancelStringWidth = paint.measureText(cancelStringFinal);
 
@@ -881,23 +898,23 @@ public class AudioRecordView extends View {
     }
 
     private float getButtonCenterX() {
-        return isRTL() ? getPaddingStart() + buttonRadiusFinal : getWidth() - getPaddingEnd() - buttonRadiusFinal;
+        return isRTL() ? marginEndFinal + buttonRadiusFinal : getWidth() - marginEndFinal - buttonRadiusFinal;
+    }
+
+    private float getButtonCenterY() {
+        return getHeight() - marginBottomFinal - buttonRadiusFinal;
     }
 
     private float getLockBackgroundX() {
         return getButtonCenterX() - lockBackgroundWidthFinal / 2f;
     }
 
-    private float getButtonCenterY() {
-        return getHeight() - getPaddingBottom() - buttonRadiusFinal;
-    }
-
     private float getLockBackgroundY() {
-        return getHeight() - getPaddingBottom() - lockBackgroundMarginBottomFinal - lockBackgroundHeightFinal;
+        return getHeight() - marginBottomFinal - lockBackgroundMarginBottomFinal - lockBackgroundHeightFinal;
     }
 
     private float getAudioIconX() {
-        return isRTL() ? getWidth() - getPaddingEnd() : getPaddingStart();
+        return isRTL() ? getWidth() - marginEndFinal : marginStartFinal;
     }
 
     private float getTimeDurationX() {
@@ -951,6 +968,10 @@ public class AudioRecordView extends View {
 
     public void setListener(AudioRecordViewListener listener) {
         this.listener = listener;
+    }
+
+    public void setPressPositionView(@NonNull View pressPositionView) {
+        this.pressPositionView = pressPositionView;
     }
 
     public interface AudioRecordViewListener {

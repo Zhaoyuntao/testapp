@@ -1,5 +1,6 @@
 package im.thebot.chat.ui.view;
 
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -7,10 +8,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.animation.DecelerateInterpolator;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -18,32 +23,38 @@ import com.example.module_chat.R;
 
 import im.turbo.basetools.state.StateMachine;
 import im.turbo.baseui.utils.UiUtils;
+import im.turbo.utils.log.S;
 
 /**
  * Created by zhaoyuntao on 2017/5/25.
  */
 
 public class TSlideProgressView extends View {
-    private static final int STYLE_LINE = 0;
-    private static final int STYLE_DOTTED = 1;
 
     private final float radiusCircle;
     private final float widthProgress;
     private final boolean roundProgress;
-
+    private final float minMove;
+    private long timeDown;
+    private boolean isDragging;
     private final Paint paint;
     private final RectF rectBack;
     private final RectF rectFore;
-    private final int colorProgress;
-    private final int colorSlider;
+    private int colorProgress;
+    private int colorSlider;
     private final int colorProgressBackground;
 
     private OnProgressChangedListener onProgressChangedListener;
     private final StateMachine<ProgressMode> stateMachine = new StateMachine<>();
 
-    private int style = STYLE_LINE;
     private float percent = 0;
+    private float percentForDraw;
     private float xLast;
+    private final int shadow;
+    private final boolean showShadow;
+
+    private ValueAnimator animatorSmooth;
+    private SlideInterrupter slideInterrupter;
 
     public TSlideProgressView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -54,6 +65,7 @@ public class TSlideProgressView extends View {
         float defaultRadiusCircle = UiUtils.dipToPx(5);
         int defaultColorProgress = Color.WHITE;
         int defaultColorProgressBackground = Color.rgb(100, 100, 100);
+        shadow = UiUtils.dipToPx(4);
         if (attrs != null) {
             TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.TSlideProgressView);//
             roundProgress = typedArray.getBoolean(R.styleable.TSlideProgressView_TSlideProgressView_roundProgress, true);
@@ -61,7 +73,7 @@ public class TSlideProgressView extends View {
             radiusCircle = typedArray.getDimension(R.styleable.TSlideProgressView_TSlideProgressView_radiusCircle, defaultRadiusCircle);
             colorSlider = typedArray.getColor(R.styleable.TSlideProgressView_TSlideProgressView_colorSlider, defaultColorProgress);
             colorProgress = typedArray.getColor(R.styleable.TSlideProgressView_TSlideProgressView_colorProgress, defaultColorProgress);
-            style = typedArray.getInt(R.styleable.TSlideProgressView_TSlideProgressView_style, STYLE_LINE);
+            showShadow = typedArray.getBoolean(R.styleable.TSlideProgressView_TSlideProgressView_showShadow, true);
             colorProgressBackground = typedArray.getColor(R.styleable.TSlideProgressView_TSlideProgressView_colorProgressBack, defaultColorProgressBackground);
             typedArray.recycle();
         } else {
@@ -71,7 +83,9 @@ public class TSlideProgressView extends View {
             colorSlider = defaultColorProgress;
             colorProgress = defaultColorProgress;
             colorProgressBackground = defaultColorProgressBackground;
+            showShadow = true;
         }
+        minMove = ViewConfiguration.get(context).getScaledTouchSlop();
     }
 
     public void setCurrentMode(int mode) {
@@ -113,7 +127,7 @@ public class TSlideProgressView extends View {
         float topRectBack = yCenter - hRectBack / 2f;
         float bottomRectBack = topRectBack + hRectBack;
         float slideRange = wRectBack - radiusProgress * 2;
-        float sliderPosition = leftRectBack + radiusProgress + slideRange * percent;
+        float sliderPosition = leftRectBack + radiusProgress + slideRange * percentForDraw;
 
         rectBack.set(leftRectBack, topRectBack, rightRectBack, bottomRectBack);
         rectFore.set(leftRectBack, topRectBack, sliderPosition, bottomRectBack);
@@ -121,36 +135,56 @@ public class TSlideProgressView extends View {
         paint.setAntiAlias(true);
         paint.setColor(colorProgressBackground);
         paint.setStyle(Paint.Style.FILL);
-        if (style == STYLE_LINE) {
-            canvas.drawRoundRect(rectBack, radiusProgress, radiusProgress, paint);
-        } else {
-            for (float dotX = rectBack.left; dotX < rectBack.right; dotX += (widthProgress * 2)) {
-                canvas.drawCircle(dotX, yCenter, radiusProgress, paint);
-            }
-        }
+        canvas.drawRoundRect(rectBack, radiusProgress, radiusProgress, paint);
 
         paint.setColor(colorProgress);
         paint.setStyle(Paint.Style.FILL);
-        if (style == STYLE_LINE) {
-            canvas.drawRoundRect(rectFore, radiusProgress, radiusProgress, paint);
-        } else {
-            for (float dotX = rectFore.left; dotX < rectFore.right; dotX += (widthProgress * 2)) {
-                canvas.drawCircle(dotX, yCenter, radiusProgress, paint);
-            }
-        }
+        canvas.drawRoundRect(rectFore, radiusProgress, radiusProgress, paint);
 
+        if (showShadow) {
+            paint.setShadowLayer(shadow, shadow / 2f, shadow / 2f, Color.argb(40, 0, 0, 0));
+        }
         paint.setColor(colorSlider);
         paint.setStyle(Paint.Style.FILL);
         canvas.drawCircle(sliderPosition, yCenter, radiusCircle, paint);
+        paint.clearShadowLayer();
     }
 
     public void setPercent(float percent) {
-        if (percent >= 0 && percent <= 1) {
+        setPercent(percent, true);
+    }
+
+    public void setPercent(float percent, boolean animate) {
+        if (percent >= 0 && percent <= 1 && !isDragging) {
+            float percentBefore = this.percentForDraw;
             this.percent = percent;
             if (onProgressChangedListener != null) {
                 onProgressChangedListener.onProgressChanged(percent, false);
             }
-            postInvalidate();
+            if (animatorSmooth != null && animatorSmooth.isRunning()) {
+                animatorSmooth.cancel();
+            }
+            float difference = percent - percentBefore;
+            if (animate) {
+                animatorSmooth = ValueAnimator.ofFloat(0, 1);
+                animatorSmooth.setInterpolator(new DecelerateInterpolator());
+                animatorSmooth.setDuration(200);
+                animatorSmooth.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        if (!animation.isRunning()) {
+                            return;
+                        }
+                        float percent = (float) animation.getAnimatedValue();
+                        percentForDraw = percentBefore + difference * percent;
+                        postInvalidate();
+                    }
+                });
+                animatorSmooth.start();
+            } else {
+                percentForDraw = percent;
+                postInvalidate();
+            }
         }
     }
 
@@ -158,34 +192,34 @@ public class TSlideProgressView extends View {
         return percent;
     }
 
-    float min_move = 1;
-
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        getParent().requestDisallowInterceptTouchEvent(true);
+        if (slideInterrupter != null && !slideInterrupter.canSlide()) {
+            return super.onTouchEvent(event);
+        }
         float max_position = getWidth() - radiusCircle - getPaddingEnd();
         float min_position = getPaddingStart() + radiusCircle;
-
+        cancelAnimation();
+        long now = SystemClock.elapsedRealtime();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                timeDown = now;
                 float xNow = event.getX();
                 xLast = xNow;
-                if (xNow > max_position) {
-                    percent = 1;
-                } else if (xNow < min_position) {
-                    percent = 0;
-                } else {
-                    percent = (xNow - min_position) / (max_position - min_position);
-                }
-                if (onProgressChangedListener != null) {
-                    onProgressChangedListener.onProgressChanged(percent, true);
-                }
                 break;
             case MotionEvent.ACTION_MOVE:
                 xNow = event.getX();
                 float distance_move = xNow - xLast;
-                if (Math.abs(distance_move) >= min_move) {
+                boolean isLastTimeDragging = isDragging;
+                isDragging = isDragging || Math.abs(distance_move) >= minMove;
+                if (isDragging) {
+                    if (!isLastTimeDragging) {
+                        if (onProgressChangedListener != null) {
+                            onProgressChangedListener.onStartDragging();
+                        }
+                    }
+                    getParent().requestDisallowInterceptTouchEvent(true);
                     xLast = xNow;
                     if (xNow > max_position) {
                         percent = 1;
@@ -194,27 +228,45 @@ public class TSlideProgressView extends View {
                     } else {
                         percent = (xNow - min_position) / (max_position - min_position);
                     }
+                    percentForDraw = percent;
+                    postInvalidate();
                     if (onProgressChangedListener != null) {
-                        onProgressChangedListener.onProgressChanged(percent, true);
+                        onProgressChangedListener.onDragging(percent);
                     }
                 }
                 break;
+            case MotionEvent.ACTION_CANCEL:
+                isDragging = false;
+                break;
             case MotionEvent.ACTION_UP:
                 xNow = event.getX();
-                if (xNow > max_position) {
-                    percent = 1;
-                } else if (xNow < min_position) {
-                    percent = 0;
-                } else {
-                    percent = (xNow - min_position) / (max_position - min_position);
+                if (!isDragging && now - timeDown < 200) {
+                    if (onProgressChangedListener != null) {
+                        onProgressChangedListener.onStartDragging();
+                    }
+                    if (xNow > max_position) {
+                        percent = 1;
+                    } else if (xNow < min_position) {
+                        percent = 0;
+                    } else {
+                        percent = (xNow - min_position) / (max_position - min_position);
+                    }
+                    percentForDraw = percent;
+                    postInvalidate();
                 }
                 if (onProgressChangedListener != null) {
-                    onProgressChangedListener.onProgressChanged(getPercent(), true);
+                    onProgressChangedListener.onProgressChanged(percent, true);
                 }
+                isDragging = false;
                 break;
         }
-        postInvalidate();
         return true;
+    }
+
+    private void cancelAnimation() {
+        if (animatorSmooth != null && animatorSmooth.isRunning()) {
+            animatorSmooth.cancel();
+        }
     }
 
     public void setViewMode(@NonNull ProgressMode... viewModes) {
@@ -223,8 +275,14 @@ public class TSlideProgressView extends View {
         }
     }
 
-    public interface OnProgressChangedListener {
-        void onProgressChanged(float percent, boolean dragByUser);
+    public void setColorSlider(@ColorInt int color) {
+        this.colorSlider = color;
+        this.colorProgress = color;
+        postInvalidate();
+    }
+
+    public void setSlideInterrupter(SlideInterrupter slideInterrupter) {
+        this.slideInterrupter = slideInterrupter;
     }
 
     public void clearVideMode() {

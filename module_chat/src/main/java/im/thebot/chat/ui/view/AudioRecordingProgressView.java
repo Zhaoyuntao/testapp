@@ -28,7 +28,7 @@ import im.turbo.utils.log.S;
 
 public class AudioRecordingProgressView extends View {
 
-    private final float dotRadius, dotSpace;
+    protected final float dotRadius, dotSpace;
     private final Paint paint;
     private final int dotColor;
     private final float speedPXPerMills;

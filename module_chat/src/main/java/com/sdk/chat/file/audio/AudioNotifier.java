@@ -64,7 +64,7 @@ public class AudioNotifier extends ListenerManager<AudioListener> {
     public AudioStatusBean getStatus(String key) {
         AudioStatusBean audioStatus = audioStatusCache.get(key);
         if (audioStatus == null) {
-            audioStatus = new AudioStatusBean(key, AudioStatusCode.STATUS_AUDIO_NOT_PLAYING);
+            audioStatus = new AudioStatusBean(key, AudioPlayStatusCode.STATUS_AUDIO_NOT_PLAYING);
             audioStatus.setErrorMessage(null);
             audioStatus.setProgress(-1);
         }

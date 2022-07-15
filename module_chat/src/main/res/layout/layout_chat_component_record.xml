@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_alignParentBottom="true"
+    android:layout_toEndOf="@+id/switch_button_office_account_chat_empty">
 
     <im.thebot.chat.ui.view.AudioRecordView
         android:id="@+id/chat_record_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="8dp" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom" />
 
     <im.thebot.chat.ui.view.AudioBucketView
         android:id="@+id/garbage_can_0"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="start|bottom"
-        android:visibility="invisible" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|bottom"/>
 
 </FrameLayout>
 

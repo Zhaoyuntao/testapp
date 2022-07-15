@@ -11,11 +11,12 @@ import java.io.File;
  */
 public class AudioFilePacket {
     private String filePath;
-    private long duration;
+    private int duration;
+    private int startPosition;
     private long fileSize;
     private String uuid;
     private String errorMessage;
-    private float[]volumes;
+    private float[] volumes;
 
     public String getFilePath() {
         return filePath;
@@ -25,11 +26,11 @@ public class AudioFilePacket {
         this.filePath = filePath;
     }
 
-    public long getDuration() {
+    public int getDuration() {
         return duration;
     }
 
-    public void setDuration(long duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
@@ -67,6 +68,14 @@ public class AudioFilePacket {
 
     public void setVolumes(float[] volumes) {
         this.volumes = volumes;
+    }
+
+    public int getStartPosition() {
+        return startPosition;
+    }
+
+    public void setStartPosition(int startPosition) {
+        this.startPosition = startPosition;
     }
 
     @Override

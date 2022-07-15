@@ -18,9 +18,6 @@
         <attr name="TSlideProgressView_colorSlider" format="color" />
         <attr name="TSlideProgressView_colorProgress" format="color" />
         <attr name="TSlideProgressView_colorProgressBack" format="color" />
-        <attr name="TSlideProgressView_style" format="string">
-            <enum name="line" value="0" />
-            <enum name="dotted" value="1" />
-        </attr>
+        <attr name="TSlideProgressView_showShadow" format="boolean" />
     </declare-styleable>
 </resources>

@@ -46,11 +46,8 @@ public class Activity_94_wallpaper extends BaseActivity {
 
 
         ChatRecyclerView chatView = findViewById(R.id.recycler_view1);
-        ChatRecyclerView chatView2 = findViewById(R.id.recycler_view2);
         CommonAdapter commonAdapter = new CommonAdapter(0);
         chatView.setAdapter(commonAdapter);
-        CommonAdapter commonAdapter2 = new CommonAdapter(8);
-//        chatView2.setAdapter(commonAdapter2);
 
         commonAdapter.setOnItemClickListener(new CommonAdapter.OnItemClickListener() {
             @Override

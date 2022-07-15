@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<im.turbo.baseui.chat.SmoothScaleFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/double_switch_view_chat_record"
+    android:layout_width="46dp"
+    android:layout_height="46dp"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentBottom="true"
+    android:layout_gravity="bottom"
+    android:layout_marginStart="5dp"
+    android:animateLayoutChanges="false"
+    android:background="@drawable/shape_oval_green_audio_record">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/button_chat_input_bar_send"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="@null"
+        android:padding="12.5dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/svg_input_bar_send" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/button_chat_input_bar_record"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="#ff0000"
+        android:padding="11dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/svg_input_bar_mic" />
+
+</im.turbo.baseui.chat.SmoothScaleFrameLayout>

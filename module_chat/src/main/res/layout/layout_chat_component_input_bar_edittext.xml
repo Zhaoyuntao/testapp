@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_gravity="bottom"
+    android:id="@+id/input_bar_edittext_container"
+    android:layout_weight="1"
+    android:animateLayoutChanges="true"
+    android:background="@drawable/shape_background_chat_input"
+    android:gravity="bottom"
+    android:layout_toStartOf="@+id/double_switch_view_chat_record"
+    android:layoutDirection="ltr"
+    android:minHeight="46dp"
+    android:orientation="horizontal">
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/button_chat_input_bar_emoji"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/selector_circle_ripple_20dp"
+        android:padding="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/chat_tab_expression" />
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:animateLayoutChanges="false"
+        android:minHeight="32dp">
+
+        <im.turbo.baseui.chat.ChatEditText
+            android:id="@+id/edit_text_chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@color/bot_chats_tab_bar_bg_color"
+            android:fadeScrollbars="true"
+            android:gravity="center_vertical"
+            android:hint="hint"
+            android:imeOptions="actionSend"
+            android:inputType="textCapSentences|textMultiLine"
+            android:maxLines="5"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:scrollbarStyle="insideInset"
+            android:scrollbarThumbVertical="@color/color_cac9c6"
+            android:scrollbars="vertical"
+            android:singleLine="false"
+            android:textColor="@color/bot_input_box_hover_text_color"
+            android:textColorHint="@color/bot_input_box_text_color"
+            android:textCursorDrawable="@drawable/edit_text_cursor"
+            android:textSize="17dp"
+            tools:text="editsadka" />
+
+        <TextView
+            android:id="@+id/text_view_session_blocked_by_other"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/text_view_session_not_my_contact_or_group"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/button_chat_input_bar_more"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/selector_circle_ripple_20dp"
+            android:paddingStart="10dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="12dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/chat_tab_attachment" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/button_chat_input_bar_camera"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/selector_circle_ripple_20dp"
+            android:paddingStart="11.5dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="11.5dp"
+            android:paddingBottom="12dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/chat_tab_camera" />
+    </LinearLayout>
+</LinearLayout>

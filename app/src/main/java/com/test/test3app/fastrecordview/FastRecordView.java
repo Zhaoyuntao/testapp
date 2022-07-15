@@ -20,7 +20,7 @@ import im.turbo.basetools.utils.BitmapUtils;
  * main audio view include two child view : AudioRecordView and InputActionView
  */
 public class FastRecordView extends FrameLayout implements TouchEvent {
-    private AudioRecordView audioRecordView;
+    private AudioRecordViewOld2 audioRecordView;
     private InputActionView inputActionView;
 
     public FastRecordView(@NonNull Context context) {
@@ -40,7 +40,7 @@ public class FastRecordView extends FrameLayout implements TouchEvent {
 
     private void init() {
 
-        audioRecordView = new AudioRecordView(getContext());
+        audioRecordView = new AudioRecordViewOld2(getContext());
         inputActionView = new InputActionView(getContext());
         //always on bottom
         LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);

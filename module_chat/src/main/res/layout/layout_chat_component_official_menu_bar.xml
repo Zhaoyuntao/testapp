@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/input_menu_bar_official_account_chat"
+    android:layout_width="match_parent"
+    android:layout_height="62dp"
+    android:layout_gravity="bottom"
+    android:background="#ff0000"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:text="Unsupported"
+    android:visibility="gone"
+    tools:visibility="visible">
+
+    <include layout="@layout/layout_chat_component_input_bar_official_button" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="62dp"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:background="#555555">
+
+    </LinearLayout>
+</LinearLayout>
