@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="start"
     android:layoutDirection="ltr"
     android:orientation="vertical">
@@ -29,11 +29,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#00FFff"
+        app:SlideLayout_slideDirection="left"
         tools:layout_height="50dp">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             android:scaleType="fitCenter"
             android:src="@drawable/chat_reply" />
 

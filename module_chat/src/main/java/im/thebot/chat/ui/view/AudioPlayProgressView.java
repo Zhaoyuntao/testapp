@@ -32,7 +32,7 @@ public class AudioPlayProgressView extends AudioRecordingProgressView {
     private final float minMove;
     private long timeDown;
     private boolean isDragging;
-
+    private boolean isDraggingSet;
     private int colorSlider;
 
     private OnProgressChangedListener onProgressChangedListener;
@@ -41,6 +41,7 @@ public class AudioPlayProgressView extends AudioRecordingProgressView {
     private float xLast;
     private ValueAnimator animatorSmooth;
     private float percentForDraw;
+    private float xDown, yDown;
     private SlideInterrupter slideInterrupter;
 
 
@@ -168,37 +169,35 @@ public class AudioPlayProgressView extends AudioRecordingProgressView {
         if (slideInterrupter != null && !slideInterrupter.canSlide()) {
             return super.onTouchEvent(event);
         }
-        float max_position = getWidth() - radiusCircle - getPaddingEnd();
-        float min_position = getPaddingStart() + radiusCircle;
         cancelAnimation();
         long now = SystemClock.elapsedRealtime();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 timeDown = now;
-                float xNow = event.getX();
-                xLast = xNow;
+                xDown = event.getX();
+                yDown = event.getY();
+                isDraggingSet = false;
                 break;
             case MotionEvent.ACTION_MOVE:
-                xNow = event.getX();
-                float distance_move = xNow - xLast;
-                boolean isLastTimeDragging = isDragging;
-                isDragging = isDragging || Math.abs(distance_move) >= minMove;
-                if (isDragging) {
-                    if (!isLastTimeDragging) {
+                float distanceMoveX = Math.abs(event.getX() - xDown);
+                float distanceMoveY = Math.abs(event.getY() - yDown);
+                if (!isDraggingSet) {
+                    if ((distanceMoveX - distanceMoveY) > UiUtils.dipToPx(1)) {
+                        isDraggingSet = true;
+                        isDragging = true;
+                    } else if ((distanceMoveY - distanceMoveX) > UiUtils.dipToPx(1)) {
+                        isDraggingSet = true;
+                        isDragging = false;
+                    }
+                    if (isDragging) {
+                        getParent().requestDisallowInterceptTouchEvent(true);
                         if (onProgressChangedListener != null) {
                             onProgressChangedListener.onStartDragging();
                         }
                     }
-                    getParent().requestDisallowInterceptTouchEvent(true);
-                    xLast = xNow;
-                    if (xNow > max_position) {
-                        percent = 1;
-                    } else if (xNow < min_position) {
-                        percent = 0;
-                    } else {
-                        percent = (xNow - min_position) / (max_position - min_position);
-                    }
-                    percentForDraw = percent;
+                }
+                if (isDragging) {
+                    calculatePercent(event);
                     postInvalidate();
                     if (onProgressChangedListener != null) {
                         onProgressChangedListener.onDragging(percent);
@@ -207,30 +206,40 @@ public class AudioPlayProgressView extends AudioRecordingProgressView {
                 break;
             case MotionEvent.ACTION_CANCEL:
                 isDragging = false;
+                isDraggingSet = false;
                 break;
             case MotionEvent.ACTION_UP:
-                xNow = event.getX();
                 if (!isDragging && now - timeDown < 200) {
                     if (onProgressChangedListener != null) {
                         onProgressChangedListener.onStartDragging();
                     }
-                    if (xNow > max_position) {
-                        percent = 1;
-                    } else if (xNow < min_position) {
-                        percent = 0;
-                    } else {
-                        percent = (xNow - min_position) / (max_position - min_position);
-                    }
-                    percentForDraw = percent;
+                    calculatePercent(event);
                     postInvalidate();
                 }
                 if (onProgressChangedListener != null) {
                     onProgressChangedListener.onProgressChanged(percent, true);
                 }
                 isDragging = false;
+                isDraggingSet = false;
                 break;
         }
         return true;
+    }
+
+    private void calculatePercent(MotionEvent event) {
+        boolean isRtl = getLayoutDirection() == LAYOUT_DIRECTION_RTL;
+        float right = getWidth() - radiusCircle - getPaddingRight();
+        float left = getPaddingLeft() + radiusCircle;
+        boolean overStart = isRtl ? event.getX() > right : event.getX() < left;
+        boolean overEnd = isRtl ? event.getX() < left : event.getX() > right;
+        if (overEnd) {
+            percent = 1;
+        } else if (overStart) {
+            percent = 0;
+        } else {
+            percent = (isRtl ? (right - event.getX()) : (event.getX() - left)) / (right - left);
+        }
+        percentForDraw = percent;
     }
 
     public void setSlideInterrupter(SlideInterrupter slideInterrupter) {

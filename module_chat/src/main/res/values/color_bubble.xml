@@ -13,7 +13,7 @@
     <color name="color_bubble_debug_background">#ffffff</color>
     <color name="color_bubble_debug_stroke">#ffffff</color>
     <color name="color_bubble_debug_text">#000000</color>
-    <color name="color_bubble_background_checked">#77005e4b</color>
+    <color name="color_bubble_background_checked">#ff0000</color>
     <!-- Time Title -->
     <color name="color_chat_cell_time_title">#e4f1fb</color>
     <color name="color_chat_cell_time_title_text_color">@color/grey08_434343</color>

@@ -3,8 +3,8 @@ package im.thebot.chat.mvp.presenter;
 import androidx.annotation.NonNull;
 
 import com.sdk.chat.file.audio.AudioFilePacket;
-import com.sdk.chat.file.audio.AudioRecordListener;
 import com.sdk.chat.file.audio.AudioPlayStatusCode;
+import com.sdk.chat.file.audio.AudioRecordListener;
 import com.sdk.chat.file.audio.MessageMediaHelper;
 
 import im.thebot.SdkFactory;
@@ -67,8 +67,8 @@ public class ChatPresenter {
 
         TextMessageForUI message4 = new TextMessageForUI();
         message4.setSenderUid(ContactUtil.uidOther2);
-        message4.setMessageReply(message1);
-        message4.setContent("123455");
+//        message4.setMessageReply(message1);
+        message4.setContent("123455askdnaksndksaldlksad\nsajdjasdiasjdioas\nasijdiosajdiosa\nasdiajsdoi");
         TextMessageForUI message5 = new TextMessageForUI();
         message5.setSenderUid(ContactUtil.uidOther2);
         message5.setMessageReply(message1);
@@ -180,7 +180,8 @@ public class ChatPresenter {
         audioFilePacket.setFilePath(message.getFileLocalPath());
         audioFilePacket.setDuration(message.getAudioDuration());
         audioFilePacket.setUuid(message.getUUID());
-        SdkFactory.getAudioSdk().startPlay(audioFilePacket, calculateCurrentPlayingProgress);
+        audioFilePacket.setStartPosition(calculateCurrentPlayingProgress);
+        SdkFactory.getAudioSdk().startPlay(audioFilePacket);
     }
 
     public void playAudioDraft(float percent) {
@@ -189,7 +190,8 @@ public class ChatPresenter {
         if (audioFilePacket != null) {
             audioFilePacket.setUuid(uuidForAudioRecord);
             if (!audioFilePacket.hasError()) {
-                SdkFactory.getAudioSdk().startPlay(audioFilePacket, (int) (audioFilePacket.getDuration() * percent));
+                audioFilePacket.setStartPosition((int) (audioFilePacket.getDuration() * percent));
+                SdkFactory.getAudioSdk().startPlay(audioFilePacket);
             }
         }
     }
@@ -291,7 +293,7 @@ public class ChatPresenter {
         getView().setRecordingInitData(audioFilePacket.getVolumes(), audioFilePacket.getDuration());
     }
 
-    public void stopPlaying(){
+    public void stopPlaying() {
         SdkFactory.getAudioSdk().stopPlayingAudio();
     }
 
@@ -311,5 +313,9 @@ public class ChatPresenter {
     public float[] getAudioDraftVolumes() {
         AudioFilePacket audioFilePacket = getAudioDraft();
         return audioFilePacket == null ? null : audioFilePacket.getVolumes();
+    }
+
+    public void select(MessageBeanForUI messageBean, boolean selected) {
+        selector.changeSelect(messageBean, selected);
     }
 }

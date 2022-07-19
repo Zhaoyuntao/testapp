@@ -155,7 +155,7 @@ final public class ChatItemHolder extends RecyclerView.ViewHolder {
         if (checked) {
             slideLayout.setBackgroundResource(R.color.color_bubble_background_checked);
         } else {
-            slideLayout.setBackground(defaultBack);
+            slideLayout.setBackground(null);
         }
     }
 

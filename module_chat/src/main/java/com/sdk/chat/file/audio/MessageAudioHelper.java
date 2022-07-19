@@ -5,9 +5,7 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import im.thebot.chat.api.chat.message.MessageBeanForUI;
 import im.turbo.basetools.preconditions.Preconditions;
-import im.turbo.utils.log.S;
 
 /**
  * created by zhaoyuntao
@@ -58,7 +56,8 @@ public class MessageAudioHelper {
         return audioRecorder != null && audioRecorder.isRecording();
     }
 
-    public static void startPlay(@NonNull AudioFilePacket audioFilePacket, int position) {
+    public static void startPlay(@NonNull AudioFilePacket audioFilePacket) {
+        int position = audioFilePacket.getStartPosition();
         if (isRecording()) {
             AudioNotifier.getInstance().notifyPlayingStopped(audioFilePacket.getUuid(), position, audioFilePacket.getDuration(), "is recording");
             return;

@@ -14,7 +14,7 @@
         android:scrollbarSize="4dp"
         android:scrollbars="vertical" />
 
-    <im.turbo.baseui.chat.SmoothLayoutFrameLayout
+    <FrameLayout
         android:id="@+id/test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
             <include layout="@layout/layout_chat_component_official_menu_bar" />
         </im.turbo.baseui.chat.SmoothTranslateFrameLayout>
 
-    </im.turbo.baseui.chat.SmoothLayoutFrameLayout>
+    </FrameLayout>
 
     <Space
         android:id="@+id/switch_button_office_account_chat_empty"

@@ -123,7 +123,7 @@ public class ChatActivity extends BaseActivity {
 
             @Override
             public void onSelectItem(@NonNull MessageBeanForUI messageBean, boolean selected) {
-
+                getPresenter().select(messageBean,selected);
             }
         });
         chatView.setAdapter(chatAdapter);

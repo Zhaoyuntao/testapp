@@ -1,6 +1,7 @@
 package im.thebot.chat.ui.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -11,6 +12,10 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
+
+import androidx.annotation.Nullable;
+
+import com.example.module_chat.R;
 
 import im.turbo.basetools.vibrate.VibratorUtil;
 
@@ -29,12 +34,17 @@ public class SlideLayout extends ViewGroup {
     private View childView, hideTailView;
     private SlideListener listener;
 
-    private float x, xDown, xLast;
-    private int rightBorder;
+    private float xDown;
     private long timeDown;
-    private boolean isLongClicking;
+    private boolean isLongClicked;
     private boolean isDistanceOver;
     private boolean isTimeOut;
+
+    private boolean hasPostSlideTouchBorder;
+    private final boolean slideRightDirection;
+    private int scrollRange;
+    private OnLongClickListener longClickListener;
+    private OnClickListener clickListener;
 
     public SlideLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -43,11 +53,34 @@ public class SlideLayout extends ViewGroup {
         touchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
         longClickTimeOut = ViewConfiguration.getLongPressTimeout();
         setWillNotDraw(false);
+        if (attrs != null) {
+            TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SlideLayout);
+            slideRightDirection = typedArray.getInt(R.styleable.SlideLayout_SlideLayout_slideDirection, 0) == 1;
+            typedArray.recycle();
+        } else {
+            slideRightDirection = false;
+        }
     }
 
     @Override
     public SlideLayoutParams generateLayoutParams(AttributeSet attrs) {
         return new SlideLayoutParams(getContext(), attrs);
+    }
+
+    @Override
+    public void setOnLongClickListener(@Nullable OnLongClickListener longClickListener) {
+        if (!isLongClickable()) {
+            setLongClickable(true);
+        }
+        this.longClickListener = longClickListener;
+    }
+
+    @Override
+    public void setOnClickListener(@Nullable OnClickListener clickListener) {
+        if (!isClickable()) {
+            setClickable(true);
+        }
+        this.clickListener = clickListener;
     }
 
     @Override
@@ -117,119 +150,147 @@ public class SlideLayout extends ViewGroup {
         int paddingBottom = getPaddingBottom();
         int widthView = getMeasuredWidth();
         final int absoluteGravity = Gravity.getAbsoluteGravity(layoutParams.gravity, layoutDirection);
-        int leftMain;
-        int rightMain = widthView - layoutParams.rightMargin - paddingEnd;
+        int left;
+        int right = widthView - layoutParams.rightMargin - paddingEnd;
         if ((absoluteGravity & Gravity.HORIZONTAL_GRAVITY_MASK) == Gravity.LEFT) {
-            leftMain = paddingStart + layoutParams.leftMargin;
+            left = paddingStart + layoutParams.leftMargin;
         } else {
-            leftMain = rightMain - childWidth;
+            left = right - childWidth;
         }
-        int topMain = paddingTop + layoutParams.topMargin;
-        int bottomMain = topMain + childHeight;
-        childView.layout(leftMain, topMain, rightMain, bottomMain);
+        int top = paddingTop + layoutParams.topMargin;
+        int bottom = top + childHeight;
+        childView.layout(left, top, right, bottom);
 
         SlideLayoutParams tailLayoutParams = (SlideLayoutParams) hideTailView.getLayoutParams();
-        int leftFollow = -hideTailView.getMeasuredWidth() - tailLayoutParams.getMarginEnd();
-        int rightFollow = -tailLayoutParams.getMarginEnd();
+        int leftFollow = slideRightDirection ? (-hideTailView.getMeasuredWidth() - tailLayoutParams.getMarginEnd()) : (getMeasuredWidth() + tailLayoutParams.getMarginStart());
+        int rightFollow = leftFollow + hideTailView.getMeasuredWidth();
         int topFollow = (int) ((getMeasuredHeight() - hideTailView.getMeasuredHeight()) / 2f);
         int bottomFollow = topFollow + hideTailView.getMeasuredHeight();
         hideTailView.layout(leftFollow, topFollow, rightFollow, bottomFollow);
-        rightBorder = hideTailView.getMeasuredWidth();
+        scrollRange = tailLayoutParams.getMarginStart() + hideTailView.getMeasuredWidth() + tailLayoutParams.getMarginEnd();
     }
 
     @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
+    public boolean onInterceptTouchEvent(MotionEvent event) {
         long now = SystemClock.elapsedRealtime();
-        switch (ev.getAction()) {
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                xDown = ev.getRawX();
+                xDown = event.getRawX();
                 timeDown = now;
-                xLast = xDown;
+                isDistanceOver = false;
+                isTimeOut = false;
+                isLongClicked = false;
+                scroller.abortAnimation();
+                scrollerChild.abortAnimation();
+                scrollTo(0, 0);
+                childView.scrollTo(0, 0);
                 break;
             case MotionEvent.ACTION_MOVE:
-                x = ev.getRawX();
-                xLast = x;
-                if (canSlide() && Math.abs(x - xDown) > touchSlop) {
+                if (canSlide() && Math.abs(event.getRawX() - xDown) > touchSlop) {
                     return true;
                 }
                 break;
         }
-        return super.onInterceptTouchEvent(ev);
+        return super.onInterceptTouchEvent(event);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         long now = SystemClock.elapsedRealtime();
+        int leftBorder = slideRightDirection ? 0 : -scrollRange;
+        int rightBorder = slideRightDirection ? scrollRange : 0;
+        int moveDistance = (int) (event.getRawX() - xDown);
         switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                xDown = event.getRawX();
-                isDistanceOver = false;
-                isTimeOut = false;
-                isLongClicking = false;
-                timeDown = now;
-                xLast = xDown;
-                return true;
             case MotionEvent.ACTION_MOVE:
-                x = event.getRawX();
-                isDistanceOver = isDistanceOver || Math.abs(x - xDown) > touchSlop;
+                isDistanceOver = isDistanceOver || Math.abs(moveDistance) > touchSlop;
+//                S.s("moveDistance:" + moveDistance + "  touchSlop:" + touchSlop + " isDistanceOver:" + isDistanceOver);
                 isTimeOut = (now - timeDown) > longClickTimeOut;
-                if (canSlide() && !isLongClicking && isDistanceOver) {
+                if (!isLongClicked && canSlide() && isDistanceOver) {
                     getParent().requestDisallowInterceptTouchEvent(true);
-                    int scrolledXDistance = (int) (xLast - x);
-                    if (getScrollX() + scrolledXDistance > 0) {
-                        scrollTo(0, 0);
-                        childView.scrollTo(0, 0);
-                        if (listener != null) {
-                            listener.onSlideDistanceChange(0);
-                            changeTailAlpha(0);
+                    if (slideRightDirection) {
+                        if (moveDistance < leftBorder) {
+                            onTouchedStartBorder(leftBorder);
+                        } else if (moveDistance > rightBorder) {
+                            onTouchedEndBorder(rightBorder, moveDistance);
+                        } else {
+                            onSliding(moveDistance, scrollRange);
                         }
-                    } else if (getScrollX() + scrolledXDistance < -rightBorder || childView.getScrollX() < 0) {
-                        if (getScrollX() != -rightBorder) {
-                            scrollTo(-rightBorder, 0);
-                            VibratorUtil.vibrate(getContext());
-                            if (listener != null) {
-                                listener.onSlideDistanceChange(1);
-                                listener.onSlideToRight();
-                                changeTailAlpha(1);
-                            }
-                        }
-                        childView.scrollBy(scrolledXDistance / 2, 0);
                     } else {
-                        scrollBy(scrolledXDistance, 0);
-                        childView.scrollTo(0, 0);
-                        if (listener != null) {
-                            float percent = Math.abs(getScrollX()) / (float) Math.abs(rightBorder);
-                            listener.onSlideDistanceChange(percent);
-                            changeTailAlpha(percent);
+                        if (moveDistance > rightBorder) {
+                            onTouchedStartBorder(rightBorder);
+                        } else if (moveDistance < leftBorder) {
+                            onTouchedEndBorder(leftBorder, moveDistance);
+                        } else {
+                            onSliding(moveDistance, scrollRange);
                         }
                     }
-                    xLast = x;
-                } else if (!isDistanceOver && !isLongClicking && isTimeOut) {
-                    isLongClicking = true;
-                    performLongClick();
+                } else if (!isDistanceOver && !isLongClicked && isTimeOut && longClickListener != null) {
+                    isLongClicked = true;
+                    boolean handled = longClickListener.onLongClick(this);
+                    if (handled) {
+                        VibratorUtil.vibrate(getContext());
+                    }
+                    return handled;
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                if (!isDistanceOver && !isTimeOut) {
-                    performClick();
+                if (!isLongClicked && clickListener != null) {
+                    clickListener.onClick(this);
                 }
             case MotionEvent.ACTION_CANCEL:
+                hasPostSlideTouchBorder = false;
                 isDistanceOver = false;
                 isTimeOut = false;
-                isLongClicking = false;
+                isLongClicked = false;
                 int scrollX = getScrollX();
-                int scrollXMain = childView.getScrollX();
+                int scrollXChild = childView.getScrollX();
                 scroller.startScroll(scrollX, 0, -scrollX, 0);
-                scrollerChild.startScroll(scrollXMain, 0, -scrollXMain, 0);
+                scrollerChild.startScroll(scrollXChild, 0, -scrollXChild, 0);
                 invalidate();
                 childView.invalidate();
                 if (listener != null) {
+                    if (slideRightDirection) {
+                        listener.onFingerUp(moveDistance > rightBorder);
+                    } else {
+                        listener.onFingerUp(moveDistance < leftBorder);
+                    }
                     listener.onSlideDistanceChange(0);
-                    changeTailAlpha(0);
-                    listener.onFingerUp(getScrollX() <= -rightBorder || childView.getScrollX() < 0);
                 }
         }
         return super.onTouchEvent(event);
+    }
+
+    private void onTouchedStartBorder(int border) {
+        scrollTo(-border, 0);
+        childView.scrollTo(0, 0);
+        if (listener != null) {
+            listener.onSlideDistanceChange(0);
+            changeTailAlpha(0);
+        }
+    }
+
+    private void onSliding(int moveDistance, int scrollRange) {
+        scrollTo(-moveDistance, 0);
+        childView.scrollTo(0, 0);
+        if (listener != null) {
+            float percent = Math.abs(getScrollX()) / (float) scrollRange;
+            listener.onSlideDistanceChange(percent);
+            changeTailAlpha(percent);
+        }
+    }
+
+    private void onTouchedEndBorder(int border, int moveDistance) {
+        if (!hasPostSlideTouchBorder) {
+            hasPostSlideTouchBorder = true;
+            scrollTo(-border, 0);
+            VibratorUtil.vibrate(getContext());
+            if (listener != null) {
+                listener.onSlideDistanceChange(1);
+                listener.onSlideTouchedBorder();
+                changeTailAlpha(1);
+            }
+        }
+        childView.scrollTo(-((moveDistance - border) / 2), 0);
     }
 
     private void changeTailAlpha(float percent) {
@@ -249,6 +310,8 @@ public class SlideLayout extends ViewGroup {
         if (scroller.computeScrollOffset()) {
             scrollTo(scroller.getCurrX(), scroller.getCurrY());
             invalidate();
+            float percent = Math.abs(scroller.getCurrX()) / (float) scrollRange;
+            changeTailAlpha(percent);
         }
         if (scrollerChild.computeScrollOffset()) {
             childView.scrollTo(scrollerChild.getCurrX(), scrollerChild.getCurrY());
@@ -261,7 +324,7 @@ public class SlideLayout extends ViewGroup {
     }
 
     public interface SlideListener {
-        default void onSlideToRight() {
+        default void onSlideTouchedBorder() {
         }
 
         void onFingerUp(boolean slideToRight);

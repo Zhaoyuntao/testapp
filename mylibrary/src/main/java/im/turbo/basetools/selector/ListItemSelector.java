@@ -28,6 +28,7 @@ public class ListItemSelector<T extends Selectable<?>> {
     private final Object lock = new Object();
     private boolean lockDefaultSelection;
     private Comparator<T> comparator;
+    private ItemChangeListener listener;
 
     public ListItemSelector() {
         selectedItems = new LinkedHashSet<>();
@@ -285,6 +286,20 @@ public class ListItemSelector<T extends Selectable<?>> {
     }
 
     /**
+     * Set the select status to opposite value of item.
+     *
+     * @param t
+     * @return If the item is finally selected.
+     */
+    public void changeSelect(T t, boolean select) {
+        if (select) {
+            select(t);
+        } else {
+            unSelect(t);
+        }
+    }
+
+    /**
      * Set data list of all items,it will clear selected status of all items.
      *
      * @param data
@@ -310,6 +325,7 @@ public class ListItemSelector<T extends Selectable<?>> {
             this.lockDefaultSelection = lockedDefaultSelectedItemState;
             initDefaultSelection(defaultSelectedItems);
         }
+        onSizeChanged();
     }
 
     /**
@@ -322,7 +338,7 @@ public class ListItemSelector<T extends Selectable<?>> {
     }
 
     public void setData(@NonNull List<T> data, @Nullable List<T> defaultSelectedItems, boolean lockedDefaultSelectedItemState) {
-        clear(false);
+        _clear(false);
         synchronized (lock) {
             this.data = new ArrayList<>(data);
             sortItems();
@@ -332,6 +348,7 @@ public class ListItemSelector<T extends Selectable<?>> {
             this.lockDefaultSelection = lockedDefaultSelectedItemState;
             initDefaultSelection(defaultSelectedItems);
         }
+        onSizeChanged();
     }
 
     private void initDefaultSelection(List<T> defaultSelectedItems) {
@@ -362,15 +379,17 @@ public class ListItemSelector<T extends Selectable<?>> {
      * @param t
      */
     public int addData(T t) {
+        int position;
         synchronized (lock) {
             if (data == null) {
                 throw new RuntimeException("BlueRecyclerViewItemCache.addData to a null list");
             }
-            int position = data.size();
+            position = data.size();
             data.add(t);
             map.put(t.getUniqueIdentificationId(), t);
-            return position;
         }
+        onSizeChanged();
+        return position;
     }
 
     /**
@@ -387,6 +406,7 @@ public class ListItemSelector<T extends Selectable<?>> {
             data.add(position, t);
             map.put(t.getUniqueIdentificationId(), t);
         }
+        onSizeChanged();
     }
 
     /**
@@ -477,17 +497,18 @@ public class ListItemSelector<T extends Selectable<?>> {
      */
     @Nullable
     public T remove(int position) {
+        T t;
         synchronized (lock) {
             if (data == null || position < 0 || position >= data.size()) {
                 return null;
             }
-            T t = data.remove(position);
+            t = data.remove(position);
             if (t != null) {
-                return map.remove(t.getUniqueIdentificationId());
-            } else {
-                return null;
+                map.remove(t.getUniqueIdentificationId());
             }
         }
+        onSizeChanged();
+        return t;
     }
 
     /**
@@ -497,17 +518,19 @@ public class ListItemSelector<T extends Selectable<?>> {
      */
     @Nullable
     public List<T> remove(int positionStart, int count) {
+        List<T> itemToBeRemoved;
         synchronized (lock) {
-            if (data == null || positionStart < 0 || positionStart + count > data.size()) {
+            if (data == null || positionStart < 0 || count <= 0 || positionStart + count > data.size()) {
                 return null;
             }
-            List<T> itemToBeRemoved = new ArrayList<>(data.size());
+            itemToBeRemoved = new ArrayList<>(data.size());
             for (int i = 0; i < count; i++) {
                 itemToBeRemoved.add(data.get(positionStart + i));
             }
             data.removeAll(itemToBeRemoved);
-            return itemToBeRemoved;
         }
+        onSizeChanged();
+        return itemToBeRemoved;
     }
 
     /**
@@ -557,18 +580,22 @@ public class ListItemSelector<T extends Selectable<?>> {
      * @return
      */
     public boolean remove(List<T> list) {
+        boolean changed = false;
         synchronized (lock) {
             if (data == null || list == null || list.size() <= 0) {
                 return false;
             }
-            boolean changed = data.removeAll(list);
+            changed = data.removeAll(list);
             if (changed) {
                 for (T t : list) {
                     map.remove(t.getUniqueIdentificationId());
                 }
             }
-            return changed;
         }
+        if (changed) {
+            onSizeChanged();
+        }
+        return changed;
     }
 
     /**
@@ -579,6 +606,11 @@ public class ListItemSelector<T extends Selectable<?>> {
     }
 
     public void clear(boolean clearSelection) {
+        _clear(clearSelection);
+        onSizeChanged();
+    }
+
+    private void _clear(boolean clearSelection) {
         synchronized (lock) {
             if (data == null || map == null) {
                 return;
@@ -768,5 +800,15 @@ public class ListItemSelector<T extends Selectable<?>> {
 
     public void setComparator(Comparator<T> comparator) {
         this.comparator = comparator;
+    }
+
+    public void setListener(ItemChangeListener listener) {
+        this.listener = listener;
+    }
+
+    private void onSizeChanged() {
+        if (listener != null) {
+            listener.onSizeChanged(size());
+        }
     }
 }

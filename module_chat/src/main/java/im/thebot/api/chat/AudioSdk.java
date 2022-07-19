@@ -23,8 +23,8 @@ public class AudioSdk {
         MessageAudioHelper.finishRecord();
     }
 
-    public void startPlay(@NonNull AudioFilePacket audioFilePacket, int position) {
-        MessageAudioHelper.startPlay(audioFilePacket, position);
+    public void startPlay(@NonNull AudioFilePacket audioFilePacket) {
+        MessageAudioHelper.startPlay(audioFilePacket);
     }
 
     public void resumeRecord() {

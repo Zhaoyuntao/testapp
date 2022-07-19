@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/audio_chat_cell_root"
     android:layout_width="match_parent"
     android:layout_height="62dp"
     android:background="@null"
@@ -72,18 +73,29 @@
             app:layout_constraintTop_toTopOf="parent" />
     </FrameLayout>
 
-    <im.thebot.chat.ui.view.AudioPlayProgressView
+    <im.thebot.chat.ui.view.TSlideProgressView
         android:id="@+id/audio_chat_cell_play_progress"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        app:AudioPlayProgressView_progressBackColor="@color/color_chat_audio_cell_progress"
-        app:AudioPlayProgressView_progressColor="@color/color_chat_audio_cell_progress_foreground"
-        app:AudioPlayProgressView_sliderRadius="6dp"
-        app:layout_constraintBottom_toBottomOf="@+id/audio_chat_cell_container"
+        app:TSlideProgressView_colorProgress="@color/color_chat_audio_cell_progress_foreground"
+        app:TSlideProgressView_colorProgressBack="@color/color_chat_audio_cell_progress"
+        app:TSlideProgressView_radiusCircle="6dp"
+        app:layout_constraintBottom_toTopOf="@+id/test1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/audio_chat_cell_container"
         app:layout_constraintTop_toTopOf="@+id/audio_chat_cell_container" />
+
+    <SeekBar
+        android:id="@+id/test1"
+        app:layout_constraintBottom_toBottomOf="@+id/audio_chat_cell_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/audio_chat_cell_container"
+        app:layout_constraintTop_toBottomOf="@+id/audio_chat_cell_play_progress"
+        android:background="#00ff00"
+        android:layout_marginStart="8dp"
+        android:layout_width="0dp"
+        android:layout_height="20dp"/>
 
     <TextView
         android:id="@+id/audio_chat_cell_duration"

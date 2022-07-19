@@ -12,7 +12,6 @@ import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
 
 import androidx.annotation.ColorInt;
@@ -23,7 +22,6 @@ import com.example.module_chat.R;
 
 import im.turbo.basetools.state.StateMachine;
 import im.turbo.baseui.utils.UiUtils;
-import im.turbo.utils.log.S;
 
 /**
  * Created by zhaoyuntao on 2017/5/25.
@@ -34,9 +32,9 @@ public class TSlideProgressView extends View {
     private final float radiusCircle;
     private final float widthProgress;
     private final boolean roundProgress;
-    private final float minMove;
     private long timeDown;
     private boolean isDragging;
+    private boolean isDraggingSet;
     private final Paint paint;
     private final RectF rectBack;
     private final RectF rectFore;
@@ -49,7 +47,7 @@ public class TSlideProgressView extends View {
 
     private float percent = 0;
     private float percentForDraw;
-    private float xLast;
+    private float xDown, yDown;
     private final int shadow;
     private final boolean showShadow;
 
@@ -85,7 +83,6 @@ public class TSlideProgressView extends View {
             colorProgressBackground = defaultColorProgressBackground;
             showShadow = true;
         }
-        minMove = ViewConfiguration.get(context).getScaledTouchSlop();
     }
 
     public void setCurrentMode(int mode) {
@@ -118,6 +115,7 @@ public class TSlideProgressView extends View {
         if (wView == 0 || hView == 0) {
             return;
         }
+        boolean isRtl = getLayoutDirection() == LAYOUT_DIRECTION_RTL;
         float radiusProgress = roundProgress ? widthProgress / 2f : 0;
         float yCenter = hView / 2f;
         float wRectBack = wView - getPaddingStart() - getPaddingEnd() - radiusCircle * 2 + radiusProgress * 2;
@@ -127,10 +125,15 @@ public class TSlideProgressView extends View {
         float topRectBack = yCenter - hRectBack / 2f;
         float bottomRectBack = topRectBack + hRectBack;
         float slideRange = wRectBack - radiusProgress * 2;
-        float sliderPosition = leftRectBack + radiusProgress + slideRange * percentForDraw;
+        float sliderPosition = isRtl ? rightRectBack - radiusProgress - slideRange * percentForDraw : leftRectBack + radiusProgress + slideRange * percentForDraw;
 
         rectBack.set(leftRectBack, topRectBack, rightRectBack, bottomRectBack);
-        rectFore.set(leftRectBack, topRectBack, sliderPosition, bottomRectBack);
+
+        if (isRtl) {
+            rectFore.set(sliderPosition, topRectBack, rightRectBack, bottomRectBack);
+        } else {
+            rectFore.set(leftRectBack, topRectBack, sliderPosition, bottomRectBack);
+        }
 
         paint.setAntiAlias(true);
         paint.setColor(colorProgressBackground);
@@ -198,37 +201,35 @@ public class TSlideProgressView extends View {
         if (slideInterrupter != null && !slideInterrupter.canSlide()) {
             return super.onTouchEvent(event);
         }
-        float max_position = getWidth() - radiusCircle - getPaddingEnd();
-        float min_position = getPaddingStart() + radiusCircle;
         cancelAnimation();
         long now = SystemClock.elapsedRealtime();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 timeDown = now;
-                float xNow = event.getX();
-                xLast = xNow;
+                xDown = event.getX();
+                yDown = event.getY();
+                isDraggingSet = false;
                 break;
             case MotionEvent.ACTION_MOVE:
-                xNow = event.getX();
-                float distance_move = xNow - xLast;
-                boolean isLastTimeDragging = isDragging;
-                isDragging = isDragging || Math.abs(distance_move) >= minMove;
-                if (isDragging) {
-                    if (!isLastTimeDragging) {
+                float distanceMoveX = Math.abs(event.getX() - xDown);
+                float distanceMoveY = Math.abs(event.getY() - yDown);
+                if (!isDraggingSet) {
+                    if ((distanceMoveX - distanceMoveY) > UiUtils.dipToPx(1)) {
+                        isDraggingSet = true;
+                        isDragging = true;
+                    } else if ((distanceMoveY - distanceMoveX) > UiUtils.dipToPx(1)) {
+                        isDraggingSet = true;
+                        isDragging = false;
+                    }
+                    if (isDragging) {
+                        getParent().requestDisallowInterceptTouchEvent(true);
                         if (onProgressChangedListener != null) {
                             onProgressChangedListener.onStartDragging();
                         }
                     }
-                    getParent().requestDisallowInterceptTouchEvent(true);
-                    xLast = xNow;
-                    if (xNow > max_position) {
-                        percent = 1;
-                    } else if (xNow < min_position) {
-                        percent = 0;
-                    } else {
-                        percent = (xNow - min_position) / (max_position - min_position);
-                    }
-                    percentForDraw = percent;
+                }
+                if (isDragging) {
+                    calculatePercent(event);
                     postInvalidate();
                     if (onProgressChangedListener != null) {
                         onProgressChangedListener.onDragging(percent);
@@ -237,30 +238,40 @@ public class TSlideProgressView extends View {
                 break;
             case MotionEvent.ACTION_CANCEL:
                 isDragging = false;
+                isDraggingSet = false;
                 break;
             case MotionEvent.ACTION_UP:
-                xNow = event.getX();
                 if (!isDragging && now - timeDown < 200) {
                     if (onProgressChangedListener != null) {
                         onProgressChangedListener.onStartDragging();
                     }
-                    if (xNow > max_position) {
-                        percent = 1;
-                    } else if (xNow < min_position) {
-                        percent = 0;
-                    } else {
-                        percent = (xNow - min_position) / (max_position - min_position);
-                    }
-                    percentForDraw = percent;
+                    calculatePercent(event);
                     postInvalidate();
                 }
                 if (onProgressChangedListener != null) {
                     onProgressChangedListener.onProgressChanged(percent, true);
                 }
                 isDragging = false;
+                isDraggingSet = false;
                 break;
         }
         return true;
+    }
+
+    private void calculatePercent(MotionEvent event) {
+        boolean isRtl = getLayoutDirection() == LAYOUT_DIRECTION_RTL;
+        float right = getWidth() - radiusCircle - getPaddingRight();
+        float left = getPaddingLeft() + radiusCircle;
+        boolean overStart = isRtl ? event.getX() > right : event.getX() < left;
+        boolean overEnd = isRtl ? event.getX() < left : event.getX() > right;
+        if (overEnd) {
+            percent = 1;
+        } else if (overStart) {
+            percent = 0;
+        } else {
+            percent = (isRtl ? (right - event.getX()) : (event.getX() - left)) / (right - left);
+        }
+        percentForDraw = percent;
     }
 
     private void cancelAnimation() {

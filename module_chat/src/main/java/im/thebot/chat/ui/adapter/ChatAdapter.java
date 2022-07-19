@@ -197,6 +197,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatItemHolder> implements
             @Override
             public void onClickView(View view, boolean timeShort) {
                 int position = holder.getBindingAdapterPosition();
+                S.s("click message position:"+position+" isSelecting:"+isSelecting());
                 if (isSelecting()) {
                     boolean selected = !isSelected(position);
                     holder.setCheckState(selected);
@@ -223,6 +224,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatItemHolder> implements
             @Override
             public void onClick(View v) {
                 int position = holder.getBindingAdapterPosition();
+                S.s("click slide position:"+position+" isSelecting:"+isSelecting());
                 if (isSelecting()) {
                     boolean selected = !isSelected(position);
                     holder.setCheckState(selected);
@@ -231,6 +233,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatItemHolder> implements
             }
         });
         holder.setOnMessageLongClickMessageListener(view -> {
+            S.s("long click message");
             BaseMessageCell<MessageBeanForUI> baseCell = holder.getBaseMessageCell();
             if (baseCell != null && baseCell.isSupportClick()) {
                 if (!isSelecting()) {
@@ -242,6 +245,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatItemHolder> implements
             return false;
         });
         holder.setOnSlideLongClickMessageListener(view -> {
+            S.s("long click slide");
             BaseMessageCell<MessageBeanForUI> baseCell = holder.getBaseMessageCell();
             if (baseCell != null && baseCell.isSupportClick()) {
                 if (!isSelecting()) {

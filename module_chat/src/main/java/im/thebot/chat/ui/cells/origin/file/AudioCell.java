@@ -12,15 +12,15 @@ import androidx.core.content.ContextCompat;
 
 import com.example.module_chat.R;
 import com.sdk.chat.file.audio.AudioListener;
-import com.sdk.chat.file.audio.AudioStatusBean;
 import com.sdk.chat.file.audio.AudioPlayStatusCode;
+import com.sdk.chat.file.audio.AudioStatusBean;
 
 import im.thebot.SdkFactory;
 import im.thebot.api.chat.constant.FileStatusCode;
 import im.thebot.chat.api.chat.message.AudioMessageForUI;
 import im.thebot.chat.ui.cells.origin.base.BaseFileCell;
-import im.thebot.chat.ui.view.AudioPlayProgressView;
 import im.thebot.chat.ui.view.OnProgressChangedListener;
+import im.thebot.chat.ui.view.TSlideProgressView;
 import im.thebot.common.UserFaceView;
 import im.turbo.basetools.state.StateFetchListener;
 import im.turbo.basetools.time.TimeUtils;
@@ -47,7 +47,7 @@ public class AudioCell extends BaseFileCell<AudioMessageForUI> {
     private ImageView micIconView;
     private UserFaceView userFaceView;
     private SmoothScaleFrameLayout playContainer;
-    private AudioPlayProgressView playProgressView;
+    private TSlideProgressView playProgressView;
     private TProgressView downLoadProgressView;
 
     private AudioListener listener;
@@ -84,6 +84,11 @@ public class AudioCell extends BaseFileCell<AudioMessageForUI> {
     protected void onFileMessageInit(@NonNull AudioMessageForUI message) {
         userFaceView.bindUid(message.getSenderUid());
         durationView.setText(TimeUtils.formatLongToDuration(message.getAudioDuration()));
+        if (message.isSelf()) {
+            findViewById(R.id.audio_chat_cell_root).setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        } else {
+            findViewById(R.id.audio_chat_cell_root).setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+        }
         playProgressView.setOnProgressChangedListener(new OnProgressChangedListener() {
             private boolean isPlayingBeforePause;
 
@@ -94,6 +99,7 @@ public class AudioCell extends BaseFileCell<AudioMessageForUI> {
 
             @Override
             public void onProgressChanged(float percent, boolean dragByUser) {
+                S.s("onProgressChanged:" + percent);
                 if (dragByUser) {
                     if (isPlayingBeforePause) {
                         isPlayingBeforePause = false;
@@ -110,6 +116,7 @@ public class AudioCell extends BaseFileCell<AudioMessageForUI> {
                 PermissionUtils.requestPermission(getContext(), new PermissionResult() {
                     @Override
                     public void onGranted(@NonNull String[] grantedPermissions) {
+                        S.s("play:" + getMessage().getAudioDuration() + "  from:" + calculateCurrentPlayingProgress());
                         getPresenter().playAudio(getMessage(), calculateCurrentPlayingProgress());
                     }
 
