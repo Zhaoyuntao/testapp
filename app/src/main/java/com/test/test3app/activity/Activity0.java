@@ -8,6 +8,11 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.GridLayout;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleEventObserver;
+import androidx.lifecycle.LifecycleOwner;
+
 import com.test.test3app.R;
 import com.test.test3app.appbase.ZRouter;
 import com.test.test3app.fastrecordviewnew.UiUtils;
@@ -18,15 +23,23 @@ import java.util.List;
 import base.ui.BaseActivity;
 import im.thebot.chat.ui.ChatActivity;
 import im.thebot.common.ui.chat.AutoSizeTextView;
+import im.turbo.utils.log.S;
 
 
 public class Activity0 extends BaseActivity {
+    public static final boolean logOpen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        getLifecycle().addObserver(new LifecycleEventObserver() {
+            @Override
+            public void onStateChanged(@NonNull LifecycleOwner source, @NonNull Lifecycle.Event event) {
+                S.s(logOpen, "onStateChanged: event:" + event);
+            }
+        });
+        S.s(logOpen, "onCreate");
         List<ZRouter> zRouters = new ArrayList<>();
         zRouters.add(new ZRouter("record", Activity_2_record.class));
         zRouters.add(new ZRouter("sms", Activity_3_sms.class));
@@ -61,8 +74,8 @@ public class Activity0 extends BaseActivity {
         zRouters.add(new ZRouter("Dir", Activity_9997_dir.class));
         zRouters.add(new ZRouter("NewPermission", Activity_9994_permission.class));
         zRouters.add(new ZRouter("smooth", Activity_8_smoothSwitch.class));
-        zRouters.add(new ZRouter("wallpaper", Activity_94_wallpaper.class));
         zRouters.add(new ZRouter("Event", ChatActivity.class));
+        zRouters.add(new ZRouter("wallpaper", Activity_94_wallpaper.class));
 
         init(zRouters, savedInstanceState == null);
     }
@@ -103,5 +116,41 @@ public class Activity0 extends BaseActivity {
             ZRouter zRouter = zRouters.get(zRouters.size() - 1);
             goToActivity(zRouter.getActivity());
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        S.s(logOpen, "onStart");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        S.s(logOpen, "onRestart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        S.s(logOpen, "onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        S.s(logOpen, "onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        S.s(logOpen, "onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        S.s(logOpen, "onDestroy");
     }
 }

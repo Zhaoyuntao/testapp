@@ -20,7 +20,7 @@
 
     <im.thebot.chat.ui.view.SlideLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:layout_width="50dp"
@@ -30,15 +30,11 @@
 
         <im.thebot.chat.ui.view.SlideLayoutContent
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:paddingTop="50dp"
-            android:paddingBottom="50dp"
-            android:background="#ff9900">
+            android:layout_height="wrap_content">
 
             <im.thebot.chat.ui.view.TSlideProgressView
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="#ff0000" />
+                android:layout_height="wrap_content" />
 
         </im.thebot.chat.ui.view.SlideLayoutContent>
     </im.thebot.chat.ui.view.SlideLayout>

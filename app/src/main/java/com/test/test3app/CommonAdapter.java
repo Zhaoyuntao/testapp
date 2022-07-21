@@ -78,7 +78,7 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonHolder> {
         if (color!=null) {
             holder.textView.setBackgroundColor(color);
         } else {
-            holder.textView.setBackgroundColor((selector.isSelected(commonBean)) ? Color.parseColor("#dd880000") : Color.parseColor("#80000000"));
+            holder.textView.setBackgroundColor((selector.isSelected(commonBean)) ? Color.parseColor("#dd880000") : Color.parseColor("#20000000"));
         }
         holder.textView.setOnClickListener(new View.OnClickListener() {
             @Override

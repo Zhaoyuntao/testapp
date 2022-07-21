@@ -33,14 +33,6 @@ public class Activity_94_wallpaper extends BaseActivity {
 
         adapterImageView = findViewById(R.id.wall);
 
-        View actionbar = findViewById(R.id.actionbar);
-        actionbar.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return false;
-            }
-        });
-
         boolean reverseLayout = true;
         boolean stackFromEnd = false;
 

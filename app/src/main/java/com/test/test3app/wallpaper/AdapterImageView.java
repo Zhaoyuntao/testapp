@@ -2,6 +2,7 @@ package com.test.test3app.wallpaper;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.drawable.Drawable;
@@ -19,12 +20,9 @@ import androidx.appcompat.widget.AppCompatImageView;
 public class AdapterImageView extends AppCompatImageView {
 
 
-    private Paint paint;
     private PaintFlagsDrawFilter paintFlagsDrawFilter;
-    private float originPercent;
-    private int originWidth;
-    private int originHeight;
-    private int originY;
+    private int width;
+    private int height;
 
     public AdapterImageView(Context context) {
         super(context);
@@ -42,50 +40,44 @@ public class AdapterImageView extends AppCompatImageView {
     }
 
     private void init() {
-        //paint and canvas
-        paint = new Paint();
-        paint.setAntiAlias(true);
         paintFlagsDrawFilter = new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
         setScaleType(ScaleType.CENTER_CROP);
     }
 
     @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        width = Math.max(width, getMeasuredWidth());
+        height = Math.max(height, getMeasuredHeight());
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
         Drawable drawable = getDrawable();
-        if (drawable == null) {
+        canvas.drawColor(Color.BLUE);
+        if (drawable == null || width <= 0 || height <= 0) {
+            super.onDraw(canvas);
             return;
         }
-        Object drawableLast = getTag();
-        if (drawableLast != drawable) {
-            originWidth = 0;
-            originHeight = 0;
-            originPercent = 0;
-            setTag(drawable);
-        }
-        int widthCanvas = getWidth();
-        int heightCanvas = getHeight();
-        if (originWidth == 0) {
-            originWidth = getWidth();
-            originHeight = getHeight();
-            int widthOfBitmap = drawable.getIntrinsicWidth();
-            int heightOfBitmap = drawable.getIntrinsicHeight();
-            originPercent = (float) widthOfBitmap / heightOfBitmap;
-            float canvasPercent = (float) originWidth / originHeight;
-            if (canvasPercent > originPercent) {
-                originHeight = (int) (originWidth / originPercent);
-            } else {
-                originWidth = (int) (originHeight * originPercent);
-            }
-            originY = (heightCanvas - originHeight) / 2;
-        }
-        if (originWidth == 0 || originHeight == 0) {
+        int widthOfBitmap = drawable.getIntrinsicWidth();
+        int heightOfBitmap = drawable.getIntrinsicHeight();
+        if (widthOfBitmap <= 0 || heightOfBitmap <= 0) {
             return;
         }
-
-        int left = (widthCanvas - originWidth) / 2;
-        int right = left + originWidth;
-        int top = originY;
-        int bottom = top + originHeight;
+        float drawableRatio = (float) widthOfBitmap / heightOfBitmap;
+        float canvasRatio = width / (float) height;
+        int widthBounds, heightBounds;
+        if (canvasRatio > drawableRatio) {
+            widthBounds = width;
+            heightBounds = (int) (widthBounds / drawableRatio);
+        } else {
+            heightBounds = height;
+            widthBounds = (int) (heightBounds * drawableRatio);
+        }
+        int left = (width - widthBounds) / 2;
+        int right = left + widthBounds;
+        int top = 0;
+        int bottom = top + heightBounds;
         drawable.setBounds(left, top, right, bottom);
         canvas.setDrawFilter(paintFlagsDrawFilter);
         drawable.draw(canvas);

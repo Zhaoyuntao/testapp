@@ -7,17 +7,12 @@
     android:orientation="vertical"
     tools:context=".activity.Activity_94_wallpaper">
 
-    <TextView
-        android:id="@+id/actionbar"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@color/red" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <com.test.test3app.wallpaper.AdapterImageView
             android:id="@+id/wall"
@@ -25,7 +20,7 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/input"
             android:scaleType="centerCrop"
-            android:src="@drawable/aaaaa" />
+            android:src="@drawable/wallpaper_horizontal" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,12 +50,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="10dp">
 
             <EditText
                 android:id="@+id/testtest2"
                 android:layout_width="0dp"
-                android:layout_height="80dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#f0f0f0" />
 
@@ -124,7 +120,5 @@
                 android:textColor="@color/white"
                 android:textSize="20sp" />
         </LinearLayout>
-
-
     </RelativeLayout>
 </LinearLayout>
