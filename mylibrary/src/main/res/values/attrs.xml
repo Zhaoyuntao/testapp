@@ -38,6 +38,9 @@
         <attr name="autoRadius" format="dimension" />
         <attr name="singleLine" format="boolean" />
     </declare-styleable>
+    <declare-styleable name="AutoFontTextView">
+        <attr name="AutoFontTextView_fontName" format="string" />
+    </declare-styleable>
     <declare-styleable name="BottomExpandView">
         <attr name="BottomExpandView_maxHeight" format="dimension" />
         <attr name="BottomExpandView_maxWidth" format="dimension" />

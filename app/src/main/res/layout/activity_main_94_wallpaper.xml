@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/red"
     android:orientation="vertical"
     tools:context=".activity.Activity_94_wallpaper">
@@ -110,13 +111,13 @@
 
             <TextView
                 android:id="@+id/add"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:background="#000000"
                 android:gravity="center"
-                android:text="+-"
+                android:text="A+-A"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
         </LinearLayout>
