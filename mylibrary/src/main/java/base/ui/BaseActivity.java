@@ -5,13 +5,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.Toolbar;
 
 import com.doctor.mylibrary.R;
 import com.zhaoyuntao.androidutils.tools.SP;
@@ -23,6 +27,7 @@ import com.zhaoyuntao.androidutils.tools.SP;
  */
 public class BaseActivity extends AppCompatActivity {
     private SP sp = new SP();
+    private TextView titleView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,31 +50,64 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     @Override
-    public void setContentView(int layoutResID) {
+    final public void setContentView(int layoutResID) {
         super.setContentView(R.layout.base_activity);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setContentInsetsRelative(0, 0);
+        setSupportActionBar(toolbar);
+        int customToolbarLayoutRes = getCustomToolbarLayoutRes();
+        if (customToolbarLayoutRes != -1) {
+            getSupportActionBar().setCustomView(LayoutInflater.from(this).inflate(customToolbarLayoutRes, toolbar, false), new Toolbar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            getSupportActionBar().setDisplayShowCustomEnabled(true);
+        }
+        initDefaultCustomView();
         FrameLayout viewGroup = findViewById(R.id.child_container);
         View child = LayoutInflater.from(activity()).inflate(layoutResID, null);
         viewGroup.addView(child, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+    }
 
+    private void initDefaultCustomView() {
         //Switch
         ZSwitchButton switchCompat = findViewById(R.id.dark_mode_switch);
+        if (switchCompat == null) {
+            return;
+        }
+        titleView = findViewById(R.id.title_toolbar);
+        setTitle(getClass().getSimpleName());
         switchCompat.setClickable(false);
         switchCompat.setChecked(AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_NO);
         switchCompat.setOnCheckedChangeListener(new ZSwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(ZSwitchButton buttonView, boolean isChecked) {
-                changeDark(isChecked);
-                sp.write("night", isChecked, activity());
+                changeTheme(isChecked);
             }
         });
-        //Arrow
-        AppCompatImageView arrowView = findViewById(R.id.arrow_back);
-        arrowView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+    }
+
+    final protected void changeTheme(boolean isDark) {
+        if (isDark && AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            return;
+        }
+        changeDark(isDark);
+        sp.write("night", isDark, activity());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    final protected void updateToolBarMenu() {
+        invalidateOptionsMenu();
+    }
+
+    protected int getCustomToolbarLayoutRes() {
+        return R.layout.base_custom_toolbar;
     }
 
     protected Activity activity() {
@@ -84,5 +122,12 @@ public class BaseActivity extends AppCompatActivity {
     protected void goToActivity(Class<?> tClass, Bundle bundle) {
         Intent intent = new Intent(this, tClass);
         startActivity(intent, bundle);
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        if (titleView != null) {
+            titleView.setText(title);
+        }
     }
 }

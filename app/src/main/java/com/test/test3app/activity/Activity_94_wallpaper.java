@@ -11,13 +11,13 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import base.ui.BaseActivity;
 import com.test.test3app.CommonAdapter;
 import com.test.test3app.CommonBean;
 import com.test.test3app.R;
 import com.test.test3app.wallpaper.AdapterImageView;
 import com.test.test3app.wallpaper.SessionLayoutManager;
 
+import base.ui.BaseActivity;
 import im.turbo.baseui.chat.ChatRecyclerView;
 
 public class Activity_94_wallpaper extends BaseActivity {
@@ -30,7 +30,7 @@ public class Activity_94_wallpaper extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_94_wallpaper);
-
+//        setTitle("hellojsdjsabdajbs");
         adapterImageView = findViewById(R.id.wall);
 
         boolean reverseLayout = true;

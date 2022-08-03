@@ -73,6 +73,7 @@
         <activity android:name=".activity.Activity_9994_permission" />
         <activity android:name=".activity.Activity_9996_bubble" />
         <activity android:name=".activity.Activity_9997_dir" />
+        <activity android:name=".activity.Activity_9998_toolbar" />
         <activity
             android:name=".activity.Activity_9995_mention"
             android:windowSoftInputMode="adjustResize" />

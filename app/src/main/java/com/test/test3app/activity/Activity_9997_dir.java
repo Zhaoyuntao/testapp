@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.ui.BaseActivity;
-import im.thebot.common.ui.chat.AutoSizeTextView;
+import base.ui.AutoSizeTextView;
 import im.turbo.baseui.permission.Permission;
 import im.turbo.baseui.permission.PermissionResult;
 import im.turbo.baseui.permission.PermissionUtils;

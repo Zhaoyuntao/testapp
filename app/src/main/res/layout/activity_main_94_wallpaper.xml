@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/red"
     android:orientation="vertical"
     tools:context=".activity.Activity_94_wallpaper">
@@ -22,6 +21,44 @@
             android:layout_above="@+id/input"
             android:scaleType="centerCrop"
             android:src="@drawable/wallpaper_horizontal" />
+
+        <TextView
+            android:id="@+id/abcde"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:background="#ffffff"
+            android:padding="5dp"
+            android:text="jabcd"
+            android:textSize="60sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/abcdef"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/abcde"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
+            android:background="#ffffff"
+            android:padding="5dp"
+            android:text="jabcd"
+            android:textSize="60sp"
+            android:textStyle="italic" />
+
+        <base.ui.AutoFontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/abcdef"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
+            android:background="#ffffff"
+            android:padding="5dp"
+            android:text="jhsbd"
+            android:textSize="60sp"
+            android:textStyle="italic" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,7 +81,6 @@
                 android:layout_weight="1"
                 android:background="@null" />
         </LinearLayout>
-
 
         <LinearLayout
             android:id="@+id/input"

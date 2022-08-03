@@ -1,4 +1,4 @@
-package im.thebot.common.ui.chat;
+package base.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 
-import com.example.module_chat.R;
+import com.doctor.mylibrary.R;
 import com.zhaoyuntao.androidutils.tools.TextMeasure;
 
 /**

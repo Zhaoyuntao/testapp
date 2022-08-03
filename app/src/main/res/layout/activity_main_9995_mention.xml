@@ -12,7 +12,7 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <im.thebot.common.ui.chat.AutoSizeTextView
+        <base.ui.AutoSizeTextView
             android:id="@+id/text_mention"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -24,7 +24,7 @@
             android:textSize="40sp"
             app:autoRadius="30dp" />
 
-        <im.thebot.common.ui.chat.AutoSizeTextView
+        <base.ui.AutoSizeTextView
             android:id="@+id/text_pop"
             android:layout_width="100dp"
             android:layout_height="100dp"

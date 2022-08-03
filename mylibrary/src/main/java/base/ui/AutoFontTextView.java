@@ -1,4 +1,4 @@
-package im.thebot.common.ui.chat;
+package base.ui;
 
 import static android.graphics.Typeface.BOLD_ITALIC;
 import static android.graphics.Typeface.ITALIC;
@@ -16,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 
-import com.example.module_chat.R;
 import com.zhaoyuntao.androidutils.tools.S;
 
 /**
@@ -42,18 +41,18 @@ public class AutoFontTextView extends AppCompatTextView {
     }
 
     private void set(AttributeSet attrs) {
-        if (attrs != null) {
-            TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.AutoFontTextView);
-            String font = typedArray.getString(R.styleable.AutoFontTextView_AutoFontTextView_fontName);
-            S.s("font:"+font);
-            if (!TextUtils.isEmpty(font)) {
-                Typeface face = Typeface.createFromAsset(getContext().getAssets(), "fonts/" + font + ".ttf");
-                setTypeface(face);
-            }
-            typedArray.recycle();
-        }
+//        if (attrs != null) {
+//            TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.AutoFontTextView);
+//            String font = typedArray.getString(R.styleable.AutoFontTextView_AutoFontTextView_fontName);
+//            S.s("font:"+font);
+//            if (!TextUtils.isEmpty(font)) {
+//                Typeface face = Typeface.createFromAsset(getContext().getAssets(), "fonts/" + font + ".ttf");
+//                setTypeface(face);
+//            }
+//            typedArray.recycle();
+//        }
 
-        SpannableStringBuilder stringBuilder = new SpannableStringBuilder("abcd");
+        SpannableStringBuilder stringBuilder = new SpannableStringBuilder("jabcd");
         stringBuilder.setSpan(new StyleSpan(BOLD_ITALIC), 0, stringBuilder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         setText(stringBuilder);
     }

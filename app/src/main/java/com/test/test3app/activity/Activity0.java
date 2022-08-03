@@ -22,7 +22,7 @@ import java.util.List;
 
 import base.ui.BaseActivity;
 import im.thebot.chat.ui.ChatActivity;
-import im.thebot.common.ui.chat.AutoSizeTextView;
+import base.ui.AutoSizeTextView;
 import im.turbo.utils.log.S;
 
 
@@ -76,6 +76,7 @@ public class Activity0 extends BaseActivity {
         zRouters.add(new ZRouter("smooth", Activity_8_smoothSwitch.class));
         zRouters.add(new ZRouter("Event", ChatActivity.class));
         zRouters.add(new ZRouter("wallpaper", Activity_94_wallpaper.class));
+        zRouters.add(new ZRouter("toolbar", Activity_9998_toolbar.class));
 
         init(zRouters, savedInstanceState == null);
     }

@@ -30,7 +30,7 @@
             android:src="@drawable/svg_chat_cell_message_audio_pause_red" />
     </im.turbo.baseui.chat.SmoothScaleFrameLayout>
 
-    <im.thebot.common.ui.chat.AutoSizeTextView
+    <base.ui.AutoSizeTextView
         android:id="@+id/switch_button0"
         android:layout_width="200dp"
         android:layout_height="80dp"
@@ -126,7 +126,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <im.thebot.common.ui.chat.AutoSizeTextView
+        <base.ui.AutoSizeTextView
             android:id="@+id/switch_button"
             android:layout_width="0dp"
             android:layout_height="80dp"
@@ -141,7 +141,7 @@
             android:textSize="30sp"
             app:autoRadius="10dp" />
 
-        <im.thebot.common.ui.chat.AutoSizeTextView
+        <base.ui.AutoSizeTextView
             android:id="@+id/switch_button2"
             android:layout_width="0dp"
             android:layout_height="80dp"

@@ -11,7 +11,7 @@ import com.test.test3app.mention.MentionListener;
 import com.test.test3app.mention.TMention;
 import com.test.test3app.mention.TTextWatcher;
 
-import im.thebot.common.ui.chat.AutoSizeTextView;
+import base.ui.AutoSizeTextView;
 import im.turbo.basetools.utils.InputMethodUtils;
 import com.zhaoyuntao.androidutils.tools.S;
 

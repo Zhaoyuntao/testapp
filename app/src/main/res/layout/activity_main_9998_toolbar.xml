@@ -1,0 +1,21 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <base.ui.AutoSizeTextView
+        android:id="@+id/button_toolbar"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:background="#ff0000"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="Toolbar"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
+        android:textStyle="italic"
+        app:autoRadius="20dp" />
+
+</FrameLayout>

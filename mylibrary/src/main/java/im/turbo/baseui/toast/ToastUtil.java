@@ -44,11 +44,11 @@ public class ToastUtil {
         show(view, ResourceUtils.getString(textResourceId), drawableResourceId);
     }
 
-    public static void show(final View view, String text) {
+    public static void show(final View view, CharSequence text) {
         show(view, text, -1);
     }
 
-    public static void show(View view, String text, @DrawableRes int drawableResourceId) {
+    public static void show(View view, CharSequence text, @DrawableRes int drawableResourceId) {
         if (view == null) {
             return;
         }
@@ -69,11 +69,11 @@ public class ToastUtil {
         show(activity, ResourceUtils.getString(textResourceId), drawableResourceId);
     }
 
-    public static void show(final Activity activity, String text) {
+    public static void show(final Activity activity, CharSequence text) {
         show(activity, text, -1);
     }
 
-    public static void show(final Activity activity, String text, @DrawableRes int drawableResourceId) {
+    public static void show(final Activity activity, CharSequence text, @DrawableRes int drawableResourceId) {
         if (activity == null) {
             return;
         }
@@ -94,11 +94,11 @@ public class ToastUtil {
         show(fragment, ResourceUtils.getString(textResourceId), drawableResourceId);
     }
 
-    public static void show(final Fragment fragment, String text) {
+    public static void show(final Fragment fragment, CharSequence text) {
         show(fragment, text, -1);
     }
 
-    public static void show(final Fragment fragment, String text, @DrawableRes int drawableResourceId) {
+    public static void show(final Fragment fragment, CharSequence text, @DrawableRes int drawableResourceId) {
         if (fragment == null) {
             return;
         }
@@ -115,11 +115,11 @@ public class ToastUtil {
         show(context, ResourceUtils.getString(textResourceId));
     }
 
-    private static void show(final Context context, String text) {
+    private static void show(final Context context, CharSequence text) {
         show(context, text, -1);
     }
 
-    private static void show(final Context context, String text, @DrawableRes int drawableResourceId) {
+    private static void show(final Context context, CharSequence text, @DrawableRes int drawableResourceId) {
         if (context == null) {
             return;
         }
@@ -135,11 +135,11 @@ public class ToastUtil {
         show(ResourceUtils.getString(textResourceId));
     }
 
-    public static void show(String text) {
+    public static void show(CharSequence text) {
         show(text, -1);
     }
 
-    public static void show(String text, String subtitle) {
+    public static void show(CharSequence text, CharSequence subtitle) {
         _runToast(text, subtitle, -1);
     }
 
@@ -147,11 +147,11 @@ public class ToastUtil {
         _runToast(ResourceUtils.getString(textResourceId), drawableResourceId);
     }
 
-    public static void show(String text, @DrawableRes int drawableResourceId) {
+    public static void show(CharSequence text, @DrawableRes int drawableResourceId) {
         _runToast(text, drawableResourceId);
     }
 
-    public static void show(String text, boolean showLong) {
+    public static void show(CharSequence text, boolean showLong) {
         _runToast(text, -1, showLong);
     }
 
@@ -169,23 +169,23 @@ public class ToastUtil {
         }
     }
 
-    private static void _runToast(final String text, @DrawableRes int drawableResourceId) {
+    private static void _runToast(final CharSequence text, @DrawableRes int drawableResourceId) {
         _runToast(text, null, drawableResourceId, false);
     }
 
-    private static void _runToast(final String text, final String subtitle, @DrawableRes int drawableResourceId) {
+    private static void _runToast(final CharSequence text, final CharSequence subtitle, @DrawableRes int drawableResourceId) {
         _runToast(text, subtitle, drawableResourceId, false);
     }
 
-    private static void _runToast(final String text, @DrawableRes int drawableResourceId, boolean showLong) {
+    private static void _runToast(final CharSequence text, @DrawableRes int drawableResourceId, boolean showLong) {
         _runToast(text, null, drawableResourceId, showLong);
     }
 
-    private static void _runToast(final String text, final String subtitle, @DrawableRes int drawableResourceId, boolean showLong) {
+    private static void _runToast(final CharSequence text, final CharSequence subtitle, @DrawableRes int drawableResourceId, boolean showLong) {
         _runToast(text, subtitle, drawableResourceId, showLong, Gravity.BOTTOM);
     }
 
-    private static void _runToast(final String text, final String subtitle, @DrawableRes int drawableResourceId, boolean showLong, int gravity) {
+    private static void _runToast(final CharSequence text, final CharSequence subtitle, @DrawableRes int drawableResourceId, boolean showLong, int gravity) {
         if (Preconditions.isUiThread()) {
             _showToast(text, subtitle, drawableResourceId, showLong, gravity);
         } else {
@@ -198,7 +198,7 @@ public class ToastUtil {
         }
     }
 
-    private static void _showToast(final String text, final String subtitle, @DrawableRes int drawableResourceId, boolean showLong, int gravity) {
+    private static void _showToast(final CharSequence text, final CharSequence subtitle, @DrawableRes int drawableResourceId, boolean showLong, int gravity) {
         final Context context = ResourceUtils.getApplication();
         if (context == null) {
             return;
