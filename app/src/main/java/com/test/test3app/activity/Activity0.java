@@ -77,6 +77,8 @@ public class Activity0 extends BaseActivity {
         zRouters.add(new ZRouter("Event", ChatActivity.class));
         zRouters.add(new ZRouter("wallpaper", Activity_94_wallpaper.class));
         zRouters.add(new ZRouter("toolbar", Activity_9998_toolbar.class));
+        zRouters.add(new ZRouter("viewpager2", Activity_9999_viewpager2.class));
+        zRouters.add(new ZRouter("gesture", Activity_99990_gesture.class));
 
         init(zRouters, savedInstanceState == null);
     }

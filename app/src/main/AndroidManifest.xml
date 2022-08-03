@@ -74,6 +74,8 @@
         <activity android:name=".activity.Activity_9996_bubble" />
         <activity android:name=".activity.Activity_9997_dir" />
         <activity android:name=".activity.Activity_9998_toolbar" />
+        <activity android:name=".activity.Activity_9999_viewpager2" />
+        <activity android:name=".activity.Activity_99990_gesture" />
         <activity
             android:name=".activity.Activity_9995_mention"
             android:windowSoftInputMode="adjustResize" />
