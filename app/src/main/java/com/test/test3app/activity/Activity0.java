@@ -63,7 +63,6 @@ public class Activity0 extends BaseActivity {
         zRouters.add(new ZRouter("CameraWallpaper", Activity_997_cameraWallpaper.class));
         zRouters.add(new ZRouter("Nest", Activity_998_nest.class));
         zRouters.add(new ZRouter("AnimateImage", Activity_9991_animateimageview.class));
-        zRouters.add(new ZRouter("window transition", Activity_9992_windowContentTransition.class));
         zRouters.add(new ZRouter("wam", Activity_9993_wam.class));
         zRouters.add(new ZRouter("Loading", Activity_999_loading.class));
         zRouters.add(new ZRouter("mention", Activity_9995_mention.class));
@@ -79,6 +78,7 @@ public class Activity0 extends BaseActivity {
         zRouters.add(new ZRouter("toolbar", Activity_9998_toolbar.class));
         zRouters.add(new ZRouter("viewpager2", Activity_9999_viewpager2.class));
         zRouters.add(new ZRouter("gesture", Activity_99990_gesture.class));
+        zRouters.add(new ZRouter("window transition", Activity_9992_windowContentTransition.class));
 
         init(zRouters, savedInstanceState == null);
     }

@@ -1,30 +1,30 @@
 package com.test.test3app.windowtransition;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.app.SharedElementCallback;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.test.test3app.R;
+import com.zhaoyuntao.androidutils.tools.S;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class SecondActivity extends AppCompatActivity {
+import base.ui.BaseActivity;
+import im.turbo.thread.ThreadPool;
+
+public class SecondActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
         int position = getIntent().getIntExtra("position", -1);
-        List<ImageBean> imageBeans = new ArrayList<>(4);
-        imageBeans.add(new ImageBean("image0", R.drawable.image0));
-        imageBeans.add(new ImageBean("image1", R.drawable.image1));
-        imageBeans.add(new ImageBean("image2", R.drawable.image2));
-        imageBeans.add(new ImageBean("image3", R.drawable.image3));
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view_second);
 
@@ -34,7 +34,16 @@ public class SecondActivity extends AppCompatActivity {
         }
         recyclerView.setLayoutManager(layoutManager);
         SecondImageAdapter adapter = new SecondImageAdapter();
-        adapter.submitList(imageBeans);
+        adapter.setOnItemClickListener(new SecondImageAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                ThirdActivity.imageBean = adapter.getCurrentList().get(position);
+                Intent intent = new Intent(activity(), ThirdActivity.class);
+                Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity(), view, "image0").toBundle();
+                intent.putExtra("position", 0);
+                startActivity(intent, bundle);
+            }
+        });
         recyclerView.setAdapter(adapter);
 
         setEnterSharedElementCallback(new SharedElementCallback() {
@@ -52,6 +61,33 @@ public class SecondActivity extends AppCompatActivity {
                 if (secondImageHolder2 != null) {
                     sharedElements.put("image2", secondImageHolder2.itemView);
                 }
+            }
+        });
+
+        getWindow().getSharedElementEnterTransition().setDuration(200);
+        getWindow().getSharedElementExitTransition().setDuration(200);
+        postponeEnterTransition();
+
+        ThreadPool.runIoDelayed(100, new Runnable() {
+            @Override
+            public void run() {
+                List<ImageBean> imageBeans = new ArrayList<>(4);
+                imageBeans.add(new ImageBean("image0", R.drawable.image0));
+                imageBeans.add(new ImageBean("image1", R.drawable.image1));
+                imageBeans.add(new ImageBean("image2", R.drawable.image2));
+                imageBeans.add(new ImageBean("image3", R.drawable.image3));
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.submitList(imageBeans);
+                        recyclerView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                startPostponedEnterTransition();
+                            }
+                        });
+                    }
+                });
             }
         });
     }

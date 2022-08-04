@@ -1,0 +1,23 @@
+package com.test.test3app.windowtransition;
+
+import android.view.View;
+import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.test.test3app.R;
+
+/**
+ * created by zhaoyuntao
+ * on 25/11/2021
+ * description:
+ */
+public class ThirdImageHolder extends RecyclerView.ViewHolder {
+    public ImageView imageView;
+
+    public ThirdImageHolder(@NonNull View itemView) {
+        super(itemView);
+        imageView = itemView.findViewById(R.id.imageview_item_third);
+    }
+}
