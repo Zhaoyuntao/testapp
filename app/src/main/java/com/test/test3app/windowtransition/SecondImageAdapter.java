@@ -38,8 +38,7 @@ public class SecondImageAdapter extends ListAdapter<ImageBean, SecondImageHolder
     @NonNull
     @Override
     public SecondImageHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        SecondImageHolder secondImageHolder = new SecondImageHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_second_item, parent, false));
-        return secondImageHolder;
+        return new SecondImageHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_second_item, parent, false));
     }
 
     @Override

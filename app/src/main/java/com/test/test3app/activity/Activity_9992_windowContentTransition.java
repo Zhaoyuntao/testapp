@@ -86,7 +86,7 @@ public class Activity_9992_windowContentTransition extends BaseActivity {
     }
 
     private void onClick(View view, View[] views, int position) {
-        S.s("clicked :" + position);
+//        S.s("clicked :" + position);
         Intent intent = new Intent(activity(), SecondActivity.class);
         Bundle bundle;
         switch (position) {

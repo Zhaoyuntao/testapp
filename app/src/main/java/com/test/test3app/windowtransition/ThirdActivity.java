@@ -15,6 +15,7 @@ import java.util.Map;
 import base.ui.BaseActivity;
 import im.turbo.baseui.toast.ToastUtil;
 import im.turbo.thread.ThreadPool;
+import im.turbo.utils.log.S;
 
 public class ThirdActivity extends BaseActivity {
     public static ImageBean imageBean;
@@ -28,6 +29,7 @@ public class ThirdActivity extends BaseActivity {
         viewPager2.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         ThirdImageAdapter adapter = new ThirdImageAdapter();
         viewPager2.setAdapter(adapter);
+        viewPager2.setOffscreenPageLimit(3);
 
         setEnterSharedElementCallback(new SharedElementCallback() {
             @Override
@@ -43,31 +45,32 @@ public class ThirdActivity extends BaseActivity {
         getWindow().getSharedElementExitTransition().setDuration(200);
         postponeEnterTransition();
 
-        ThreadPool.runIoDelayed(500, new Runnable() {
+        S.s("first time load ----------------->");
+        List<ImageBean> imageBeans = new ArrayList<>(4);
+        imageBeans.add(new ImageBean("image1", R.drawable.wallpaper2));
+        adapter.submitList(imageBeans);
+
+
+        viewPager2.post(new Runnable() {
+            @Override
+            public void run() {
+                startPostponedEnterTransition();
+            }
+        });
+
+        ThreadPool.runIoDelayed(1000, new Runnable() {
             @Override
             public void run() {
                 ToastUtil.show("db load finish");
+                S.s("second time load ----------------->");
                 List<ImageBean> imageBeans = new ArrayList<>(4);
-                imageBeans.add(new ImageBean("image0", R.drawable.image0));
-                imageBeans.add(new ImageBean("image1", R.drawable.image1));
+                imageBeans.add(new ImageBean("image0", R.drawable.image1));
+                imageBeans.add(new ImageBean("image1", R.drawable.wallpaper2));
                 imageBeans.add(new ImageBean("image2", R.drawable.image2));
                 imageBeans.add(new ImageBean("image3", R.drawable.image3));
 
                 int position = imageBeans.indexOf(imageBean);
-
-                viewPager2.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        adapter.submitList(imageBeans);
-                        viewPager2.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                viewPager2.setCurrentItem(position);
-                                startPostponedEnterTransition();
-                            }
-                        });
-                    }
-                });
+                adapter.submitList(imageBeans);
             }
         });
     }

@@ -298,7 +298,7 @@ public class ImageUtils {
     /**
      * @return Return [width, height]
      */
-    public static int[] adjustImageSize(final int imageWidth, final int imageHeight) {
+    public static int[] adjustImageSize(final int imageWidth, final int imageHeight, int maxWidth) {
         int widthScreen = UiUtils.getScreenWidthPixels();
 
         int viewWidth;
@@ -314,6 +314,9 @@ public class ImageUtils {
             viewWidth = (int) (widthScreen * 0.64f);
         } else {
             viewWidth = (int) (widthScreen * 0.7f);
+        }
+        if (maxWidth > 0) {
+            viewWidth = Math.min(maxWidth, viewWidth);
         }
         if (imageRatio > maxRatio) {
             viewHeight = (int) (viewWidth / maxRatio);

@@ -9,14 +9,12 @@ import androidx.core.app.SharedElementCallback;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.test.test3app.R;
-import com.zhaoyuntao.androidutils.tools.S;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import base.ui.BaseActivity;
-import im.turbo.thread.ThreadPool;
 
 public class SecondActivity extends BaseActivity {
 
@@ -68,26 +66,18 @@ public class SecondActivity extends BaseActivity {
         getWindow().getSharedElementExitTransition().setDuration(200);
         postponeEnterTransition();
 
-        ThreadPool.runIoDelayed(100, new Runnable() {
+        List<ImageBean> imageBeans = new ArrayList<>(4);
+        imageBeans.add(new ImageBean("image0", R.drawable.wallpaper2));
+        imageBeans.add(new ImageBean("image1", R.drawable.image1));
+        imageBeans.add(new ImageBean("image2", R.drawable.image2));
+        imageBeans.add(new ImageBean("image3", R.drawable.image3));
+
+        adapter.submitList(imageBeans);
+        runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                List<ImageBean> imageBeans = new ArrayList<>(4);
-                imageBeans.add(new ImageBean("image0", R.drawable.image0));
-                imageBeans.add(new ImageBean("image1", R.drawable.image1));
-                imageBeans.add(new ImageBean("image2", R.drawable.image2));
-                imageBeans.add(new ImageBean("image3", R.drawable.image3));
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        adapter.submitList(imageBeans);
-                        recyclerView.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                startPostponedEnterTransition();
-                            }
-                        });
-                    }
-                });
+
+                startPostponedEnterTransition();
             }
         });
     }

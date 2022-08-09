@@ -1,17 +1,20 @@
 package com.test.test3app.windowtransition;
 
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
 import com.test.test3app.R;
+import com.test.test3app.wallpaper.DiffHelper;
 
 import java.util.List;
+
+import im.turbo.utils.log.S;
 
 /**
  * created by zhaoyuntao
@@ -30,7 +33,13 @@ public class ThirdImageAdapter extends ListAdapter<ImageBean, ThirdImageHolder> 
 
             @Override
             public boolean areContentsTheSame(@NonNull ImageBean oldItem, @NonNull ImageBean newItem) {
-                return TextUtils.equals(oldItem.id, newItem.id);
+                return false;
+            }
+
+            @Nullable
+            @Override
+            public Object getChangePayload(@NonNull ImageBean oldItem, @NonNull ImageBean newItem) {
+                return DiffHelper.getPayload("hello", "hello");
             }
         });
     }
@@ -38,12 +47,12 @@ public class ThirdImageAdapter extends ListAdapter<ImageBean, ThirdImageHolder> 
     @NonNull
     @Override
     public ThirdImageHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ThirdImageHolder secondImageHolder = new ThirdImageHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_third_item, parent, false));
-        return secondImageHolder;
+        return new ThirdImageHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_third_item, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull ThirdImageHolder holder, int position2) {
+//        S.s("onBindViewHolder no payload ["+ holder.getBindingAdapterPosition()+"]");
         int position = holder.getBindingAdapterPosition();
         holder.imageView.setImageResource(getCurrentList().get(position).resId);
         holder.itemView.setTag(getCurrentList().get(position).id);
@@ -59,7 +68,12 @@ public class ThirdImageAdapter extends ListAdapter<ImageBean, ThirdImageHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ThirdImageHolder holder, int position, @NonNull List<Object> payloads) {
-        onBindViewHolder(holder, position);
+        if (payloads.size() > 0) {
+            S.s("onBindViewHolder has payload [" + holder.getBindingAdapterPosition() + "]:[" + getCurrentList().get(holder.getBindingAdapterPosition()).id + "]");
+        } else {
+            S.s("onBindViewHolder no payload [" + holder.getBindingAdapterPosition() + "]:[" + getCurrentList().get(holder.getBindingAdapterPosition()).id + "]");
+            onBindViewHolder(holder, position);
+        }
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {

@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.test.test3app.R;
 
+import im.thebot.chat.ui.view.ChatImageView;
+
 /**
  * created by zhaoyuntao
  * on 25/11/2021

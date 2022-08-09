@@ -17,8 +17,6 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Outline;
-import android.media.ThumbnailUtils;
-import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -33,10 +31,6 @@ import com.example.module_chat.R;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import im.thebot.SdkFactory;
 import im.thebot.api.chat.constant.FileStatusCode;
 import im.thebot.api.chat.listener.FileStatusBean;
@@ -46,6 +40,7 @@ import im.thebot.chat.api.chat.message.ImageMessageForUI;
 import im.thebot.chat.api.chat.message.MessageBeanForUI;
 import im.thebot.chat.api.chat.message.VideoMessageForUI;
 import im.turbo.basetools.image.ImageUtils;
+import im.turbo.baseui.utils.UiUtils;
 import im.turbo.thread.SafeRunnable;
 import im.turbo.thread.ThreadPool;
 import im.turbo.utils.log.S;
@@ -57,12 +52,13 @@ import im.turbo.utils.log.S;
  */
 public class ChatImageView extends AppCompatImageView {
     private final String TAG_CHAT_IMAGE_VIEW = "ChatImageViewTag";
-    private int imageWidth, imageHeight;
+    private int imageWidth=4928, imageHeight=3280;
     private FileListener fileListener;
-    private ChatImageStateListener stateListener;
+    private ChatMediaStateListener stateListener;
     private MessageBeanForUI message;
+    private boolean imageLoaded;
     private String tag2;
-    public static boolean logOpen = true;
+    public static boolean logOpen = false;
 
     public ChatImageView(Context context) {
         super(context);
@@ -99,34 +95,47 @@ public class ChatImageView extends AppCompatImageView {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        boolean log="0".equals(getTag());
         int width = 0, height = 0;
-        if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.EXACTLY) {
+        int[] size = ImageUtils.adjustImageSize(imageWidth, imageHeight, MeasureSpec.getSize(widthMeasureSpec));
+        ViewGroup.LayoutParams layoutParams = getLayoutParams();
+        if (layoutParams.width == ViewGroup.LayoutParams.MATCH_PARENT) {
             width += getPaddingLeft() + getPaddingRight();
             width = Math.max(width, getSuggestedMinimumWidth());
             width = resolveSizeAndState(width, widthMeasureSpec, 0);
-        } else {
-            int[] size = ImageUtils.adjustImageSize(imageWidth, imageHeight);
+            S.s("w match:"+width);
+        } else if (layoutParams.width == ViewGroup.LayoutParams.WRAP_CONTENT) {
             width = size[0];
+            S.s("w wrap:"+width);
+        }else{
+            S.s("w 3");
         }
 
-        if (MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.EXACTLY) {
+        if (layoutParams.height == ViewGroup.LayoutParams.MATCH_PARENT) {
             height += getPaddingTop() + getPaddingBottom();
             height = Math.max(height, getSuggestedMinimumHeight());
             height = resolveSizeAndState(height, heightMeasureSpec, 0);
-        } else {
-            float ratio = Math.max(0.64f, imageWidth / (float) imageHeight);
+            S.s("h match:"+height);
+        } else if(layoutParams.height == ViewGroup.LayoutParams.WRAP_CONTENT){
+            float ratio;
+            if (imageWidth > 0 && imageHeight > 0) {
+                ratio = Math.max(0.64f, imageWidth / (float) imageHeight);
+            } else {
+                ratio = 0.64f;
+            }
             height = (int) (width / ratio);
+            S.s("h wrap:"+height);
+        }else{
+            S.s("h 3");
         }
-
         setMeasuredDimension(width, height);
-        load();
     }
 
     public void bindMessage(@NotNull BaseFileMessageForUI message) {
         bindMessage(message, null);
     }
 
-    public void bindMessage(@NotNull BaseFileMessageForUI message, @Nullable ChatImageStateListener listener) {
+    public void bindMessage(@NotNull BaseFileMessageForUI message, @Nullable ChatMediaStateListener listener) {
         if (this.message == null || !this.message.equals(message) || getDrawable() == null) {
             setCurrentMessage(message);
             load();
@@ -138,6 +147,7 @@ public class ChatImageView extends AppCompatImageView {
     private void setCurrentMessage(@NotNull MessageBeanForUI message) {
         this.message = message;
         setTag2(TAG_CHAT_IMAGE_VIEW + this.message.getUUID());
+        imageLoaded = false;
     }
 
     private MessageBeanForUI getCurrentMessage() {
@@ -360,6 +370,9 @@ public class ChatImageView extends AppCompatImageView {
     }
 
     private void load() {
+        if (imageLoaded) {
+            return;
+        }
         if (message instanceof ImageMessageForUI) {
             ImageMessageForUI imageMessageForUI = (ImageMessageForUI) message;
             setImageSize(imageMessageForUI.getImageWidth(), imageMessageForUI.getImageHeight());
@@ -379,34 +392,36 @@ public class ChatImageView extends AppCompatImageView {
     }
 
     private void loadVideoLocal(VideoMessageForUI message) {
-        String pathFinal = message.getFileLocalPath();
-        if (!SdkFactory.getFileSdk().isFileExists(pathFinal)) {
-            setPreviewBase64(message.getVideoPreviewBase64());
+        String path = message.getFileLocalPath();
+        setPreviewBase64(message.getVideoPreviewBase64());
+        if (!SdkFactory.getFileSdk().isFileExists(path)) {
             return;
         }
+        imageLoaded = true;
         final String tag2Final = getTag2();
-        ThreadPool.runIO(new Runnable() {
-            @Override
-            public void run() {
-                Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(pathFinal, MediaStore.Images.Thumbnails.MINI_KIND);
-                ThreadPool.runUi(new SafeRunnable(ChatImageView.this) {
-                    @Override
-                    public void runSafely() {
-                        if (TextUtils.equals(tag2Final, getTag2())) {
-                            setImageBitmap(bitmap);
-                        }
-                    }
-                });
-            }
-        });
+        setImageResource(R.drawable.default_wallpaper);
+//        SdkFactory.getFileSdk().loadVideoPreview(path, new CommonDataCallback<Bitmap>() {
+//            @Override
+//            public void onSuccess(@NonNull Bitmap bitmap) {
+//                ThreadPool.runUi(new SafeRunnable(ChatImageView.this) {
+//                    @Override
+//                    public void runSafely() {
+//                        if (TextUtils.equals(tag2Final, getTag2())) {
+//                            setImageBitmap(bitmap);
+//                        }
+//                    }
+//                });
+//            }
+//        });
     }
 
     private void loadImageLocal(ImageMessageForUI message) {
-        String pathFinal = message.getFileLocalPath();
-        if (!SdkFactory.getFileSdk().isFileExists(pathFinal)) {
-            setPreviewBase64(message.getImagePreviewBase64());
+        String path = message.getFileLocalPath();
+        setPreviewBase64(message.getImagePreviewBase64());
+        if (!SdkFactory.getFileSdk().isFileExists(path)) {
             return;
         }
+        imageLoaded = true;
         float widthCalculate = getMeasuredWidth();
         float heightCalculate = getMeasuredHeight();
         if (widthCalculate <= 0 || heightCalculate <= 0) {
@@ -415,76 +430,28 @@ public class ChatImageView extends AppCompatImageView {
                 widthCalculate = layoutParams.width;
                 heightCalculate = layoutParams.height;
             } else if (imageWidth > 0 && imageHeight > 0) {
-                widthCalculate = imageWidth;
-                heightCalculate = imageHeight;
+                widthCalculate = Math.max(UiUtils.dipToPx(210), imageWidth);
+                heightCalculate = Math.max(UiUtils.dipToPx(210), imageHeight);
             } else {
-                widthCalculate = 100;
-                heightCalculate = 100;
+                widthCalculate = UiUtils.dipToPx(210);
+                heightCalculate = UiUtils.dipToPx(210);
             }
         }
-        final float width = widthCalculate;
-        final float height = heightCalculate;
-        float ratioView = width / height;
         final String tag2Final = getTag2();
-        ThreadPool.runIO(new Runnable() {
-            @Override
-            public void run() {
-                FileInputStream stream;
-                try {
-                    stream = new FileInputStream(pathFinal);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                    return;
-                }
-                BitmapFactory.Options onlyBoundsOptions = new BitmapFactory.Options();
-                onlyBoundsOptions.inJustDecodeBounds = true;
-                BitmapFactory.decodeStream(stream, null, onlyBoundsOptions);
-                try {
-                    stream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                float widthImage = onlyBoundsOptions.outWidth;
-                float heightImage = onlyBoundsOptions.outHeight;
-                float ratioImage = widthImage / heightImage;
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                if (ratioImage > ratioView) {
-                    if (heightImage > height) {
-                        options.inSampleSize = Math.max(1, Math.round(heightImage / height));
-                    } else {
-                        options.inSampleSize = 1;
-                    }
-                } else {
-                    if (widthImage > width) {
-                        options.inSampleSize = Math.max(1, Math.round(widthImage / width));
-                    } else {
-                        options.inSampleSize = 1;
-                    }
-                }
-                S.s("w:" + widthImage + " h:" + heightImage + " view w:" + width + " view h:" + height + "  ratio image:" + ratioImage + " ratio view:" + ratioView + " simple:" + options.inSampleSize);
-                FileInputStream stream2;
-                try {
-                    stream2 = new FileInputStream(pathFinal);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                    return;
-                }
-                Bitmap bitmap = BitmapFactory.decodeStream(stream2, null, options);
-                try {
-                    stream2.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                ThreadPool.runUi(new SafeRunnable(ChatImageView.this) {
-                    @Override
-                    public void runSafely() {
-                        if (TextUtils.equals(tag2Final, getTag2())) {
-                            setImageBitmap(bitmap);
-                        }
-                    }
-                });
-            }
-        });
+//        SdkFactory.getFileSdk().loadImage(path, widthCalculate, heightCalculate, new CommonDataCallback<Bitmap>() {
+//            @Override
+//            public void onSuccess(@NonNull Bitmap bitmap) {
+//                ThreadPool.runUi(new SafeRunnable(ChatImageView.this) {
+//                    @Override
+//                    public void runSafely() {
+//                        if (TextUtils.equals(tag2Final, getTag2())) {
+//                            setImageBitmap(bitmap);
+//                        }
+//                    }
+//                });
+//            }
+//        });
+        setImageResource(R.drawable.default_wallpaper);
     }
 
     private void setPreviewBase64(String previewBase64) {
@@ -523,6 +490,7 @@ public class ChatImageView extends AppCompatImageView {
 
     @Override
     protected void onDetachedFromWindow() {
+        imageLoaded = false;
         unregisterListener();
         super.onDetachedFromWindow();
     }

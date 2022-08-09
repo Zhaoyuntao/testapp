@@ -9,7 +9,7 @@ import im.thebot.chat.api.chat.message.BaseFileMessageForUI;
  * on 20/06/2022
  * description:
  */
-public interface ChatImageStateListener {
+public interface ChatMediaStateListener {
     default void onFileNotExists(@NonNull BaseFileMessageForUI message) {
     }
 
