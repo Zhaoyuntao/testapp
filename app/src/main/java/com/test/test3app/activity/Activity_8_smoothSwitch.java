@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.test.test3app.R;
+import com.zhaoyuntao.androidutils.tools.S;
 
 import base.ui.BaseActivity;
 import im.turbo.baseui.chat.SmoothLayoutFrameLayout;
@@ -19,6 +20,7 @@ public class Activity_8_smoothSwitch extends BaseActivity {
         SmoothScaleFrameLayout smoothScaleFrameLayout1 = findViewById(R.id.smooth);
         SmoothLayoutFrameLayout smoothLayoutFrameLayout2 = findViewById(R.id.smooth2);
         SmoothLayoutFrameLayout smoothLayoutFrameLayout3 = findViewById(R.id.smooth3);
+        SmoothLayoutFrameLayout smoothLayoutFrameLayout4 = findViewById(R.id.smooth_red);
         SmoothScaleFrameLayout smoothScaleFrameLayout3 = findViewById(R.id.smooth_switch3);
 
         findViewById(R.id.switch_button0).setOnClickListener(new View.OnClickListener() {
@@ -46,6 +48,16 @@ public class Activity_8_smoothSwitch extends BaseActivity {
             @Override
             public void onClick(View v) {
                 smoothScaleFrameLayout3.nextIndex();
+            }
+        });
+
+        View singleView=findViewById(R.id.single_image_view);
+        findViewById(R.id.button_red).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                S.s("visible:" + (singleView.getVisibility() == View.VISIBLE));
+                singleView.setVisibility(singleView.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
             }
         });
     }

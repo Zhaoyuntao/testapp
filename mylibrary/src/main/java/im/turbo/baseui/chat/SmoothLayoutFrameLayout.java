@@ -154,7 +154,7 @@ public class SmoothLayoutFrameLayout extends FrameLayout {
         int measureWidth = resolveSizeAndState(maxWidth, widthMeasureSpec, childState);
         int measureHeight = resolveSizeAndState(maxHeight, heightMeasureSpec, childState << MEASURED_HEIGHT_STATE_SHIFT);
 
-        boolean sizeChanged = heightLastMeasure > 0 && measureHeight > 0 && heightLastMeasure != measureHeight;
+        boolean sizeChanged = heightLastMeasure != measureHeight;
         if (sizeChanged) {
             sizeDelta = measureHeight - heightLastMeasure;
             heightAnimatorStart = heightLastMeasure;
@@ -163,11 +163,6 @@ public class SmoothLayoutFrameLayout extends FrameLayout {
                 animator.cancel();
             }
             animator.start();
-        } else {
-            if (heightLastMeasure <= 0) {
-                heightLastMeasure = measureHeight;
-                scalePercent = 1;
-            }
         }
         if (animator.isInLayout()) {
             measureHeight = heightAnimatorStart + (int) (sizeDelta * scalePercent);

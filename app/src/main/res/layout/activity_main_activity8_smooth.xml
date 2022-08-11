@@ -9,44 +9,91 @@
     android:orientation="vertical"
     tools:context=".activity.Activity_8_smoothSwitch">
 
-    <im.turbo.baseui.chat.SmoothScaleFrameLayout
-        android:id="@+id/smooth"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="#efefef"
-        app:SmoothScaleFrameLayout_scaleDirection="vertical">
+        android:layout_height="200dp"
+        android:background="#ff99aa"
+        android:orientation="horizontal">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_gravity="bottom"
-            android:src="@drawable/svg_chat_cell_message_audio_play_red" />
+        <im.turbo.baseui.chat.SmoothScaleFrameLayout
+            android:id="@+id/smooth"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:background="#aaFFaa"
+            app:SmoothScaleFrameLayout_scaleDirection="vertical">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_gravity="bottom"
-            android:src="@drawable/svg_chat_cell_message_audio_pause_red" />
-    </im.turbo.baseui.chat.SmoothScaleFrameLayout>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="bottom"
+                android:src="@drawable/svg_chat_cell_message_audio_play_red" />
 
-    <base.ui.AutoSizeTextView
-        android:id="@+id/switch_button0"
-        android:layout_width="200dp"
-        android:layout_height="80dp"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:layout_marginTop="20dp"
-        android:background="#ff0000"
-        android:gravity="center"
-        android:text="switch"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        app:autoRadius="10dp" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="bottom"
+                android:src="@drawable/svg_chat_cell_message_audio_pause_red" />
+        </im.turbo.baseui.chat.SmoothScaleFrameLayout>
+
+        <im.turbo.baseui.chat.SmoothLayoutFrameLayout
+            android:id="@+id/smooth_red"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:background="#009999"
+            app:SmoothScaleFrameLayout_scaleDirection="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/single_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="bottom"
+                android:src="@drawable/svg_chat_cell_message_audio_pause_red" />
+        </im.turbo.baseui.chat.SmoothLayoutFrameLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <base.ui.AutoSizeTextView
+            android:id="@+id/switch_button0"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:background="#ff0000"
+            android:gravity="center"
+            android:text="switch"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:autoRadius="10dp" />
+
+        <base.ui.AutoSizeTextView
+            android:id="@+id/button_red"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:background="#ff0000"
+            android:gravity="center"
+            android:text="switch"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:autoRadius="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
         android:orientation="horizontal">
 
         <im.turbo.baseui.chat.SmoothLayoutFrameLayout
@@ -101,9 +148,9 @@
                 android:id="@+id/smooth_switch3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:SmoothScaleFrameLayout_useAnimator="false"
                 android:layout_gravity="bottom"
-                app:SmoothScaleFrameLayout_scaleDirection="vertical">
+                app:SmoothScaleFrameLayout_scaleDirection="vertical"
+                app:SmoothScaleFrameLayout_useAnimator="false">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="match_parent"
