@@ -74,7 +74,7 @@ public class PermissionBridgeActivity extends AppCompatActivity {
             if (permissionResult != null) {
                 permissionResult.onGranted(permissions);
             }
-        }else{
+        } else {
             boolean deniedForever = PermissionCore.isDeniedForever(context, permissions);
             if (deniedForever && !showDialog) {
                 if (permissionResult != null) {
@@ -331,7 +331,6 @@ public class PermissionBridgeActivity extends AppCompatActivity {
 
     @Override
     public void finish() {
-        S.sd("finish");
         if (isPermission == type) {
             permissionResults.remove(time);
         } else if (isInstall == type) {
