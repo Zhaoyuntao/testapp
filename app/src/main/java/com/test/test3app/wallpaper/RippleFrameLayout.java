@@ -17,7 +17,7 @@ import android.view.animation.OvershootInterpolator;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.test.test3app.fastrecordviewnew.UiUtils;
+import im.turbo.baseui.utils.UiUtils;
 import com.zhaoyuntao.androidutils.tools.S;
 
 /**

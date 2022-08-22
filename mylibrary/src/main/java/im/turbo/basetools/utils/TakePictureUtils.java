@@ -65,7 +65,7 @@ public class TakePictureUtils {
             }
 
             @Override
-            public void onDenied(@NonNull String[] deniedPermissions) {
+            public void onDenied(@NonNull String[] deniedPermissions, boolean deniedForever) {
                 photoGetter.whenNoPermission(deniedPermissions);
             }
         }, Permission.CAMERA, Permission.WRITE_EXTERNAL_STORAGE);
@@ -76,7 +76,7 @@ public class TakePictureUtils {
             return;
         }
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA).format(new Date());
-        final File file = new File(getRootFileDir(context) , "img_" + timeStamp + ".jpg");
+        final File file = new File(getRootFileDir(context), "img_" + timeStamp + ".jpg");
         final Uri uriImg = SFileProvider.getUriForFile(context, file);
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uriImg);
@@ -88,7 +88,7 @@ public class TakePictureUtils {
                     Bitmap bitmap = ImageUtils.getCompressBitmap(context, uriImg, maxSize);
                     bitmap = ImageUtils.rotateBitmap(bitmap, orientation, true);
                     File realFile = ImageUtils.saveBitmap(bitmap, file);
-                    S.s("bitmap:"+bitmap+" readFile:"+realFile);
+                    S.s("bitmap:" + bitmap + " readFile:" + realFile);
                     if (bitmap != null && realFile != null) {
                         photoGetter.whenGetPhoto(realFile.getAbsolutePath(), uriImg, bitmap);
                     } else {

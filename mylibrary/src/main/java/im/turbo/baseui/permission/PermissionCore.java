@@ -4,17 +4,15 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AppOpsManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
-import android.provider.Settings;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 
 import com.doctor.mylibrary.R;
+import com.zhaoyuntao.androidutils.tools.S;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -36,7 +34,7 @@ class PermissionCore {
 
     static boolean isDeniedForever(Context context, @Permission String... permissions) {
         for (String permission : permissions) {
-            if (!hasPermission(context, permission) && PermissionCore.isNotAskPermission(context, permission) && alwaysDeniedPermissionBefore(context, permission)) {
+            if (!hasPermission(context, permission) && PermissionCore.isNotAskPermission(context, permission)) {
                 return true;
             }
         }
@@ -44,7 +42,7 @@ class PermissionCore {
     }
 
     static boolean isNotAskPermission(Context context, @Permission String permission) {
-        return !isShowRationalePermission(context, permission);
+        return requestedPermissionBefore(context, permission) && !isShowRationalePermission(context, permission);
     }
 
     static String[] filterPermissions(@Permission String... permissions) {
@@ -181,17 +179,17 @@ class PermissionCore {
         return true;
     }
 
-    static boolean alwaysDeniedPermissionBefore(Context context, @Permission String deniedPermission) {
+    static boolean requestedPermissionBefore(Context context, @Permission String deniedPermission) {
         int mode = Context.MODE_PRIVATE | Context.MODE_MULTI_PROCESS;
         SharedPreferences pref = context.getSharedPreferences(STORAGE_PERMISSION, mode);
         return pref.getBoolean(deniedPermission, false);
     }
 
-    static void setAlwaysDeniedPermissionBefore(Context context, @Permission String[] deniedPermissions, boolean alwaysDeniedPermissionBefore) {
+    static void setPermissionRequested(Context context, @Permission String[] deniedPermissions) {
         int mode = Context.MODE_PRIVATE | Context.MODE_MULTI_PROCESS;
         SharedPreferences pref = context.getSharedPreferences(STORAGE_PERMISSION, mode);
         for (String permission : deniedPermissions) {
-            pref.edit().putBoolean(permission, alwaysDeniedPermissionBefore).apply();
+            pref.edit().putBoolean(permission, true).apply();
         }
     }
 }

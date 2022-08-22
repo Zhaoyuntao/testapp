@@ -1,15 +1,18 @@
 package im.turbo.baseui.permission;
 
-import android.app.Dialog;
-import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 
 import com.doctor.mylibrary.R;
 
@@ -20,75 +23,103 @@ import im.turbo.baseui.clicklistener.AvoidDoubleClickListener;
  * on 2019-11-08
  * description:
  */
-class PermissionDialog extends Dialog {
-    private ImageView iconView;
-    private TextView messageView;
-    private TextView buttonViewLeft;
-    private TextView buttonViewRight;
+public class PermissionDialog extends DialogFragment {
+    private int drawableRes;
+    private int stringRes;
+    private int leftStringRes;
+    private View.OnClickListener leftListener;
+    private int rightStringRes;
+    private View.OnClickListener rightListener;
+    private OnDismissListener onDismissListener;
+    private boolean clickedButton;
 
-    public PermissionDialog(@NonNull Context context) {
-        super(context, R.style.TPermissionDialogTheme);
-        init();
+    @Override
+    public void onStart() {
+        super.onStart();
+        Window window = getDialog().getWindow();
+        if (window != null) {
+            WindowManager.LayoutParams windowParams = window.getAttributes();
+            windowParams.dimAmount = 0.80f;
+            windowParams.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+            window.setAttributes(windowParams);
+        }
     }
 
-    private void init() {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setWindowAnimations(R.style.TPermissionDialogAnimate);
-        setContentView(R.layout.layout_dialog_permission);
-        iconView = findViewById(R.id.permission_dialog_icon);
-        messageView = findViewById(R.id.permission_dialog_message);
-        buttonViewLeft = findViewById(R.id.permission_dialog_left);
-        buttonViewRight = findViewById(R.id.permission_dialog_right);
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.layout_dialog_permission, container, false);
+        ImageView iconView = view.findViewById(R.id.permission_dialog_icon);
+        TextView messageView = view.findViewById(R.id.permission_dialog_message);
+        TextView buttonViewLeft = view.findViewById(R.id.permission_dialog_left);
+        TextView buttonViewRight = view.findViewById(R.id.permission_dialog_right);
+
+        iconView.setImageResource(drawableRes);
+        messageView.setText(stringRes);
+
+        buttonViewLeft.setText(leftStringRes);
+        buttonViewLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickedButton = true;
+                dismiss();
+                if (leftListener != null) {
+                    leftListener.onClick(v);
+                }
+            }
+        });
+        buttonViewLeft.setVisibility(View.VISIBLE);
+
+        buttonViewRight.setText(rightStringRes);
+        buttonViewRight.setOnClickListener(new AvoidDoubleClickListener() {
+            @Override
+            public void onClickView(View view) {
+                clickedButton = true;
+                dismiss();
+                if (rightListener != null) {
+                    rightListener.onClick(view);
+                }
+            }
+        });
+        buttonViewRight.setVisibility(View.VISIBLE);
+        return view;
     }
 
     public PermissionDialog setPermissionIcon(@DrawableRes int drawableRes) {
-        iconView.setImageResource(drawableRes);
+        this.drawableRes = drawableRes;
         return this;
     }
 
     public PermissionDialog setMessage(int stringRes) {
-        messageView.setText(stringRes);
+        this.stringRes = stringRes;
         return this;
     }
 
     public PermissionDialog setButtonLeft(int stringRes, View.OnClickListener listener) {
-        buttonViewLeft.setText(stringRes);
-        buttonViewLeft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-                listener.onClick(v);
-            }
-        });
-        buttonViewLeft.setVisibility(View.VISIBLE);
+        this.leftStringRes = stringRes;
+        this.leftListener = listener;
         return this;
     }
 
     public PermissionDialog setButtonRight(int stringRes, View.OnClickListener listener) {
-        buttonViewRight.setText(stringRes);
-        buttonViewRight.setOnClickListener(new AvoidDoubleClickListener() {
-            @Override
-            public void onClickView(View view) {
-                dismiss();
-                listener.onClick(view);
-            }
-        });
-        buttonViewRight.setVisibility(View.VISIBLE);
+        this.rightStringRes = stringRes;
+        this.rightListener = listener;
         return this;
     }
 
-    public PermissionDialog setTouchOutsideCancel(boolean cancel) {
-        setCanceledOnTouchOutside(cancel);
+    public PermissionDialog setOnDismissListener(OnDismissListener onDismissListener) {
+        this.onDismissListener = onDismissListener;
         return this;
     }
 
-    public PermissionDialog setCancelListener(@Nullable OnCancelListener listener) {
-        super.setOnCancelListener(listener);
-        return this;
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if (onDismissListener != null && !clickedButton) {
+            onDismissListener.onDismiss();
+        }
     }
 
-    public PermissionDialog setDismissListener(OnDismissListener onDismissListener) {
-        super.setOnDismissListener(onDismissListener);
-        return this;
+    public interface OnDismissListener {
+        void onDismiss();
     }
 }

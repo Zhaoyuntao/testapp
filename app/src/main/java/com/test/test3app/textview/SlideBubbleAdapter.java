@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.test.test3app.R;
-import com.test.test3app.fastrecordviewnew.UiUtils;
+import im.turbo.baseui.utils.UiUtils;
 import com.test.test3app.scrollView.SlideLayoutOld;
 import com.zhaoyuntao.androidutils.tools.S;
 

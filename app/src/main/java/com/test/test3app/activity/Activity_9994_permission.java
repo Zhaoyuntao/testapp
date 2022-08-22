@@ -38,17 +38,17 @@ public class Activity_9994_permission extends BaseActivity {
                         new PermissionResult() {
                             @Override
                             public void onGranted(@NonNull String[] grantedPermissions) {
-                                postText(permission, "permissionDialog", "Granted");
+                                postText(permission, "permission", "Granted");
                             }
 
                             @Override
-                            public void onDenied(@NonNull String[] deniedPermissions) {
-                                postText(permission, "permissionDialog", "Denied");
+                            public void onDenied(@NonNull String[] deniedPermissions, boolean deniedForever) {
+                                postText(permission, "permission", "Denied:" + deniedForever);
                             }
 
                             @Override
                             public void onCanceled(@NonNull String[] permissions) {
-                                postText(permission, "permissionDialog", "Canceled");
+                                postText(permission, "permission", "Canceled");
                             }
                         }, Permission.READ_EXTERNAL_STORAGE);
             }
@@ -62,17 +62,17 @@ public class Activity_9994_permission extends BaseActivity {
                         new PermissionResult() {
                             @Override
                             public void onGranted(@NonNull String[] grantedPermissions) {
-                                postText(permissionDialog, "permissionDialog", "Granted");
+                                postText(permissionDialog, "dialog", "Granted");
                             }
 
                             @Override
-                            public void onDenied(@NonNull String[] deniedPermissions) {
-                                postText(permissionDialog, "permissionDialog", "Denied");
+                            public void onDenied(@NonNull String[] deniedPermissions, boolean deniedForever) {
+                                postText(permissionDialog, "dialog", "Denied:" + deniedForever);
                             }
 
                             @Override
                             public void onCanceled(@NonNull String[] permissions) {
-                                postText(permissionDialog, "permissionDialog", "Canceled");
+                                postText(permissionDialog, "dialog", "Canceled");
                             }
                         }, Permission.READ_EXTERNAL_STORAGE);
             }
@@ -114,8 +114,8 @@ public class Activity_9994_permission extends BaseActivity {
     }
 
     private void postText(TextView textView, String title, String text) {
-        S.s(title + ": " + text);
-        textView.setText(title + ":" + text);
+        S.s(text + " ");
+        textView.setText(text);
         ThreadPool.runUiDelayed(1000, new SafeRunnable(textView) {
             @Override
             protected void runSafely() {

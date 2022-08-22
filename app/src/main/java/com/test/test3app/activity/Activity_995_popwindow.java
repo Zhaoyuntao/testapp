@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import base.ui.BaseActivity;
 import com.test.test3app.R;
-import com.test.test3app.fastrecordviewnew.UiUtils;
+import im.turbo.baseui.utils.UiUtils;
 import im.turbo.basetools.utils.InputMethodUtils;
 import com.zhaoyuntao.androidutils.tools.B;
 import com.zhaoyuntao.androidutils.tools.S;

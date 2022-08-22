@@ -121,7 +121,7 @@ public class AudioCell extends BaseFileCell<AudioMessageForUI> {
                     }
 
                     @Override
-                    public void onDenied(@NonNull String[] deniedPermissions) {
+                    public void onDenied(@NonNull String[] deniedPermissions, boolean deniedForever) {
                         S.s("onDenied");
                     }
 

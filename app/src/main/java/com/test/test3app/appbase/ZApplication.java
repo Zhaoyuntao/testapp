@@ -9,7 +9,7 @@ import androidx.emoji.text.EmojiCompat;
 import androidx.emoji.text.FontRequestEmojiCompatConfig;
 
 import com.test.test3app.R;
-import com.test.test3app.fastrecordviewnew.UiUtils;
+import im.turbo.baseui.utils.UiUtils;
 
 import im.turbo.thread.ThreadPool;
 import im.turbo.utils.ResourceUtils;
@@ -26,7 +26,6 @@ public class ZApplication extends Application {
         super.onCreate();
         Thread.UncaughtExceptionHandler defaultUncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
         Thread.setDefaultUncaughtExceptionHandler(new TestExceptionHandler(defaultUncaughtExceptionHandler));
-        UiUtils.application = this;
         initEmojiCompat();
         ThreadPool.startup();
     }

@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 public interface PermissionResult {
     void onGranted(@NonNull String[] grantedPermissions);
 
-    default void onDenied(@NonNull String[] deniedPermissions) {
+    default void onDenied(@NonNull String[] deniedPermissions, boolean deniedForever) {
 
     }
 

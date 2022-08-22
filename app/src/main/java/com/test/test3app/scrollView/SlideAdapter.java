@@ -10,9 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.test.test3app.R;
-import com.test.test3app.fastrecordviewnew.UiUtils;
 import im.thebot.chat.ui.view.BubbleView;
 import im.thebot.common.ui.chat.TextCellContainer;
+import im.turbo.baseui.utils.UiUtils;
+
 import com.zhaoyuntao.androidutils.tools.S;
 
 import java.util.ArrayList;

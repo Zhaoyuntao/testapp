@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import base.ui.BaseActivity;
 import com.test.test3app.R;
 import im.turbo.utils.log.S;
-import com.test.test3app.fastrecordviewnew.UiUtils;
+import im.turbo.baseui.utils.UiUtils;
 import com.test.test3app.scrollView.SlideAdapter;
 
 import java.util.ArrayList;

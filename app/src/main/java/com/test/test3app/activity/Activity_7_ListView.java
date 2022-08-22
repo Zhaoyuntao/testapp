@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.test.test3app.R;
-import com.test.test3app.fastrecordviewnew.UiUtils;
+import im.turbo.baseui.utils.UiUtils;
 import com.test.test3app.recyclerview.CountryCodeAdapter;
 import com.test.test3app.recyclerview.CountryCodeBean;
 import com.zhaoyuntao.androidutils.tools.S;

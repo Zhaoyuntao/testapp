@@ -1,15 +1,14 @@
 package im.turbo.baseui.permission;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.annotation.DrawableRes;
@@ -18,11 +17,16 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.doctor.mylibrary.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import im.turbo.baseui.base.bridgefragment.BridgeCallback;
 
@@ -32,40 +36,61 @@ import im.turbo.baseui.base.bridgefragment.BridgeCallback;
  * description:
  */
 public class PermissionBridgeActivity extends AppCompatActivity {
+    private final static Map<Long, PermissionResult> permissionResults = new ConcurrentHashMap<>(5);
+    private final static Map<Long, InstallResult> installResults = new ConcurrentHashMap<>(5);
+    private final static String KEY_TYPE = "requestType";
+    private final static String KEY_PERMISSIONS = "permissions";
+    private final static String KEY_SHOW_DIALOG = "showDialog";
+    private final static String KEY_REQUEST_STRING_RES = "requestStringRes";
+    private final static String KEY_GUIDE_STRING_RES = "guideStringRes";
+    private final static String KEY_DRAWABLE_RES = "drawableRes";
+    private final static String KEY_TIME = "time";
+    private final static int isPermission = 0;
+    private final static int isInstall = 1;
 
+    private long time;
     @Permission
-    private static String[] permissions;
-    private static boolean showDialog;
+    private String[] permissions;
+    private boolean showDialog;
     @StringRes
-    private static int requestStringRes;
+    private int requestStringRes;
     @StringRes
-    private static int guideStringRes;
+    private int guideStringRes;
     @DrawableRes
-    private static int drawableRes;
-    @Nullable
-    private static PermissionResult permissionResult;
-    @Nullable
-    private static InstallResult installResult;
-    private static boolean isPermission;
-    private static boolean isInstall;
+    private int drawableRes;
 
     private final int requestCodePermissionRequest = 1255;
-    private PermissionDialog dialog;
     private boolean openedSystemSettingPage;
+    private PermissionResult permissionResult;
+    private InstallResult installResult;
+    private int type;
 
     static void requestPermissions(Context context, @Permission String[] permissions, @Nullable PermissionResult permissionResult) {
         requestPermissions(context, permissions, false, 0, 0, permissionResult);
     }
 
     static void requestPermissions(Context context, @Permission String[] permissions, boolean showDialog, @StringRes int requestStringRes, @StringRes int guideStringRes, @Nullable PermissionResult permissionResult) {
-        PermissionBridgeActivity.isPermission = true;
-        PermissionBridgeActivity.permissions = permissions;
-        PermissionBridgeActivity.showDialog = showDialog;
-        PermissionBridgeActivity.requestStringRes = requestStringRes;
-        PermissionBridgeActivity.guideStringRes = guideStringRes;
-        PermissionBridgeActivity.permissionResult = permissionResult;
+
+        boolean deniedForever = PermissionCore.isDeniedForever(context, permissions);
+        if (deniedForever && !showDialog) {
+            if (permissionResult != null) {
+                permissionResult.onDenied(permissions, true);
+            }
+            return;
+        }
+
+        long timeNow = SystemClock.elapsedRealtime();
+        if (permissionResult != null) {
+            PermissionBridgeActivity.permissionResults.put(timeNow, permissionResult);
+        }
 
         Intent intent = new Intent(context, PermissionBridgeActivity.class);
+        intent.putExtra(KEY_TYPE, isPermission);
+        intent.putExtra(KEY_PERMISSIONS, permissions);
+        intent.putExtra(KEY_SHOW_DIALOG, showDialog);
+        intent.putExtra(KEY_REQUEST_STRING_RES, requestStringRes);
+        intent.putExtra(KEY_GUIDE_STRING_RES, guideStringRes);
+        intent.putExtra(KEY_TIME, timeNow);
         IntentUtils.startActivity(context, intent);
     }
 
@@ -74,28 +99,41 @@ public class PermissionBridgeActivity extends AppCompatActivity {
     }
 
     static void requestInstall(Context context, boolean showDialog, int requestStringRes, int drawableRes, InstallResult installResult) {
-        PermissionBridgeActivity.isInstall = true;
-        PermissionBridgeActivity.showDialog = showDialog;
-        PermissionBridgeActivity.requestStringRes = requestStringRes;
-        PermissionBridgeActivity.drawableRes = drawableRes;
-        PermissionBridgeActivity.installResult = installResult;
+        long timeNow = SystemClock.elapsedRealtime();
+        PermissionBridgeActivity.installResults.put(timeNow, installResult);
 
         Intent intent = new Intent(context, PermissionBridgeActivity.class);
+        intent.putExtra(KEY_TYPE, isInstall);
+        intent.putExtra(KEY_SHOW_DIALOG, showDialog);
+        intent.putExtra(KEY_REQUEST_STRING_RES, requestStringRes);
+        intent.putExtra(KEY_DRAWABLE_RES, drawableRes);
+        intent.putExtra(KEY_TIME, timeNow);
         IntentUtils.startActivity(context, intent);
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        setContentView(R.layout.activity_transparent);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ERROR);
 
         if (savedInstanceState != null) return;
 
-        if (isPermission) {
+        Intent intent = getIntent();
+        time = intent.getLongExtra(KEY_TIME, -1);
+        showDialog = intent.getBooleanExtra(KEY_SHOW_DIALOG, false);
+        requestStringRes = intent.getIntExtra(KEY_REQUEST_STRING_RES, 0);
+        type = getIntent().getIntExtra(KEY_TYPE, -1);
+        if (isPermission == type) {
+            permissionResult = permissionResults.get(time);
+            guideStringRes = intent.getIntExtra(KEY_GUIDE_STRING_RES, 0);
+            permissions = intent.getStringArrayExtra(KEY_PERMISSIONS);
             performRequestPermissions();
-        } else if (isInstall) {
+        } else if (isInstall == type) {
+            installResult = installResults.get(time);
+            drawableRes = intent.getIntExtra(KEY_DRAWABLE_RES, 0);
             performRequestInstall();
         } else {
             finish();
@@ -112,11 +150,10 @@ public class PermissionBridgeActivity extends AppCompatActivity {
             return;
         }
         boolean deniedForever = PermissionCore.isDeniedForever(this, permissions);
-
         if (showDialog) {
-            dialog = new PermissionDialog(this)
+            hideDialogFragment();
+            PermissionDialog dialog = new PermissionDialog()
                     .setPermissionIcon(PermissionCore.getPermissionDrawable(permissions))
-                    .setTouchOutsideCancel(false)
                     .setMessage(deniedForever ? guideStringRes : requestStringRes)
                     .setButtonRight(deniedForever ? R.string.permission_settings_open : R.string.permission_continue, new View.OnClickListener() {
                         @Override
@@ -137,18 +174,26 @@ public class PermissionBridgeActivity extends AppCompatActivity {
                             finish();
                         }
                     })
-                    .setCancelListener(new DialogInterface.OnCancelListener() {
+                    .setOnDismissListener(new PermissionDialog.OnDismissListener() {
                         @Override
-                        public void onCancel(DialogInterface dialog) {
+                        public void onDismiss() {
                             if (permissionResult != null) {
                                 permissionResult.onCanceled(permissions);
+                                finish();
                             }
-                            finish();
                         }
                     });
-            dialog.show();
+            dialog.show(getSupportFragmentManager(), "dialog");
         } else {
             _requestPermissionInner();
+        }
+    }
+
+    private void hideDialogFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment pre = fragmentManager.findFragmentByTag("dialog");
+        if (pre instanceof DialogFragment) {
+            ((DialogFragment) pre).dismiss();
         }
     }
 
@@ -172,10 +217,8 @@ public class PermissionBridgeActivity extends AppCompatActivity {
             String[] deniedPermissions = PermissionCore.getDeniedPermissions(this, permissions);
             if (permissionResult != null) {
                 if (deniedPermissions.length > 0) {
-                    PermissionCore.setAlwaysDeniedPermissionBefore(this, deniedPermissions, true);
-                    permissionResult.onDenied(permissions);
+                    permissionResult.onDenied(permissions, PermissionCore.isDeniedForever(this, deniedPermissions));
                 } else {
-                    PermissionCore.setAlwaysDeniedPermissionBefore(this, permissions, false);
                     permissionResult.onGranted(permissions);
                 }
             }
@@ -195,6 +238,7 @@ public class PermissionBridgeActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull @Permission String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == this.requestCodePermissionRequest) {
+            PermissionCore.setPermissionRequested(this, permissions);
             int permissionCount = permissions.length;
             List<String> deniedPermissions = new ArrayList<>(permissionCount);
             for (int i = 0; i < permissionCount; i++) {
@@ -204,16 +248,14 @@ public class PermissionBridgeActivity extends AppCompatActivity {
             }
             if (permissionResult != null) {
                 if (deniedPermissions.size() > 0) {
-                    PermissionCore.setAlwaysDeniedPermissionBefore(this, deniedPermissions.toArray(new String[0]), true);
-                    permissionResult.onDenied(permissions);
+                    permissionResult.onDenied(permissions, PermissionCore.isDeniedForever(this, deniedPermissions.toArray(new String[0])));
                 } else {
-                    PermissionCore.setAlwaysDeniedPermissionBefore(this, permissions, false);
                     permissionResult.onGranted(permissions);
                 }
             }
         } else {
             if (permissionResult != null) {
-                permissionResult.onDenied(permissions);
+                permissionResult.onDenied(permissions, PermissionCore.isDeniedForever(this, permissions));
             }
         }
         finish();
@@ -227,9 +269,9 @@ public class PermissionBridgeActivity extends AppCompatActivity {
             finish();
         } else {
             if (showDialog) {
-                dialog = new PermissionDialog(this)
+                hideDialogFragment();
+                PermissionDialog dialog = new PermissionDialog()
                         .setPermissionIcon(drawableRes)
-                        .setTouchOutsideCancel(false)
                         .setMessage(requestStringRes)
                         .setButtonRight(R.string.permission_continue, new View.OnClickListener() {
                             @Override
@@ -246,16 +288,16 @@ public class PermissionBridgeActivity extends AppCompatActivity {
                                 finish();
                             }
                         })
-                        .setCancelListener(new DialogInterface.OnCancelListener() {
+                        .setOnDismissListener(new PermissionDialog.OnDismissListener() {
                             @Override
-                            public void onCancel(DialogInterface dialog) {
-                                if (installResult != null) {
-                                    installResult.onCanceled();
+                            public void onDismiss() {
+                                if (permissionResult != null) {
+                                    permissionResult.onCanceled(permissions);
                                 }
                                 finish();
                             }
                         });
-                dialog.show();
+                dialog.show(getSupportFragmentManager(), "dialog");
             } else {
                 _requestInstallInner();
             }
@@ -283,20 +325,19 @@ public class PermissionBridgeActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
     public void finish() {
-        if (dialog != null) {
-            dialog.cancel();
+        if (isPermission == type) {
+            permissionResults.remove(time);
+        } else if (isInstall == type) {
+            installResults.remove(time);
         }
-        openedSystemSettingPage = false;
-        isPermission = false;
-        isInstall = false;
-        permissions = null;
-        showDialog = false;
-        requestStringRes = 0;
-        guideStringRes = 0;
-        permissionResult = null;
-        drawableRes = 0;
-        installResult = null;
         super.finish();
+        // Reset the animation to avoid flickering.
+        overridePendingTransition(0, 0);
     }
 }

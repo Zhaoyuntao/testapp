@@ -64,7 +64,7 @@
         <activity android:name=".activity.Activity_5_takephoto" />
         <activity android:name=".activity.Activity_4_grouptips" />
         <activity android:name=".activity.Activity_3_sms" />
-        <activity android:name=".activity.Activity_2_record" />
+        <activity android:name=".activity.Activity_2_unknown" />
         <activity android:name=".activity.Activity_96_faceview" />
         <activity android:name=".activity.Activity_991_calculate" />
         <activity android:name=".activity.Activity_997_cameraWallpaper" />

@@ -8,8 +8,9 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Scroller;
 
-import com.test.test3app.fastrecordviewnew.UiUtils;
 import com.zhaoyuntao.androidutils.tools.S;
+
+import im.turbo.baseui.utils.UiUtils;
 
 /**
  * Created by guolin on 16/1/12.
@@ -48,7 +49,7 @@ public class ScrollerLayout extends ViewGroup {
         // 第一步，创建Scroller的实例
         scroller = new Scroller(context);
         // 获取TouchSlop值
-        touchSlop =UiUtils.dipToPx(10); ViewConfiguration.get(getContext()).getScaledTouchSlop();
+        touchSlop = UiUtils.dipToPx(10); ViewConfiguration.get(getContext()).getScaledTouchSlop();
     }
 
     @Override
