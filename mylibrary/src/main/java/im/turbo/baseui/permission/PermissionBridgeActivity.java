@@ -70,28 +70,33 @@ public class PermissionBridgeActivity extends AppCompatActivity {
     }
 
     static void requestPermissions(Context context, @Permission String[] permissions, boolean showDialog, @StringRes int requestStringRes, @StringRes int guideStringRes, @Nullable PermissionResult permissionResult) {
-
-        boolean deniedForever = PermissionCore.isDeniedForever(context, permissions);
-        if (deniedForever && !showDialog) {
+        if (PermissionCore.getDeniedPermissions(context, permissions).length == 0) {
             if (permissionResult != null) {
-                permissionResult.onDenied(permissions, true);
+                permissionResult.onGranted(permissions);
             }
-            return;
-        }
+        }else{
+            boolean deniedForever = PermissionCore.isDeniedForever(context, permissions);
+            if (deniedForever && !showDialog) {
+                if (permissionResult != null) {
+                    permissionResult.onDenied(permissions, true);
+                }
+                return;
+            }
 
-        long timeNow = SystemClock.elapsedRealtime();
-        if (permissionResult != null) {
-            PermissionBridgeActivity.permissionResults.put(timeNow, permissionResult);
-        }
+            long timeNow = SystemClock.elapsedRealtime();
+            if (permissionResult != null) {
+                PermissionBridgeActivity.permissionResults.put(timeNow, permissionResult);
+            }
 
-        Intent intent = new Intent(context, PermissionBridgeActivity.class);
-        intent.putExtra(KEY_TYPE, isPermission);
-        intent.putExtra(KEY_PERMISSIONS, permissions);
-        intent.putExtra(KEY_SHOW_DIALOG, showDialog);
-        intent.putExtra(KEY_REQUEST_STRING_RES, requestStringRes);
-        intent.putExtra(KEY_GUIDE_STRING_RES, guideStringRes);
-        intent.putExtra(KEY_TIME, timeNow);
-        IntentUtils.startActivity(context, intent);
+            Intent intent = new Intent(context, PermissionBridgeActivity.class);
+            intent.putExtra(KEY_TYPE, isPermission);
+            intent.putExtra(KEY_PERMISSIONS, permissions);
+            intent.putExtra(KEY_SHOW_DIALOG, showDialog);
+            intent.putExtra(KEY_REQUEST_STRING_RES, requestStringRes);
+            intent.putExtra(KEY_GUIDE_STRING_RES, guideStringRes);
+            intent.putExtra(KEY_TIME, timeNow);
+            IntentUtils.startActivity(context, intent);
+        }
     }
 
     static void requestInstall(Context context, InstallResult installResult) {
@@ -325,12 +330,8 @@ public class PermissionBridgeActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-
-    @Override
     public void finish() {
+        S.sd("finish");
         if (isPermission == type) {
             permissionResults.remove(time);
         } else if (isInstall == type) {
