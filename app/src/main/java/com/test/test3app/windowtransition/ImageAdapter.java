@@ -44,39 +44,39 @@ public class ImageAdapter extends ListAdapter<ImageBean, ImageHolder> {
     @Override
     public void onBindViewHolder(@NonNull ImageHolder holder, int position2) {
         int position = holder.getBindingAdapterPosition();
-        View[] views = new View[]{holder.imageView0, holder.imageView1, holder.imageView2, holder.imageView3};
+//        View[] views = new View[]{holder.imageView0, holder.imageView1, holder.imageView2, holder.imageView3};
         holder.imageView0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(v, views, 0);
+                    onItemClickListener.onItemClick(v, 0);
                 }
             }
         });
-        holder.imageView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(v, views, 1);
-                }
-            }
-        });
-        holder.imageView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(v, views, 2);
-                }
-            }
-        });
-        holder.imageView3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(v, views, 3);
-                }
-            }
-        });
+//        holder.imageView1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (onItemClickListener != null) {
+//                    onItemClickListener.onItemClick(v, views, 1);
+//                }
+//            }
+//        });
+//        holder.imageView2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (onItemClickListener != null) {
+//                    onItemClickListener.onItemClick(v, views, 2);
+//                }
+//            }
+//        });
+//        holder.imageView3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (onItemClickListener != null) {
+//                    onItemClickListener.onItemClick(v, views, 3);
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -89,6 +89,6 @@ public class ImageAdapter extends ListAdapter<ImageBean, ImageHolder> {
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view, View[] views, int position);
+        void onItemClick(View view, int position);
     }
 }

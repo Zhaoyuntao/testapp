@@ -61,9 +61,9 @@ public class BaseActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowCustomEnabled(true);
         }
         initDefaultCustomView();
-        FrameLayout viewGroup = findViewById(R.id.child_container);
+        ViewGroup viewGroup = findViewById(R.id.child_container);
         View child = LayoutInflater.from(activity()).inflate(layoutResID, null);
-        viewGroup.addView(child, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        viewGroup.addView(child, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
     }
 
     private void initDefaultCustomView() {

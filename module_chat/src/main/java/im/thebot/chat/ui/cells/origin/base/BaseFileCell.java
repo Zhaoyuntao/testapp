@@ -40,11 +40,6 @@ public abstract class BaseFileCell<M extends BaseFileMessageForUI> extends BaseT
     private final boolean logOpen = false;
 
     @Override
-    public boolean showMessageForwardView() {
-        return true;
-    }
-
-    @Override
     final public void onTextTypeMessageInit(@NonNull M message) {
         onInitViewMode(message);
         onFileMessageInit(message);

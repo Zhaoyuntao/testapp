@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--  Chat text color  -->
-    <color name="bot_text_message_color">#000000</color>
-
     <color name="color_chat_background">@color/grey02_e9e9e9</color>
     <color name="color_chat_input_bar_edittext">@color/grey01d_141414</color>
     <color name="color_chat_input_bar_edittext_hint">@color/grey04_c4c4c4</color>
@@ -18,5 +16,4 @@
     <color name="color_chat_border_color_record_hold_view">@color/grey03_d9d9d9</color>
     <color name="color_chat_top_bar_split_line">@color/grey03_d9d9d9</color>
     <color name="color_chat_green_circle">#00a983</color>
-    <color name="chat_message_select_bg">#2d04AF9C</color>
 </resources>

@@ -30,4 +30,12 @@ public class ContactUtil {
     public static boolean isMentionAll(String uid) {
         return false;
     }
+
+    public static boolean isOAAccount(String sessionId) {
+        return false;
+    }
+
+    public static boolean isPayOfficial(String senderUid) {
+        return false;
+    }
 }

@@ -14,10 +14,6 @@ import im.thebot.chat.ui.cells.origin.base.BaseReplyCell;
  */
 public class ReplyDeletedCell extends BaseReplyCell<MessageBeanForUI> {
 
-    public ReplyDeletedCell(Context context) {
-        super(context);
-    }
-
     @Override
     protected void initReplyView(Context context) {
 

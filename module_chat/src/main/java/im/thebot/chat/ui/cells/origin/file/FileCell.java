@@ -41,13 +41,8 @@ public class FileCell extends BaseFileCell<FileMessageForUI> {
     }
 
     @Override
-    public boolean isMaxWidth() {
-        return true;
-    }
-
-    @Override
-    public boolean showMessageForwardView() {
-        return true;
+    public int getMarginStartPX() {
+        return 0;
     }
 
     @Override

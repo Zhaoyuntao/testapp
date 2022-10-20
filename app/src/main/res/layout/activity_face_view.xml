@@ -8,7 +8,7 @@
     android:background="#ff8844"
     android:gravity="center"
     android:orientation="horizontal"
-    tools:context=".activity.Activity_2_unknown">
+    tools:context=".activity.Activity_2_notification">
 
     <LinearLayout
         android:layout_width="wrap_content"

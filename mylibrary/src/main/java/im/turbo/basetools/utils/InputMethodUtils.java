@@ -1,12 +1,14 @@
 package im.turbo.basetools.utils;
 
 import android.content.Context;
-import android.os.Build;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
+
+import im.turbo.utils.ResourceUtils;
+import im.turbo.utils.ScreenUtils;
+import im.turbo.utils.log.S;
 
 
 /**
@@ -35,7 +37,7 @@ public class InputMethodUtils {
     }
 
     public static void forceOpenInputKeyboard(@NonNull View view) {
-        InputMethodManager imm = view.getContext().getSystemService(InputMethodManager.class);
+        InputMethodManager imm = (InputMethodManager) ResourceUtils.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 
@@ -73,11 +75,11 @@ public class InputMethodUtils {
         }
         int heightRootWindowView = rootWindowView.getHeight();
         int heightKeyBoard = heightRootWindowView - rootView.getHeight();
-
         // save state
         final int heightKeyBoardNow = heightKeyBoard - mHeightOfKeyBoard;
         int maxHeightInputmethod = (int) (heightRootWindowView * 0.60f);
         int minHeightInputmethod = (int) (heightRootWindowView * 0.2f);
+        S.s("screen:"+ ScreenUtils.getScreenHeightPX() +" heightRootWindowView:" + heightRootWindowView + " heightKeyBoard:" + heightKeyBoard + " minHeightInputmethod:" + minHeightInputmethod);
         boolean keyBoardOpened = heightKeyBoard > minHeightInputmethod;
         if (keyBoardOpened) {
             if (onKeyBoardOpenListener != null) {

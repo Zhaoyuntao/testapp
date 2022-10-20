@@ -16,35 +16,16 @@ import com.example.module_chat.R;
  * description:
  */
 public class SlideLayoutContent extends LinearLayout {
-    private int marginSpace;
-
     public SlideLayoutContent(Context context) {
         super(context);
-        init(null);
-    }
-
-    public SlideLayoutContent(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        init(attrs);
-    }
-
-    public SlideLayoutContent(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init(attrs);
-    }
-
-    private void init(AttributeSet attrs) {
-        if (attrs != null) {
-            TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.SlideLayoutContent);
-            marginSpace = typedArray.getDimensionPixelSize(R.styleable.SlideLayoutContent_SlideLayoutContent_marginSpace, 0);
-            typedArray.recycle();
-        } else {
-            marginSpace = 0;
-        }
     }
 
     @Override
     public void setGravity(int gravity) {
+        setGravity(gravity, 0);
+    }
+
+    public void setGravity(int gravity, int marginSpace) {
         if (gravity == Gravity.START) {
             setPaddingRelative(0, 0, marginSpace, 0);
         } else if (gravity == Gravity.END) {

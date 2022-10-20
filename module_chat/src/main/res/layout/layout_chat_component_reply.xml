@@ -17,13 +17,12 @@
     tools:layout_height="100dp"
     tools:visibility="visible">
 
-    <im.thebot.chat.ui.view.ChatHeadLayout
+    <im.thebot.chat.ui.view.ChatReplyLayout
         android:id="@+id/reply_message_container_conversation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:background="@drawable/shape_background_input_bar_reply"
-        android:orientation="horizontal"
         app:ChatHeadLayout_headWidth="4dp"
         app:ChatHeadLayout_radius="8dp"
         tools:background="#ff88ff"

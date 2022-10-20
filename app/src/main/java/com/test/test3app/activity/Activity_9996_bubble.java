@@ -19,7 +19,6 @@ public class Activity_9996_bubble extends BaseActivity {
         setContentView(R.layout.activity_main_9996_bubble);
 
         BubbleView bubbleView1 = findViewById(R.id.bubble_view_1);
-        bubbleView1.setGravity(Gravity.START, true);
 
     }
 }

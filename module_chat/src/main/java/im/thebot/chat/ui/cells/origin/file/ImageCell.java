@@ -47,11 +47,6 @@ public class ImageCell extends BaseFileCell<ImageMessageForUI> {
     }
 
     @Override
-    public boolean showMessageForwardView() {
-        return true;
-    }
-
-    @Override
     protected void initTextTypeView(@NonNull Context context) {
         imageView = findViewById(R.id.image_cell_image_view);
         timeViewInImage = findViewById(R.id.image_cell_send_time_view);

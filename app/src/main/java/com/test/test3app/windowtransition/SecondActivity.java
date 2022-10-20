@@ -38,7 +38,7 @@ public class SecondActivity extends BaseActivity {
                 ThirdActivity.imageBean = adapter.getCurrentList().get(position);
                 Intent intent = new Intent(activity(), ThirdActivity.class);
                 Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity(), view, "image0").toBundle();
-                intent.putExtra("position", 0);
+                intent.putExtra("position", position);
                 startActivity(intent, bundle);
             }
         });

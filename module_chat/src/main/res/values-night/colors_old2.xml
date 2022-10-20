@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="color_primary_dark">#232D36</color>
+    <color name="color_primary">#232D36</color>
+    <!-- =========================== day night ============================= -->
+    <!-- ～～～～～～ 主色 ～～～～～～ -->
+    <!--产品主色调，用于status bar 背景色-->
+    <color name="bot_common_status_bar_color">#232D36</color>
+    <!--产品主色调，用于导航栏/tool bar背景色-->
+    <color name="bot_common_navigation_bar_color">#232D36</color>
+    <!--产品主色调，用于特别需要突出的文字、按钮和图标-->
+    <color name="bot_common_theme_color">#04AF9C</color>
+
+    <!-- ～～～～～～ 辅色 ～～～～～～ -->
+    <!--用于内容区域底色、背景内容区域底色-->
+    <color name="bot_common_bg_level1_color">#101D25</color>
+    <!--用于内容区域底色、背景内容区域底色-->
+    <color name="bot_common_bg_level1_hover_color">#1D272C</color>
+    <!--用于内容区域底色、背景内容区域底色-->
+    <color name="bot_common_bg_level1_hover1_color">#232d36</color>
+    <!--用于内容区域底色、二级背景内容区域底色-->
+    <color name="bot_common_bg_level2_color">#090E13</color>
+    <!--用于分割模块的底色-->
+    <color name="bot_common_bg_level3_color">#090E13</color>
+    <color name="bot_common_bg_level4_color">#E6232D36</color>
+    <!--用于分割线-->
+    <color name="bot_common_line_color">#253239</color>
+    <!--用于弹窗背景色-->
+    <color name="bot_common_popups_color">#364147</color>
+    <!--用于图标触发的弹窗-->
+    <color name="bot_common_icon_color">#313C42</color>
+    <!--用于Chats聊天页面底部导航附件图标触发的弹窗-->
+    <color name="bot_common_annex_color">#2D383E</color>
+    <!--用于底部导航栏-->
+    <color name="bot_tab_bar_color">#232D36</color>
+    <!--用于聊天页面输入框-->
+    <color name="bot_chats_tab_bar_bg_color">#2D383E</color>
+    <!--用于对方回复框背景-->
+    <color name="bot_message_bg_other_color">#1E272E</color>
+    <!--用于自己回复框背景-->
+    <color name="bot_message_bg_oneself_color">#033D36</color>
+    <!--用于底部输入框引用回复框背景-->
+    <color name="bot_message_bg_common_color">#262F34</color>
+    <!--用于消息选中背景-->
+    <color name="bot_message_bg_selected_color">#2E04AF9C</color>
+    <!--用于Chats聊天页面时间背景和未读消息背景-->
+    <color name="bot_message_bg_time_color">#1E2A30</color>
+    <!--用于提示信息等-->
+    <color name="bot_common_red_color">#ED6A7B</color>
+    <!--用于公众号顶部导航栏背景-->
+    <color name="bot_oa_chat_navigation_bar_color">#232D36</color>
+    <!--用于公众号底部导航栏背景-->
+    <color name="bot_oa_chat_bottom_bar_color">#232D36</color>
+    <!--用于公众号底部导航栏分割线-->
+    <color name="bot_oa_chat_bottom_bar_divider_color">#11FFFFFF</color>
+    <!--用于公众号单张图片文字背景-->
+    <color name="bot_oa_single_view_title_bg_color">#232D36</color>
+    <color name="bot_oa_notice_bg_color">#232D36</color>
+    <!--用于公众号audio icon背景-->
+    <color name="bot_oa_audio_icon_bg_color">#11FFFFFF</color>
+    <!--用于公众号图片区域底色-->
+    <color name="bot_oa_image_bg_color">#2C3842</color>
+    <!--用于公众号Profile list区域底色-->
+    <color name="bot_oa_profile_list_bg_color">#101D25</color>
+    <!--用于公众号Setting页面区域底色-->
+    <color name="bot_oa_setting_bg_color">#090E12</color>
+    <!--用于公众号详情页面toolbar区域底色-->
+    <color name="bot_oa_detail_toolbar_bg_color">#232323</color>
+    <!--用于转发页面选中item底色-->
+    <color name="bot_forward_item_selected_bg_color">#1D272C</color>
+    <!--用于toolbar选中底色-->
+    <color name="bot_comm_toolbar_selected_color">#232D36</color>
+    <!--用于开始群聊底色-->
+    <color name="bot_item_start_group_chat_color">#232D36</color>
+    <!--用于聊天页面添加联系人/加入黑名单 Item背景-->
+    <color name="bot_item_chat_add_block_bg_color">#1E262D</color>
+    <!--用于照相功能页面选中照片个数背景-->
+    <color name="bot_camera_selected_count_bg_color">#04AF9C</color>
+    <color name="app_color_custom_ripple">#1AFFFFFF</color>
+    <!--MP Floating ads bg color-->
+    <color name="mp_floating_ads_bg_color">#EA25262A</color>
+    <!--MP Floating ads title color-->
+    <color name="mp_floating_ads_title_color">#FFFFFF</color>
+    <!--MP Floating ads subtitle color-->
+    <color name="mp_floating_ads_subtitle_color">#989898</color>
+    <!--MP Floating ads action bg color-->
+    <color name="mp_floating_ads_action_bg_color">#3A3B3F</color>
+
+    <!-- ～～～～～～ 文字 ～～～～～～ -->
+    <!--用于主要文字-->
+    <color name="bot_level1_base_color">#D5D6D8</color>
+    <!--用于辅助、次要的文字信息-->
+    <color name="bot_level2_base_color">#979CA0</color>
+    <!--用于Contacts A-Z字母文字-->
+    <color name="bot_level3_base_color">#979CA0</color>
+    <color name="bot_level4_base_color">#979C9F</color>
+    <!--用于接收/发送的文字消息-->
+    <color name="bot_text_message_color">#D7D8DA</color>
+    <!--用于对方发送的时间文字-->
+    <color name="bot_message_other_color">#9CA4A7</color>
+    <!--用于自己发送的时间文字-->
+    <color name="bot_message_oneself_color">#91AFAA</color>
+    <!--用于对方引用回复框内的文字-->
+    <color name="bot_message_other_reply_color">#9CA4A7</color>
+    <!--用于自己引用回复框内的文字-->
+    <color name="bot_message_oneself_reply_color">#94A9A7</color>
+    <!--用于对方撤回的文字-->
+    <color name="bot_message_other_deleted_color">#9CA4A7</color>
+    <!--用于自己撤回的文字-->
+    <color name="bot_message_oneself_deleted_color">#91AFAA</color>
+    <!--用于底部引用回复框内的文字-->
+    <color name="bot_message_common_color">#A0A4A7</color>
+    <!--产品主色调，用于特别需要突出的文字、按钮和图标-->
+    <color name="bot_common_theme_text_color">#04AF9C</color>
+    <!--用于Chats列表新消息时间和对方输入文字-->
+    <color name="bot_common_time_text_color">#03C160</color>
+    <!--用于链接/通讯录消息 文字-->
+    <color name="bot_common_link_text_color">#6FBAE2</color>
+    <!--用于Chats聊天页面导航栏文字-->
+    <color name="bot_common_chats_navigation_bar_text_color">#D7D8DA</color>
+    <!--用于Chats聊天页面时间背景和未读消息文字-->
+    <color name="bot_common_chats_time_text_color">#9EA3A6</color>
+    <!--用于底部导航栏文字-->
+    <color name="bot_tab_bar_text_color">#9EA3A7</color>
+    <!--用于底部导航栏选中文字-->
+    <color name="bot_tab_bar_hover_text_color">#03C160</color>
+    <!--用于删除和提示性质的文字-->
+    <color name="bot_common_remind_text_color">#ED6A7B</color>
+    <!--用于Chats聊天页面输入框默认文字-->
+    <color name="bot_input_box_text_color">#A3A7AB</color>
+    <!--用于Chats聊天页面输入框输入文字-->
+    <color name="bot_input_box_hover_text_color">#D5D6D8</color>
+    <!--用于搜索默认文字-->
+    <color name="bot_search_text_color">#989DA1</color>
+    <!--用于位置详细地址文字-->
+    <color name="bot_location_subtitle_text_color">#9CA4A7</color>
+    <!--用于网页预览描述文字-->
+    <color name="bot_preview_card_desc_color">#9CA4A7</color>
+    <!--用于转发icon文字-->
+    <color name="bot_forward_flag_text_color">#979CA0</color>
+    <!--用于相册分类标题文字-->
+    <color name="bot_photo_classify_text_color">#979CA0</color>
+    <!--用于MenuGrid文字-->
+    <color name="bot_menu_grid_text_color">#A3A7AB</color>
+    <!--用于oa单张图 标题文字-->
+    <color name="bot_oa_single_view_title_text_color">#D5D6D8</color>
+    <!--用于oa单张图 描述文字-->
+    <color name="bot_oa_single_view_desc_text_color">#979CA0</color>
+    <!--用于oa pop弹窗标题文字-->
+    <color name="bot_oa_pop_dialog_title_text_color">#979CA0</color>
+    <!--用于oa setting页面tip 文字-->
+    <color name="bot_oa_setting_tip_text_color">#979CA0</color>
+    <!--用于oa详情标题文字-->
+    <color name="bot_oa_detail_title_text_color">#FFFFFF</color>
+    <!--用于转发页面标题文字-->
+    <color name="bot_forward_title_text_color">#D5D6D8</color>
+    <!--用于转发页面描述文字-->
+    <color name="bot_forward_desc_text_color">#979CA0</color>
+    <!--用于SeekBar progressBackgroundTint-->
+    <color name="bot_voice_seek_bar_progress_bg_tint_color">#33FFFFFF</color>
+    <color name="bot_voice_seek_bar_progress_bg_send_tint_color">#0EFFFFFF</color>
+    <color name="bot_voice_seek_bar_thumb_received_unread_color">#06D260</color>
+    <color name="bot_voice_seek_bar_thumb_received_read_color">#35B6F0</color>
+    <color name="bot_voice_seek_bar_thumb_send">#92A98D</color>
+    <!--用于回复消息竖线-->
+    <color name="bot_chat_item_reply_send_line_color">#008274</color>
+    <color name="bot_chat_item_reply_received_line_color">#93689D</color>
+    <!--用于圆点内部文本颜色-->
+    <color name="bot_common_dot_text_color">#101D25</color>
+    <!--用于Meet背景色-->
+    <color name="bot_common_bg_meet_color">#232D36</color>
+    <!--用于item 遮罩层色-->
+    <color name="bot_common_item_cover_color">#AA101D25</color>
+    <!--用于chatItemPicture 时间颜色-->
+    <color name="bot_chat_item_picture_time_color">#BFFFFFFF</color>
+    <!--用于搜索输入文字颜色-->
+    <color name="bot_search_input_text_color">#FFFFFF</color>
+    <!--用弹窗内线条色-->
+    <color name="bot_common_dialog_line_color">#12FFFFFF</color>
+    <!--用于oa profile 底部弹窗颜色-->
+    <color name="bot_oa_bottom_menu_bg_color">#090E13</color>
+    <!--用于oa profile 底部弹窗item颜色-->
+    <color name="bot_oa_bottom_menu_item_bg_color">#232D36</color>
+    <!--用发送转发字体颜色-->
+    <color name="bot_forward_send_text_color">#80A09D</color>
+    <!--用Button颜色-->
+    <color name="bot_bg_btn_normal_color">#04AF9C</color>
+    <color name="bot_bg_btn_hover_color">#009A89</color>
+    <color name="bot_bg_btn_active_color">#01C2AC</color>
+    <color name="bot_bg_btn_disable_color">#01C2AC</color>
+    <!--用于被选中框颜色-->
+    <color name="bot_border_selected_color">#04AF9C</color>
+    <!--用于loading颜色-->
+    <color name="bot_loading_active_color">#04AF9C</color>
+    <!--用于刚进入应用时的权限弹窗颜色-->
+    <color name="bot_permission_top_color">#04AF9C</color>
+    <color name="bot_permission_bottom_color">#283d41</color>
+    <!--用于隐私已读回执弹窗颜色-->
+    <color name="bot_private_dialog_color">#364147</color>
+    <!--用于chatbase 试听语音 seekbar progress-->
+    <color name="bot_voice_audition_seek_bar_progress_color">#04AF9C</color>
+    <!--用于chatbase 试听语音 seekbar bg-->
+    <color name="bot_voice_audition_seek_bar_bg_color">#11FFFFFF</color>
+    <!--用于通用红色-->
+    <color name="bot_common_red1_color">#ED6A7B</color>
+    <!--评价item背景-->
+    <color name="bot_bg_session_rate_color">#1D272C</color>
+    <!--聊天页面内添加联系人 button背景色-->
+    <color name="bot_bg_add_contacts_btn_color">#04AF9C</color>
+    <!--chatBase页面chatItem选中颜色-->
+    <color name="chat_message_select_bg">#2d04AF9C</color>
+
+    <!-- ～～～～～～ 分割线 ～～～～～～ -->
+    <!--用于通讯录消息分割线-->
+    <color name="bot_divider_contact_card_color_send">#4bC6E3AB</color>
+    <color name="bot_divider_contact_card_color">#3B464C</color>
+    <!--用于公众号profile Header分割线-->
+    <color name="bot_oa_profile_header_divider_color">#1eFFFFFF</color>
+    <!--广告文案还没加载出来时的颜色-->
+    <color name="ad_gray_color">#19ffffff</color>
+    <!--用于chatItem通讯录消息分割线-->
+    <color name="bot_divider_chat_item_contact_card_color">#11FFFFFF</color>
+    <!--用于at Item 背景-->
+    <color name="bot_chat_at_item_bg_color">#2D383E</color>
+    <color name="bot_chat_at_item_selected_bg_color">#1D272C</color>
+
+    <!-- 步数 -->
+    <color name="steps_rank_value">#FFFFFFFF</color>
+    <color name="steps_rank_line">#FF4B4B4D</color>
+    <color name="steps_rank_label">#FF999999</color>
+    <color name="steps_rank_detail">#FF999999</color>
+    <color name="floating_audio_border">#E8585858</color>
+    <color name="floating_audio_bg_color">#25262A</color>
+    <color name="floating_video_bg_color">#25262A</color>
+
+    <color name="logout_bg_color">#FF3B30</color>
+    <color name="logout_txt_color">#FFFFFF</color>
+    <color name="app_color_logout_ripple">#AAFFFFFF</color>
+
+    <color name="oa_template_title_color">#B4B4B4</color>
+    <color name="oa_template_status_color">#CCCCCC</color>
+    <color name="oa_template_amount_color">#CCCCCC</color>
+    <color name="oa_template_line_color">#383838</color>
+    <color name="oa_template_arrow_tint_color">#787878</color>
+    <color name="oa_template_content_color">#C7C7C7</color>
+
+    <color name="bot_bg_chat_bottom_ad">#232323</color>
+
+    <color name="bot_chat_plus_bg_color">#212E36</color>
+    <color name="bot_chat_plus_item_bg_color">#5affffff</color>
+    <color name="bot_chat_plus_item_touch_bg_color">#50101D25</color>
+
+    <color name="bot_explore_icon_bg_color">#1C1C1E</color>
+    <color name="bot_explore_btn_bg_color">#fa3A3A3B</color>
+    <color name="bot_explore_follow_btn_bg_color">#232D36</color>
+
+    <color name="bot_custom_notify_decline">#ED6A7A</color>
+    <color name="bot_custom_notify_bg">#1C1C1E</color>
+    <color name="bot_custom_notify_border">#991C1C1E</color>
+
+    <color name="explore_item_source_color">#03C160</color>
+    <color name="explore_item_source_color_half_alpha">#8803C160</color>
+    <color name="explore_item_article_line_color">#88253239</color>
+    <color name="explore_item_more_tint_color">#979CA0</color>
+    <color name="explore_item_more_tint_color_half_alpha">#88979CA0</color>
+    <color name="explore_item_carousel_text_bg">#4b292929</color>
+
+    <color name="mp_half_size_color_bg">#3A3A3B</color>
+
+    <color name="ad_default_color">#232D36</color>
+
+    <color name="ad_start_bg_color">#171717</color>
+    <color name="ads_start_logo_bg_color">#1D1D1D</color>
+
+    <color name="ads_start_remove_stroke_color">#1FFFFFFF</color>
+    <color name="ads_start_remove_solid_color">#0DFFFFFF</color>
+    <color name="ads_start_text_color">#FFFFFF</color>
+    <color name="ads_start_text_desc_color">#FFFFFF</color>
+
+    <color name="ads_splash2_bg">#171717</color>
+
+    <color name="ads_splash2_container_bg">#1AFFFFFF</color>
+    <color name="ads_splash2_buy_bg">#10B7F4</color>
+
+    <color name="mp_loading_title">#FFFFFF</color>
+    <color name="bot_search_chat_history_cate_title">#4CFFFFFF</color>
+    <color name="bot_search_chat_history_cate_text">#7D90A9</color>
+    <color name="bot_search_chat_history_cate_line">#7D90A9</color>
+    <color name="bot_search_chat_history_cal_title_line">#101D25</color>
+    <color name="bot_search_chat_history_cal_title_text">#979CA0</color>
+    <color name="bot_search_chat_his_state_selected">#04AF9C</color>
+    <color name="bot_search_chat_his_cal_date_normal">#FFFFFF</color>
+    <color name="bot_search_chat_his_cal_date_empty">#4cFFFFFF</color>
+
+    <color name="bot_search_chat_his_search_result_empty">#8D8D93</color>
+    <color name="bot_search_msg_result_title">#96969C</color>
+    <color name="bot_search_msg_result_subtitle">#FFFFFF</color>
+    <color name="bot_search_msg_result_list">#ff101d25</color>
+
+    <color name="bot_search_trans_bg_init">#E18D35</color>
+    <color name="bot_search_trans_bg_opened">#FFD09C</color>
+    <color name="mp_floating_mini_bg">#515151</color>
+    <color name="mp_floating_mini_stroke">#626262</color>
+    <color name="bot_selected_disable" tools:ignore="MissingDefaultResource">#7F04AF9C</color>
+
+
+    <color name="migrate_chat_color_des">#66FFFFFF</color>
+    <color name="migrate_chat_button_disable_color">#19ffffff</color>
+    <color name="migrate_chat_text_disable_color">#33FFFFFF</color>
+    <color name="migrate_verify_edit_bg_color">#19ffffff</color>
+    <color name="migrate_random_code_bg_color">#101D25</color>
+    <color name="migrate_random_code_bg_wrong_color">#0FE91B42</color>
+
+    <color name="migrate_random_code_stroke_wrong_color">#99E91B42</color>
+    <color name="migrate_random_code_tv_error_color">#E91B42</color>
+    <color name="migrate_prepare_refresh_bg_color">#1904AF9C</color>
+    <color name="migrate_prepare_network_bg_color">#19559DF7</color>
+    <color name="migrate_prepare_complete_bg_color">#0C04AF9C</color>
+    <color name="migrate_prepare_complete_mark_bg_color">#CCFFFFFF</color>
+    <color name="migrate_prepare_complete_mark_tv_color">#101012</color>
+    <color name="migrate_preparation_tip_method_tv_color">#7FD5D6D8</color>
+
+    <color name="bot_ad_item_bg_color">#72253239</color>
+
+    <color name="bot_explore_menu_bg">#232D36</color>
+    <color name="bot_explore_menu_line_color">#253239</color>
+
+    <color name="bot_oa_input_bar_color">#232D36</color>
+
+    <color name="bot_chat_send_btn_bg_color">#03B8A6</color>
+
+    <color name="bot_account_num_color">#04AF9C</color>
+    <color name="bot_delete_my_account_color">#FF3B30</color>
+    <color name="bot_delete_my_account_bg_color">#090E13</color>
+    <color name="bot_delete_my_account_ripe_color">#101D25</color>
+
+    <color name="session_header_item_bg_color">#2D3741</color>
+    <!-- meet ringing button background-->
+    <color name="bot_meet_button_bg_color">#4B232D36</color>
+
+    <color name="bot_card_form_bg_color">#1a000000</color>
+    <color name="bot_card_form_title_color">#ffffff</color>
+    <color name="bot_card_form_content_color">#80ffffff</color>
+    <color name="bot_card_link_color">#007ee5</color>
+    <color name="bot_card_link_pressed_color">#90d0ff</color>
+    <color name="bot_btn_bg_color">#2d383e</color>
+    <color name="bot_btn_bg_pressed_color">#232f35</color>
+    <color name="bot_btn_text_color">#90d0ff</color>
+
+    <color name="bot_workflow_btn_disable_bg_color">#d9d9d9</color>
+    <color name="bot_workflow_btn_normal_bg_color">#90d0ff</color>
+    <color name="bot_workflow_btn_pressed_bg_color">#42d0ff</color>
+    <color name="bot_workflow_btn_text_color">#ffffff</color>
+    <color name="bot_workflow_indicator_color">#007ee5</color>
+
+    <color name="bot_widgets_search_enable_bg_color">#090E12</color>
+    <color name="bot_widgets_search_disable_bg_color">#090E12</color>
+
+    <color name="passcode_input_view_bg_color">#1C1C1E</color>
+    <color name="passcode_input_view_text_color">#FFFFFF</color>
+    <color name="passcode_title">#FFFFFF</color>
+    <color name="passcode_tips">#858595</color>
+    <color name="trusted_devices_title">#979CA0</color>
+    <color name="trusted_devices_item_text_title">#FFFFFF</color>
+    <color name="trusted_devices_item_text_loacation_time">#8A8A8D</color>
+    <color name="trusted_devices_item_remove_all_devices">#EA4E3D</color>
+    <color name="device_detail_btn_text_add">#FFFFFF</color>
+    <color name="device_detail_btn_add">#04AF9C</color>
+    <color name="device_detail_btn_remove">#EA4E3D</color>
+    <color name="trusted_devices_line_color">#263E4E</color>
+    <color name="dialog_trusted_device_bg">#11181D</color>
+    <color name="passcode_wrong_color">#EA4E3D</color>
+    <color name="passcode_page_background">#090E13</color>
+<!--    <color name="passcode_page_background">#010101</color>-->
+    <color name="trusted_device_page_background">#090E13</color>
+<!--    <color name="trusted_device_page_background">#010101</color>-->
+    <color name="passcode_countdown_text_color">#8A8A8F</color>
+
+
+    <color name="bot_greet_card_bg">#212e36</color>
+    <color name="bot_greet_card_placeholder_bg">#595959</color>
+
+    <color name="bot_widgets_tap_edit_bg">#232d36</color>
+    <color name="robot_template_line_color">#33ffffff</color>
+    <color name="robot_template_bubble_color">#213e54</color>
+    <color name="robot_template_time_color">#80ffffff</color>
+
+    <color name="robot_workflow_bg">#232D36</color>
+    <color name="robot_workflow_top_line_color">#434343</color>
+
+    <color name="contact_page_background_color">#090E12</color>
+    <color name="contact_name_color">#FFFFFF</color>
+    <color name="contact_tips_color">#98999A</color>
+    <color name="contact_phone_color">#03C160</color>
+    <color name="contact_item_color">#101D25</color>
+</resources>

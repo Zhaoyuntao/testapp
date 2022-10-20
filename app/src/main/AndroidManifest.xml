@@ -33,6 +33,7 @@
         <activity
             android:name=".activity.Activity0"
             android:configChanges="orientation|screenSize"
+            android:exported="true"
             android:screenOrientation="sensor"
             android:theme="@style/Theme.AppCompat">
             <intent-filter>
@@ -44,66 +45,161 @@
         <activity
             android:name=".activity.Activity_990_cell"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".activity.Activity_99_dark_mode" />
-        <activity android:name=".activity.Activity_98_sticker_reply" />
-        <activity android:name=".activity.Activity_996_expand" />
-        <activity android:name=".activity.Activity_97_textview_spannable" />
+        <activity
+            android:name=".activity.Activity_99_dark_mode"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_98_sticker_reply"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_996_expand"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_97_textview_spannable"
+            android:exported="false" />
         <activity
             android:name=".activity.Activity_94_wallpaper"
+            android:exported="false"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".activity.Activity_95_textview" />
-        <activity android:name=".activity.Activity_93_threadPool" />
-        <activity android:name=".activity.Activity_91_Qmoji" />
-        <activity android:name="im.thebot.chat.ui.ChatActivity" />
-        <activity android:name=".activity.Activity_92_huawei_meeting" />
-        <activity android:name=".activity.Activity_9_openGL" />
-        <activity android:name=".activity.Activity_8_smoothSwitch" />
-        <activity android:name=".activity.Activity_7_ListView" />
-        <activity android:name=".activity.Activity_6_pay" />
-        <activity android:name=".activity.Activity_5_takephoto" />
-        <activity android:name=".activity.Activity_4_grouptips" />
-        <activity android:name=".activity.Activity_3_sms" />
-        <activity android:name=".activity.Activity_2_unknown" />
-        <activity android:name=".activity.Activity_96_faceview" />
-        <activity android:name=".activity.Activity_991_calculate" />
-        <activity android:name=".activity.Activity_997_cameraWallpaper" />
-        <activity android:name=".activity.Activity_998_nest" />
-        <activity android:name=".activity.Activity_999_loading" />
-        <activity android:name=".activity.Activity_9991_animateimageview" />
-        <activity android:name=".activity.Activity_9992_windowContentTransition" />
-        <activity android:name=".activity.Activity_9993_wam" />
-        <activity android:name=".activity.Activity_9994_permission" />
-        <activity android:name=".activity.Activity_9996_bubble" />
-        <activity android:name=".activity.Activity_9997_dir" />
-        <activity android:name=".activity.Activity_9998_toolbar" />
-        <activity android:name=".activity.Activity_9999_viewpager2" />
-        <activity android:name=".activity.Activity_99990_gesture" />
+        <activity
+            android:name=".activity.Activity_95_textview"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_93_threadPool"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_91_Qmoji"
+            android:exported="false" />
+        <activity
+            android:name="im.thebot.chat.ui.ChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_92_huawei_meeting"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_9_openGL"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_8_smoothSwitch"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_7_ListView"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_6_pay"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_5_takephoto"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_4_grouptips"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_3_sms"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_2_notification"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_96_faceview"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_991_calculate"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_997_cameraWallpaper"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_998_nest"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_999_loading"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_9991_animateimageview"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_9992_windowContentTransition"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_9993_wam"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_9994_permission"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_9996_bubble"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_9997_dir"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_9998_toolbar"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_9999_viewpager2"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_99990_gesture"
+            android:exported="false" />
         <activity
             android:name=".activity.Activity_9995_mention"
+            android:exported="false"
             android:windowSoftInputMode="adjustResize" />
-
-        <activity android:name=".windowtransition.gridtopager.MainActivity_google" />
+        <activity
+            android:name=".windowtransition.gridtopager.MainActivity_google"
+            android:exported="false" />
         <activity
             android:name=".activity.Activity_994_gallery_pager"
+            android:exported="false"
             android:theme="@style/Theme.AppCompat" />
         <activity
             android:name=".activity.Activity_995_popwindow"
+            android:exported="false"
             android:theme="@style/Theme.AppCompat"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.Activity_992_drawerLayout"
+            android:exported="false"
             android:theme="@style/Theme.AppCompat" />
         <activity
             android:name=".activity.Activity_993_slide"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+            android:name=".activity.Activity_99991_Blur"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+            android:name=".activity.Activity_99992_keyboard"
+            android:exported="false"
+            android:configChanges="uiMode"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".MainActivity_inputbar"
+            android:exported="false"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".layoutmanager.GalleryActivity" />
-        <activity android:name=".layoutmanager.TanTanAvatarActivity" />
-        <activity android:name=".layoutmanager.LoopGalleryActivity" />
+        <activity
+            android:name=".layoutmanager.GalleryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".layoutmanager.TanTanAvatarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".layoutmanager.LoopGalleryActivity"
+            android:exported="false" />
 
+        <receiver
+            android:name=".notification.MyNotificationReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="hello123" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

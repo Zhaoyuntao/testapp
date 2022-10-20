@@ -24,11 +24,6 @@ public class TextCell extends BaseTextCell<TextMessageForUI> {
     }
 
     @Override
-    public int getTimestampColor() {
-        return R.color.color_chat_cell_text_text_color;
-    }
-
-    @Override
     public void onTextTypeMessageInit(@NonNull TextMessageForUI messageBean) {
         initTextSize(messageBean);
     }

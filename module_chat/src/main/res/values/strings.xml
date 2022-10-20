@@ -1,4 +1,9 @@
 <resources>
     <string name="chats_listview_messagenumber">%1$s messages</string>
     <string name="slide_to_cancel">Slide to cancel</string>
+    <string name="forwarded_message_header">forwarded</string>
+    <string name="bot_unread_message">%d message</string>
+    <string name="bot_unread_messages">%s messages</string>
+    <string name="Photo">Photo</string>
+    <string name="baba_contact">contact</string>
 </resources>

@@ -85,26 +85,14 @@ public class ChatActivity extends BaseActivity {
         chatView = findViewById(R.id.chat_recycler_view);
         chatView.setLayoutManager(new ChatLayoutManager(activity()));
         chatAdapter = new ChatAdapter(getPresenter());
-        chatAdapter.setMessageCallback(new ChatAdapter.OnMessageClickListener() {
-            @Override
-            public void onMessageBindToAdapter(@NonNull MessageBeanForUI messageBean) {
+        chatAdapter.setMessageClickListener(new ChatAdapter.OnMessageClickListener() {
 
-            }
-
-            @Override
-            public boolean canClickMessage(@NonNull MessageBeanForUI messageBean) {
-                return false;
-            }
 
             @Override
             public void onClickReplyMessage(@NonNull MessageBeanForUI messageBean) {
 
             }
 
-            @Override
-            public boolean onLongClickReplyMessage(@NonNull MessageBeanForUI messageBean) {
-                return false;
-            }
 
             @Override
             public void onNameClick(@NonNull MessageBeanForUI messageBean) {

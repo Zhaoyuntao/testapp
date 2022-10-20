@@ -10,17 +10,24 @@ import static im.thebot.chat.ui.adapter.MessageCellCode.TYPE_CELL_GROUP_CALL;
 import static im.thebot.chat.ui.adapter.MessageCellCode.TYPE_CELL_GROUP_EVENT;
 import static im.thebot.chat.ui.adapter.MessageCellCode.TYPE_CELL_IMAGE;
 import static im.thebot.chat.ui.adapter.MessageCellCode.TYPE_CELL_LOCATION;
+import static im.thebot.chat.ui.adapter.MessageCellCode.TYPE_CELL_MICROPROGRAM_SHARE_CARD;
+import static im.thebot.chat.ui.adapter.MessageCellCode.TYPE_CELL_MULTI_MEDIA;
 import static im.thebot.chat.ui.adapter.MessageCellCode.TYPE_CELL_OFFICIAL;
-import static im.thebot.chat.ui.adapter.MessageCellCode.TYPE_CELL_OFFICIAL_NOTIFY;
+import static im.thebot.chat.ui.adapter.MessageCellCode.TYPE_CELL_OFFICIAL_NOTIFY_OLD;
+import static im.thebot.chat.ui.adapter.MessageCellCode.TYPE_CELL_P2P_CALL;
+import static im.thebot.chat.ui.adapter.MessageCellCode.TYPE_CELL_PAYMENT_CASH_NOTIFY;
+import static im.thebot.chat.ui.adapter.MessageCellCode.TYPE_CELL_PAYMENT_MESSAGE;
 import static im.thebot.chat.ui.adapter.MessageCellCode.TYPE_CELL_RICH_MEDIA;
+import static im.thebot.chat.ui.adapter.MessageCellCode.TYPE_CELL_RICH_MEDIAS;
 import static im.thebot.chat.ui.adapter.MessageCellCode.TYPE_CELL_SERVER_MESSAGE;
+import static im.thebot.chat.ui.adapter.MessageCellCode.TYPE_CELL_STEPS_LIKE;
+import static im.thebot.chat.ui.adapter.MessageCellCode.TYPE_CELL_STEPS_RANKING;
 import static im.thebot.chat.ui.adapter.MessageCellCode.TYPE_CELL_TEXT;
 import static im.thebot.chat.ui.adapter.MessageCellCode.TYPE_CELL_TEXT_WEB;
 import static im.thebot.chat.ui.adapter.MessageCellCode.TYPE_CELL_UNKNOWN;
 import static im.thebot.chat.ui.adapter.MessageCellCode.TYPE_CELL_VIDEO;
 import static im.thebot.chat.ui.adapter.MessageCellCode.TYPE_CELL_WEB_CLIP;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +36,7 @@ import androidx.annotation.NonNull;
 
 import im.thebot.api.chat.constant.MessageTypeCode;
 import im.thebot.chat.api.chat.message.MessageBeanForUI;
+import im.thebot.chat.api.chat.message.TextWebMessageForUI;
 import im.thebot.chat.ui.cells.origin.DebugCommandCell;
 import im.thebot.chat.ui.cells.origin.DebugLogCell;
 import im.thebot.chat.ui.cells.origin.LocationCell;
@@ -43,15 +51,7 @@ import im.thebot.chat.ui.cells.origin.file.AudioCell;
 import im.thebot.chat.ui.cells.origin.file.FileCell;
 import im.thebot.chat.ui.cells.origin.file.ImageCell;
 import im.thebot.chat.ui.cells.origin.file.VideoCell;
-import im.thebot.chat.ui.cells.reply.ReplyAudioCell;
-import im.thebot.chat.ui.cells.reply.ReplyDeletedCell;
-import im.thebot.chat.ui.cells.reply.ReplyEventCell;
-import im.thebot.chat.ui.cells.reply.ReplyFileCell;
-import im.thebot.chat.ui.cells.reply.ReplyImageCell;
-import im.thebot.chat.ui.cells.reply.ReplyNameCardCell;
 import im.thebot.chat.ui.cells.reply.ReplyTextCell;
-import im.thebot.chat.ui.cells.reply.ReplyUnsupportedCell;
-import im.thebot.chat.ui.cells.reply.ReplyVideoCell;
 import im.turbo.basetools.preconditions.Preconditions;
 
 /**
@@ -65,12 +65,8 @@ public class MessageCellManager {
      * Get view type by message type.
      */
     @MessageCellCode
-    public static int getItemViewType(MessageBeanForUI messageBean) {
-        return getItemViewTypeByMessageType(messageBean.getType());
-    }
-
-    @MessageCellCode
-    private static int getItemViewTypeByMessageType(@MessageTypeCode int type) {
+    public static int getItemViewType(@NonNull MessageBeanForUI messageBean) {
+        int type = messageBean.getType();
         switch (type) {
             case MessageTypeCode.TYPE_MESSAGE_WITHDRAW:
                 return TYPE_CELL_DELETED;
@@ -85,6 +81,8 @@ public class MessageCellManager {
             case MessageTypeCode.kChatMsgType_TextImage:
             case MessageTypeCode.kChatMsgType_OrigImage:
                 return TYPE_CELL_IMAGE;
+            case MessageTypeCode.TYPE_MESSAGE_MULTI_IMAGE_AND_VIDEO:
+                return TYPE_CELL_MULTI_MEDIA;
             //Video.
             case MessageTypeCode.kChatMsgType_TextVideo:
             case MessageTypeCode.kChatMsgType_ShortVideo:
@@ -94,9 +92,11 @@ public class MessageCellManager {
             //Text.
             case MessageTypeCode.kChatMsgType_Text:
             case MessageTypeCode.kChatMsgType_WrapText:
-                return TYPE_CELL_TEXT;
-            case MessageTypeCode.TYPE_MESSAGE_TEXT_WEB:
-                return TYPE_CELL_TEXT_WEB;
+                if (messageBean instanceof TextWebMessageForUI) {
+                    return TYPE_CELL_TEXT_WEB;
+                } else {
+                    return TYPE_CELL_TEXT;
+                }
             case MessageTypeCode.kChatMsgType_ContactCard:
                 return TYPE_CELL_CONTACT_CARD;
             case MessageTypeCode.kChatMsgType_Audio:
@@ -109,10 +109,12 @@ public class MessageCellManager {
                 return TYPE_CELL_LOCATION;
             case MessageTypeCode.kChatMsgType_OfficialAccount:
                 return TYPE_CELL_OFFICIAL;
-            case MessageTypeCode.kChatMsgType_OfficialNotifyTemp:
-                return TYPE_CELL_OFFICIAL_NOTIFY;
+            case MessageTypeCode.kChatMsgType_OfficialNotify:
+                return TYPE_CELL_OFFICIAL_NOTIFY_OLD;
             case MessageTypeCode.kChatMsgType_Richmedia:
                 return TYPE_CELL_RICH_MEDIA;
+            case MessageTypeCode.kChatMsgType_MutiRichmedia:
+                return TYPE_CELL_RICH_MEDIAS;
             //Group event.
             case MessageTypeCode.kChatMsgType_GroupAdd:
             case MessageTypeCode.kChatMsgType_GroupAvatarChange:
@@ -124,24 +126,29 @@ public class MessageCellManager {
             case MessageTypeCode.kChatMsgType_GroupRemove:
             case MessageTypeCode.kChatMsgType_GroupRename:
             case MessageTypeCode.kChatMsgType_P2PSys_Chatfirst:
+            case MessageTypeCode.kChatMsgType_Group_Update_Desc:
                 return TYPE_CELL_GROUP_EVENT;
-            //Unsupported yet.
+            case MessageTypeCode.kChatMsgType_RTC:
+                return TYPE_CELL_P2P_CALL;
+            case MessageTypeCode.kChatMsgType_Share:
+                return TYPE_CELL_MICROPROGRAM_SHARE_CARD;
+            case MessageTypeCode.kChatMsgType_StepsLike:
+                return TYPE_CELL_STEPS_LIKE;
+            case MessageTypeCode.kChatMsgType_StepsRanking:
+                return TYPE_CELL_STEPS_RANKING;
+            case MessageTypeCode.kChatMsgType_CashNotify:
+                return TYPE_CELL_PAYMENT_CASH_NOTIFY;
+            case MessageTypeCode.kChatMsgType_PayOfficial:
+                return TYPE_CELL_PAYMENT_MESSAGE;
+            //Unsupported or not ui type.
             case MessageTypeCode.kChatMsgType_Input_Text:
             case MessageTypeCode.kChatMsgType_Input_Voice:
-            case MessageTypeCode.kChatMsgType_MutiRichmedia:
-            case MessageTypeCode.kChatMsgType_PayOfficial:
-            case MessageTypeCode.kChatMsgType_RTC:
-            case MessageTypeCode.kChatMsgType_SessionCreatedbySelf:
-            case MessageTypeCode.kChatMsgType_Share:
-            case MessageTypeCode.kChatMsgType_Share_Card:
-            case MessageTypeCode.kChatMsgType_StepsLike:
-            case MessageTypeCode.kChatMsgType_StepsRanking:
-            case MessageTypeCode.kChatMsgType_CashCard:
-            case MessageTypeCode.kChatMsgType_CashNotify:
             case MessageTypeCode.kChatMsgType_Clear:
             case MessageTypeCode.kChatMsgType_Empty:
             case MessageTypeCode.kChatMsgType_Expire:
             case MessageTypeCode.TYPE_MESSAGE_UNSUPPORTED:
+            case MessageTypeCode.kChatMsgType_TextDraft:
+            case MessageTypeCode.kChatMsgType_ALL:
             default:
                 return TYPE_CELL_UNKNOWN;
         }
@@ -150,6 +157,7 @@ public class MessageCellManager {
     /**
      * get cell view by message type
      *
+     * @param
      * @param viewType
      * @return
      */
@@ -185,37 +193,12 @@ public class MessageCellManager {
      * get reply cell view by message type
      */
     @SuppressWarnings("rawtypes")
-    public static BaseReplyCell getReplyCellByViewType(Context context, @NonNull MessageBeanForUI messageReply) {
+    public static BaseReplyCell getReplyCellByViewType(@NonNull MessageBeanForUI messageReply) {
         Preconditions.checkNotNull(messageReply);
-        if (messageReply.getType() == MessageTypeCode.TYPE_MESSAGE_WITHDRAW) {
-            return new ReplyDeletedCell(context);
-        }
-        int viewType = MessageCellManager.getItemViewType(messageReply);
-        switch (viewType) {
-            case TYPE_CELL_FILE:
-                return new ReplyFileCell(context);
-            case TYPE_CELL_IMAGE:
-                return new ReplyImageCell(context);
-            case TYPE_CELL_TEXT:
-                return new ReplyTextCell(context);
-            case TYPE_CELL_CONTACT_CARD:
-                return new ReplyNameCardCell(context);
-            case TYPE_CELL_AUDIO:
-                return new ReplyAudioCell(context);
-            case TYPE_CELL_DELETED:
-                return new ReplyDeletedCell(context);
-            case TYPE_CELL_GROUP_EVENT:
-                return new ReplyEventCell(context);
-            case TYPE_CELL_VIDEO:
-                return new ReplyVideoCell(context);
-            case TYPE_CELL_UNKNOWN:
-            default:
-                return new ReplyUnsupportedCell(context);
-        }
+        return new ReplyTextCell();
     }
 
     public static void addCellToContainer(BaseCell<?> baseCell, ViewGroup container) {
-        container.removeAllViews();
         View view = LayoutInflater.from(container.getContext()).inflate(baseCell.setLayout(), container, false);
         baseCell.setRootView(view);
         container.addView(view);

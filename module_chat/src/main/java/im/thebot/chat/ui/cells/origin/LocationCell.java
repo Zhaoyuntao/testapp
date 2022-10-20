@@ -30,11 +30,6 @@ public class LocationCell extends BaseMessageCell<LocationMessageForUI> {
     }
 
     @Override
-    public boolean showMessageForwardView() {
-        return true;
-    }
-
-    @Override
     public void initView(@NonNull Context context) {
         mapView = findViewById(R.id.location_cell_preview);
     }

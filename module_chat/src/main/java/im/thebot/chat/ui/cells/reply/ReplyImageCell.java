@@ -2,7 +2,7 @@ package im.thebot.chat.ui.cells.reply;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.widget.TextView;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 
@@ -10,7 +10,7 @@ import com.example.module_chat.R;
 
 import im.thebot.chat.api.chat.message.ImageMessageForUI;
 import im.thebot.chat.ui.cells.origin.base.BaseReplyCell;
-import im.thebot.chat.ui.view.ChatImageView;
+import im.turbo.utils.ResourceUtils;
 
 /**
  * created by zhaoyuntao
@@ -18,39 +18,21 @@ import im.thebot.chat.ui.view.ChatImageView;
  * description:
  */
 public class ReplyImageCell extends BaseReplyCell<ImageMessageForUI> {
-    private ChatImageView imageView;
-    private TextView textView;
-
-    public ReplyImageCell(Context context) {
-        super(context);
-    }
-
-    @Override
-    protected int setReplyLayout() {
-        return R.layout.layout_reply_chat_cell_picture;
-    }
 
     @Override
     protected void initReplyView(Context context) {
-        imageView = findViewById(R.id.reply_cell_image_image_view);
-        textView = findViewById(R.id.reply_cell_image_text_view);
+        replyRightImageView.setVisibility(View.VISIBLE);
     }
 
     @Override
     protected void onReplyDataInit(@NonNull ImageMessageForUI messageReply) {
-        textView.setText(TextUtils.isEmpty(messageReply.getContent()) ? "photo" : messageReply.getContent());
-        loadPicture(messageReply);
-    }
-
-    @Override
-    public void onMessageChanged(@NonNull ImageMessageForUI message) {
-    }
-
-    private void loadPicture(@NonNull ImageMessageForUI message) {
-//        if (TextUtils.isEmpty(message.getFileLocalPath())) {
-//            imageView.setImageBase64(message.getImagePreviewBase64());
-//        } else {
-//            imageView.setImageLocal(message.getFileLocalPath());
-//        }
+        boolean hasNoText = TextUtils.isEmpty(messageReply.getContent());
+        replyTextView.setText(hasNoText ? ResourceUtils.getString(R.string.Photo) : messageReply.getContent());
+        replySmallIconView.setVisibility(hasNoText ? View.VISIBLE : View.GONE);
+//        int flagResId = messageReply.isSelf() ? R.drawable.ic_reply_send_flag : R.drawable.ic_reply_receive_flag;
+//        replySmallIconView.setImageResource(flagResId);
+        replyRightImageView.bindMessage(messageReply);
+        int replyColor = messageReply.isSelf() ? R.color.bot_message_oneself_reply_color : R.color.bot_message_other_reply_color;
+        replyTextView.setTextColor(ResourceUtils.getColor(replyColor));
     }
 }

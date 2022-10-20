@@ -4,7 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.Activity_2_unknown">
+    android:background="#ffffff"
+    tools:context=".activity.Activity_2_notification">
 
-
+    <base.ui.AutoSizeTextView
+        android:id="@+id/start_notification"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:background="#ff0000"
+        android:gravity="center"
+        android:text="start"
+        android:textColor="#ffffff"
+        android:textSize="50sp"
+        android:textStyle="italic"
+        app:autoRadius="30dp" />
 </FrameLayout>

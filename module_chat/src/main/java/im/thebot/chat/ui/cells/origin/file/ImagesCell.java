@@ -22,11 +22,6 @@ public class ImagesCell extends BaseFileCell<ImagesMessageForUI> {
     }
 
     @Override
-    public boolean showMessageForwardView() {
-        return true;
-    }
-
-    @Override
     protected void onInitViewMode(@NonNull ImagesMessageForUI message) {
 
     }

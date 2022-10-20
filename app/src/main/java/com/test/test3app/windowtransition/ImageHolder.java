@@ -15,15 +15,15 @@ import com.test.test3app.R;
  */
 public class ImageHolder extends RecyclerView.ViewHolder {
     public ImageView imageView0;
-    public ImageView imageView1;
-    public ImageView imageView2;
-    public ImageView imageView3;
+//    public ImageView imageView1;
+//    public ImageView imageView2;
+//    public ImageView imageView3;
 
     public ImageHolder(@NonNull View itemView) {
         super(itemView);
         imageView0 = itemView.findViewById(R.id.imageview_item0);
-        imageView1 = itemView.findViewById(R.id.imageview_item1);
-        imageView2 = itemView.findViewById(R.id.imageview_item2);
-        imageView3 = itemView.findViewById(R.id.imageview_item3);
+//        imageView1 = itemView.findViewById(R.id.imageview_item1);
+//        imageView2 = itemView.findViewById(R.id.imageview_item2);
+//        imageView3 = itemView.findViewById(R.id.imageview_item3);
     }
 }

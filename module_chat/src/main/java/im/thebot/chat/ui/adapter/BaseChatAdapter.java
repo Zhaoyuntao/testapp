@@ -2,6 +2,8 @@ package im.thebot.chat.ui.adapter;
 
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+
 import im.thebot.api.chat.constant.MessageTypeCode;
 import im.thebot.chat.api.chat.message.MessageBeanForUI;
 import im.thebot.user.ContactUtil;
@@ -19,7 +21,9 @@ interface BaseChatAdapter {
 
     boolean forceShowSenderDetails(MessageBeanForUI messageBean, int position);
 
-    boolean showReplySourceMessagePart();
+    default int getMessageCellGravityFlag(MessageBeanForUI messageBean, int position) {
+        return ContactUtil.isSelf(messageBean.getSenderUid()) ? MessageCellFlag.FLAG_GRAVITY_RIGHT : MessageCellFlag.FLAG_GRAVITY_LEFT;
+    }
 
     default boolean needShowTopSpace(MessageBeanForUI messageBean, int position) {
         if (messageBean.isSystemEvent()) {
@@ -29,14 +33,42 @@ interface BaseChatAdapter {
             return true;
         } else {
             MessageBeanForUI messageBeanOnTop = getMessage(position - 1);
-            boolean isSameSender = messageBeanOnTop != null
-                    && TextUtils.equals(messageBeanOnTop.getSenderUid(), messageBean.getSenderUid());
-            return !isSameSender;
+            if (messageBeanOnTop != null) {
+                return messageBeanOnTop.isSystemEvent() || !TextUtils.equals(messageBeanOnTop.getSenderUid(), messageBean.getSenderUid());
+            }
         }
+        return false;
+    }
+
+    default boolean needShowBottomSpace(MessageBeanForUI messageBean, int position) {
+        if (messageBean.isSystemEvent()) {
+            return false;
+        }
+        if (position >= messageSize() - 1) {
+            return false;
+        } else {
+            MessageBeanForUI messageBeanOnBottom = getMessage(position + 1);
+            if (messageBeanOnBottom != null) {
+                return messageBeanOnBottom.isSystemEvent()
+                        || !TextUtils.equals(messageBeanOnBottom.getSenderUid(), messageBean.getSenderUid())
+                        || !TimeUtils.isSameDay(messageBeanOnBottom.getTimeSend(), messageBean.getTimeSend())
+                        || messageBeanOnBottom.getType() == MessageTypeCode.kChatMsgType_OfficialAccount;
+            }
+        }
+        return false;
+    }
+
+    default boolean needShowForwardHead(@NonNull MessageBeanForUI messageBean, int position) {
+        return messageBean.isForward();
     }
 
     default boolean needShowTimeTitle(final MessageBeanForUI messageBean, int position) {
-        if (position == 0 || messageBean.getType() == MessageTypeCode.kChatMsgType_OfficialAccount) {
+        if (messageBean.getType() == MessageTypeCode.kChatMsgType_OfficialAccount
+                || messageBean.getType() == MessageTypeCode.kChatMsgType_StepsRanking
+                || messageBean.getType() == MessageTypeCode.kChatMsgType_StepsLike) {
+            return true;
+        }
+        if (position == 0) {
             return true;
         } else {
             MessageBeanForUI messageBeanEarlier = getMessage(position - 1);
@@ -50,6 +82,8 @@ interface BaseChatAdapter {
 
     default boolean needShowSenderName(final MessageBeanForUI messageBean, int position, boolean needShowNewMessageLine, boolean needShowTimeTitle) {
         if (ContactUtil.isUser(messageBean.getSessionId())
+                || ContactUtil.isOAAccount(messageBean.getSenderUid())
+                || ContactUtil.isPayOfficial(messageBean.getSenderUid())
                 || messageBean.isSelf()
                 || messageBean.isSystemEvent()
                 || TextUtils.isEmpty(messageBean.getSenderUid())) {

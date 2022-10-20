@@ -15,6 +15,7 @@ import androidx.lifecycle.LifecycleOwner;
 
 import com.test.test3app.R;
 import com.test.test3app.appbase.ZRouter;
+
 import im.turbo.baseui.utils.UiUtils;
 
 import java.util.ArrayList;
@@ -41,7 +42,6 @@ public class Activity0 extends BaseActivity {
         });
         S.s(logOpen, "onCreate");
         List<ZRouter> zRouters = new ArrayList<>();
-        zRouters.add(new ZRouter("record", Activity_2_unknown.class));
         zRouters.add(new ZRouter("sms", Activity_3_sms.class));
         zRouters.add(new ZRouter("group tips", Activity_4_grouptips.class));
         zRouters.add(new ZRouter("take photo", Activity_5_takephoto.class));
@@ -71,14 +71,17 @@ public class Activity0 extends BaseActivity {
         zRouters.add(new ZRouter("cell", Activity_990_cell.class));
         zRouters.add(new ZRouter("dark mode", Activity_99_dark_mode.class));
         zRouters.add(new ZRouter("Dir", Activity_9997_dir.class));
-        zRouters.add(new ZRouter("Event", ChatActivity.class));
         zRouters.add(new ZRouter("wallpaper", Activity_94_wallpaper.class));
         zRouters.add(new ZRouter("toolbar", Activity_9998_toolbar.class));
         zRouters.add(new ZRouter("viewpager2", Activity_9999_viewpager2.class));
         zRouters.add(new ZRouter("gesture", Activity_99990_gesture.class));
-        zRouters.add(new ZRouter("window transition", Activity_9992_windowContentTransition.class));
         zRouters.add(new ZRouter("smooth", Activity_8_smoothSwitch.class));
         zRouters.add(new ZRouter("NewPermission", Activity_9994_permission.class));
+        zRouters.add(new ZRouter("Event", ChatActivity.class));
+        zRouters.add(new ZRouter("notification", Activity_2_notification.class));
+        zRouters.add(new ZRouter("window transition", Activity_9992_windowContentTransition.class));
+        zRouters.add(new ZRouter("blur", Activity_99991_Blur.class));
+        zRouters.add(new ZRouter("keyboard", Activity_99992_keyboard.class));
 
         init(zRouters, savedInstanceState == null);
     }

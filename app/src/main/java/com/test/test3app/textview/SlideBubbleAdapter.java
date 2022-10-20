@@ -197,11 +197,9 @@ public class SlideBubbleAdapter extends RecyclerView.Adapter<SlideBubbleAdapter.
             if (position % 2 == 0) {
                 rootView.setPadding(0, 0, UiUtils.dipToPx(48), 0);
                 rootView.setGravity(Gravity.START);
-                bubbleView.setGravity(Gravity.LEFT, true);
             } else {
                 rootView.setPadding(UiUtils.dipToPx(48), 0, 0, 0);
                 rootView.setGravity(Gravity.END);
-                bubbleView.setGravity(Gravity.RIGHT, true);
             }
 
             this.baseMessageCell.setLayoutParams(cellLayoutParams);

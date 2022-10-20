@@ -35,16 +35,21 @@ public class SlideLayout extends ViewGroup {
     private SlideListener listener;
 
     private float xDown;
-    private long timeDown;
-    private boolean isLongClicked;
     private boolean isDistanceOver;
-    private boolean isTimeOut;
+    private boolean longClickConsumed;
 
     private boolean hasPostSlideTouchBorder;
     private final boolean slideRightDirection;
     private int scrollRange;
     private OnLongClickListener longClickListener;
     private OnClickListener clickListener;
+    private TouchEventInterceptor interceptor;
+    private Runnable longClickRunnable;
+    private boolean disallowIntercept;
+
+    public SlideLayout(Context context) {
+        this(context, null);
+    }
 
     public SlideLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -60,6 +65,10 @@ public class SlideLayout extends ViewGroup {
         } else {
             slideRightDirection = false;
         }
+    }
+
+    public void setInterceptor(TouchEventInterceptor interceptor) {
+        this.interceptor = interceptor;
     }
 
     @Override
@@ -89,12 +98,12 @@ public class SlideLayout extends ViewGroup {
         if (getChildCount() != 2) {
             throw new RuntimeException("Please put two children in this layout");
         }
-        hideTailView = getChildAt(0);
-        childView = getChildAt(1);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        hideTailView = getChildAt(0);
+        childView = getChildAt(1);
         int childCount = getChildCount();
         if (childCount > 2) {
             throw new RuntimeException("You can only put two children in this layout");
@@ -171,22 +180,53 @@ public class SlideLayout extends ViewGroup {
     }
 
     @Override
+    public void requestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+        this.disallowIntercept = disallowIntercept;
+        super.requestDisallowInterceptTouchEvent(disallowIntercept);
+    }
+
+    @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-        long now = SystemClock.elapsedRealtime();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                disallowIntercept = false;
                 xDown = event.getRawX();
-                timeDown = now;
                 isDistanceOver = false;
-                isTimeOut = false;
-                isLongClicked = false;
+                longClickConsumed = false;
                 scroller.abortAnimation();
                 scrollerChild.abortAnimation();
                 scrollTo(0, 0);
                 childView.scrollTo(0, 0);
+                if (interceptor != null && interceptor.onTouchEvent(event)) {
+                    return true;
+                }
+                removeCallbacks(longClickRunnable);
+                if (longClickRunnable == null) {
+                    longClickRunnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!disallowIntercept && !isDistanceOver && longClickListener != null) {
+                                longClickConsumed = longClickListener.onLongClick(SlideLayout.this);
+                                if (longClickConsumed) {
+                                    VibratorUtil.vibrate(getContext());
+                                }
+                            }
+                        }
+                    };
+                }
+                postDelayed(longClickRunnable, longClickTimeOut);
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (canSlide() && Math.abs(event.getRawX() - xDown) > touchSlop) {
+                    return !disallowIntercept;
+                } else if (longClickConsumed) {
+                    return !disallowIntercept;
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                removeCallbacks(longClickRunnable);
+                if (longClickConsumed) {
                     return true;
                 }
                 break;
@@ -196,7 +236,6 @@ public class SlideLayout extends ViewGroup {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        long now = SystemClock.elapsedRealtime();
         int leftBorder = slideRightDirection ? 0 : -scrollRange;
         int rightBorder = slideRightDirection ? scrollRange : 0;
         int moveDistance = (int) (event.getRawX() - xDown);
@@ -204,8 +243,8 @@ public class SlideLayout extends ViewGroup {
             case MotionEvent.ACTION_MOVE:
                 isDistanceOver = isDistanceOver || Math.abs(moveDistance) > touchSlop;
 //                S.s("moveDistance:" + moveDistance + "  touchSlop:" + touchSlop + " isDistanceOver:" + isDistanceOver);
-                isTimeOut = (now - timeDown) > longClickTimeOut;
-                if (!isLongClicked && canSlide() && isDistanceOver) {
+                if (!longClickConsumed && canSlide() && isDistanceOver) {
+                    removeCallbacks(longClickRunnable);
                     getParent().requestDisallowInterceptTouchEvent(true);
                     if (slideRightDirection) {
                         if (moveDistance < leftBorder) {
@@ -224,31 +263,26 @@ public class SlideLayout extends ViewGroup {
                             onSliding(moveDistance, scrollRange);
                         }
                     }
-                } else if (!isDistanceOver && !isLongClicked && isTimeOut && longClickListener != null) {
-                    isLongClicked = true;
-                    boolean handled = longClickListener.onLongClick(this);
-                    if (handled) {
-                        VibratorUtil.vibrate(getContext());
-                    }
-                    return handled;
+                } else if (longClickConsumed) {
+                    return true;
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                if (!isLongClicked && clickListener != null) {
+                if (!longClickConsumed && clickListener != null) {
                     clickListener.onClick(this);
                 }
             case MotionEvent.ACTION_CANCEL:
+                removeCallbacks(longClickRunnable);
                 hasPostSlideTouchBorder = false;
                 isDistanceOver = false;
-                isTimeOut = false;
-                isLongClicked = false;
+                longClickConsumed = false;
                 int scrollX = getScrollX();
                 int scrollXChild = childView.getScrollX();
                 scroller.startScroll(scrollX, 0, -scrollX, 0);
                 scrollerChild.startScroll(scrollXChild, 0, -scrollXChild, 0);
                 invalidate();
                 childView.invalidate();
-                if (listener != null) {
+                if (listener != null && listener.canSlide()) {
                     if (slideRightDirection) {
                         listener.onFingerUp(moveDistance > rightBorder);
                     } else {
@@ -263,7 +297,7 @@ public class SlideLayout extends ViewGroup {
     private void onTouchedStartBorder(int border) {
         scrollTo(-border, 0);
         childView.scrollTo(0, 0);
-        if (listener != null) {
+        if (listener != null && listener.canSlide()) {
             listener.onSlideDistanceChange(0);
             changeTailAlpha(0);
         }
@@ -272,7 +306,7 @@ public class SlideLayout extends ViewGroup {
     private void onSliding(int moveDistance, int scrollRange) {
         scrollTo(-moveDistance, 0);
         childView.scrollTo(0, 0);
-        if (listener != null) {
+        if (listener != null && listener.canSlide()) {
             float percent = Math.abs(getScrollX()) / (float) scrollRange;
             listener.onSlideDistanceChange(percent);
             changeTailAlpha(percent);
@@ -284,7 +318,7 @@ public class SlideLayout extends ViewGroup {
             hasPostSlideTouchBorder = true;
             scrollTo(-border, 0);
             VibratorUtil.vibrate(getContext());
-            if (listener != null) {
+            if (listener != null && listener.canSlide()) {
                 listener.onSlideDistanceChange(1);
                 listener.onSlideTouchedBorder();
                 changeTailAlpha(1);
@@ -335,8 +369,16 @@ public class SlideLayout extends ViewGroup {
     }
 
     public static class SlideLayoutParams extends LinearLayout.LayoutParams {
+        public SlideLayoutParams(int width, int height) {
+            super(width, height);
+        }
+
         public SlideLayoutParams(Context c, AttributeSet attrs) {
             super(c, attrs);
         }
+    }
+
+    public interface TouchEventInterceptor {
+        boolean onTouchEvent(MotionEvent motionEvent);
     }
 }

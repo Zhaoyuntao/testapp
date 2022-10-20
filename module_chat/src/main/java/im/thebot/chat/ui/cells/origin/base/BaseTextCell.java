@@ -81,7 +81,7 @@ public abstract class BaseTextCell<T extends BaseTextMessageForUI> extends BaseM
                 .addPattern(new ItemProcessor(PatternUtils.PATTERN_MENTION) {
                     @Override
                     public boolean canClick(@NonNull View v) {
-                        return isSupportClick();
+                        return isSupportClick(messageBean);
                     }
 
                     @Override
@@ -93,7 +93,7 @@ public abstract class BaseTextCell<T extends BaseTextMessageForUI> extends BaseM
                     @Override
                     public void onClick(@NonNull View v, String contentOrigin, CharSequence contentClick) {
 //                        S.s("onClick:[" + contentOrigin + "][" + contentClick + "]");
-                        if (isSupportClick()) {
+                        if (isSupportClick(messageBean)) {
                             String uid = MentionTextUtil.removeMentionSymbol(contentOrigin);
                             ToastUtil.show("uid:"+uid);
                         }
@@ -111,12 +111,12 @@ public abstract class BaseTextCell<T extends BaseTextMessageForUI> extends BaseM
                 }, new ItemProcessor(PatternUtils.PATTERN_EMAIL) {
                     @Override
                     public boolean canClick(@NonNull View v) {
-                        return isSupportClick();
+                        return isSupportClick(messageBean);
                     }
 
                     @Override
                     public void onClick(@NonNull View v, String contentOrigin, CharSequence contentClick) {
-                        if (isSupportClick()) {
+                        if (isSupportClick(messageBean)) {
                             TextMessageClickManager.onEmailClicked(getContext(), contentOrigin);
                         }
                     }
@@ -124,12 +124,12 @@ public abstract class BaseTextCell<T extends BaseTextMessageForUI> extends BaseM
 
                     @Override
                     public boolean canClick(@NonNull View v) {
-                        return isSupportClick();
+                        return isSupportClick(messageBean);
                     }
 
                     @Override
                     public void onClick(@NonNull View v, String contentOrigin, CharSequence contentClick) {
-                        if (isSupportClick()) {
+                        if (isSupportClick(messageBean)) {
                             TextMessageClickManager.processThirdPartyUrlClick(getContext(), contentOrigin);
                         }
                     }

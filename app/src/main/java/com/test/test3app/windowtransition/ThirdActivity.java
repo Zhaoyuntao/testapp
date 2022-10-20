@@ -25,6 +25,8 @@ public class ThirdActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_third);
 
+        prepareTransitions();
+
         ViewPager2 viewPager2 = findViewById(R.id.recycler_view_third);
         viewPager2.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         ThirdImageAdapter adapter = new ThirdImageAdapter();
@@ -45,7 +47,7 @@ public class ThirdActivity extends BaseActivity {
         getWindow().getSharedElementExitTransition().setDuration(200);
         postponeEnterTransition();
 
-        S.s("first time load ----------------->");
+//        S.s("first time load ----------------->");
         List<ImageBean> imageBeans = new ArrayList<>(4);
         imageBeans.add(new ImageBean("image1", R.drawable.wallpaper2));
         adapter.submitList(imageBeans);
@@ -61,8 +63,8 @@ public class ThirdActivity extends BaseActivity {
         ThreadPool.runIoDelayed(1000, new Runnable() {
             @Override
             public void run() {
-                ToastUtil.show("db load finish");
-                S.s("second time load ----------------->");
+//                ToastUtil.show("db load finish");
+//                S.s("second time load ----------------->");
                 List<ImageBean> imageBeans = new ArrayList<>(4);
                 imageBeans.add(new ImageBean("image0", R.drawable.image1));
                 imageBeans.add(new ImageBean("image1", R.drawable.wallpaper2));
@@ -73,5 +75,33 @@ public class ThirdActivity extends BaseActivity {
                 adapter.submitList(imageBeans);
             }
         });
+    }
+
+    private void prepareTransitions() {
+        // A similar mapping is set at the ImagePagerFragment with a setEnterSharedElementCallback.
+        setEnterSharedElementCallback(new SharedElementCallback() {
+            @Override
+            public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
+                sharedElements.clear();
+            }
+        });
+//        setExitSharedElementCallback(
+//                new SharedElementCallback() {
+//                    @Override
+//                    public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
+//                        S.s("sharedElements:"+sharedElements);
+//                        sharedElements.clear();
+////                        // Locate the ViewHolder for the clicked position.
+////                        RecyclerView.ViewHolder selectedViewHolder = recyclerView
+////                                .findViewHolderForAdapterPosition(MainActivity.currentPosition);
+////                        if (selectedViewHolder == null) {
+////                            return;
+////                        }
+////
+////                        // Map the first shared element name to the child ImageView.
+////                        sharedElements
+////                                .put(names.get(0), selectedViewHolder.itemView.findViewById(R.id.card_image));
+//                    }
+//                });
     }
 }

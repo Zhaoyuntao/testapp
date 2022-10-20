@@ -44,39 +44,11 @@ public class ListViewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         @SuppressLint("ViewHolder") View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_window_item, parent, false);
         ImageView imageView0 = view.findViewById(R.id.imageview_item0);
-        ImageView imageView1 = view.findViewById(R.id.imageview_item1);
-        ImageView imageView2 = view.findViewById(R.id.imageview_item2);
-        ImageView imageView3 = view.findViewById(R.id.imageview_item3);
-        View[] views = new View[]{imageView0, imageView1, imageView2, imageView3};
         imageView0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(v, views, 0);
-                }
-            }
-        });
-        imageView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(v, views, 1);
-                }
-            }
-        });
-        imageView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(v, views, 2);
-                }
-            }
-        });
-        imageView3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(v, views, 3);
+                    onItemClickListener.onItemClick(v, 0);
                 }
             }
         });
@@ -88,6 +60,6 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view, View[] views, int position);
+        void onItemClick(View view, int position);
     }
 }

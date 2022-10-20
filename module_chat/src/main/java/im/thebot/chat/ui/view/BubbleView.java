@@ -12,6 +12,8 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,37 +29,26 @@ import im.turbo.utils.ResourceUtils;
  * description:
  */
 public class BubbleView extends ChatViewGroup {
-    private Path path;
-    private Paint paint;
-    private RectF bubbleRect;
-    private RectF tailRect;
-    private float radiusConner;
-    private int tailWidth, tailHeight;
+    private final Path path;
+    private final Paint paint;
+    private final RectF bubbleRect;
+    private final RectF tailRect;
+    private final float radiusConner;
+    private final int tailWidth, tailMargin;
     private int gravity;
     private boolean showTail;
-    private int shadow;
+    private final int shadow;
     private int backgroundColor;
     private int backgroundColorPressed;
-    private int backgroundShadowColor;
-    private int radiusTail;
-    private PaintFlagsDrawFilter paintFlagsDrawFilter;
+    private final int backgroundShadowColor;
+    private final int radiusTail;
+    private final PaintFlagsDrawFilter paintFlagsDrawFilter;
+    private final float angleOfTail;
+    private boolean needDrawBubble;
+    private int maxWidth;
 
     public BubbleView(@NonNull Context context) {
         super(context);
-        init();
-    }
-
-    public BubbleView(@NonNull Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        init();
-    }
-
-    public BubbleView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init();
-    }
-
-    private void init() {
         setClickable(true);
         setWillNotDraw(false);
         path = new Path();
@@ -65,18 +56,23 @@ public class BubbleView extends ChatViewGroup {
         bubbleRect = new RectF();
         tailRect = new RectF();
         paintFlagsDrawFilter = new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG);
-        radiusConner = UiUtils.dipToPx(12);
-        radiusTail = UiUtils.dipToPx(2);
+        radiusConner = UiUtils.dipToPx(6);
+        radiusTail = UiUtils.dipToPx(1.6f);
         tailWidth = UiUtils.dipToPx(10);
-        tailHeight = UiUtils.dipToPx(12);
+        tailMargin = UiUtils.dipToPx(6);
         shadow = UiUtils.dipToPx(1);
         backgroundShadowColor = Color.argb(20, 0, 0, 0);
-
-        resetBackgroundColor();
+        angleOfTail = 47;
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int selfMaxWidth = MeasureSpec.getSize(widthMeasureSpec);
+        int mode = MeasureSpec.getMode(widthMeasureSpec);
+        if (maxWidth > 0) {
+            widthMeasureSpec = MeasureSpec.makeMeasureSpec(Math.min(selfMaxWidth, maxWidth), mode);
+            selfMaxWidth = Math.min(selfMaxWidth, maxWidth);
+        }
         int childCount = getChildCount();
         int paddingStart = getPaddingStart();
         int paddingEnd = getPaddingEnd();
@@ -84,27 +80,28 @@ public class BubbleView extends ChatViewGroup {
         int paddingTop = getPaddingTop();
         int paddingBottom = getPaddingBottom();
         int measureCount = 0;
-        boolean useMaxWidth = MeasureSpec.getMode(widthMeasureSpec) != MeasureSpec.AT_MOST;
+        boolean useMaxWidth = mode != MeasureSpec.AT_MOST;
         int childMaxWidth = 0;
-        int selfMaxWidth = MeasureSpec.getSize(widthMeasureSpec);
-//        S.v(true, "BubbleView.onMeasure: --------------------------------------------------------> ", widthMeasureSpec, heightMeasureSpec, this);
+
         for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);
             if (child != null && child.getVisibility() != GONE) {
                 MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
-                lp.width = useMaxWidth ? LayoutParams.MATCH_PARENT : LayoutParams.WRAP_CONTENT;
-//                S.s(true, ">>>>>> [" + child.getClass().getSimpleName() + "].measure  -------> " + lp.width + " " + lp.height);
+                if (mode == MeasureSpec.EXACTLY) {
+                    lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                }
                 measureChildWithMargins(child, widthMeasureSpec, heightMeasureSpec, lp);
                 int childWidth = child.getMeasuredWidth();
                 int childHeight = child.getMeasuredHeight();
-//                S.s(true, ">>>>>> [" + child.getClass().getSimpleName() + "].measure result w:" + childWidth + " h:" + childHeight + "  leftMargin:" + lp.leftMargin + " rightMargin:" + lp.rightMargin);
                 childMaxWidth = Math.max(childMaxWidth, childWidth + lp.leftMargin + lp.rightMargin);
                 maxHeight += (childHeight + lp.topMargin + lp.bottomMargin);
                 measureCount++;
             }
         }
-//        S.s(true, "first finish --------------------------------------------------------------------------------------------------------------- result: w:" + maxWidth + " h:" + maxHeight);
-        childMaxWidth += (paddingStart + paddingEnd);
+        childMaxWidth = childMaxWidth + (paddingStart + paddingEnd);
+        if (maxWidth > 0) {
+            childMaxWidth = Math.min(childMaxWidth, maxWidth);
+        }
         int height;
         if (useMaxWidth || measureCount <= 1) {
             height = maxHeight;
@@ -114,19 +111,15 @@ public class BubbleView extends ChatViewGroup {
                 View child = getChildAt(i);
                 if (child != null && child.getVisibility() != GONE) {
                     MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
-                    lp.width = LayoutParams.MATCH_PARENT;
-//                S.s(true, ">>>>>> [" + child.getClass().getSimpleName() + "].measure  -------> " + lp.width + " " + lp.height);
+                    lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
                     int childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(childMaxWidth, MeasureSpec.EXACTLY);
                     measureChildWithMargins(child, childWidthMeasureSpec, heightMeasureSpec, lp);
-                    int childWidth = child.getMeasuredWidth();
                     int childHeight = child.getMeasuredHeight();
-//                S.s(true, "second >>>>>> [" + child.getClass().getSimpleName() + "].measure result w:" + childWidth + " h:" + childHeight + "  leftMargin:" + lp.leftMargin + " rightMargin:" + lp.rightMargin);
                     height += (childHeight + lp.topMargin + lp.bottomMargin);
                 }
             }
         }
         height += (paddingTop + paddingBottom);
-//        S.s(true, "second finish ------------------------------------------------- result: w:" + maxWidth + " h:" + height);
         setMeasuredDimension(useMaxWidth ? selfMaxWidth : childMaxWidth, height);
     }
 
@@ -137,7 +130,6 @@ public class BubbleView extends ChatViewGroup {
         int paddingTop = getPaddingTop();
         int paddingBottom = getPaddingBottom();
         int viewTop = paddingTop;
-//        S.s("BubbleView.onLayout: -----------------------------------------------------------------------------------------> l:" + l + " r:" + r);
         for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);
             if (child != null && child.getVisibility() != GONE) {
@@ -146,38 +138,22 @@ public class BubbleView extends ChatViewGroup {
                 int right = left + child.getMeasuredWidth();
                 int top = viewTop + lp.topMargin;
                 int bottom = top + child.getMeasuredHeight();
-//                S.e(true, "[" + child.getClass().getSimpleName() + "].layout: left:" + left + "  right:" + right + "    BubbleView.paddingStart:" + getPaddingStart() + " paddingEnd:" + getPaddingEnd());
                 child.layout(left, top, right, bottom);
                 viewTop = bottom + lp.bottomMargin + paddingBottom;
             }
         }
     }
 
-    private void resetBackgroundColor() {
-        boolean isSelfBubble;
-        int gravity = Gravity.getAbsoluteGravity(this.gravity, getLayoutDirection());
-        if (getLayoutDirection() == LAYOUT_DIRECTION_RTL) {
-            isSelfBubble = gravity == Gravity.LEFT;
-        } else {
-            isSelfBubble = gravity == Gravity.RIGHT;
-        }
-        if (isSelfBubble) {
-            backgroundColor = ResourceUtils.getColor(R.color.color_bubble_me);
-            backgroundColorPressed = ResourceUtils.getColor(R.color.color_bubble_me_press);
-        } else {
-            backgroundColor = ResourceUtils.getColor(R.color.color_bubble_other);
-            backgroundColorPressed = ResourceUtils.getColor(R.color.color_bubble_other_press);
-        }
-    }
-
     @Override
     public void draw(Canvas canvas) {
-        if (Gravity.getAbsoluteGravity(gravity, getLayoutDirection()) != Gravity.CENTER) {
+        if (Gravity.getAbsoluteGravity(gravity, getLayoutDirection()) != Gravity.CENTER && needDrawBubble) {
             int width = getWidth();
             int height = getHeight();
             setPath(width, height);
             paint.reset();
-            paint.setColor(isPressed() ? backgroundColorPressed : backgroundColor);
+            //Disable click state for temporary.
+//            paint.setColor(isPressed() ? backgroundColorPressed : backgroundColor);
+            paint.setColor(backgroundColor);
             paint.setShadowLayer(shadow, shadow / 2f, shadow / 2f, backgroundShadowColor);
             canvas.save();
             canvas.setDrawFilter(paintFlagsDrawFilter);
@@ -190,10 +166,10 @@ public class BubbleView extends ChatViewGroup {
     public void setPath(int width, int height) {
         if (width > 0 && height > 0) {
             int gravity = Gravity.getAbsoluteGravity(this.gravity, getLayoutDirection());
-            int widthOfBubble = width - tailWidth;
+            int widthOfBubble = width - ((gravity == Gravity.LEFT || gravity == Gravity.RIGHT) ? (tailMargin + tailWidth) : 0);
             int heightOfBubble = height;
             path.reset();
-
+            float tailHeight = (float) Math.tan(Math.toRadians(angleOfTail)) * tailWidth;
             float xTail1;
             float xTail2;
             float xTail3;
@@ -205,37 +181,36 @@ public class BubbleView extends ChatViewGroup {
 
             int bubbleLeft;
             int bubbleRight;
-//            S.s("gravity:" + gravity);
             if (showTail) {
                 if (gravity == Gravity.RIGHT) {
                     bubbleLeft = 0;
                     bubbleRight = bubbleLeft + widthOfBubble;
                     radiusRight = 0;
                     radiusLeft = radiusConner;
-                    xTail1 = width - tailWidth;
+                    xTail1 = width - tailWidth - tailMargin;
                     xTail2 = xTail1 + calculatePoint2X(tailWidth, radiusTail);
                     xTail3 = xTail1;
                     path.moveTo(xTail1, yTail1);
                     path.lineTo(xTail2, yTail2);
                     tailRect.set(xTail2 - radiusTail, yTail2, xTail2 + radiusTail, yTail2 + radiusTail * 2);
-                    path.arcTo(tailRect, -90, 135);
+                    path.arcTo(tailRect, -90, 90 + angleOfTail);
                     path.lineTo(xTail3, yTail3);
                 } else if (gravity == Gravity.LEFT) {
-                    bubbleLeft = tailWidth;
+                    bubbleLeft = tailWidth + tailMargin;
                     bubbleRight = bubbleLeft + widthOfBubble;
                     radiusRight = radiusConner;
                     radiusLeft = 0;
-                    xTail1 = tailWidth;
+                    xTail1 = tailWidth + tailMargin;
                     xTail2 = xTail1 - calculatePoint2X(tailWidth, radiusTail);
                     xTail3 = xTail1;
                     bubbleRect.set(tailWidth, 0, tailWidth + widthOfBubble, heightOfBubble);
                     path.moveTo(xTail1, yTail1);
                     path.lineTo(xTail2, yTail2);
                     tailRect.set(xTail2 - radiusTail, yTail2, xTail2 + radiusTail, yTail2 + radiusTail * 2);
-                    path.arcTo(tailRect, -90, -135);
+                    path.arcTo(tailRect, -90, -90 - angleOfTail);
                     path.lineTo(xTail3, yTail3);
                 } else {
-                    bubbleLeft = tailWidth;
+                    bubbleLeft = 0;
                     bubbleRight = bubbleLeft + widthOfBubble;
 
                     radiusRight = radiusConner;
@@ -249,10 +224,10 @@ public class BubbleView extends ChatViewGroup {
                     bubbleLeft = 0;
                     bubbleRight = bubbleLeft + widthOfBubble;
                 } else if (gravity == Gravity.LEFT) {
-                    bubbleLeft = tailWidth;
+                    bubbleLeft = tailWidth + tailMargin;
                     bubbleRight = bubbleLeft + widthOfBubble;
                 } else {
-                    bubbleLeft = tailWidth;
+                    bubbleLeft = tailWidth + tailMargin;
                     bubbleRight = bubbleLeft + widthOfBubble - tailWidth;
                 }
             }
@@ -268,11 +243,11 @@ public class BubbleView extends ChatViewGroup {
     public int getPaddingStart() {
         int gravity = Gravity.getAbsoluteGravity(this.gravity, getLayoutDirection());
         if (gravity == Gravity.LEFT) {
-            return super.getPaddingStart() + tailWidth;
+            return super.getPaddingStart() + tailWidth + tailMargin;
         } else if (gravity == Gravity.RIGHT) {
             return super.getPaddingStart();
         } else {
-            return super.getPaddingStart() + tailWidth;
+            return super.getPaddingStart() + tailWidth + tailMargin;
         }
     }
 
@@ -282,51 +257,37 @@ public class BubbleView extends ChatViewGroup {
         if (gravity == Gravity.LEFT) {
             return super.getPaddingEnd();
         } else if (gravity == Gravity.RIGHT) {
-            return super.getPaddingEnd() + tailWidth;
+            return super.getPaddingEnd() + tailWidth + tailMargin;
         } else {
-            return super.getPaddingEnd() + tailWidth;
+            return super.getPaddingEnd() + tailWidth + tailMargin;
         }
     }
 
     private int calculatePoint2X(int tailWidth, int radiusTail) {
-        return (int) (tailWidth - Math.tan(Math.toRadians(67.5f)) * radiusTail);
-    }
-
-    @Override
-    public void onDrawForeground(Canvas canvas) {
-        Drawable drawable = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            drawable = getForeground();
-        }
-        ColorDrawable colorDrawable;
-        if (drawable instanceof ColorDrawable) {
-            colorDrawable = (ColorDrawable) drawable;
-        } else {
-            return;
-        }
-        int width = getWidth();
-        int height = getHeight();
-        setPath(width, height);
-        paint.reset();
-        paint.setColor(colorDrawable.getColor());
-        paint.setAlpha(colorDrawable.getAlpha());
-        canvas.drawPath(path, paint);
-    }
-
-
-    @Override
-    protected void drawableStateChanged() {
-        super.drawableStateChanged();
-        postInvalidate();
+        return (int) (tailWidth - Math.tan(Math.toRadians((180 - angleOfTail) / 2)) * radiusTail);
     }
 
     final public int getGravity() {
         return gravity;
     }
 
-    final public void setGravity(int gravity, boolean showTail) {
+    final public void setBubbleGravity(int gravity, boolean needDrawBubble) {
         this.gravity = gravity;
+        this.needDrawBubble = needDrawBubble;
+    }
+
+    final public void setBubbleColor(int backgroundColor, int backgroundColorPressed, boolean showTail) {
+        this.backgroundColor = backgroundColor;
+        this.backgroundColorPressed = backgroundColorPressed;
         this.showTail = showTail;
         postInvalidate();
+    }
+
+    public void setMaxWidth(int maxWidth) {
+        this.maxWidth = maxWidth;
+    }
+
+    public int getMaxWidth() {
+        return maxWidth;
     }
 }

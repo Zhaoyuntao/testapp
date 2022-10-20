@@ -69,9 +69,9 @@ public class ThirdImageAdapter extends ListAdapter<ImageBean, ThirdImageHolder> 
     @Override
     public void onBindViewHolder(@NonNull ThirdImageHolder holder, int position, @NonNull List<Object> payloads) {
         if (payloads.size() > 0) {
-            S.s("onBindViewHolder has payload [" + holder.getBindingAdapterPosition() + "]:[" + getCurrentList().get(holder.getBindingAdapterPosition()).id + "]");
+//            S.s("onBindViewHolder has payload [" + holder.getBindingAdapterPosition() + "]:[" + getCurrentList().get(holder.getBindingAdapterPosition()).id + "]");
         } else {
-            S.s("onBindViewHolder no payload [" + holder.getBindingAdapterPosition() + "]:[" + getCurrentList().get(holder.getBindingAdapterPosition()).id + "]");
+//            S.s("onBindViewHolder no payload [" + holder.getBindingAdapterPosition() + "]:[" + getCurrentList().get(holder.getBindingAdapterPosition()).id + "]");
             onBindViewHolder(holder, position);
         }
     }

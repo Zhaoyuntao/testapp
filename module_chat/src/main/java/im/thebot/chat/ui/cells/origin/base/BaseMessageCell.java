@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import com.example.module_chat.R;
 
 import im.thebot.chat.api.chat.message.MessageBeanForUI;
+import im.turbo.baseui.utils.UiUtils;
+import im.turbo.utils.ResourceUtils;
 
 /**
  * created by zhaoyuntao
@@ -18,76 +20,32 @@ import im.thebot.chat.api.chat.message.MessageBeanForUI;
  */
 public abstract class BaseMessageCell<M extends MessageBeanForUI> extends BaseCell<M> {
 
-    private boolean showTimeTitle;
-    private boolean showTopSpace;
-    private boolean showSenderName;
-    private boolean showNewMessageLine;
-    private int gravity;
-
     public boolean showMessageStatusView() {
         return true;
     }
 
-    public boolean showMessageForwardView() {
+    public int setForwardViewState(@NonNull M message) {
+        return GONE;
+    }
+
+    public boolean showForwardView() {
         return false;
     }
 
-    final public void setShowTimeTitle(boolean showTimeTitle) {
-        this.showTimeTitle = showTimeTitle;
+    public boolean showAsSender() {
+        return true;
     }
 
-    final public boolean needShowTimeTitle() {
-        return showTimeTitle;
-    }
-
-    final public void setShowTopSpace(boolean showTopSpace) {
-        this.showTopSpace = showTopSpace;
-    }
-
-    final public boolean needShowTopSpace() {
-        return showTopSpace;
-    }
-
-    final public void setShowSenderName(boolean showSenderName) {
-        this.showSenderName = showSenderName;
-    }
-
-    final public boolean needShowSenderName() {
-        return showSenderName;
-    }
-
-    final public void setGravity(int gravity) {
-        this.gravity = gravity;
-    }
-
-    final public int getGravity() {
-        return showAsSender() ? gravity : Gravity.CENTER;
+    public boolean isMaxWidth() {
+        return false;
     }
 
     public boolean needElevation() {
         return false;
     }
 
-    public void setShowNewMessageLine(boolean showNewMessageLine) {
-        this.showNewMessageLine = showNewMessageLine;
-    }
-
-    public boolean needShowNewMessageLine() {
-        return showNewMessageLine;
-    }
-
-    @IdRes
-    public int getSendTimeViewResId() {
-        return R.id.message_send_time_text_view;
-    }
-
-    @IdRes
-    public int getSendStatusViewResId() {
-        return R.id.message_status_view_send;
-    }
-
     @ColorRes
-    public int getTimestampColor() {
+    public int getTimestampColorRes(@NonNull M message) {
         return R.color.white;
     }
 
@@ -96,5 +54,33 @@ public abstract class BaseMessageCell<M extends MessageBeanForUI> extends BaseCe
     }
 
     public void onSetStatusDrawable(@NonNull M messageBean, int visible, @DrawableRes int drawableRes, boolean animate) {
+    }
+
+    public int getMarginStartPX() {
+        return UiUtils.dipToPx(60);
+    }
+
+    public int getBubbleColor(@NonNull M message) {
+        return ResourceUtils.getColor(message.isSelf() ? R.color.color_bubble_me : R.color.color_bubble_other);
+    }
+
+    public int getBubbleClickColor(@NonNull M message) {
+        return ResourceUtils.getColor(message.isSelf() ? R.color.color_bubble_me_press : R.color.color_bubble_other_press);
+    }
+
+    public boolean needDrawBubble() {
+        return true;
+    }
+
+    public int getMaxWidth() {
+        return 0;
+    }
+
+    public boolean canSelect(@NonNull M messageBean) {
+        return true;
+    }
+
+    public boolean canBeReplied(@NonNull M messageBean) {
+        return false;
     }
 }

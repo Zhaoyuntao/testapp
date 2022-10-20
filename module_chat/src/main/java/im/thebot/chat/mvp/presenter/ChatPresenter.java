@@ -9,6 +9,7 @@ import com.sdk.chat.file.audio.MessageMediaHelper;
 
 import im.thebot.SdkFactory;
 import im.thebot.chat.api.chat.message.AudioMessageForUI;
+import im.thebot.chat.api.chat.message.FileMessageForUI;
 import im.thebot.chat.api.chat.message.MessageBeanForUI;
 import im.thebot.chat.api.chat.message.TextMessageForUI;
 import im.thebot.chat.ui.ChatActivity;
@@ -33,65 +34,80 @@ public class ChatPresenter {
     public ChatPresenter(ChatActivity chatActivity) {
         this.chatActivity = chatActivity;
 
-        TextMessageForUI message0 = new TextMessageForUI();
-        message0.setSenderUid(ContactUtil.uidMe);
-        message0.setContent("HelloHello");
+//        TextMessageForUI message0 = new TextMessageForUI();
+//        message0.setSenderUid(ContactUtil.uidMe);
+//        message0.setContent("HelloHello");
+
+        TextMessageForUI message11111 = new TextMessageForUI();
+        message11111.setSenderUid(ContactUtil.uidOther);
+        message11111.setContent("HelloHello");
+
+        TextMessageForUI messageA = new TextMessageForUI();
+        messageA.setSenderUid(ContactUtil.uidOther);
+        messageA.setContent("HelloHello");
+        messageA.setMessageReply(message11111);
 
         TextMessageForUI message1 = new TextMessageForUI();
         message1.setSenderUid(ContactUtil.uidMe);
-        message1.setContent("Hello\nHello\nHello\nHello");
+        message1.setContent("Hello");
 
-        TextMessageForUI message2 = new TextMessageForUI();
-        message2.setSenderUid(ContactUtil.uidOther);
-        message2.setMessageReply(message0);
-        message2.setContent("Hello\nHello\nHello\nHello");
+        FileMessageForUI messageFile=new FileMessageForUI();
+        messageFile.setFileLocalPath("hello");
+        messageFile.setFileName("hello");
+        messageFile.setSenderUid(ContactUtil.uidOther);
 
-        TextMessageForUI message3 = new TextMessageForUI();
-        message3.setSenderUid(ContactUtil.uidOther2);
-        message3.setMessageReply(message1);
-        message3.setContent("123455");
+//        TextMessageForUI message2 = new TextMessageForUI();
+//        message2.setSenderUid(ContactUtil.uidOther);
+//        message2.setMessageReply(message11111);
+//        message2.setContent("Hello\nHello\nHello\nHello");
 
-        AudioMessageForUI audioMessage = new AudioMessageForUI();
-        audioMessage.setSenderUid(ContactUtil.uidOther2);
-        audioMessage.setFileLocalPath("/storage/emulated/0/Music/Browser/PerituneMaterial_Sakuya2.mp3");
-        audioMessage.setAudioDuration(MessageMediaHelper.getAudioDuration(audioMessage.getFileLocalPath()));
-        audioMessage.setTimeSend(1000000);
-//        audioMessage.setAudioPlayedTime(5860);
+//        TextMessageForUI message3 = new TextMessageForUI();
+//        message3.setSenderUid(ContactUtil.uidOther2);
+//        message3.setMessageReply(message1);
+//        message3.setContent("123455");
 
-        AudioMessageForUI audioMessageMe = new AudioMessageForUI();
-        audioMessageMe.setSenderUid(ContactUtil.uidMe);
-        audioMessageMe.setFileLocalPath("/storage/emulated/0/Music/Browser/PerituneMaterial_Sakuya2.mp3");
-        audioMessageMe.setAudioDuration(MessageMediaHelper.getAudioDuration(audioMessageMe.getFileLocalPath()));
-        audioMessageMe.setTimeSend(1000001);
-//        audioMessage.setAudioPlayedTime(5860);
+//        AudioMessageForUI audioMessage = new AudioMessageForUI();
+//        audioMessage.setSenderUid(ContactUtil.uidOther2);
+//        audioMessage.setFileLocalPath("/storage/emulated/0/Music/Browser/PerituneMaterial_Sakuya2.mp3");
+//        audioMessage.setAudioDuration(MessageMediaHelper.getAudioDuration(audioMessage.getFileLocalPath()));
+//        audioMessage.setTimeSend(1000000);
+////        audioMessage.setAudioPlayedTime(5860);
+//
+//        AudioMessageForUI audioMessageMe = new AudioMessageForUI();
+//        audioMessageMe.setSenderUid(ContactUtil.uidMe);
+//        audioMessageMe.setFileLocalPath("/storage/emulated/0/Music/Browser/PerituneMaterial_Sakuya2.mp3");
+//        audioMessageMe.setAudioDuration(MessageMediaHelper.getAudioDuration(audioMessageMe.getFileLocalPath()));
+//        audioMessageMe.setTimeSend(1000001);
+////        audioMessage.setAudioPlayedTime(5860);
 
-        TextMessageForUI message4 = new TextMessageForUI();
-        message4.setSenderUid(ContactUtil.uidOther2);
-//        message4.setMessageReply(message1);
-        message4.setContent("123455askdnaksndksaldlksad\nsajdjasdiasjdioas\nasijdiosajdiosa\nasdiajsdoi");
-        TextMessageForUI message5 = new TextMessageForUI();
-        message5.setSenderUid(ContactUtil.uidOther2);
-        message5.setMessageReply(message1);
-        message5.setContent("123455");
-        TextMessageForUI message6 = new TextMessageForUI();
-        message6.setSenderUid(ContactUtil.uidOther2);
-        message6.setMessageReply(message1);
-        message6.setContent("123455");
-        TextMessageForUI message7 = new TextMessageForUI();
-        message7.setSenderUid(ContactUtil.uidOther2);
-        message7.setMessageReply(message1);
-        message7.setContent("123455");
+//        TextMessageForUI message4 = new TextMessageForUI();
+//        message4.setSenderUid(ContactUtil.uidOther2);
+////        message4.setMessageReply(message1);
+//        message4.setContent("123455askdnaksndksaldlksad\nsajdjasdiasjdioas\nasijdiosajdiosa\nasdiajsdoi");
+//        TextMessageForUI message5 = new TextMessageForUI();
+//        message5.setSenderUid(ContactUtil.uidOther2);
+//        message5.setMessageReply(message1);
+//        message5.setContent("123455");
+//        TextMessageForUI message6 = new TextMessageForUI();
+//        message6.setSenderUid(ContactUtil.uidOther2);
+//        message6.setMessageReply(message1);
+//        message6.setContent("123455");
+//        TextMessageForUI message7 = new TextMessageForUI();
+//        message7.setSenderUid(ContactUtil.uidOther2);
+//        message7.setMessageReply(message1);
+//        message7.setContent("123455");
 
-        selector.addData(message0);
+        selector.addData(message11111);
         selector.addData(message1);
-//        selector.addData(message2);
+        selector.addData(messageA);
+        selector.addData(messageFile);
 //        selector.addData(message7);
-        selector.addData(audioMessage);
-        selector.addData(audioMessageMe);
-        selector.addData(message4);
-        selector.addData(message5);
-        selector.addData(message6);
-        selector.addData(message7);
+//        selector.addData(audioMessage);
+//        selector.addData(audioMessageMe);
+//        selector.addData(message4);
+//        selector.addData(message5);
+//        selector.addData(message6);
+//        selector.addData(message7);
 
         ValueSafeTransfer.iterate(selector.getData(), new ValueSafeTransfer.ElementIterator<MessageBeanForUI>() {
             long time = System.currentTimeMillis();
@@ -317,5 +333,9 @@ public class ChatPresenter {
 
     public void select(MessageBeanForUI messageBean, boolean selected) {
         selector.changeSelect(messageBean, selected);
+    }
+
+    public boolean popHighLightPosition(int position) {
+        return false;
     }
 }

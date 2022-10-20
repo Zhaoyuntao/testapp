@@ -7,20 +7,19 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.util.Pair;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import base.ui.BaseActivity;
 import com.test.test3app.R;
 import com.test.test3app.windowtransition.ImageAdapter;
 import com.test.test3app.windowtransition.ImageBean;
 import com.test.test3app.windowtransition.ListViewAdapter;
-import com.test.test3app.windowtransition.SecondActivity;
-import com.zhaoyuntao.androidutils.tools.S;
+import com.test.test3app.windowtransition.ThirdActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import base.ui.BaseActivity;
 
 public class Activity_9992_windowContentTransition extends BaseActivity {
 
@@ -29,6 +28,7 @@ public class Activity_9992_windowContentTransition extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_9992_window_content_transitions);
 
+//        prepareTransitions();
         List<ImageBean> imageBeans = new ArrayList<>(4);
         imageBeans.add(new ImageBean("0", 0));
         imageBeans.add(new ImageBean("1", 1));
@@ -46,8 +46,8 @@ public class Activity_9992_windowContentTransition extends BaseActivity {
         commonAdapter.submitList(imageBeans);
         commonAdapter.setOnItemClickListener(new ImageAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, View[] views, int position) {
-                onClick(view, views, position);
+            public void onItemClick(View view, int position) {
+                onClick(view, position);
             }
         });
 
@@ -58,8 +58,8 @@ public class Activity_9992_windowContentTransition extends BaseActivity {
         ListViewAdapter viewAdapter = new ListViewAdapter();
         viewAdapter.setOnItemClickListener(new ListViewAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, View[] views, int position) {
-                onClick(view, views, position);
+            public void onItemClick(View view, int position) {
+                onClick(view, position);
             }
         });
         viewAdapter.setData(imageBeans);
@@ -85,33 +85,10 @@ public class Activity_9992_windowContentTransition extends BaseActivity {
         });
     }
 
-    private void onClick(View view, View[] views, int position) {
-//        S.s("clicked :" + position);
-        Intent intent = new Intent(activity(), SecondActivity.class);
-        Bundle bundle;
-        switch (position) {
-            case 0:
-                bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity(), views[0], "image0").toBundle();
-                intent.putExtra("position", 0);
-                break;
-            case 1:
-                intent.putExtra("position", 1);
-                bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity(), views[1], "image1").toBundle();
-                break;
-            case 2:
-                intent.putExtra("position", 2);
-                bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity(), views[2], "image2").toBundle();
-                break;
-            case 3:
-                Pair<View, String> pair0 = new Pair<>(views[0], "image0");
-                Pair<View, String> pair1 = new Pair<>(views[1], "image1");
-                Pair<View, String> pair2 = new Pair<>(views[2], "image2");
-                intent.putExtra("position", 3);
-                bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity(), pair0, pair1, pair2).toBundle();
-                break;
-            default:
-                return;
-        }
+    private void onClick(View view, int position) {
+        Intent intent = new Intent(activity(), ThirdActivity.class);
+        Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity(), view, "image0").toBundle();
+        intent.putExtra("position", position);
         startActivity(intent, bundle);
     }
 }

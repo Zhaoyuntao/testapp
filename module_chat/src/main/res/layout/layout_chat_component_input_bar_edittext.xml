@@ -48,7 +48,7 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:scrollbarStyle="insideInset"
-            android:scrollbarThumbVertical="@color/color_cac9c6"
+            android:scrollbarThumbVertical="@color/black"
             android:scrollbars="vertical"
             android:singleLine="false"
             android:textColor="@color/bot_input_box_hover_text_color"
