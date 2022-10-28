@@ -51,7 +51,6 @@ public class Activity0 extends BaseActivity {
         zRouters.add(new ZRouter("Qmoji", Activity_91_Qmoji.class));
         zRouters.add(new ZRouter("huawei meeting", Activity_92_huawei_meeting.class));
         zRouters.add(new ZRouter("threadPool", Activity_93_threadPool.class));
-        zRouters.add(new ZRouter("textview", Activity_95_textview.class));
         zRouters.add(new ZRouter("faceView", Activity_96_faceview.class));
         zRouters.add(new ZRouter("spannable", Activity_97_textview_spannable.class));
         zRouters.add(new ZRouter("stickerReply", Activity_98_sticker_reply.class));
@@ -82,6 +81,7 @@ public class Activity0 extends BaseActivity {
         zRouters.add(new ZRouter("window transition", Activity_9992_windowContentTransition.class));
         zRouters.add(new ZRouter("blur", Activity_99991_Blur.class));
         zRouters.add(new ZRouter("keyboard", Activity_99992_keyboard.class));
+        zRouters.add(new ZRouter("textview", Activity_95_textview.class));
 
         init(zRouters, savedInstanceState == null);
     }

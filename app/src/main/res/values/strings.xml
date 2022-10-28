@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Test Project</string>
     <string name="string_abc">abc</string>
+    <string name="hair_space">&#x200A;</string>
 </resources>
