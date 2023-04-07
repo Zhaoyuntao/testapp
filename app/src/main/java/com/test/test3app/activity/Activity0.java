@@ -14,7 +14,6 @@ import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleOwner;
 
 import com.test.test3app.R;
-import com.test.test3app.appbase.ZRouter;
 
 import im.turbo.baseui.utils.UiUtils;
 
@@ -63,7 +62,6 @@ public class Activity0 extends BaseActivity {
         zRouters.add(new ZRouter("Nest", Activity_998_nest.class));
         zRouters.add(new ZRouter("AnimateImage", Activity_9991_animateimageview.class));
         zRouters.add(new ZRouter("wam", Activity_9993_wam.class));
-        zRouters.add(new ZRouter("Loading", Activity_999_loading.class));
         zRouters.add(new ZRouter("mention", Activity_9995_mention.class));
         zRouters.add(new ZRouter("slide", Activity_993_slide.class));
         zRouters.add(new ZRouter("bubble", Activity_9996_bubble.class));
@@ -81,7 +79,10 @@ public class Activity0 extends BaseActivity {
         zRouters.add(new ZRouter("window transition", Activity_9992_windowContentTransition.class));
         zRouters.add(new ZRouter("blur", Activity_99991_Blur.class));
         zRouters.add(new ZRouter("keyboard", Activity_99992_keyboard.class));
+        zRouters.add(new ZRouter("Loading", Activity_999_loading.class));
         zRouters.add(new ZRouter("textview", Activity_95_textview.class));
+        zRouters.add(new ZRouter("imageview", Activity_95_imageview.class));
+        zRouters.add(new ZRouter("roundFrame", Activity_99993_roundFrameLayout.class));
 
         init(zRouters, savedInstanceState == null);
     }

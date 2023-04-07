@@ -1,0 +1,58 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white_black"
+    android:gravity="center"
+    android:orientation="vertical">
+
+<!--    <com.makeramen.roundedimageview.RoundedImageView-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:background="@color/white"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        android:src="@drawable/debug_background"-->
+<!--        app:riv_corner_radius="18dp"-->
+<!--        app:riv_mutate_background="true" />-->
+
+<!--    <im.turbo.baseui.roundcornerlayout.RoundCornerImageContainer-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="300dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:elevation="10dp"-->
+<!--        app:RoundCornerFrameLayout_radius="18dp">-->
+
+<!--&lt;!&ndash;        <ImageView&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:scaleType="centerCrop"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:src="@drawable/wallpaper2" />&ndash;&gt;-->
+<!--    </im.turbo.baseui.roundcornerlayout.RoundCornerImageContainer>-->
+
+    <im.turbo.baseui.roundcornerlayout.RoundCornerFrameLayout
+        android:id="@+id/round1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/shape_white_background_black_stroke"
+        app:RoundCornerFrameLayout_radius="18dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/debug_background" />
+    </im.turbo.baseui.roundcornerlayout.RoundCornerFrameLayout>
+
+<!--    <im.turbo.baseui.roundcornerlayout.RoundCornerImageContainer-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:background="#ff0000"-->
+<!--        android:elevation="0dp">-->
+
+<!--    </im.turbo.baseui.roundcornerlayout.RoundCornerImageContainer>-->
+</LinearLayout>

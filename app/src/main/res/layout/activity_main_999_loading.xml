@@ -11,7 +11,6 @@
         android:layout_width="300dp"
         android:layout_height="200dp"
         app:TProgressView_drawablePadding="-10dp"
-        app:TProgressView_rotateDuration="5000"
         app:TProgressView_strokeColor="#ff6666" />
 
     <im.turbo.baseui.progress.TProgressView
@@ -19,11 +18,10 @@
         android:layout_width="300dp"
         android:layout_height="100dp"
         android:layout_marginTop="20dp"
+        android:background="@color/white"
         android:paddingStart="50dp"
         android:paddingEnd="0dp"
         android:visibility="gone"
-        android:background="@color/white"
-        app:TProgressView_rotateDuration="2000"
         app:TProgressView_strokeColor="#00ff00"
         app:TProgressView_strokeColorBack="#9999ff"
         app:TProgressView_strokeRound="false"
@@ -36,9 +34,8 @@
         android:layout_height="100dp"
         android:layout_marginTop="20dp"
         android:background="@color/white"
-        android:visibility="gone"
         android:padding="5dp"
-        app:TProgressView_rotateDuration="1000" />
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/progress_touch"
@@ -58,6 +55,32 @@
         android:layout_marginBottom="30dp"
         android:orientation="horizontal"
         android:padding="10dp">
+
+        <base.ui.AutoSizeTextView
+            android:id="@+id/mode_init"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="#ff0000"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="init"
+            android:textColor="@color/white" />
+
+        <base.ui.AutoSizeTextView
+            android:id="@+id/mode_waiting"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="#ff0000"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="waiting"
+            android:textColor="@color/white" />
 
         <base.ui.AutoSizeTextView
             android:id="@+id/mode_downloading"

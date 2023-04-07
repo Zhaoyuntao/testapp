@@ -65,6 +65,11 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.Activity_95_textview"
+            android:screenOrientation="sensor"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Activity_95_imageview"
+            android:screenOrientation="sensor"
             android:exported="false" />
         <activity
             android:name=".activity.Activity_93_threadPool"
@@ -170,6 +175,10 @@
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".activity.Activity_99991_Blur"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+            android:name=".activity.Activity_99993_roundFrameLayout"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity

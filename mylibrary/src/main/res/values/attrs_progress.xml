@@ -4,12 +4,10 @@
         <attr name="TProgressView_drawablePadding" format="dimension" />
         <attr name="TProgressView_strokeColorBack" format="color" />
         <attr name="TProgressView_strokeColor" format="color" />
-        <attr name="TProgressView_strokeColorRotate" format="color" />
         <attr name="TProgressView_strokeRound" format="boolean" />
         <attr name="TProgressView_strokeWidth" format="dimension" />
         <attr name="TProgressView_strokeShadowWidth" format="dimension" />
         <attr name="TProgressView_strokeShadowColor" format="color" />
-        <attr name="TProgressView_rotateDuration" format="integer" />
     </declare-styleable>
     <declare-styleable name="TSlideProgressView">
         <attr name="TSlideProgressView_widthProgress" format="dimension" />

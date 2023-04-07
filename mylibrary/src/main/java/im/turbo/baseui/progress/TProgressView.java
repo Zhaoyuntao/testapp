@@ -15,7 +15,6 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
@@ -24,7 +23,6 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.doctor.mylibrary.R;
-import com.zhaoyuntao.androidutils.tools.S;
 
 import im.turbo.basetools.state.StateMachine;
 import im.turbo.baseui.utils.UiUtils;
@@ -35,126 +33,108 @@ import im.turbo.baseui.utils.UiUtils;
  * description:
  */
 public class TProgressView extends View {
-    private final int defaultDuration = 2000;
     private int strokeColor;
-    private int strokeColorRotate;
     private int strokeColorBack;
     private float strokeWidth;
     private Paint paint;
-    private float angle;
-    private long rotateDuration;
-    private ValueAnimator animatorRotateCanvas;
-    private ValueAnimator animatorWave;
+    private ValueAnimator animatorRotate;
     private ValueAnimator animatorSmooth;
     private Rect rectDrawable;
     private RectF rectStroke;
-    private int xCenter;
-    private int yCenter;
     private float drawablePadding;
-    private boolean useWaveProgress;
-    private float startAngle;
-    private float progressAngleFinal;
-    private float progressAngleForDraw;
+    private float totalProgress, currentProgress;
     private boolean strokeRound;
     private int strokeShadowColor;
     private float strokeShadowWidth;
     private final StateMachine<ViewMode> stateMachine = new StateMachine<>();
     private Drawable drawable;
     private boolean showProgress;
-    private boolean rotate;
+
+    private float progressOld;
+    private float rotatePercent;
+    private float wavePercentStart, wavePercentDelta;
+    private float smoothPercent;
 
     public TProgressView(Context context) {
-        super(context);
-        init(null);
+        super(context); init(null);
     }
 
     public TProgressView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        init(attrs);
+        super(context, attrs); init(attrs);
     }
 
     public TProgressView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init(attrs);
+        super(context, attrs, defStyleAttr); init(attrs);
     }
 
     public TProgressView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(attrs);
+        super(context, attrs, defStyleAttr, defStyleRes); init(attrs);
     }
 
     private void init(@Nullable AttributeSet attrs) {
-        int defaultStrokeColor = Color.parseColor("#01a983");
-        int defaultStrokeColorBack = Color.argb(20, 0, 0, 0);
+        int defaultStrokeColor = Color.WHITE; int defaultStrokeColorBack = Color.argb(20, 0, 0, 0);
         int defaultShadowColor = Color.argb(55, 0, 0, 0);
-        int defaultStrokeShadowWidth = UiUtils.dipToPx(2);
-        if (attrs != null) {
+        int defaultStrokeShadowWidth = UiUtils.dipToPx(2); if (attrs != null) {
             TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.TProgressView);
             drawablePadding = typedArray.getDimension(R.styleable.TProgressView_TProgressView_drawablePadding, 0);
             strokeColor = typedArray.getColor(R.styleable.TProgressView_TProgressView_strokeColor, defaultStrokeColor);
-            strokeColorRotate = typedArray.getColor(R.styleable.TProgressView_TProgressView_strokeColorRotate, defaultStrokeColor);
             strokeColorBack = typedArray.getColor(R.styleable.TProgressView_TProgressView_strokeColorBack, defaultStrokeColorBack);
             strokeWidth = typedArray.getDimension(R.styleable.TProgressView_TProgressView_strokeWidth, 0);
             strokeRound = typedArray.getBoolean(R.styleable.TProgressView_TProgressView_strokeRound, true);
             strokeShadowWidth = typedArray.getDimension(R.styleable.TProgressView_TProgressView_strokeShadowWidth, defaultStrokeShadowWidth);
             strokeShadowColor = typedArray.getColor(R.styleable.TProgressView_TProgressView_strokeShadowColor, defaultShadowColor);
-            rotateDuration = typedArray.getInt(R.styleable.TProgressView_TProgressView_rotateDuration, defaultDuration);
             typedArray.recycle();
         } else {
-            strokeColor = defaultStrokeColor;
-            strokeColorRotate = defaultStrokeColor;
-            strokeColorBack = defaultStrokeColorBack;
-            strokeShadowColor = defaultShadowColor;
-            strokeShadowWidth = defaultStrokeShadowWidth;
-            rotateDuration = defaultDuration;
+            strokeColor = defaultStrokeColor; strokeColorBack = defaultStrokeColorBack;
+            strokeShadowColor = defaultShadowColor; strokeShadowWidth = defaultStrokeShadowWidth;
             strokeRound = true;
         }
         paint = new Paint();
         rectStroke = new RectF();
         rectDrawable = new Rect();
-        animatorRotateCanvas = ValueAnimator.ofFloat(0, 1);
-        animatorRotateCanvas.setRepeatCount(INFINITE);
-        animatorRotateCanvas.setInterpolator(new LinearInterpolator());
-        animatorRotateCanvas.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+        final float animateValue = 2f;
+        animatorRotate = ValueAnimator.ofFloat(0, animateValue);
+        animatorRotate.setDuration(2000);
+        animatorRotate.setRepeatCount(INFINITE);
+        animatorRotate.setInterpolator(new LinearInterpolator());
+        animatorRotate.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float percent = (float) animation.getAnimatedValue();
-                angle = percent * 360;
-                postInvalidate();
-            }
-        });
-        animatorRotateCanvas.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                angle = 0;
-                postInvalidate();
-            }
-        });
-        animatorWave = ValueAnimator.ofFloat(0, 2);
-        animatorWave.setRepeatCount(INFINITE);
-        animatorWave.setInterpolator(new AccelerateDecelerateInterpolator());
-        animatorWave.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                rotatePercent = percent / animateValue;
 
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float percent = (float) animation.getAnimatedValue();
-                if (percent < 1f) {
-                    startAngle = 0;
-                    progressAngleForDraw = 360 * percent;
+                if (percent < animateValue / 2f) {
+                    wavePercentStart = 0;
+                    wavePercentDelta = percent;
                 } else {
-                    startAngle = 360 * (percent - 1);
-                    progressAngleForDraw = 360 - startAngle;
+                    wavePercentStart = percent - 1;
+                    wavePercentDelta = 1 - wavePercentStart;
                 }
                 postInvalidate();
             }
         });
-        animatorWave.addListener(new AnimatorListenerAdapter() {
+
+        animatorSmooth = new ValueAnimator();
+        animatorSmooth.setFloatValues(1, 0);
+        animatorSmooth.setInterpolator(new DecelerateInterpolator());
+        animatorSmooth.setDuration(300);
+        animatorSmooth.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                smoothPercent = (float) animation.getAnimatedValue(); postInvalidate();
+            }
+        });
+        animatorSmooth.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationCancel(Animator animation) {
-                startAngle = 0;
-                progressAngleForDraw = 0;
-                postInvalidate();
+                progressOld = 0;
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                progressOld = 0;
             }
         });
     }
@@ -170,12 +150,10 @@ public class TProgressView extends View {
         float halfStroke = strokeWidth / 2;
         float radiusStroke = Math.min(widthCanvas, heightCanvas) / 2f - halfStroke;
         float radiusDrawable = radiusStroke - halfStroke - drawablePadding;
-        xCenter = widthCanvas / 2 + getPaddingStart();
-        yCenter = heightCanvas / 2 + getPaddingTop();
-        float leftOfStroke = xCenter - radiusStroke;
-        float rightOfStroke = xCenter + radiusStroke;
-        float topOfStroke = yCenter - radiusStroke;
-        float bottomOfStroke = yCenter + radiusStroke;
+        int xCenter = widthCanvas / 2 + getPaddingStart();
+        int yCenter = heightCanvas / 2 + getPaddingTop();
+        float leftOfStroke = xCenter - radiusStroke; float rightOfStroke = xCenter + radiusStroke;
+        float topOfStroke = yCenter - radiusStroke; float bottomOfStroke = yCenter + radiusStroke;
         rectStroke.set(leftOfStroke, topOfStroke, rightOfStroke, bottomOfStroke);
         int leftOfDrawable = (int) (xCenter - radiusDrawable);
         int rightOfDrawable = (int) (xCenter + radiusDrawable);
@@ -187,53 +165,45 @@ public class TProgressView extends View {
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
+        float angleStart, angleDelta;
         if (showProgress) {
-            canvas.save();
-            canvas.rotate(angle, xCenter, yCenter);
-            paint.setColor(strokeColorBack);
-            paint.setStyle(Paint.Style.STROKE);
+            if (animatorRotate.isRunning()) {
+                angleStart = (rotatePercent * 360 - 90) + (360 * wavePercentStart);
+                angleDelta = Math.max(360 * wavePercentDelta, 0.1f);
+            } else {
+                angleStart = -90;
+                angleDelta = 360 * ((currentProgress - (currentProgress - progressOld) * smoothPercent) / totalProgress);
+            }
+            paint.setColor(strokeColorBack); paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeWidth(strokeWidth);
             paint.setStrokeCap(strokeRound ? Paint.Cap.ROUND : Paint.Cap.BUTT);
             paint.setAntiAlias(true);
             canvas.drawArc(rectStroke, 0, 360, false, paint);
-            paint.setColor(rotate ? strokeColorRotate : strokeColor);
+            paint.setColor(strokeColor);
             paint.setShadowLayer(strokeShadowWidth, 0, 0, strokeShadowColor);
-            canvas.drawArc(rectStroke, startAngle - 90, Math.max(progressAngleForDraw, 0.1f), false, paint);
-            canvas.restore();
+            canvas.drawArc(rectStroke, angleStart, angleDelta, false, paint);
             paint.clearShadowLayer();
         }
 
         if (drawable != null) {
-            drawable.setBounds(rectDrawable);
-            drawable.draw(canvas);
+            drawable.setBounds(rectDrawable); drawable.draw(canvas);
         }
     }
 
     public void setProgress(float current, float total) {
-        if (useWaveProgress) {
-            throw new RuntimeException("Please don't set progress when set wave progress");
-        }
-        float totalProgress = Math.max(0, total);
-        float currentProgress = Math.min(Math.max(0, current), totalProgress);
-        progressAngleFinal = 360 * (currentProgress / totalProgress);
-        startAngle = 0;
-        if (animatorSmooth != null && animatorSmooth.isRunning()) {
-            animatorSmooth.cancel();
-        }
-        float difference = progressAngleFinal - progressAngleForDraw;
-        float startAngle = progressAngleForDraw;
-        animatorSmooth = ValueAnimator.ofFloat(0, 1);
-        animatorSmooth.setInterpolator(new DecelerateInterpolator());
-        animatorSmooth.setDuration(300);
-        animatorSmooth.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float percent = (float) animation.getAnimatedValue();
-                progressAngleForDraw = startAngle + difference * percent;
-                postInvalidate();
+        totalProgress = Math.max(0, total);
+        float oldProgress = currentProgress;
+        currentProgress = Math.min(Math.max(0, current), totalProgress);
+        if (current >= oldProgress) {
+            if (!animatorSmooth.isRunning()) {
+                progressOld = oldProgress;
+                animatorSmooth.start();
             }
-        });
-        animatorSmooth.start();
+        } else {
+            smoothPercent = 0;
+            progressOld = 0;
+            postInvalidate();
+        }
     }
 
     public void setCurrentMode(int mode) {
@@ -253,13 +223,10 @@ public class TProgressView extends View {
             setOnClickListener(null);
             this.drawable = null;
             this.showProgress = false;
-            this.useWaveProgress = false;
-            this.rotateDuration = defaultDuration;
             closeAllAnimation();
-            this.angle = 0;
-            this.startAngle = 0;
-            this.progressAngleFinal = 0;
-            this.progressAngleForDraw = 0;
+            this.rotatePercent = 0;
+            this.wavePercentStart = 0;
+            this.wavePercentDelta = 0;
         } else {
             setVisibility(viewMode.getVisible());
             setOnClickListener(viewMode.getListener());
@@ -268,39 +235,22 @@ public class TProgressView extends View {
                 try {
                     this.drawable = ContextCompat.getDrawable(getContext(), drawableRes);
                 } catch (Throwable ignore) {
+                    this.drawable = null;
                 }
             } else {
                 this.drawable = null;
             }
             this.showProgress = viewMode.isShowProgress();
-            this.useWaveProgress = viewMode.useWaveProgress();
-            this.rotateDuration = viewMode.getRotateDuration();
             if (showProgress) {
-                this.rotate = viewMode.isRotate();
-                if (rotate) {
-                    if (rotateDuration <= 0) {
-                        rotateDuration = defaultDuration;
-                    }
-                    animatorRotateCanvas.setDuration(rotateDuration);
-                    animatorRotateCanvas.start();
-                    animatorWave.setDuration(rotateDuration * 2);
-                    if (useWaveProgress) {
-                        animatorWave.start();
-                    } else {
-                        animatorWave.cancel();
-                        angle = 0;
-                    }
+                if (viewMode.isRotate()) {
+                    startRotateAnimator();
                 } else {
-                    this.animatorRotateCanvas.cancel();
-                    this.animatorWave.cancel();
-                    this.angle = 0;
-                    invalidate();
+                    stopRotateAnimator();
                 }
             } else {
-                this.angle = 0;
-                this.startAngle = 0;
-                this.progressAngleFinal = 0;
-                this.progressAngleForDraw = 0;
+                this.rotatePercent = 0;
+                this.wavePercentStart = 0;
+                this.wavePercentDelta = 0;
             }
         }
         invalidate();
@@ -312,15 +262,25 @@ public class TProgressView extends View {
         }
     }
 
+    private void startRotateAnimator() {
+        currentProgress = 0;
+        if (!animatorRotate.isRunning()) {
+            animatorRotate.start();
+        }
+    }
+
+    private void stopRotateAnimator() {
+        if (animatorRotate.isRunning()) {
+            animatorRotate.cancel();
+        }
+    }
+
     public void closeAllAnimation() {
-        if (animatorSmooth != null && animatorSmooth.isRunning()) {
+        if (animatorSmooth.isRunning()) {
             animatorSmooth.cancel();
         }
-        if (animatorRotateCanvas != null && animatorRotateCanvas.isRunning()) {
-            animatorRotateCanvas.cancel();
-        }
-        if (animatorWave != null && animatorWave.isRunning()) {
-            animatorWave.cancel();
+        if (animatorRotate.isRunning()) {
+            animatorRotate.cancel();
         }
     }
 
@@ -331,10 +291,15 @@ public class TProgressView extends View {
         }
     }
 
+    public void setStrokeColor(int strokeColor, int strokeColorBack) {
+        this.strokeColor = strokeColor;
+        this.strokeColorBack = strokeColorBack;
+    }
+
     @Override
-    public void destroyDrawingCache() {
+    protected void onDetachedFromWindow() {
         closeAllAnimation();
         clearVideMode();
-        super.destroyDrawingCache();
+        super.onDetachedFromWindow();
     }
 }

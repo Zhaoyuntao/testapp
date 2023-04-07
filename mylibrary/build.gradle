@@ -40,4 +40,5 @@ dependencies {
     api 'androidx.emoji:emoji:1.1.0'
     api "androidx.recyclerview:recyclerview:1.2.1"
     api 'androidx.constraintlayout:constraintlayout:2.1.4'
+    api 'com.facebook.fresco:fresco:3.0.0'
 }

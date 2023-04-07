@@ -15,9 +15,7 @@ import im.turbo.basetools.state.State;
 final public class ViewMode extends State<ViewMode> {
     @DrawableRes
     private int drawableRes;
-    private long rotateDuration;
     private boolean showProgress;
-    private boolean useWaveProgress;
     private boolean rotate;
     private View.OnClickListener listener;
     private int visible = View.VISIBLE;
@@ -46,23 +44,9 @@ final public class ViewMode extends State<ViewMode> {
         return this;
     }
 
-    public ViewMode useWaveProgress(boolean useWaveProgress) {
-        this.useWaveProgress = useWaveProgress;
-        return this;
-    }
-
-    public ViewMode duration(long rotateDuration) {
-        this.rotateDuration = rotateDuration;
-        return this;
-    }
-
     public ViewMode listener(View.OnClickListener listener) {
         this.listener = listener;
         return this;
-    }
-
-    public boolean isUseWaveProgress() {
-        return useWaveProgress;
     }
 
     public boolean isRotate() {
@@ -82,16 +66,8 @@ final public class ViewMode extends State<ViewMode> {
         return showProgress;
     }
 
-    public boolean useWaveProgress() {
-        return useWaveProgress;
-    }
-
     public View.OnClickListener getListener() {
         return listener;
-    }
-
-    public long getRotateDuration() {
-        return rotateDuration;
     }
 
     public ViewMode visible(int visible) {

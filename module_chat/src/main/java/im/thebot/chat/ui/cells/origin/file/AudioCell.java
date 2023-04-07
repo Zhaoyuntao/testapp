@@ -371,7 +371,6 @@ public class AudioCell extends BaseFileCell<AudioMessageForUI> {
                         }),
                 new ViewMode(FileStatusCode.STATUS_FILE_UPLOAD_WAITING)
                         .drawable(R.drawable.chat_voice_cancel_normal)
-                        .useWaveProgress(true)
                         .showProgress(true)
                         .rotate(true)
                         .listener(new View.OnClickListener() {
@@ -388,7 +387,6 @@ public class AudioCell extends BaseFileCell<AudioMessageForUI> {
                         }),
                 new ViewMode(FileStatusCode.STATUS_FILE_DOWNLOAD_WAITING)
                         .drawable(R.drawable.chat_voice_cancel_normal)
-                        .useWaveProgress(true)
                         .showProgress(true)
                         .rotate(true)
                         .listener(new View.OnClickListener() {

@@ -161,7 +161,6 @@ public class ImageCell extends BaseFileCell<ImageMessageForUI> {
                         }),
                 new ViewMode(FileStatusCode.STATUS_FILE_UPLOAD_WAITING)
                         .drawable(R.drawable.svg_close_white)
-                        .useWaveProgress(true)
                         .showProgress(true)
                         .rotate(true)
                         .listener(new OnClickListener() {
@@ -178,7 +177,6 @@ public class ImageCell extends BaseFileCell<ImageMessageForUI> {
                         }),
                 new ViewMode(FileStatusCode.STATUS_FILE_DOWNLOAD_WAITING)
                         .drawable(R.drawable.svg_close_white)
-                        .useWaveProgress(true)
                         .showProgress(true)
                         .rotate(true)
                         .listener(new OnClickListener() {

@@ -8,6 +8,7 @@ import androidx.core.provider.FontRequest;
 import androidx.emoji.text.EmojiCompat;
 import androidx.emoji.text.FontRequestEmojiCompatConfig;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.test.test3app.R;
 import im.turbo.baseui.utils.UiUtils;
 
@@ -24,6 +25,7 @@ public class ZApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fresco.initialize(this);
         Thread.UncaughtExceptionHandler defaultUncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
         Thread.setDefaultUncaughtExceptionHandler(new TestExceptionHandler(defaultUncaughtExceptionHandler));
         initEmojiCompat();

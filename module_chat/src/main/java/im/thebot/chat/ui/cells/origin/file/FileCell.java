@@ -144,7 +144,6 @@ public class FileCell extends BaseFileCell<FileMessageForUI> {
                         }),
                 new ViewMode(FileStatusCode.STATUS_FILE_UPLOAD_WAITING)
                         .drawable(R.drawable.chat_voice_cancel_normal)
-                        .useWaveProgress(true)
                         .showProgress(true)
                         .rotate(true)
                         .listener(new OnClickListener() {
@@ -155,7 +154,6 @@ public class FileCell extends BaseFileCell<FileMessageForUI> {
                         }),
                 new ViewMode(FileStatusCode.STATUS_FILE_DOWNLOAD_WAITING)
                         .drawable(R.drawable.chat_voice_cancel_normal)
-                        .useWaveProgress(true)
                         .showProgress(true)
                         .rotate(true)
                         .listener(new OnClickListener() {
