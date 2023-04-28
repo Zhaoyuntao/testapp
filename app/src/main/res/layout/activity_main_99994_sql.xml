@@ -1,0 +1,279 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f0f0f0"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/message_view_dump_db1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:text="db1 dump"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/message_view_dump_db2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="30dp"
+            android:layout_weight="3"
+            android:background="@color/black"
+            android:text="dump S_A\n"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/message_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/black"
+        android:text="all db and table result"
+        android:textColor="@color/white"
+        android:textSize="10sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/message_view_auto_insert"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:text="insert db1 table1"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/message_view_auto_insert2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="1dp"
+            android:layout_weight="1"
+            android:background="#0000ff"
+            android:text="insert db1 table2"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/message_view_auto_insert3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="1dp"
+            android:layout_weight="1"
+            android:background="#008800"
+            android:text="insert db2 table1"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="1dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/message_view_auto_select"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:text="select db1 table1"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/message_view_auto_select2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="1dp"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:text="select db1 table1"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/message_view_auto_select3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="1dp"
+            android:layout_weight="1"
+            android:background="#404040"
+            android:text="select db1 table2"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/message_view_auto_select4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="1dp"
+            android:layout_weight="1"
+            android:background="#008800"
+            android:text="select db2 table1"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp">
+
+        <base.ui.AutoSizeTextView
+            android:id="@+id/text_view_search"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="#ff0000"
+            android:gravity="center"
+            android:text="select all"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:autoRadius="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp">
+
+        <base.ui.AutoSizeTextView
+            android:id="@+id/text_view_auto_insert"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="#ff0000"
+            android:gravity="center"
+            android:text="insert db1 table1"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:autoRadius="10dp" />
+
+        <base.ui.AutoSizeTextView
+            android:id="@+id/text_view_auto_insert2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="#404040"
+            android:gravity="center"
+            android:text="insert db1 table2"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:autoRadius="10dp" />
+
+        <base.ui.AutoSizeTextView
+            android:id="@+id/text_view_auto_insert3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="#008800"
+            android:gravity="center"
+            android:text="insert db2 table1"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:autoRadius="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp">
+
+        <base.ui.AutoSizeTextView
+            android:id="@+id/text_view_auto_search"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="#ff0000"
+            android:gravity="center"
+            android:text="db1 table1"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:autoRadius="10dp" />
+
+        <base.ui.AutoSizeTextView
+            android:id="@+id/text_view_auto_search_table1_2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="#ff0000"
+            android:gravity="center"
+            android:text="db1 table1"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:autoRadius="10dp" />
+
+        <base.ui.AutoSizeTextView
+            android:id="@+id/text_view_auto_search_table2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="#404040"
+            android:gravity="center"
+            android:text="db1 table2"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:autoRadius="10dp" />
+
+        <base.ui.AutoSizeTextView
+            android:id="@+id/text_view_auto_search_table3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="#008800"
+            android:gravity="center"
+            android:text="select db2"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:autoRadius="10dp" />
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -182,6 +182,10 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
+            android:name=".activity.Activity_99994_Sql"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
             android:name=".activity.Activity_99992_keyboard"
             android:exported="false"
             android:configChanges="uiMode"

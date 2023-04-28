@@ -81,6 +81,7 @@ public class TimeUtils {
     public static final String TIME_FORMAT_YMD_HMS_FILENAME = "yy-MM-dd_hh_mm_ss_a";
     public static final String TIME_FORMAT_YMD_HMS_MILLISECOND = "yy-MM-dd_hh_mm_ss_SSS";
     public static final String TIME_FORMAT_YYYYMMDD_HMS_MILLISECOND = "yyyyMMdd-HH:mm:ss:SSS";
+    public static final String TIME_FORMAT_YYYYMMDD_HMS_MILLISECOND_2 = "HH:mm:ss:SSS";
     public static final String TIME_FORMAT_YYYY_MM = "yyyy-MM";
     public static final String TIME_FORMAT_YMD_HM_FOR_ISSUE = "yyyy/MM/dd,HH:mm";
     public static final String TIME_FORMAT_DETAIL = "yyyy-MM-dd'T'HH:mm:ss'Z'";
@@ -548,26 +549,6 @@ public class TimeUtils {
     public static String formatSeconds(long time) {
         String offset = String.format(Locale.US, "%02d:%02d:%02d", Math.abs(time / 3600000), Math.abs((time / 60000) % 60), Math.abs((time / 1000) % 60));
         return offset;
-    }
-
-    public static String formatHHmmss(long seconds) {
-        StringBuilder sb = new StringBuilder();
-        int second = (int) (seconds % 60);
-        seconds = seconds / 60L;
-        int minute = (int) seconds % 60;
-        int hour = (int) (seconds / 60);
-        sb.append(hour < 10 ? "0" : "");
-        sb.append(hour);
-        sb.append(":");
-
-        sb.append(minute < 10 ? "0" : "");
-        sb.append(minute);
-        sb.append(":");
-
-        sb.append(second < 10 ? "0" : "");
-        sb.append(second);
-
-        return new String(sb);
     }
 
 

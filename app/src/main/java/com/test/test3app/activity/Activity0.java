@@ -83,6 +83,7 @@ public class Activity0 extends BaseActivity {
         zRouters.add(new ZRouter("textview", Activity_95_textview.class));
         zRouters.add(new ZRouter("imageview", Activity_95_imageview.class));
         zRouters.add(new ZRouter("roundFrame", Activity_99993_roundFrameLayout.class));
+        zRouters.add(new ZRouter("sql", Activity_99994_Sql.class));
 
         init(zRouters, savedInstanceState == null);
     }
