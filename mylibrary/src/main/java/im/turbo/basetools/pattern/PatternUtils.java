@@ -45,7 +45,7 @@ public class PatternUtils {
     }
 
     public static List<TPatternGroup> match(String patternString, CharSequence text, int maxLength) {
-        if (TextUtils.isEmpty(patternString) || TextUtils.isEmpty(text) || text.length() < 3 || text.length() > Math.max(maxLength, 1000)) {
+        if (TextUtils.isEmpty(patternString) || TextUtils.isEmpty(text) || text.length() > Math.max(maxLength, 1000)) {
             return null;
         }
         List<TPatternGroup> patternBeans = new ArrayList<>();

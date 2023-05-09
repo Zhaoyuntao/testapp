@@ -108,7 +108,7 @@ public class PatternSpannableBuilder {
 
     private void replace(ItemProcessor itemProcessor, CharSequence text, int maxLength, List<RangePair> rangePairs) {
         String patternString = itemProcessor.getPatternString();
-        if (TextUtils.isEmpty(patternString) || TextUtils.isEmpty(text) || text.length() < 3 || text.length() > Math.max(maxLength, 1000)) {
+        if (TextUtils.isEmpty(patternString) || TextUtils.isEmpty(text) || text.length() > Math.max(maxLength, 1000)) {
             return;
         }
         List<TPatternGroup> groupBeans = PatternUtils.match(patternString, text, text.length());

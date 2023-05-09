@@ -145,25 +145,20 @@ public class LinkifyPort {
             "\uDB00\uDC00-\uDB3F\uDFFD" +
             "\uDB44\uDC00-\uDB7F\uDFFD" +
             "&&[^\u00A0[\u2000-\u200A]\u2028\u2029\u202F\u3000]" +
-            "&&[^\u4E00-\u9FA5]"
-            + "]";
+            "]";
+    private static final String NO_CHINESE_CHAR = "[^\u4E00-\u9FA5]";
     private static final String IP_ADDRESS_STRING =
             "((25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9])\\.(25[0-5]|2[0-4]"
                     + "[0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1]"
                     + "[0-9]{2}|[1-9][0-9]|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}"
                     + "|[1-9][0-9]|[0-9]))";
-    private static final String TLD_CHAR = "a-zA-Z" + UCS_CHAR;
     private static final String PUNYCODE_TLD = "xn\\-\\-[\\w\\-]{0,58}\\w";
     private static final String LABEL_CHAR = "a-zA-Z0-9" + UCS_CHAR;
-    private static final String LABEL_CHAR_NO_NUMBER = "[" + "a-zA-Z" + UCS_CHAR + "]+";
-    private static final String IRI_LABEL = LABEL_CHAR_NO_NUMBER + "(?:[" + LABEL_CHAR + "_\\-]{0,61}[" + LABEL_CHAR + "]){0,1}";
-    private static String STRICT_TLD = "(?:" + IANA_TOP_LEVEL_DOMAINS + "|" + PUNYCODE_TLD + ")";
+    private static final String LABEL_CHAR_NO_CHINESE = "a-zA-Z0-9" + UCS_CHAR + "&&" + NO_CHINESE_CHAR;
+    private static final String IRI_LABEL = "[" + LABEL_CHAR_NO_CHINESE + "][_-]{0,61}[" + LABEL_CHAR_NO_CHINESE + "]{0,61}";
+    private static final String STRICT_TLD = "(?:" + IANA_TOP_LEVEL_DOMAINS + "|" + PUNYCODE_TLD + ")";
     private static final String STRICT_HOST_NAME = "(?:(?:" + IRI_LABEL + "\\.)+" + STRICT_TLD + ")";
     private static final String STRICT_DOMAIN_NAME = "(?:" + STRICT_HOST_NAME + "|" + IP_ADDRESS_STRING + ")";
-    private static final String TLD = "(" + PUNYCODE_TLD + "|" + "[" + TLD_CHAR + "]{2,63}" + ")";
-    private static final String HOST_NAME = "(" + IRI_LABEL + "\\.)+" + TLD;
-    private static final String DOMAIN_NAME_STR = "(" + HOST_NAME + "|" + IP_ADDRESS_STRING + ")";
-    private static final Pattern DOMAIN_NAME = Pattern.compile(DOMAIN_NAME_STR);
     private static final String PROTOCOL = "(?i:http|https|ton|tg)://";
     private static final String WORD_BOUNDARY = "(?:\\b|$|^)";
     private static final String USER_INFO = "(?:[a-zA-Z0-9\\$\\-\\_\\.\\+\\!\\*\\'\\(\\)"
@@ -171,28 +166,28 @@ public class LinkifyPort {
             + "\\.\\+\\!\\*\\'\\(\\)\\,\\;\\?\\&\\=]|(?:\\%[a-fA-F0-9]{2})){1,25})?\\@";
     private static final String PORT_NUMBER = "\\:\\d{1,5}";
     private static final String PATH_AND_QUERY = "[/\\?](?:(?:[" + LABEL_CHAR + ";/\\?:@&=#~" + "\\-\\.\\+!\\*'\\(\\),_\\$])|(?:%[a-fA-F0-9]{2}))*";
-    private static final String RELAXED_DOMAIN_NAME = "(?:" + "(?:" + IRI_LABEL + "(?:\\.(?=\\S))" + "?)+" + "|" + IP_ADDRESS_STRING + ")";
+    private static final String RELAXED_DOMAIN_NAME = "(?:" + "(?:" + IRI_LABEL + "(?:\\.(?=\\S))" + ")*" + "(?:" + IRI_LABEL + "(?:\\.(?=\\S))" + "?)" + "|" + IP_ADDRESS_STRING + ")";
 
-    private static final String WEB_URL_WITHOUT_PROTOCOL = "("
-//            + WORD_BOUNDARY
-            + "(?<!:\\/\\/)"
+    public static final String WEB_URL_WITHOUT_PROTOCOL = "("
+            + "(?<!([a-zA-Z0-9]))"
             + "("
             + "(?:" + STRICT_DOMAIN_NAME + ")"
             + "(?:" + PORT_NUMBER + ")?"
             + ")"
             + "(?:" + PATH_AND_QUERY + ")?"
-//            + WORD_BOUNDARY
+            + "(?!(tp))"
             + ")";
 
-    private static final String WEB_URL_WITH_PROTOCOL = "("
-//            + WORD_BOUNDARY
+    public static final String WEB_URL_WITH_PROTOCOL = "("
+            + "(?<![a-zA-Z0-9])"
             + "(?:"
             + "(?:" + PROTOCOL + "(?:" + USER_INFO + ")?" + ")"
             + "(?:" + RELAXED_DOMAIN_NAME + ")?"
             + "(?:" + PORT_NUMBER + ")?"
             + ")"
             + "(?:" + PATH_AND_QUERY + ")?"
-//            + WORD_BOUNDARY
+            + "(?!(tp))"
             + ")";
     public static String WEB_URL_PATTERN = "(" + WEB_URL_WITH_PROTOCOL + "|" + WEB_URL_WITHOUT_PROTOCOL + ")";
+    private static final Pattern DOMAIN_NAME = Pattern.compile(WEB_URL_PATTERN);
 }
