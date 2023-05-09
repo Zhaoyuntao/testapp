@@ -56,7 +56,7 @@ public class Activity_99994_Sql extends BaseActivity {
         TDBMonitor.addListener(new OnDBTaskStateChangeListener() {
             @Override
             public void onDump(@NonNull List<DBTaskState> tags, @NonNull String log) {
-                runOnUiThread(() -> messageViewDump.setText(log));
+                runOnUiThread(() -> messageViewDump.append(log));
             }
 
             @Override
@@ -78,11 +78,12 @@ public class Activity_99994_Sql extends BaseActivity {
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                messageViewDump.setText("");
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         List<ZEntry> result1 = zSqlHelper.select("S_A", ZEntry.TABLE_NAME, "Hello", true);
-                        List<ZEntry> result2 = zSqlHelper.select("S_B", ZEntry.TABLE_NAME2, "Hello", false);
+                        List<ZEntry> result2 = zSqlHelper.select("S_B", ZEntry.TABLE_NAME2, "Hello", true);
                         List<ZEntry> result3 = zSqlHelper2.select("S_C", ZEntry.TABLE_NAME, "Hello", false);
                         runOnUiThread(new Runnable() {
                             @Override
@@ -195,9 +196,15 @@ public class Activity_99994_Sql extends BaseActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (switcher.open) {
-                    ZEntry zEntry = new ZEntry(); zEntry.title = "Hello";
-                    zEntry.subtitle = "subHello"; zSqlHelper.insert(tag, table, zEntry, false);
+                long time = System.currentTimeMillis();
+                int i = 0;
+                while (switcher.open && i++ < 50000) {
+                    ZEntry zEntry = new ZEntry();
+                    zEntry.title = "Hello";
+                    zEntry.subtitle = "subHello";
+                    zEntry.time = time++;
+                    zEntry.time2 = time++;
+                    zSqlHelper.insert(tag, table, zEntry, false);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

@@ -33,11 +33,7 @@ public class PatternUtils {
     private static final String WEB_URL_DOMAIN_NAME = "[a-zA-Z0-9_\\-]";
     private static final String WEB_URL_PARAM = "[a-zA-Z0-9_\\-+=&?!@#$%^*():：'\";]";
 
-    public static final String WEB_URL = "(?<![@A-Za-z0-9.])(" +
-            "(" + WEB_URL_PREFIX + "?" + WEB_URL_DOMAIN_NAME + "+(\\." + WEB_URL_DOMAIN_NAME + "{2,})+" + WEB_URL_SUFFIX + "*(/" + WEB_URL_PARAM + "*)*(\\?" + WEB_URL_PARAM + "*)?)" +
-            "|(" + WEB_URL_DOMAIN_NAME + "+(\\." + WEB_URL_DOMAIN_NAME + "{2,})*\\." + WEB_URL_SUFFIX + ")" +
-            "|(" + WEB_URL_PREFIX + WEB_URL_DOMAIN_NAME + "+(\\." + WEB_URL_DOMAIN_NAME + "{2,})+)" +
-            ")(?![@A-Za-z0-9.])";
+    public static final String WEB_URL = LinkifyPort.WEB_URL_PATTERN;
 //    Pattern p = Pattern.compile(WEB_URL);
 
 
