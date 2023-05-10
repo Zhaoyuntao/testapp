@@ -43,7 +43,7 @@ public class LinkifyPort {
                     + "|graphics|gratis|green|gripe|group|gucci|guge|guide|guitars|guru|g[abdefghilmnpqrstuwy])"
                     + "|(?:hamburg|hangout|haus|healthcare|help|here|hermes|hiphop|hitachi|hiv|hockey|holdings"
                     + "|holiday|homedepot|homes|honda|horse|host|hosting|hoteles|hotmail|house|how|hsbc|hyundai"
-                    + "|h[kmnrtu])"
+                    + "|h[kmnru]|ht(?!tp))"
                     + "|(?:ibm|icbc|ice|icu|ifm|iinet|immo|immobilien|industries|infiniti|info|ing|ink|institute"
                     + "|insure|int|international|investments|ipiranga|irish|ist|istanbul|itau|iwc|i[delmnoqrst])"
                     + "|(?:jaguar|java|jcb|jetzt|jewelry|jlc|jll|jobs|joburg|jprs|juegos|j[emop])"
@@ -169,24 +169,16 @@ public class LinkifyPort {
     private static final String RELAXED_DOMAIN_NAME = "(?:" + "(?:" + IRI_LABEL + "(?:\\.(?=\\S))" + ")*" + "(?:" + IRI_LABEL + "(?:\\.(?=\\S))" + "?)" + "|" + IP_ADDRESS_STRING + ")";
 
     public static final String WEB_URL_WITHOUT_PROTOCOL = "("
-            + "(?<!([a-zA-Z0-9]))"
-            + "("
             + "(?:" + STRICT_DOMAIN_NAME + ")"
             + "(?:" + PORT_NUMBER + ")?"
-            + ")"
             + "(?:" + PATH_AND_QUERY + ")?"
-            + "(?!(tp))"
             + ")";
 
     public static final String WEB_URL_WITH_PROTOCOL = "("
-            + "(?<![a-zA-Z0-9])"
-            + "(?:"
             + "(?:" + PROTOCOL + "(?:" + USER_INFO + ")?" + ")"
             + "(?:" + RELAXED_DOMAIN_NAME + ")?"
             + "(?:" + PORT_NUMBER + ")?"
-            + ")"
             + "(?:" + PATH_AND_QUERY + ")?"
-            + "(?!(tp))"
             + ")";
     public static String WEB_URL_PATTERN = "(" + WEB_URL_WITH_PROTOCOL + "|" + WEB_URL_WITHOUT_PROTOCOL + ")";
     private static final Pattern DOMAIN_NAME = Pattern.compile(WEB_URL_PATTERN);
