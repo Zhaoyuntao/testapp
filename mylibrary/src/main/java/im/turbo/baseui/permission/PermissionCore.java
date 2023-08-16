@@ -12,7 +12,6 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 
 import com.doctor.mylibrary.R;
-import com.zhaoyuntao.androidutils.tools.S;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -22,6 +21,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import im.turbo.baseui.lifecircle.LifeCycleHelper;
+import im.turbo.baseui.permissionstore.PermissionSharedPref;
 
 /**
  * created by zhaoyuntao
@@ -133,6 +133,7 @@ class PermissionCore {
                 return R.drawable.permission_ic_location;
             case Manifest.permission.WRITE_EXTERNAL_STORAGE:
             case Manifest.permission.READ_EXTERNAL_STORAGE:
+            case Manifest.permission.READ_EXTERNAL_STORAGE + Manifest.permission.WRITE_EXTERNAL_STORAGE:
                 return R.drawable.permission_ic_storage;
             case Manifest.permission.CAMERA + Manifest.permission.RECORD_AUDIO:
                 return R.drawable.permission_ic_audio_camera;
@@ -182,7 +183,14 @@ class PermissionCore {
     static boolean requestedPermissionBefore(Context context, @Permission String deniedPermission) {
         int mode = Context.MODE_PRIVATE | Context.MODE_MULTI_PROCESS;
         SharedPreferences pref = context.getSharedPreferences(STORAGE_PERMISSION, mode);
-        return pref.getBoolean(deniedPermission, false);
+        boolean requested = pref.getBoolean(deniedPermission, false);
+        if (!requested) {
+            requested = !PermissionSharedPref.getInstance(null).isFirstRequest(deniedPermission);
+            if (requested) {
+                setPermissionRequested(context, new String[]{deniedPermission});
+            }
+        }
+        return requested;
     }
 
     static void setPermissionRequested(Context context, @Permission String[] deniedPermissions) {

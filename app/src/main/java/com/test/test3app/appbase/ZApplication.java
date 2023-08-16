@@ -10,7 +10,7 @@ import androidx.emoji.text.FontRequestEmojiCompatConfig;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.test.test3app.R;
-import im.turbo.baseui.utils.UiUtils;
+import com.test.test3app.notification.TNotificationHelper;
 
 import im.turbo.thread.ThreadPool;
 import im.turbo.utils.ResourceUtils;
@@ -30,6 +30,7 @@ public class ZApplication extends Application {
         Thread.setDefaultUncaughtExceptionHandler(new TestExceptionHandler(defaultUncaughtExceptionHandler));
         initEmojiCompat();
         ThreadPool.startup();
+        TNotificationHelper.getInstance().initNotificationChannel();
     }
 
     private void initEmojiCompat() {

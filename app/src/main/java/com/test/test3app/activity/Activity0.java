@@ -2,6 +2,7 @@ package com.test.test3app.activity;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -14,7 +15,12 @@ import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleOwner;
 
 import com.test.test3app.R;
+import com.test.test3app.call.PhoneStateService;
+import com.zhaoyuntao.androidutils.tools.ZP;
 
+import im.turbo.baseui.permission.Permission;
+import im.turbo.baseui.permission.PermissionResult;
+import im.turbo.baseui.permission.PermissionUtils;
 import im.turbo.baseui.utils.UiUtils;
 
 import java.util.ArrayList;
@@ -36,7 +42,7 @@ public class Activity0 extends BaseActivity {
         getLifecycle().addObserver(new LifecycleEventObserver() {
             @Override
             public void onStateChanged(@NonNull LifecycleOwner source, @NonNull Lifecycle.Event event) {
-                S.s(logOpen, "onStateChanged: event:" + event);
+//                S.s(logOpen, "onStateChanged: event:" + event);
             }
         });
         S.s(logOpen, "onCreate");
@@ -67,7 +73,6 @@ public class Activity0 extends BaseActivity {
         zRouters.add(new ZRouter("bubble", Activity_9996_bubble.class));
         zRouters.add(new ZRouter("cell", Activity_990_cell.class));
         zRouters.add(new ZRouter("dark mode", Activity_99_dark_mode.class));
-        zRouters.add(new ZRouter("Dir", Activity_9997_dir.class));
         zRouters.add(new ZRouter("wallpaper", Activity_94_wallpaper.class));
         zRouters.add(new ZRouter("toolbar", Activity_9998_toolbar.class));
         zRouters.add(new ZRouter("viewpager2", Activity_9999_viewpager2.class));
@@ -75,7 +80,6 @@ public class Activity0 extends BaseActivity {
         zRouters.add(new ZRouter("smooth", Activity_8_smoothSwitch.class));
         zRouters.add(new ZRouter("NewPermission", Activity_9994_permission.class));
         zRouters.add(new ZRouter("Event", ChatActivity.class));
-        zRouters.add(new ZRouter("notification", Activity_2_notification.class));
         zRouters.add(new ZRouter("window transition", Activity_9992_windowContentTransition.class));
         zRouters.add(new ZRouter("blur", Activity_99991_Blur.class));
         zRouters.add(new ZRouter("keyboard", Activity_99992_keyboard.class));
@@ -83,10 +87,19 @@ public class Activity0 extends BaseActivity {
         zRouters.add(new ZRouter("textview", Activity_95_textview.class));
         zRouters.add(new ZRouter("imageview", Activity_95_imageview.class));
         zRouters.add(new ZRouter("roundFrame", Activity_99993_roundFrameLayout.class));
-        zRouters.add(new ZRouter("sql", Activity_99994_Sql.class));
         zRouters.add(new ZRouter("url", Activity_99995_webURL.class));
+        zRouters.add(new ZRouter("sql", Activity_99994_Sql.class));
+        zRouters.add(new ZRouter("Dir", Activity_9997_dir.class));
+        zRouters.add(new ZRouter("notification", Activity_2_notification.class));
 
         init(zRouters, savedInstanceState == null);
+
+        PermissionUtils.requestPermission(activity(), new PermissionResult() {
+            @Override
+            public void onGranted(@NonNull String[] grantedPermissions) {
+
+            }
+        }, Permission.READ_PHONE_STATE);
     }
 
     private void init(List<ZRouter> zRouters, boolean jump) {

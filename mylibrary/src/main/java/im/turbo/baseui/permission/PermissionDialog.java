@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -50,13 +51,17 @@ public class PermissionDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.layout_dialog_permission, container, false);
         ImageView iconView = view.findViewById(R.id.permission_dialog_icon);
         TextView messageView = view.findViewById(R.id.permission_dialog_message);
-        TextView buttonViewLeft = view.findViewById(R.id.permission_dialog_left);
-        TextView buttonViewRight = view.findViewById(R.id.permission_dialog_right);
+        Button buttonViewLeft = view.findViewById(R.id.permission_dialog_left);
+        Button buttonViewRight = view.findViewById(R.id.permission_dialog_right);
 
         iconView.setImageResource(drawableRes);
-        messageView.setText(stringRes);
+        if (stringRes != 0) {
+            messageView.setText(stringRes);
+        }
 
-        buttonViewLeft.setText(leftStringRes);
+        if (leftStringRes != 0) {
+            buttonViewLeft.setText(leftStringRes);
+        }
         buttonViewLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,7 +74,9 @@ public class PermissionDialog extends DialogFragment {
         });
         buttonViewLeft.setVisibility(View.VISIBLE);
 
-        buttonViewRight.setText(rightStringRes);
+        if (rightStringRes != 0) {
+            buttonViewRight.setText(rightStringRes);
+        }
         buttonViewRight.setOnClickListener(new AvoidDoubleClickListener() {
             @Override
             public void onClickView(View view) {

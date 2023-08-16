@@ -33,13 +33,13 @@
         android:gravity="end"
         android:orientation="horizontal">
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <Button
             android:id="@+id/permission_dialog_left"
             style="@style/TPermissionDialogButton"
             android:visibility="gone"
             tools:visibility="visible" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <Button
             android:id="@+id/permission_dialog_right"
             style="@style/TPermissionDialogButton"
             android:visibility="gone"

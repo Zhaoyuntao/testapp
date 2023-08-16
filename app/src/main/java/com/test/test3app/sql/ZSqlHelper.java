@@ -7,12 +7,17 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.test.test3app.sql.operation.DBOperation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Map;
 
+import im.turbo.basetools.util.ValueSafeTransfer;
 import im.turbo.utils.log.S;
 
 /**
@@ -80,20 +85,41 @@ public class ZSqlHelper extends SQLiteOpenHelper {
         }.setDump(dump));
     }
 
-    public List<ZEntry> select(String tag, String table, String title, boolean dump) {
+    public List<ZEntry> select(String tag, String table, @Nullable Map<String, String> whereMap, boolean dump) {
         List<ZEntry> itemIds = new ArrayList<>();
         TDBMonitor.execute(new DBOperation(getReadableDatabase(), tag, DBOperationCode.SELECT) {
             @Override
             public Cursor op(@NonNull SQLiteDatabase sqLiteDatabase) {
                 String[] projection = {ZEntry._ID, ZEntry.COLUMN_NAME_TITLE, ZEntry.COLUMN_NAME_SUBTITLE, ZEntry.COLUMN_TIME, ZEntry.COLUMN_TIME2};
-                String selection = null;//ZEntry.COLUMN_NAME_TITLE + " = ?";
-                String[] selectionArgs = null;//{title};
+                String selectionString;
+                String[] selectionArgs;
+                if (whereMap != null && !whereMap.isEmpty()) {
+                    StringBuilder selection = new StringBuilder();
+                    selectionArgs = new String[whereMap.size()];
+                    int i = 0;
+                    ValueSafeTransfer.iterate(whereMap.entrySet(), (position, entry) -> {
+                        String column = entry.getKey();
+                        String value = entry.getValue();
+                        selection.append(column).append(" = ? ");
+                        if (position < whereMap.size() - 1) {
+                            selection.append(" and ");
+                        }
+                        selectionArgs[position] = value;
+                        return null;
+                    });
+                    selectionString = selection.toString();
+                } else {
+                    selectionString = null;
+                    selectionArgs = null;
+                }
 //                String sortOrder = " case when " + ZEntry.COLUMN_NAME_TITLE + " = 'hello' then " + ZEntry.COLUMN_TIME + " else " + ZEntry.COLUMN_TIME2 + " end DESC";
+                S.s("selection:" + selectionString);
+                S.s("selectionArgs:" + Arrays.toString(selectionArgs));
                 String sortOrder = ZEntry.COLUMN_TIME + " DESC";
                 Cursor cursor = sqLiteDatabase.query(
                         table,   // The table to query
                         projection,             // The array of columns to return (pass null to get all)
-                        selection,              // The columns for the WHERE clause
+                        selectionString,              // The columns for the WHERE clause
                         selectionArgs,          // The values for the WHERE clause
                         null,                   // don't group the rows
                         null,                   // don't filter by row groups

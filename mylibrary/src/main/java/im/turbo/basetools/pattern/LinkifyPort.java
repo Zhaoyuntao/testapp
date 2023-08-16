@@ -153,8 +153,8 @@ public class LinkifyPort {
                     + "[0-9]{2}|[1-9][0-9]|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}"
                     + "|[1-9][0-9]|[0-9]))";
     private static final String PUNYCODE_TLD = "xn\\-\\-[\\w\\-]{0,58}\\w";
-    private static final String LABEL_CHAR = "a-zA-Z0-9" + UCS_CHAR;
-    private static final String LABEL_CHAR_NO_CHINESE = "a-zA-Z0-9" + UCS_CHAR + "&&" + NO_CHINESE_CHAR;
+    private static final String LABEL_CHAR = "a-zA-Z0-9-" + UCS_CHAR;
+    private static final String LABEL_CHAR_NO_CHINESE = "a-zA-Z0-9-" + UCS_CHAR + "&&" + NO_CHINESE_CHAR;
     private static final String IRI_LABEL = "[" + LABEL_CHAR_NO_CHINESE + "][_-]{0,61}[" + LABEL_CHAR_NO_CHINESE + "]{0,61}";
     private static final String STRICT_TLD = "(?:" + IANA_TOP_LEVEL_DOMAINS + "|" + PUNYCODE_TLD + ")";
     private static final String STRICT_HOST_NAME = "(?:(?:" + IRI_LABEL + "\\.)+" + STRICT_TLD + ")";
@@ -172,6 +172,7 @@ public class LinkifyPort {
             + "(?:" + STRICT_DOMAIN_NAME + ")"
             + "(?:" + PORT_NUMBER + ")?"
             + "(?:" + PATH_AND_QUERY + ")?"
+            + "(?![" + LABEL_CHAR_NO_CHINESE + "])"
             + ")";
 
     public static final String WEB_URL_WITH_PROTOCOL = "("

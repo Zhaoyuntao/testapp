@@ -184,8 +184,8 @@ public class PermissionBridgeActivity extends AppCompatActivity {
                         public void onDismiss() {
                             if (permissionResult != null) {
                                 permissionResult.onCanceled(permissions);
-                                finish();
                             }
+                            finish();
                         }
                     });
             dialog.show(getSupportFragmentManager(), "dialog");

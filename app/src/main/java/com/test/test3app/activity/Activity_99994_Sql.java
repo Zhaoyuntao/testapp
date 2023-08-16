@@ -16,7 +16,10 @@ import com.test.test3app.sql.ZEntry;
 import com.test.test3app.sql.ZSqlHelper;
 import com.zhaoyuntao.androidutils.tools.S;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import base.ui.BaseActivity;
 
@@ -82,9 +85,12 @@ public class Activity_99994_Sql extends BaseActivity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        List<ZEntry> result1 = zSqlHelper.select("S_A", ZEntry.TABLE_NAME, "Hello", true);
-                        List<ZEntry> result2 = zSqlHelper.select("S_B", ZEntry.TABLE_NAME2, "Hello", true);
-                        List<ZEntry> result3 = zSqlHelper2.select("S_C", ZEntry.TABLE_NAME, "Hello", false);
+                        Map<String, String> map = new LinkedHashMap<>();
+                        map.put(ZEntry.COLUMN_NAME_TITLE, "Hello");
+                        List<ZEntry> result1 = zSqlHelper.select("S_A", ZEntry.TABLE_NAME, map, true);
+                        map.put(ZEntry.COLUMN_NAME_SUBTITLE, "subHello");
+                        List<ZEntry> result2 = zSqlHelper.select("S_B", ZEntry.TABLE_NAME, map, true);
+                        List<ZEntry> result3 = zSqlHelper2.select("S_C", ZEntry.TABLE_NAME, null, false);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -227,7 +233,7 @@ public class Activity_99994_Sql extends BaseActivity {
             public void run() {
                 while (switcher.open) {
                     long timeStart = SystemClock.elapsedRealtime();
-                    List<ZEntry> result = zSqlHelper.select(tag, table, "Hello", false);
+                    List<ZEntry> result = zSqlHelper.select(tag, table, null, false);
                     long timeEnd = SystemClock.elapsedRealtime(); runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
