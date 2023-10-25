@@ -73,11 +73,11 @@ public class ZSqlHelper extends SQLiteOpenHelper {
     }
 
     public static String createFTSSQL(String tableName) {
-        return "CREATE VIRTUAL TABLE " + tableName + " USING fts5(" +
+        return "CREATE VIRTUAL TABLE " + tableName + " USING fts3(" +
                 ZEntry.COLUMN_NAME_NAME + " , " +
                 ZEntry.COLUMN_NAME_CONTENT + " , " +
                 ZEntry.COLUMN_NAME_CONTENT2 + " , " +
-                ", tokenize=trigram)";
+                ", tokenize=icu)";
     }
 
     @Override
