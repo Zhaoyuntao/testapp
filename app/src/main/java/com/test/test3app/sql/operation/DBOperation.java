@@ -1,11 +1,12 @@
 package com.test.test3app.sql.operation;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-
+import android.database.sqlite.*;
+//import  com.tencent.wcdb.database.*;
 import androidx.annotation.NonNull;
 
 import com.test.test3app.sql.DBOperationCode;
+import com.test.test3app.sql.DBTaskState;
 
 /**
  * created by zhaoyuntao
@@ -46,5 +47,5 @@ public abstract class DBOperation {
         return dump;
     }
 
-    public abstract Cursor op(@NonNull SQLiteDatabase sqLiteDatabase);
+    public abstract Cursor op(@NonNull SQLiteDatabase sqLiteDatabase, DBTaskState state);
 }

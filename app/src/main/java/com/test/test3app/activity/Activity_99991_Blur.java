@@ -11,7 +11,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.test.test3app.R;
 import com.test.test3app.viewpager2.ImageModel;
 import com.test.test3app.viewpager2.ViewPager2Adapter;
-import com.zhaoyuntao.androidutils.tools.S;
+import im.turbo.utils.log.S;
 
 import java.util.ArrayList;
 import java.util.List;

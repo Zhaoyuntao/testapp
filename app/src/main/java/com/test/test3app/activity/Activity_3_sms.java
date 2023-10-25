@@ -9,7 +9,7 @@ import com.test.test3app.R;
 import com.test.test3app.smsview.PhoneNumberDivider;
 import com.test.test3app.smsview.PhoneNumberView;
 import com.test.test3app.smsview.VerificationCodeView;
-import com.zhaoyuntao.androidutils.tools.S;
+import im.turbo.utils.log.S;
 import com.zhaoyuntao.androidutils.tools.T;
 import com.zhaoyuntao.androidutils.tools.thread.ZThread;
 

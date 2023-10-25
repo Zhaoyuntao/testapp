@@ -4,7 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.zhaoyuntao.androidutils.tools.S;
+import im.turbo.utils.log.S;
 
 /**
  * created by zhaoyuntao

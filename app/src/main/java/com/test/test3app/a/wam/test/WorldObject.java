@@ -5,7 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 import com.test.test3app.a.wam.base.WAMDrawObject;
-import com.zhaoyuntao.androidutils.tools.S;
+import im.turbo.utils.log.S;
 import com.zhaoyuntao.androidutils.tools.TextMeasure;
 
 import java.util.List;

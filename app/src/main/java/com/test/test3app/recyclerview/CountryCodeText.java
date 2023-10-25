@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
 
-import com.zhaoyuntao.androidutils.tools.S;
+import im.turbo.utils.log.S;
 
 /**
  * created by zhaoyuntao

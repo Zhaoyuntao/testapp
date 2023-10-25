@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
 import com.bumptech.glide.Glide;
-import com.zhaoyuntao.androidutils.tools.S;
+import im.turbo.utils.log.S;
 
 import java.util.ArrayList;
 import java.util.List;

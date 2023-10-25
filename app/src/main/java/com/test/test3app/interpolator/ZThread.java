@@ -3,13 +3,13 @@ package com.test.test3app.interpolator;
 
 import android.util.Log;
 
-import com.zhaoyuntao.androidutils.tools.S;
+import im.turbo.utils.log.S;
 
 /**
  * created by zhaoyuntao
  * on 2019-10-23
  * description:
- *  this thread run at frequency you set.
+ * this thread run at frequency you set.
  */
 public abstract class ZThread extends Thread {
     private float frame;
@@ -40,7 +40,7 @@ public abstract class ZThread extends Thread {
             return;
         }
         isStart = true;
-        timeStart= S.currentTimeMillis();
+        timeStart = System.currentTimeMillis();
         super.start();
     }
 
@@ -63,11 +63,11 @@ public abstract class ZThread extends Thread {
             }
             double interval = (1000d / frame);
             //计算当前开始时间
-            long time_start = S.currentTimeMillis();
+            long time_start = System.currentTimeMillis();
             //计算本次循环的最快结束时间
             long time_end = (long) (time_start + interval);
             todo();
-            long time_now = S.currentTimeMillis();
+            long time_now = System.currentTimeMillis();
             long rest = time_end - time_now;
             if (rest > 0) {
                 try {
@@ -78,7 +78,7 @@ public abstract class ZThread extends Thread {
                 }
             }
             //计算频率
-            long time_end2 = S.currentTimeMillis();
+            long time_end2 = System.currentTimeMillis();
             long during = time_end2 - time_start;
             frame_real = (long) (10000d / during) / 10f;
             Log.i("ZThread", "frame of zthread:" + frame_real);

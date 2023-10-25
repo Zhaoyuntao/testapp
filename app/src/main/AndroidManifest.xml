@@ -122,7 +122,7 @@
             android:name=".activity.Activity_997_cameraWallpaper"
             android:exported="false" />
         <activity
-            android:name=".activity.Activity_998_nest"
+            android:name=".activity.Activity_998_reflection"
             android:exported="false" />
         <activity
             android:name=".activity.Activity_999_loading"

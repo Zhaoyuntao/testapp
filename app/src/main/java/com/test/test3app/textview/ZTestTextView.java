@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 
-import com.zhaoyuntao.androidutils.tools.S;
+import im.turbo.utils.log.S;
 
 import java.text.BreakIterator;
 

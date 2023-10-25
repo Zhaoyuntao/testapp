@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.zhaoyuntao.androidutils.tools.S;
+import im.turbo.utils.log.S;
 
 /**
  * created by zhaoyuntao

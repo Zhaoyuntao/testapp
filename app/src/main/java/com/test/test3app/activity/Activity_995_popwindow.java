@@ -13,7 +13,7 @@ import com.test.test3app.R;
 import im.turbo.baseui.utils.UiUtils;
 import im.turbo.basetools.utils.InputMethodUtils;
 import com.zhaoyuntao.androidutils.tools.B;
-import com.zhaoyuntao.androidutils.tools.S;
+import im.turbo.utils.log.S;
 
 public class Activity_995_popwindow extends BaseActivity {
     private View button;

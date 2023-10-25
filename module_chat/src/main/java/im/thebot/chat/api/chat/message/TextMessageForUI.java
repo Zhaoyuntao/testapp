@@ -1,6 +1,8 @@
 package im.thebot.chat.api.chat.message;
 
 
+import androidx.annotation.NonNull;
+
 import im.thebot.api.chat.constant.MessageTypeCode;
 import im.thebot.chat.api.chat.message.text.BaseTextMessageForUI;
 
@@ -27,4 +29,11 @@ public class TextMessageForUI extends BaseTextMessageForUI {
 //                "@\u2068971501635523\u2068 abcdefg @\u2068971501635523\u2068 abcdefg @\u2068971501635523\u2068 abcdefg @\u2068971501635523\u2068 abcdefg @\u2068971501635523\u2068 abcdefg";
 //        super.setContent(content);
 //    }
+
+
+    @NonNull
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

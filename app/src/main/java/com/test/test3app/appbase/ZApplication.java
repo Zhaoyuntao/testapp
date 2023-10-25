@@ -30,7 +30,7 @@ public class ZApplication extends Application {
         Thread.setDefaultUncaughtExceptionHandler(new TestExceptionHandler(defaultUncaughtExceptionHandler));
         initEmojiCompat();
         ThreadPool.startup();
-        TNotificationHelper.getInstance().initNotificationChannel();
+        TNotificationHelper.getInstance().initNotificationChannel(TNotificationHelper.getInstance().ChannelId);
     }
 
     private void initEmojiCompat() {

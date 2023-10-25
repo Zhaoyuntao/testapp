@@ -8,7 +8,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.util.DisplayMetrics;
 
-import com.zhaoyuntao.androidutils.tools.S;
+import im.turbo.utils.log.S;
 
 import java.util.WeakHashMap;
 

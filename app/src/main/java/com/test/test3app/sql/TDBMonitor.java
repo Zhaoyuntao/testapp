@@ -2,17 +2,14 @@ package com.test.test3app.sql;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteTransactionListener;
 
 import androidx.annotation.NonNull;
 
-import com.test.test3app.observer.ListenerManager;
+//import com.tencent.wcdb.database.SQLiteDatabase;
 import com.test.test3app.sql.operation.DBOperation;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import im.turbo.utils.log.S;
 
@@ -47,7 +44,7 @@ public class TDBMonitor {
         sqLiteDatabase.beginTransactionWithListener(listener);
         Cursor r = null;
         try {
-            r = operation.op(sqLiteDatabase);
+            r = operation.op(sqLiteDatabase, state);
             sqLiteDatabase.setTransactionSuccessful();
         } catch (Throwable e) {
             e.printStackTrace();

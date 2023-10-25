@@ -43,7 +43,7 @@ import androidx.emoji.widget.EmojiTextViewHelper;
 import com.test.test3app.R;
 import im.turbo.utils.ResourceUtils;
 import im.turbo.basetools.utils.RTLUtils;
-import com.zhaoyuntao.androidutils.tools.S;
+import im.turbo.utils.log.S;
 
 import java.util.ArrayList;
 import java.util.List;

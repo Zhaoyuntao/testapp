@@ -10,7 +10,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 
 import com.doctor.mylibrary.R;
-import com.zhaoyuntao.androidutils.tools.S;
+import im.turbo.utils.log.S;
+
+import im.turbo.utils.log.S;
 
 /**
  * created by zhaoyuntao

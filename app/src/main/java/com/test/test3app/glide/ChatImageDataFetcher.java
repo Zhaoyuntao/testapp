@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.data.DataFetcher;
-import com.zhaoyuntao.androidutils.tools.S;
+import im.turbo.utils.log.S;
 
 /**
  * created by zhaoyuntao

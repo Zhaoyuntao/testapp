@@ -341,21 +341,21 @@ public abstract class MessageBeanForUI implements Selectable<String> {
         return Objects.equals(uuid, that.uuid);
     }
 
-    @NonNull
-    @Override
-    public String toString() {
-        return "MessageBeanForUI{" +
-                "senderUid='" + senderUid + '\'' +
-                ", content='" + content + '\'' +
-                ", contentPreview='" + contentConversationListPreview + '\'' +
-                ", isSelf=" + isSelf() +
-                ", timeSend=" + timeSend +
-                ", messageStatus=" + MessageStatusUtil.messageStatusStr(messageStatus) +
-                ", failReason=" + failReason +
-                ", type=" + type +
-                ", conversationId='" + sessionId + '\'' +
-                ", uuid='" + uuid + '\'' +
-                ", messageReply=" + messageReply +
-                '}';
-    }
+//    @NonNull
+//    @Override
+//    public String toString() {
+//        return "MessageBeanForUI{" +
+//                "senderUid='" + senderUid + '\'' +
+//                ", content='" + content + '\'' +
+//                ", contentPreview='" + contentConversationListPreview + '\'' +
+//                ", isSelf=" + isSelf() +
+//                ", timeSend=" + timeSend +
+//                ", messageStatus=" + MessageStatusUtil.messageStatusStr(messageStatus) +
+//                ", failReason=" + failReason +
+//                ", type=" + type +
+//                ", conversationId='" + sessionId + '\'' +
+//                ", uuid='" + uuid + '\'' +
+//                ", messageReply=" + messageReply +
+//                '}';
+//    }
 }

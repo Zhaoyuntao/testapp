@@ -5,6 +5,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import java.text.DecimalFormat;
+
+import im.turbo.basetools.time.TimeUtils;
+
 /**
  * created by zhaoyuntao
  * on 06/06/2022
@@ -348,7 +352,7 @@ public class S {
             ViewGroup.MarginLayoutParams layoutParams1 = (ViewGroup.MarginLayoutParams) layoutParams;
             if (layoutParams1 instanceof LinearLayout.LayoutParams) {
                 LinearLayout.LayoutParams layoutParams2 = (LinearLayout.LayoutParams) layoutParams1;
-                marginString = "[" + layoutParams2.getClass().getSimpleName() + "] width:" + layoutParams2.width + " height:"+layoutParams2.height+" weight:"+layoutParams2.weight+" marginLeft:" + layoutParams2.leftMargin + "  rightMargin:" + layoutParams2.rightMargin;
+                marginString = "[" + layoutParams2.getClass().getSimpleName() + "] width:" + layoutParams2.width + " height:" + layoutParams2.height + " weight:" + layoutParams2.weight + " marginLeft:" + layoutParams2.leftMargin + "  rightMargin:" + layoutParams2.rightMargin;
             } else {
                 marginString = "[" + layoutParams1.getClass().getSimpleName() + "] marginLeft:" + layoutParams1.leftMargin + "  rightMargin:" + layoutParams1.rightMargin;
             }
@@ -369,5 +373,17 @@ public class S {
             marginString = " marginLeft:" + layoutParams1.leftMargin + "  rightMargin:" + layoutParams1.rightMargin;
         }
         log(tagDebug, text + "  width:" + width + "[" + getMode(widthMeasureSpec) + "]   height:" + height + "[" + getMode(heightMeasureSpec) + "]   paddingStart:" + view.getPaddingStart() + "  paddingEnd:" + view.getPaddingEnd() + " " + marginString, 0, 0, E);
+    }
+
+    public static String formatNumber(float f, String s) {
+        return new DecimalFormat(s).format(f);
+    }
+
+    public static String formatNumber(float f) {
+        return new DecimalFormat("#.#").format(f);
+    }
+
+    public static String now() {
+        return TimeUtils.getTimeString(System.currentTimeMillis());
     }
 }

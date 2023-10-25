@@ -9,7 +9,7 @@ import com.test.test3app.R;
 import com.test.test3app.bitmap.BitmapMemoryCache;
 import com.test.test3app.faceview.BlueFaceView;
 import com.zhaoyuntao.androidutils.component.ZButton;
-import com.zhaoyuntao.androidutils.tools.S;
+import im.turbo.utils.log.S;
 
 import base.ui.BaseActivity;
 import im.thebot.chat.api.chat.message.ImageMessageForUI;

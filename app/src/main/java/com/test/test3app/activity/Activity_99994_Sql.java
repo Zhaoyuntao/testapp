@@ -1,251 +1,322 @@
 package com.test.test3app.activity;
 
 import android.os.Bundle;
-import android.os.SystemClock;
+import android.text.Editable;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import com.test.test3app.R;
-import com.test.test3app.sql.DBOperationUtils;
+import com.test.test3app.mention.ValueSafeTransfer;
 import com.test.test3app.sql.DBTaskState;
+import com.test.test3app.sql.FTSDataHelper;
 import com.test.test3app.sql.OnDBTaskStateChangeListener;
 import com.test.test3app.sql.TDBMonitor;
 import com.test.test3app.sql.ZEntry;
 import com.test.test3app.sql.ZSqlHelper;
-import com.zhaoyuntao.androidutils.tools.S;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import base.ui.BaseActivity;
+import im.turbo.utils.log.S;
 
 public class Activity_99994_Sql extends BaseActivity {
     ZSqlHelper zSqlHelper;
-    ZSqlHelper zSqlHelper2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState); setContentView(R.layout.activity_main_99994_sql);
-        TextView messageViewDump_db1 = findViewById(R.id.message_view_dump_db1);
-        TextView messageViewDump = findViewById(R.id.message_view_dump_db2);
-        TextView messageView = findViewById(R.id.message_view);
-        TextView searchView = findViewById(R.id.text_view_search);
 
-        TextView messageViewInsert_db1_table1 = findViewById(R.id.message_view_auto_insert);
-        TextView messageViewInsert_db1_table2 = findViewById(R.id.message_view_auto_insert2);
-        TextView messageViewInsert_db2_table1 = findViewById(R.id.message_view_auto_insert3);
+        TextView allResult = findViewById(R.id.view_result_all);
 
-        TextView messageViewSelect_db1_table1 = findViewById(R.id.message_view_auto_select);
-        TextView messageViewSelect_db1_table1_ = findViewById(R.id.message_view_auto_select2);
-        TextView messageViewSelect_db1_table2 = findViewById(R.id.message_view_auto_select3);
-        TextView messageViewSelect_db2_table1 = findViewById(R.id.message_view_auto_select4);
+        TextView likeResultShort = findViewById(R.id.view_insert_result_table_short);
+        TextView likeResultLong = findViewById(R.id.view_insert_result_table_long);
+        TextView likeResultMix = findViewById(R.id.view_insert_result_table_mix);
+        TextView insertTableShort = findViewById(R.id.view_insert_table_short);
+        TextView insertTableLong = findViewById(R.id.view_insert_table_long);
+        TextView insertTableMix = findViewById(R.id.view_insert_table_mix);
+        TextView like = findViewById(R.id.view_search_like);
 
+        TextView ftsResultShort = findViewById(R.id.view_insert_result_fts_short);
+        TextView ftsResultLong = findViewById(R.id.view_insert_result_fts_long);
+        TextView ftsResultMix = findViewById(R.id.view_insert_result_fts_mix);
+        TextView insertFtsShort = findViewById(R.id.view_insert_fts_short);
+        TextView insertFtsLong = findViewById(R.id.view_insert_fts_long);
+        TextView insertFtsMix = findViewById(R.id.view_insert_fts_mix);
+        TextView fts = findViewById(R.id.view_search_fts);
 
-        TextView select_db1_table1 = findViewById(R.id.text_view_auto_search);
-        TextView select_db1_table1_ = findViewById(R.id.text_view_auto_search_table1_2);
-        TextView select_db1_table2 = findViewById(R.id.text_view_auto_search_table2);
-        TextView select_db2_table1 = findViewById(R.id.text_view_auto_search_table3);
-
-        TextView insert_db1_table1 = findViewById(R.id.text_view_auto_insert);
-        TextView insert_db1_table2 = findViewById(R.id.text_view_auto_insert2);
-        TextView insert_db2_table1 = findViewById(R.id.text_view_auto_insert3);
+        EditText editText = findViewById(R.id.search_content);
 
         zSqlHelper = new ZSqlHelper(this, "ZEntry.db");
-        zSqlHelper2 = new ZSqlHelper(this, "ZEntry2.db");
         TDBMonitor.addListener(new OnDBTaskStateChangeListener() {
             @Override
             public void onDump(@NonNull List<DBTaskState> tags, @NonNull String log) {
-                runOnUiThread(() -> messageViewDump.append(log));
+//                S.s("log:" + log);
+                for (DBTaskState state : tags) {
+                    S.s("[" + state.getTag() + "]  " + state.getCost() + " ms, " + state.getLog());
+                }
+                runOnUiThread(() -> allResult.append(log));
             }
 
             @Override
             public void onWaiting(@NonNull DBTaskState dbTaskState) {
-                S.s("[" + dbTaskState + "] waiting: " + DBOperationUtils.toString(dbTaskState.getOp()));
+//                S.s("[" + dbTaskState + "] waiting: " + DBOperationUtils.toString(dbTaskState.getOp()));
             }
 
             @Override
             public void onStartOP(@NonNull DBTaskState dbTaskState) {
-                S.s("[" + dbTaskState + "] start op: " + DBOperationUtils.toString(dbTaskState.getOp()));
+//                S.s("[" + dbTaskState + "] start op: " + DBOperationUtils.toString(dbTaskState.getOp()));
             }
 
             @Override
             public void onEndOP(@NonNull DBTaskState dbTaskState) {
-                S.s("[" + dbTaskState + "] end op: " + DBOperationUtils.toString(dbTaskState.getOp()) + ", waiting cost:" + dbTaskState.getWaitingCost() + " ms, op cost:" + dbTaskState.getOPCost() + " ms");
+//                S.s("[" + dbTaskState + "] end op: " + DBOperationUtils.toString(dbTaskState.getOp()) + ", waiting cost:" + dbTaskState.getWaitingCost() + " ms, op cost:" + dbTaskState.getOPCost() + " ms");
             }
         });
 
-        searchView.setOnClickListener(new View.OnClickListener() {
+        like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                messageViewDump.setText("");
+                Editable text = editText.getText();
+                if (TextUtils.isEmpty(text)) {
+                    return;
+                }
+                String searchContent = text.toString();
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        Map<String, String> map = new LinkedHashMap<>();
-                        map.put(ZEntry.COLUMN_NAME_TITLE, "Hello");
-                        List<ZEntry> result1 = zSqlHelper.select("S_A", ZEntry.TABLE_NAME, map, true);
-                        map.put(ZEntry.COLUMN_NAME_SUBTITLE, "subHello");
-                        List<ZEntry> result2 = zSqlHelper.select("S_B", ZEntry.TABLE_NAME, map, true);
-                        List<ZEntry> result3 = zSqlHelper2.select("S_C", ZEntry.TABLE_NAME, null, false);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                messageView.setText("db1 table1 size:" + result1.size()
-                                        + "\ndb1 table2 size:" + result2.size()
-                                        + "\ndb2 table1 size:" + result3.size()
-                                );
-                            }
-                        });
+                        List<ZEntry> result1 = zSqlHelper.search(ZEntry.TABLE_NAME, ZEntry.TABLE_NAME, searchContent, true);
+                        S.s(ZEntry.TABLE_NAME + "--------------------------------------------------[count: " + result1.size() + "]");
+//                        ValueSafeTransfer.iterateAll(result1, (position, zEntry) -> S.s("(" + position + ")[" + searchContent + "]:" + zEntry.content));
+                        List<ZEntry> result2 = zSqlHelper.search(ZEntry.TABLE_NAME2, ZEntry.TABLE_NAME2, searchContent, true);
+                        S.s(ZEntry.TABLE_NAME2 + "--------------------------------------------------[count: " + result2.size() + "]");
+                        List<ZEntry> result3 = zSqlHelper.search(ZEntry.TABLE_NAME3, ZEntry.TABLE_NAME3, searchContent, true);
+                        S.s(ZEntry.TABLE_NAME3 + "--------------------------------------------------[count: " + result3.size() + "]");
+//                        ValueSafeTransfer.iterateAll(result2, (position, zEntry) -> S.s("(" + position + ")[" + searchContent + "]:" + zEntry.content));
+                    }
+                }).start();
+            }
+        });
+        fts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Editable text = editText.getText();
+                if (TextUtils.isEmpty(text)) {
+                    return;
+                }
+                String searchContent = text.toString();
+                allResult.setText("");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+//                        List<ZEntry> result1 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS1, ZEntry.TABLE_NAME_FTS1, searchContent, true);
+//                        S.s(ZEntry.TABLE_NAME_FTS1 + "--------------------------------------------------[count: " + result1.size() + "]");
+//                        List<ZEntry> result2 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS2, ZEntry.TABLE_NAME_FTS2, searchContent, true);
+//                        S.s(ZEntry.TABLE_NAME_FTS2 + "--------------------------------------------------[count: " + result2.size() + "]");
+                        List<ZEntry> result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, searchContent, true, 1000);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "좋", true, 1000);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "좋*", true, 1000);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "좋은", true, 1000);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "*은", true, 1000);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "좋은 아", true, 1000);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "좋은 아침", true, 1000);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "좋은 아침이", true, 1000);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "좋은 아침이에", true, 1000);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "좋은 아침이에요", true, 1000);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "은 아침이에요", true, 1000);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "아침이에요", true, 1000);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "침이에요", true, 1000);
+                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "이에요", true, 1000);
+                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "에요", true, 1000);
+                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "요", true, 1000);
+//
+//
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "W*", true, -1);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "What", true, -1);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "What*", true, -1);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "Whats", true, -1);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "Whats that", true, -1);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "Whats that means", true, -1);
+//
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "你", true, 1000);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "你*", true, 1000);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "如果", true, 1000);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "如果*", true, 1000);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "如果根据", true, 1000);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "如果根据*", true, 1000);
+//
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "h*", true, -1);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "hell", true, -1);
+                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "*e*", true, 10);
+                        ValueSafeTransfer.iterateAll(result3, (position, zEntry) -> S.s("(" + position + ")[" + searchContent + "]:   content:" + zEntry.content));
+                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "e* l* l*", true, 10);
+                        ValueSafeTransfer.iterateAll(result3, (position, zEntry) -> S.s("(" + position + ")[" + searchContent + "]:   content:" + zEntry.content));
+
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "H* e*", true, -1);
+                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "ض", true, -1);
+                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "ص", true, -1);
+                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "ث", true, -1);
+                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "ف", true, -1);
+                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "ع", true, -1);
+                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "根*", true, -1);
+                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "撒", true, -1);
+                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "旷", true, -1);
+                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "根", true, -1);
+                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "思", true, -1);
+                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "根*", true, -1);
+                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "果", true, -1);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "是什么", true, -1);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "序", true, -1);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "你", true, -1);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "你*", true, -1);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "如果", true, -1);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "如果*", true, -1);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "如果根据", true, -1);
+//                        result3 = zSqlHelper.fts(ZEntry.TABLE_NAME_FTS3, ZEntry.TABLE_NAME_FTS3, "如果根据*", true, -1);
+//                        S.s(ZEntry.TABLE_NAME_FTS3 + "--------------------------------------------------[count: " + result3.size() + "]");
+
+//                        ValueSafeTransfer.iterateAll(result1, (position, zEntry) -> S.s("(" + position + ")[" + searchContent + "]:   content:" + zEntry.content + "  content2:" + zEntry.content2));
+//                        ValueSafeTransfer.iterateAll(result2, (position, zEntry) -> S.s("(" + position + ")[" + searchContent + "]:   content:" + zEntry.content + "  content2:" + zEntry.content2));
+//                        ValueSafeTransfer.iterateAll(result3, (position, zEntry) -> S.s("(" + position + ")[" + searchContent + "]:   content:" + zEntry.content));
                     }
                 }).start();
             }
         });
 
-        insert_db1_table1.setOnClickListener(new View.OnClickListener() {
+        insertTableShort.setOnClickListener(new View.OnClickListener() {
             private final Switcher insert = new Switcher();
 
             @Override
             public void onClick(View v) {
                 if (!insert.open) {
                     insert.open = true;
-                    autoAdd(zSqlHelper, "i_a", ZEntry.TABLE_NAME, messageViewInsert_db1_table1, insert);
+                    autoAdd(zSqlHelper, false, false, ZEntry.TABLE_NAME, likeResultShort, insert);
                 } else {
                     insert.open = false;
                 }
             }
         });
-        insert_db1_table2.setOnClickListener(new View.OnClickListener() {
+        insertTableLong.setOnClickListener(new View.OnClickListener() {
             private final Switcher insert = new Switcher();
 
             @Override
             public void onClick(View v) {
                 if (!insert.open) {
                     insert.open = true;
-                    autoAdd(zSqlHelper, "i_b", ZEntry.TABLE_NAME2, messageViewInsert_db1_table2, insert);
+                    autoAdd(zSqlHelper, true, false, ZEntry.TABLE_NAME2, likeResultLong, insert);
                 } else {
                     insert.open = false;
                 }
             }
         });
-        insert_db2_table1.setOnClickListener(new View.OnClickListener() {
+        insertTableMix.setOnClickListener(new View.OnClickListener() {
             private final Switcher insert = new Switcher();
 
             @Override
             public void onClick(View v) {
                 if (!insert.open) {
                     insert.open = true;
-                    autoAdd(zSqlHelper2, "i_c", ZEntry.TABLE_NAME, messageViewInsert_db2_table1, insert);
+                    autoAdd(zSqlHelper, null, false, ZEntry.TABLE_NAME3, likeResultMix, insert);
                 } else {
                     insert.open = false;
                 }
             }
         });
-        select_db1_table1.setOnClickListener(new View.OnClickListener() {
-            private final Switcher search = new Switcher();
+        insertFtsShort.setOnClickListener(new View.OnClickListener() {
+            private final Switcher insert = new Switcher();
 
             @Override
             public void onClick(View v) {
-                if (!search.open) {
-                    search.open = true;
-                    autoSearch(zSqlHelper, "s_a", ZEntry.TABLE_NAME, messageViewSelect_db1_table1, search);
+                if (!insert.open) {
+                    insert.open = true;
+                    autoAdd(zSqlHelper, false, true, ZEntry.TABLE_NAME_FTS1, ftsResultShort, insert);
                 } else {
-                    search.open = false;
+                    insert.open = false;
                 }
             }
         });
-        select_db1_table1_.setOnClickListener(new View.OnClickListener() {
-            private final Switcher search = new Switcher();
+        insertFtsLong.setOnClickListener(new View.OnClickListener() {
+            private final Switcher insert = new Switcher();
 
             @Override
             public void onClick(View v) {
-                if (!search.open) {
-                    search.open = true;
-                    autoSearch(zSqlHelper, "s_b", ZEntry.TABLE_NAME, messageViewSelect_db1_table1_, search);
+                if (!insert.open) {
+                    insert.open = true;
+                    autoAdd(zSqlHelper, true, true, ZEntry.TABLE_NAME_FTS2, ftsResultLong, insert);
                 } else {
-                    search.open = false;
+                    insert.open = false;
                 }
             }
         });
-        select_db1_table2.setOnClickListener(new View.OnClickListener() {
-            private final Switcher search = new Switcher();
+        insertFtsMix.setOnClickListener(new View.OnClickListener() {
+            private final Switcher insert = new Switcher();
 
             @Override
             public void onClick(View v) {
-                if (!search.open) {
-                    search.open = true;
-                    autoSearch(zSqlHelper, "s_c", ZEntry.TABLE_NAME2, messageViewSelect_db1_table2, search);
+                if (!insert.open) {
+                    insert.open = true;
+                    autoAdd(zSqlHelper, null, true, ZEntry.TABLE_NAME_FTS3, ftsResultMix, insert);
                 } else {
-                    search.open = false;
+                    insert.open = false;
                 }
             }
         });
-        select_db2_table1.setOnClickListener(new View.OnClickListener() {
-            private final Switcher search = new Switcher();
 
-            @Override
-            public void onClick(View v) {
-                if (!search.open) {
-                    search.open = true;
-                    autoSearch(zSqlHelper2, "s_d", ZEntry.TABLE_NAME, messageViewSelect_db2_table1, search);
-                } else {
-                    search.open = false;
-                }
-            }
-        });
+        getCount(zSqlHelper, ZEntry.TABLE_NAME_FTS1, ftsResultShort, insertFtsShort);
+        getCount(zSqlHelper, ZEntry.TABLE_NAME_FTS2, ftsResultLong, insertFtsLong);
+        getCount(zSqlHelper, ZEntry.TABLE_NAME_FTS3, ftsResultMix, insertFtsMix);
     }
 
-    private void autoAdd(ZSqlHelper zSqlHelper, String tag, String table, TextView messageView, Switcher switcher) {
+    private void getCount(ZSqlHelper zSqlHelper, String table, TextView messageView, TextView insertView) {
+        insertView.setEnabled(false);
         new Thread(new Runnable() {
             @Override
             public void run() {
                 long time = System.currentTimeMillis();
-                int i = 0;
-                while (switcher.open && i++ < 50000) {
-                    ZEntry zEntry = new ZEntry();
-                    zEntry.title = "Hello";
-                    zEntry.subtitle = "subHello";
-                    zEntry.time = time++;
-                    zEntry.time2 = time++;
-                    zSqlHelper.insert(tag, table, zEntry, false);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            messageView.setText("inserting:" + zEntry);
-                        }
-                    });
-                } runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        messageView.setText("auto inserting ended");
-                    }
+                runOnUiThread(() -> messageView.setText("Start get count..."));
+                long count = zSqlHelper.ftsCount(table, table);
+                String info = "Count : " + count + " cost:" + (System.currentTimeMillis() - time) + " ms";
+                runOnUiThread(() -> {
+                    messageView.setText(info);
+                    insertView.setEnabled(true);
                 });
             }
         }).start();
     }
 
-    private void autoSearch(ZSqlHelper zSqlHelper, String tag, String table, TextView messageView, Switcher switcher) {
+    private void autoAdd(ZSqlHelper zSqlHelper, Boolean longData, boolean fts, String table, TextView messageView, Switcher switcher) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (switcher.open) {
-                    long timeStart = SystemClock.elapsedRealtime();
-                    List<ZEntry> result = zSqlHelper.select(tag, table, null, false);
-                    long timeEnd = SystemClock.elapsedRealtime(); runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            messageView.setText("size:" + result.size() + " \ncost: " + (timeEnd - timeStart));
-                        }
-                    });
-                } runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        messageView.setText("");
+                long time = System.currentTimeMillis();
+                runOnUiThread(() -> messageView.setText("Start get count..."));
+                long i = zSqlHelper.ftsCount(table, table);
+                while (switcher.open && i++ < 10000) {
+                    ZEntry zEntry = new ZEntry();
+                    zEntry.name = "Name";
+                    if (longData == null) {
+                        zEntry.content = FTSDataHelper.getRandomData();
+                    } else {
+                        zEntry.content = FTSDataHelper.getRandomData(longData);
                     }
-                });
+                    zEntry.content2 = FTSDataHelper.getRandomData(false);
+                    zEntry.time = time + 1;
+                    zEntry.time2 = time + 1;
+                    if (fts) {
+                        zSqlHelper.insertFts(table, table, zEntry, false);
+                    } else {
+                        zSqlHelper.insert(table, table, zEntry, false);
+                    }
+                    String info = "Inserting:" + i + " cost:" + (System.currentTimeMillis() - time) + " ms";
+                    runOnUiThread(() -> messageView.setText(info));
+                }
+                switcher.open = false;
+                long count = zSqlHelper.ftsCount(table, table);
+                String info = "Inserting ended: " + count + " cost:" + (System.currentTimeMillis() - time) + " ms";
+                runOnUiThread(() -> messageView.setText(info));
             }
         }).start();
     }
@@ -257,7 +328,6 @@ public class Activity_99994_Sql extends BaseActivity {
     @Override
     protected void onDestroy() {
         zSqlHelper.close();
-        zSqlHelper2.close();
         super.onDestroy();
     }
 }

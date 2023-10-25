@@ -7,7 +7,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.test.test3app.R;
-import com.zhaoyuntao.androidutils.tools.S;
+import im.turbo.utils.log.S;
 
 import base.ui.BaseActivity;
 import im.turbo.baseui.permission.InstallResult;

@@ -36,9 +36,9 @@ public class TSQLiteTransactionListener implements SQLiteTransactionListener {
 
     @Override
     public void onBegin() {
-        if (dump) {
-            S.s("begin");
-        }
+//        if (dump) {
+//            S.s("begin");
+//        }
         state.startOP();
         if (dump) {
             TDBStateNotifier.getInstance().notifyStartOP(state);
@@ -47,9 +47,9 @@ public class TSQLiteTransactionListener implements SQLiteTransactionListener {
 
     @Override
     public void onCommit() {
-        if (dump) {
-            S.s("onCommit");
-        }
+//        if (dump) {
+//            S.s("onCommit");
+//        }
         state.stop();
         processDumpEnd();
     }
@@ -85,7 +85,7 @@ public class TSQLiteTransactionListener implements SQLiteTransactionListener {
                             .append(" cost: ").append(otherState.getOPCost())
                             .append(" ms\n");
                 }
-                S.s(stringBuilder.toString());
+//                S.s(stringBuilder.toString());
                 TDBStateNotifier.getInstance().notifyDumpStates(statesWhenStartWaiting, stringBuilder.toString());
             }
         }

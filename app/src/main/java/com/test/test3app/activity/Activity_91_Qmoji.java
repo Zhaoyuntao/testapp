@@ -11,7 +11,7 @@ import androidx.core.content.res.ResourcesCompat;
 import base.ui.BaseActivity;
 import com.test.test3app.R;
 import com.test.test3app.qmoji.QmojiSelectView;
-import com.zhaoyuntao.androidutils.tools.S;
+import im.turbo.utils.log.S;
 import com.zhaoyuntao.androidutils.tools.T;
 
 

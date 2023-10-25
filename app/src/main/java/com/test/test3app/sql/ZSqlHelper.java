@@ -3,6 +3,7 @@ package com.test.test3app.sql;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -13,7 +14,6 @@ import com.test.test3app.sql.operation.DBOperation;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +26,10 @@ import im.turbo.utils.log.S;
  */
 public class ZSqlHelper extends SQLiteOpenHelper {
 
+    private static String LICENSE_CODE = "OmNpZDowMDEzbzAwMDAyZnQxWThBQUk6cGxhdGZvcm06MTA6ZXhwaXJlOm5ldmVyOnZlcnNpb246MTpobWFjOjhiNWIwNDMwNGM0NDAyYjc2ZDgxN2UxZDFlZjZkMTJjNjI3MGYxYWM=";
+    static String DB_NAME = "search_db_fts5.db";
+    private static SQLiteDatabase sqLiteDatabase;
+
     public static final int DATABASE_VERSION = 4;
 
     public ZSqlHelper(Context context, String dbName) {
@@ -34,23 +38,30 @@ public class ZSqlHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        for (String sql : createSQL(ZEntry.TABLE_NAME)) {
-            db.execSQL(sql);
-        }
-        for (String sql : createSQL(ZEntry.TABLE_NAME2)) {
-            db.execSQL(sql);
-        }
+        db.execSQL(createSQL(ZEntry.TABLE_NAME));
+        db.execSQL(createSqlIndex(ZEntry.TABLE_NAME, ZEntry.COLUMN_NAME_CONTENT));
+        db.execSQL(createSqlIndex(ZEntry.TABLE_NAME, ZEntry.COLUMN_NAME_CONTENT2));
+        db.execSQL(createSQL(ZEntry.TABLE_NAME2));
+        db.execSQL(createSqlIndex(ZEntry.TABLE_NAME2, ZEntry.COLUMN_NAME_CONTENT));
+        db.execSQL(createSqlIndex(ZEntry.TABLE_NAME2, ZEntry.COLUMN_NAME_CONTENT2));
+        db.execSQL(createSQL(ZEntry.TABLE_NAME3));
+        db.execSQL(createSqlIndex(ZEntry.TABLE_NAME2, ZEntry.COLUMN_NAME_CONTENT));
+        db.execSQL(createSqlIndex(ZEntry.TABLE_NAME2, ZEntry.COLUMN_NAME_CONTENT2));
+
+        db.execSQL(createFTSSQL(ZEntry.TABLE_NAME_FTS1));
+        db.execSQL(createFTSSQL(ZEntry.TABLE_NAME_FTS2));
+        db.execSQL(createFTSSQL(ZEntry.TABLE_NAME_FTS3));
     }
 
-    public static String[] createSQL(String tableName) {
-        String createTable = "CREATE TABLE " + tableName + " (" +
+    public static String createSQL(String tableName) {
+        return "CREATE TABLE " + tableName + " (" +
                 ZEntry._ID + " INTEGER PRIMARY KEY," +
-                ZEntry.COLUMN_NAME_TITLE + " TEXT," +
-                ZEntry.COLUMN_NAME_SUBTITLE + " TEXT," +
+                ZEntry.COLUMN_NAME_NAME + " TEXT," +
+                ZEntry.COLUMN_NAME_CONTENT + " TEXT," +
+                ZEntry.COLUMN_NAME_CONTENT2 + " TEXT," +
                 ZEntry.COLUMN_TIME + " INTEGER," +
                 ZEntry.COLUMN_TIME2 + " INTEGER" +
                 ")";
-        return new String[]{createTable};
     }
 
     public static String createSqlIndex(String tableName, String indexName) {
@@ -61,25 +72,46 @@ public class ZSqlHelper extends SQLiteOpenHelper {
                 + "(" + indexName + ")";
     }
 
+    public static String createFTSSQL(String tableName) {
+        return "CREATE VIRTUAL TABLE " + tableName + " USING fts5(" +
+                ZEntry.COLUMN_NAME_NAME + " , " +
+                ZEntry.COLUMN_NAME_CONTENT + " , " +
+                ZEntry.COLUMN_NAME_CONTENT2 + " , " +
+                ", tokenize=trigram)";
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         S.s("onUpgrade:" + newVersion);
-        db.execSQL(createSqlIndex(ZEntry.TABLE_NAME, ZEntry.COLUMN_TIME));
-        db.execSQL(createSqlIndex(ZEntry.TABLE_NAME, ZEntry.COLUMN_TIME2));
-        db.execSQL(createSqlIndex(ZEntry.TABLE_NAME2, ZEntry.COLUMN_TIME));
-        db.execSQL(createSqlIndex(ZEntry.TABLE_NAME2, ZEntry.COLUMN_TIME2));
     }
 
     public void insert(String tag, String table, ZEntry zEntry, boolean dump) {
         SQLiteDatabase db = getWritableDatabase();
         TDBMonitor.execute(new DBOperation(db, tag, DBOperationCode.INSERT) {
             @Override
-            public Cursor op(@NonNull SQLiteDatabase sqLiteDatabase) {
+            public Cursor op(@NonNull SQLiteDatabase sqLiteDatabase, DBTaskState state) {
                 ContentValues values = new ContentValues();
-                values.put(ZEntry.COLUMN_NAME_TITLE, zEntry.title);
-                values.put(ZEntry.COLUMN_NAME_SUBTITLE, zEntry.subtitle);
+                values.put(ZEntry.COLUMN_NAME_NAME, zEntry.name);
+                values.put(ZEntry.COLUMN_NAME_CONTENT, zEntry.content);
+                values.put(ZEntry.COLUMN_NAME_CONTENT2, zEntry.content2);
                 values.put(ZEntry.COLUMN_TIME, zEntry.time);
                 zEntry.id = sqLiteDatabase.insert(table, null, values);
+                return null;
+            }
+        }.setDump(dump));
+    }
+
+    public void insertFts(String tag, String table, ZEntry zEntry, boolean dump) {
+        SQLiteDatabase db = getWritableDatabase();
+        TDBMonitor.execute(new DBOperation(db, tag, DBOperationCode.INSERT) {
+            @Override
+            public Cursor op(@NonNull SQLiteDatabase sqLiteDatabase, DBTaskState state) {
+                //FTS insert.
+                ContentValues valuesFTS = new ContentValues();
+                valuesFTS.put(ZEntry.COLUMN_NAME_NAME, zEntry.name);
+                valuesFTS.put(ZEntry.COLUMN_NAME_CONTENT, zEntry.content);
+                valuesFTS.put(ZEntry.COLUMN_NAME_CONTENT2, zEntry.content2);
+                sqLiteDatabase.insert(table, null, valuesFTS);
                 return null;
             }
         }.setDump(dump));
@@ -89,8 +121,8 @@ public class ZSqlHelper extends SQLiteOpenHelper {
         List<ZEntry> itemIds = new ArrayList<>();
         TDBMonitor.execute(new DBOperation(getReadableDatabase(), tag, DBOperationCode.SELECT) {
             @Override
-            public Cursor op(@NonNull SQLiteDatabase sqLiteDatabase) {
-                String[] projection = {ZEntry._ID, ZEntry.COLUMN_NAME_TITLE, ZEntry.COLUMN_NAME_SUBTITLE, ZEntry.COLUMN_TIME, ZEntry.COLUMN_TIME2};
+            public Cursor op(@NonNull SQLiteDatabase sqLiteDatabase, DBTaskState state) {
+                String[] projection = {ZEntry._ID, ZEntry.COLUMN_NAME_NAME, ZEntry.COLUMN_NAME_CONTENT, ZEntry.COLUMN_TIME, ZEntry.COLUMN_TIME2};
                 String selectionString;
                 String[] selectionArgs;
                 if (whereMap != null && !whereMap.isEmpty()) {
@@ -129,8 +161,9 @@ public class ZSqlHelper extends SQLiteOpenHelper {
                 while (cursor.moveToNext()) {
                     ZEntry zEntry = new ZEntry();
                     zEntry.id = cursor.getLong(cursor.getColumnIndexOrThrow(ZEntry._ID));
-                    zEntry.title = cursor.getString(cursor.getColumnIndexOrThrow(ZEntry.COLUMN_NAME_TITLE));
-                    zEntry.subtitle = cursor.getString(cursor.getColumnIndexOrThrow(ZEntry.COLUMN_NAME_SUBTITLE));
+                    zEntry.name = cursor.getString(cursor.getColumnIndexOrThrow(ZEntry.COLUMN_NAME_NAME));
+                    zEntry.content = cursor.getString(cursor.getColumnIndexOrThrow(ZEntry.COLUMN_NAME_CONTENT));
+                    zEntry.content2 = cursor.getString(cursor.getColumnIndexOrThrow(ZEntry.COLUMN_NAME_CONTENT2));
                     zEntry.time = cursor.getLong(cursor.getColumnIndexOrThrow(ZEntry.COLUMN_TIME));
                     zEntry.time2 = cursor.getLong(cursor.getColumnIndexOrThrow(ZEntry.COLUMN_TIME2));
                     itemIds.add(zEntry);
@@ -139,5 +172,68 @@ public class ZSqlHelper extends SQLiteOpenHelper {
             }
         }.setDump(dump));
         return itemIds;
+    }
+
+    public List<ZEntry> search(String tag, String table, @Nullable String arg, boolean dump) {
+        List<ZEntry> itemIds = new ArrayList<>();
+        TDBMonitor.execute(new DBOperation(getReadableDatabase(), tag, DBOperationCode.SELECT) {
+            @Override
+            public Cursor op(@NonNull SQLiteDatabase sqLiteDatabase, DBTaskState state) {
+//                String sortOrder = " case when " + ZEntry.COLUMN_NAME_TITLE + " = 'hello' then " + ZEntry.COLUMN_TIME + " else " + ZEntry.COLUMN_TIME2 + " end DESC";
+                String sql = "select * from " + table + " where " + ZEntry.COLUMN_NAME_CONTENT + " like '%" + arg + "%'";
+                Cursor cursor = sqLiteDatabase.rawQuery(sql, null);
+                while (cursor.moveToNext()) {
+                    ZEntry zEntry = new ZEntry();
+                    zEntry.id = cursor.getLong(cursor.getColumnIndexOrThrow(ZEntry._ID));
+                    zEntry.name = cursor.getString(cursor.getColumnIndexOrThrow(ZEntry.COLUMN_NAME_NAME));
+                    zEntry.content = cursor.getString(cursor.getColumnIndexOrThrow(ZEntry.COLUMN_NAME_CONTENT));
+                    zEntry.content2 = cursor.getString(cursor.getColumnIndexOrThrow(ZEntry.COLUMN_NAME_CONTENT2));
+                    zEntry.time = cursor.getLong(cursor.getColumnIndexOrThrow(ZEntry.COLUMN_TIME));
+                    zEntry.time2 = cursor.getLong(cursor.getColumnIndexOrThrow(ZEntry.COLUMN_TIME2));
+                    itemIds.add(zEntry);
+                }
+                return cursor;
+            }
+        }.setDump(dump));
+        return itemIds;
+    }
+
+    public List<ZEntry> fts(String tag, String table, @Nullable String arg, boolean dump, int limit) {
+        tag = arg + "(limit:" + limit + ")";
+        List<ZEntry> items = new ArrayList<>();
+
+        TDBMonitor.execute(new DBOperation(getReadableDatabase(), tag, DBOperationCode.SELECT) {
+            @Override
+            public Cursor op(@NonNull SQLiteDatabase sqLiteDatabase, DBTaskState state) {
+                String sql = "select * from " + table
+                        + " where " + table + "." + ZEntry.COLUMN_NAME_CONTENT + " match '" + arg + "'"
+                        + (limit > 0 ? " limit " + limit : "");
+                Cursor cursor = sqLiteDatabase.rawQuery(sql, null);
+                while (cursor.moveToNext()) {
+                    ZEntry zEntry = new ZEntry();
+                    zEntry.name = cursor.getString(cursor.getColumnIndexOrThrow(ZEntry.COLUMN_NAME_NAME));
+                    zEntry.content = cursor.getString(cursor.getColumnIndexOrThrow(ZEntry.COLUMN_NAME_CONTENT));
+                    zEntry.content2 = cursor.getString(cursor.getColumnIndexOrThrow(ZEntry.COLUMN_NAME_CONTENT2));
+                    items.add(zEntry);
+                }
+                state.setLog("fts matched count: " + items.size());
+                return cursor;
+            }
+        }.setDump(dump));
+//        S.s(ZEntry.TABLE_NAME_FTS3 + "--------------------------------------------------[count: " + items.size() + "]  [" + arg + "]");
+        return items;
+    }
+
+    public long ftsCount(String tag, String table) {
+        final long[] count = new long[1];
+        TDBMonitor.execute(new DBOperation(getReadableDatabase(), tag, DBOperationCode.SELECT) {
+            @Override
+            public Cursor op(@NonNull SQLiteDatabase sqLiteDatabase, DBTaskState state) {
+                count[0] = DatabaseUtils.queryNumEntries(sqLiteDatabase, table);
+                state.setLog("fts count:" + count[0]);
+                return null;
+            }
+        });
+        return count[0];
     }
 }

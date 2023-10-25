@@ -13,7 +13,7 @@ import com.test.test3app.mention.TTextWatcher;
 
 import base.ui.AutoSizeTextView;
 import im.turbo.basetools.utils.InputMethodUtils;
-import com.zhaoyuntao.androidutils.tools.S;
+import im.turbo.utils.log.S;
 
 import java.util.List;
 

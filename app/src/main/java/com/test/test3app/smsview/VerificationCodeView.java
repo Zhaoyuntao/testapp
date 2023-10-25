@@ -23,7 +23,7 @@ import androidx.core.content.ContextCompat;
 import com.test.test3app.R;
 import im.turbo.basetools.utils.BitmapUtils;
 import im.turbo.basetools.utils.InputMethodUtils;
-import com.zhaoyuntao.androidutils.tools.S;
+import im.turbo.utils.log.S;
 
 import java.util.regex.Pattern;
 

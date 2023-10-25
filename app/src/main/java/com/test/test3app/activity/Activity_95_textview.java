@@ -2,6 +2,7 @@ package com.test.test3app.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.BidiFormatter;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -69,6 +70,11 @@ public class Activity_95_textview extends BaseActivity {
         });
 
         editText.setText("absaj");
+
+        TextView hhhView=findViewById(R.id.hhhh);
+        String text  = "\u202Dالحملة الإماراتية لإغاثة المتضررين من ا...";
+        text=BidiFormatter.getInstance().unicodeWrap(text);
+        hhhView.setText(text);
     }
 
     private TextView create(ViewGroup parent, String tag, BubbleHorizontalLinearLayout.BubbleHorizontalLayoutParams layoutParams) {

@@ -10,6 +10,7 @@ public class DBTaskState {
     private final String tag;
     @DBOperationCode
     private final int op;
+    private String log;
     private long startWaitingTime;
     private long startOPTime;
     private long endOPTime;
@@ -29,6 +30,10 @@ public class DBTaskState {
 
     void stop() {
         endOPTime = System.currentTimeMillis();
+    }
+
+    public void setLog(String log) {
+        this.log = log;
     }
 
     public long getStartOPTime() {
@@ -73,6 +78,10 @@ public class DBTaskState {
 
     public boolean isInOPProcessing() {
         return startOPTime > 0 && endOPTime <= 0;
+    }
+
+    public String getLog() {
+        return log;
     }
 
     @Override

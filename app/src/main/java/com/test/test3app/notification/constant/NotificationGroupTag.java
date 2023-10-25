@@ -7,8 +7,8 @@ import androidx.annotation.StringDef;
  * on 14/08/2023
  */
 @StringDef({
-        NotificationGroupKey.CHAT,
+        NotificationGroupTag.CHAT,
 })
-public @interface NotificationGroupKey {
+public @interface NotificationGroupTag {
     String CHAT = "GroupChat";
 }

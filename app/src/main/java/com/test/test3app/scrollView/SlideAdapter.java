@@ -14,7 +14,7 @@ import im.thebot.chat.ui.view.BubbleView;
 import im.thebot.common.ui.chat.TextCellContainer;
 import im.turbo.baseui.utils.UiUtils;
 
-import com.zhaoyuntao.androidutils.tools.S;
+import im.turbo.utils.log.S;
 
 import java.util.ArrayList;
 import java.util.List;

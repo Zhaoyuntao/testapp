@@ -1,6 +1,6 @@
 package com.test.test3app.textview;
 
-import com.zhaoyuntao.androidutils.tools.S;
+import im.turbo.utils.log.S;
 import com.zhaoyuntao.androidutils.tools.TextMeasure;
 
 /**

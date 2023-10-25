@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
-import com.zhaoyuntao.androidutils.tools.S;
+import im.turbo.utils.log.S;
 
 /**
  * created by zhaoyuntao

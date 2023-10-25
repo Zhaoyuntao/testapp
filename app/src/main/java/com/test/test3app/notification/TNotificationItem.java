@@ -10,8 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.core.graphics.drawable.IconCompat;
 
 import com.test.test3app.notification.actions.BaseAction;
-import com.test.test3app.notification.constant.NotificationGroupNotifyId;
-import com.test.test3app.notification.constant.NotificationGroupKey;
+import com.test.test3app.notification.constant.NotificationGroupTag;
 import com.test.test3app.notification.summary.NotificationSummary;
 
 /**
@@ -19,12 +18,11 @@ import com.test.test3app.notification.summary.NotificationSummary;
  * on 11/08/2023
  */
 public class TNotificationItem {
-    @NotificationGroupKey
-    private String groupKey;
-    @NotificationGroupNotifyId
-    private int notifyIdGroup;
+    private final String channelId;
+    @NotificationGroupTag
+    private String groupTag;
 
-    private final int notifyId;
+    private final String tag;
     private String conversationTitle;
     private String senderName;
     private String senderKey;
@@ -38,13 +36,13 @@ public class TNotificationItem {
     private BaseAction<?>[] actions;
     private NotificationSummary summary;
 
-    public TNotificationItem(int notifyId) {
-        this.notifyId = notifyId;
+    public TNotificationItem(String channelId, String tag) {
+        this.channelId = channelId;
+        this.tag = tag;
     }
 
-    public TNotificationItem setGroupKey(@NotificationGroupKey String groupKey, @NotificationGroupNotifyId int notifyIdGroup) {
-        this.groupKey = groupKey;
-        this.notifyIdGroup = notifyIdGroup;
+    public TNotificationItem setGroupTag(@NotificationGroupTag String groupTag) {
+        this.groupTag = groupTag;
         return this;
     }
 
@@ -89,14 +87,13 @@ public class TNotificationItem {
         return this;
     }
 
-    @NotificationGroupKey
-    public String getGroupKey() {
-        return groupKey;
+    public String getChannelId() {
+        return channelId;
     }
 
-    @NotificationGroupNotifyId
-    public int getNotifyIdGroup() {
-        return notifyIdGroup;
+    @NotificationGroupTag
+    public String getGroupTag() {
+        return groupTag;
     }
 
     public String getSenderName() {
@@ -115,8 +112,8 @@ public class TNotificationItem {
         return uri;
     }
 
-    public int getNotifyId() {
-        return notifyId;
+    public String getTag() {
+        return tag;
     }
 
     public long getTime() {
@@ -164,7 +161,7 @@ public class TNotificationItem {
     }
 
     public boolean needGroupSummary() {
-        return groupKey != null && notifyIdGroup > 0 && summary != null;
+        return groupTag != null && summary != null;
     }
 
     public boolean isRecall() {

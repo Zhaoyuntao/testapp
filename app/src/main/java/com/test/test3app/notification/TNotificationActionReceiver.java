@@ -8,15 +8,15 @@ import android.text.TextUtils;
 import com.test.test3app.notification.constant.NotificationActionKeys;
 
 public class TNotificationActionReceiver extends BroadcastReceiver {
-    public static final String KEY_NOTIFY_ID = "notification_key_notify_id";
+    public static final String KEY_NOTIFY_TAG = "turbo_notification_key_tag";
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        int notifyId = intent.getIntExtra(KEY_NOTIFY_ID, 0);
+        String tag = intent.getStringExtra(KEY_NOTIFY_TAG);
         if (TextUtils.equals(intent.getAction(), NotificationActionKeys.ACTION_CLEAR)) {
-            TNotificationHelper.getInstance().notifyClear(notifyId, intent);
+            TNotificationHelper.getInstance().notifyClear(tag, intent);
         } else {
-            TNotificationHelper.getInstance().notifyActions(notifyId, intent);
+            TNotificationHelper.getInstance().notifyActions(tag, intent);
         }
     }
 }

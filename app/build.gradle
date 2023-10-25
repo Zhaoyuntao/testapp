@@ -11,7 +11,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        targetSdkVersion 31
+        targetSdkVersion 33
     }
 
     buildTypes {
@@ -24,12 +24,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    compileSdkVersion 31
+    compileSdkVersion 33
 }
 
 dependencies {
+    implementation 'androidx.work:work-runtime:2.7.1'
     implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
 
     implementation 'com.google.android.material:material:1.4.0'
@@ -44,12 +45,13 @@ dependencies {
     implementation "com.android.support:support-emoji:29.0.0"
     implementation "com.android.support:support-emoji-appcompat:29.0.0"
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
-    implementation files('libs/blurimpl.jar')
-    implementation files('libs/layoutlib.jar')
+    implementation files('jarlibs/blurimpl.jar')
+    implementation files('jarlibs/layoutlib.jar')
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-
+    // 修改"1.0.0"为实际引用的版本
+    implementation 'com.tencent.wcdb:wcdb-android:1.0.8'
 
     api project(":mylibrary")
     api project(":module_chat")

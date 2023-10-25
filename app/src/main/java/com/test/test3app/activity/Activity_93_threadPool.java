@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.test.test3app.R;
 import im.turbo.thread.ThreadPool;
-import com.zhaoyuntao.androidutils.tools.S;
+import im.turbo.utils.log.S;
 
 public class Activity_93_threadPool extends AppCompatActivity {
 

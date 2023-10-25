@@ -2,7 +2,6 @@ package com.test.test3app.activity;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -15,8 +14,6 @@ import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleOwner;
 
 import com.test.test3app.R;
-import com.test.test3app.call.PhoneStateService;
-import com.zhaoyuntao.androidutils.tools.ZP;
 
 import im.turbo.baseui.permission.Permission;
 import im.turbo.baseui.permission.PermissionResult;
@@ -65,7 +62,6 @@ public class Activity0 extends BaseActivity {
         zRouters.add(new ZRouter("popWindow", Activity_995_popwindow.class));
         zRouters.add(new ZRouter("expand", Activity_996_expand.class));
         zRouters.add(new ZRouter("CameraWallpaper", Activity_997_cameraWallpaper.class));
-        zRouters.add(new ZRouter("Nest", Activity_998_nest.class));
         zRouters.add(new ZRouter("AnimateImage", Activity_9991_animateimageview.class));
         zRouters.add(new ZRouter("wam", Activity_9993_wam.class));
         zRouters.add(new ZRouter("mention", Activity_9995_mention.class));
@@ -84,13 +80,14 @@ public class Activity0 extends BaseActivity {
         zRouters.add(new ZRouter("blur", Activity_99991_Blur.class));
         zRouters.add(new ZRouter("keyboard", Activity_99992_keyboard.class));
         zRouters.add(new ZRouter("Loading", Activity_999_loading.class));
-        zRouters.add(new ZRouter("textview", Activity_95_textview.class));
         zRouters.add(new ZRouter("imageview", Activity_95_imageview.class));
         zRouters.add(new ZRouter("roundFrame", Activity_99993_roundFrameLayout.class));
         zRouters.add(new ZRouter("url", Activity_99995_webURL.class));
-        zRouters.add(new ZRouter("sql", Activity_99994_Sql.class));
         zRouters.add(new ZRouter("Dir", Activity_9997_dir.class));
         zRouters.add(new ZRouter("notification", Activity_2_notification.class));
+        zRouters.add(new ZRouter("Nest", Activity_998_reflection.class));
+        zRouters.add(new ZRouter("textview", Activity_95_textview.class));
+        zRouters.add(new ZRouter("sql", Activity_99994_Sql.class));
 
         init(zRouters, savedInstanceState == null);
 

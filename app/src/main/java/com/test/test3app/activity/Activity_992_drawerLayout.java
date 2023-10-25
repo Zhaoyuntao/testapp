@@ -16,7 +16,7 @@ import com.test.test3app.drawerlayout.DrawerAdapter;
 import im.turbo.utils.ResourceUtils;
 import com.zhaoyuntao.androidutils.permission.PermissionSettings;
 import com.zhaoyuntao.androidutils.permission.runtime.Permission;
-import com.zhaoyuntao.androidutils.tools.S;
+import im.turbo.utils.log.S;
 import com.zhaoyuntao.androidutils.tools.ZP;
 import com.zhaoyuntao.androidutils.tools.thread.TP;
 

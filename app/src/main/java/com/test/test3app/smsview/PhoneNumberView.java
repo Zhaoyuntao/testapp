@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 
 import com.test.test3app.R;
 import im.turbo.basetools.utils.BitmapUtils;
-import com.zhaoyuntao.androidutils.tools.S;
+import im.turbo.utils.log.S;
 import com.zhaoyuntao.androidutils.tools.TextMeasure;
 
 public class PhoneNumberView extends View {
