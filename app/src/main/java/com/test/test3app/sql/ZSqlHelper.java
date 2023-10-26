@@ -26,10 +26,6 @@ import im.turbo.utils.log.S;
  */
 public class ZSqlHelper extends SQLiteOpenHelper {
 
-    private static String LICENSE_CODE = "OmNpZDowMDEzbzAwMDAyZnQxWThBQUk6cGxhdGZvcm06MTA6ZXhwaXJlOm5ldmVyOnZlcnNpb246MTpobWFjOjhiNWIwNDMwNGM0NDAyYjc2ZDgxN2UxZDFlZjZkMTJjNjI3MGYxYWM=";
-    static String DB_NAME = "search_db_fts5.db";
-    private static SQLiteDatabase sqLiteDatabase;
-
     public static final int DATABASE_VERSION = 4;
 
     public ZSqlHelper(Context context, String dbName) {
