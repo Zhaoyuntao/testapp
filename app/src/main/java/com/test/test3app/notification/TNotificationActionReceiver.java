@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import com.test.test3app.notification.constant.NotificationActionKeys;
 
+
 public class TNotificationActionReceiver extends BroadcastReceiver {
     public static final String KEY_NOTIFY_TAG = "turbo_notification_key_tag";
 
@@ -14,7 +15,7 @@ public class TNotificationActionReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String tag = intent.getStringExtra(KEY_NOTIFY_TAG);
         if (TextUtils.equals(intent.getAction(), NotificationActionKeys.ACTION_CLEAR)) {
-            TNotificationHelper.getInstance().notifyClear(tag, intent);
+            TNotificationHelper.getInstance().notifyClear(tag);
         } else {
             TNotificationHelper.getInstance().notifyActions(tag, intent);
         }

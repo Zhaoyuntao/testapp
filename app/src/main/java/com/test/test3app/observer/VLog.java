@@ -19,4 +19,8 @@ public class VLog {
     public static void d(String s, Object tagBaseMisc, int size) {
         S.s(s);
     }
+
+    public static void e(String tagAppplication, Throwable e) {
+
+    }
 }

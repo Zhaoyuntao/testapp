@@ -47,7 +47,8 @@ import androidx.annotation.StringDef;
         Permission.RECEIVE_WAP_PUSH,
         Permission.RECEIVE_MMS,
         Permission.READ_EXTERNAL_STORAGE,
-        Permission.WRITE_EXTERNAL_STORAGE
+        Permission.WRITE_EXTERNAL_STORAGE,
+        Permission.NOTIFICATION_PERMISSION
 })
 public @interface Permission {
 
@@ -86,4 +87,6 @@ public @interface Permission {
 
     String READ_EXTERNAL_STORAGE = "android.permission.READ_EXTERNAL_STORAGE";
     String WRITE_EXTERNAL_STORAGE = "android.permission.WRITE_EXTERNAL_STORAGE";
+    String NOTIFICATION_PERMISSION = "android.permission.POST_NOTIFICATIONS";
+
 }

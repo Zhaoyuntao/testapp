@@ -22,7 +22,7 @@ public class ReplyAction extends BaseAction<ReplyCallback> {
     }
 
     public String getReplyKey() {
-        return "replyKey";
+        return "turboReplyKey";
     }
 
     public CharSequence getReplyHint() {

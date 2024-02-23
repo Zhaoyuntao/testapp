@@ -92,7 +92,7 @@ public class ResourceUtils {
         return null;
     }
 
-    private static Context getContext() {
+    public static Context getContext() {
         Resources res = getApplication().getResources();
         Configuration configuration = new Configuration(res.getConfiguration());
         int nightNode = AppCompatDelegate.getDefaultNightMode();

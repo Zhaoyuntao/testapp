@@ -5,7 +5,9 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -25,6 +27,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+
+import im.turbo.basetools.pattern.PatternUtils;
+import im.turbo.basetools.pattern.TPatternGroup;
+import im.turbo.basetools.pattern.TPatternItem;
+import im.turbo.basetools.util.ValueSafeTransfer;
 
 public class FileUtil {
     public static final String DOCUMENTS_DIR = "documents";
@@ -191,6 +198,53 @@ public class FileUtil {
         } catch (Throwable t) {
         }
         return null;
+    }
+
+    /**
+     * @param fullName: xx/xx/abc.txt
+     * @return
+     */
+    @Nullable
+    private static File generateFileName(String fullName) {
+        File file = new File(fullName);
+
+        if (file.exists()) {
+            String path;    // /xx/xx/
+            String prefix;  // abc
+            String suffix;  // .txt
+            int index = fullName.lastIndexOf('/');
+            if (index != -1 && (index + 1) < fullName.length()) {
+                path = fullName.substring(0, index + 1);
+                String name = fullName.substring(index + 1);
+
+                int i = name.lastIndexOf('.');
+                if (i > 0) {
+                    prefix = name.substring(0, i);
+                    suffix = name.substring(i);
+                } else {
+                    prefix = name;
+                    suffix = "";
+                }
+
+                index = 0;
+
+                do {
+                    index++;
+                    fullName = path + prefix + '(' + index + ')' + suffix;
+                    file = new File(fullName);
+                } while (file.exists());
+            }
+        }
+
+        try {
+            if (!file.createNewFile()) {
+                return null;
+            }
+        } catch (IOException e) {
+            return null;
+        }
+
+        return file;
     }
 
     public static File[] listFilesSortByModify(String dirPath) {
@@ -398,6 +452,31 @@ public class FileUtil {
         return true;
     }
 
+    public static File copyFileFromUri(Uri uri, Context context,String toPath) {
+        Cursor query = null;
+        try {
+            query = context.getContentResolver().query(uri, null, null, null, null);
+            if (query != null && query.moveToFirst()) {
+                String fileName = query.getString(query.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME));
+                String fileSuffix = getFileSuffix(fileName);
+
+                File file = generateFileName(fileName, new File(toPath));
+                if (file == null) {
+                    return null;
+                }
+                saveFileFromUri(context, uri, file.toString());
+                return file;
+            } else {
+            }
+        } catch (Throwable e) {
+            e.printStackTrace();
+        } finally {
+            if (query != null) query.close();
+        }
+
+        return null;
+    }
+
     public static String getExtensionName(String filename) {
         if ((filename != null) && (filename.length() > 0)) {
             int dot = filename.lastIndexOf('.');
@@ -501,27 +580,10 @@ public class FileUtil {
         if (name == null) {
             return null;
         }
-
         File file = new File(directory, name);
-
-        if (file.exists()) {
-            String fileName = name;
-            String extension = "";
-            int dotIndex = name.lastIndexOf('.');
-            if (dotIndex > 0) {
-                fileName = name.substring(0, dotIndex);
-                extension = name.substring(dotIndex);
-            }
-
-            int index = 0;
-
-            while (file.exists()) {
-                index++;
-                name = fileName + '(' + index + ')' + extension;
-                file = new File(directory, name);
-            }
+        while (file.exists()) {
+            file = new File(directory, generateFileNameWithPattern(file.getName()));
         }
-
         try {
             if (!file.createNewFile()) {
                 return null;
@@ -529,55 +591,39 @@ public class FileUtil {
         } catch (IOException e) {
             return null;
         }
-
         return file;
     }
 
-    /**
-     * @param fullName: xx/xx/abc.txt
-     * @return
-     */
-    @Nullable
-    private static File generateFileName(String fullName) {
-        File file = new File(fullName);
+    private static String generateFileNameWithPattern(String filename) {
+        int positionOfPoint = filename.lastIndexOf(".");
 
-        if (file.exists()) {
-            String path;    // /xx/xx/
-            String prefix;  // abc
-            String suffix;  // .txt
-            int index = fullName.lastIndexOf('/');
-            if (index != -1 && (index + 1) < fullName.length()) {
-                path = fullName.substring(0, index + 1);
-                String name = fullName.substring(index + 1);
-
-                int i = name.lastIndexOf('.');
-                if (i > 0) {
-                    prefix = name.substring(0, i);
-                    suffix = name.substring(i);
-                } else {
-                    prefix = name;
-                    suffix = "";
-                }
-
-                index = 0;
-
-                do {
-                    index++;
-                    fullName = path + prefix + '(' + index + ')' + suffix;
-                    file = new File(fullName);
-                } while (file.exists());
+        String extension;
+        String filenameWithoutExtension;
+        if (positionOfPoint >= 0) {
+            filenameWithoutExtension = filename.substring(0, positionOfPoint);
+            extension = filename.substring(positionOfPoint);
+        } else {
+            filenameWithoutExtension = filename;
+            extension = null;
+        }
+        int fileNumber = 0;
+        List<TPatternGroup> groups = PatternUtils.match(PatternUtils.PATTERN_FILE_NUMBER, filenameWithoutExtension);
+        if (groups != null && groups.size() > 0) {
+            TPatternGroup group = groups.get(0);
+            TPatternItem filenameItem = group.getIndex(1);
+            TPatternItem numberItem = group.getIndex(2);
+            if (filenameItem != null) {
+                filenameWithoutExtension = filenameItem.getContent();
+            }
+            if (numberItem != null) {
+                fileNumber = ValueSafeTransfer.intValue(numberItem.getContent());
             }
         }
-
-        try {
-            if (!file.createNewFile()) {
-                return null;
-            }
-        } catch (IOException e) {
-            return null;
+        String newFileName = filenameWithoutExtension + '(' + ++fileNumber + ')';
+        if (extension != null) {
+            newFileName += extension;
         }
-
-        return file;
+        return newFileName;
     }
 
     /**

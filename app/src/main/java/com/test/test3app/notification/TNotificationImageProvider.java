@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import im.turbo.utils.ResourceUtils;
+import im.turbo.utils.log.S;
 
 /**
  * created by zhaoyuntao
@@ -64,6 +65,7 @@ public class TNotificationImageProvider extends ContentProvider {
     @Nullable
     @Override
     public ParcelFileDescriptor openFile(@NonNull Uri uri, @NonNull String mode) throws FileNotFoundException {
+        S.s("uri:"+uri+"  mode:"+mode);
         String finalPath = uri.getQueryParameter("final_path");
         File finalFile = new File(finalPath);
         if (!finalFile.exists()) {

@@ -5,10 +5,12 @@ import com.zhaoyuntao.myjava.S;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.text.SimpleDateFormat;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * created by zhaoyuntao
@@ -21,7 +23,7 @@ class A {
         public void add(int... a);
     }
 
-    public static <T>T get(Class<T>clazz){
+    public static <T> T get(Class<T> clazz) {
         return (T) Proxy.newProxyInstance(clazz.getClassLoader(), new Class<?>[]{clazz}, new InvocationHandler() {
             @Override
             public Object invoke(Object o, Method method, Object[] args) throws Throwable {
@@ -39,8 +41,8 @@ class A {
         });
     }
 
-    public static class C{
-        private String a="123";
+    public static class C {
+        private String a = "123";
 
         @Override
         public boolean equals(Object o) {
@@ -55,6 +57,7 @@ class A {
             return Objects.hash(a);
         }
     }
+
     public static void main(String[] args) {
 //        B c = get(B.class);
 //        c.add(2, 3);
@@ -74,12 +77,52 @@ class A {
 //        for(Map.Entry<String, String> a:linkedHashMap.entrySet()){
 //            S.s(a.getKey());
 //        }
-        C c= new C();
-        C c2= new C();
-        S.s(c.hashCode());
-        S.s(c2.hashCode());
-        S.s(Objects.hashCode(c));
-        S.s(Objects.hashCode(c2));
-        S.s(c.equals(c2));
+//        C c= new C();
+//        C c2= new C();
+//        S.s(c.hashCode());
+//        S.s(c2.hashCode());
+//        S.s(Objects.hashCode(c));
+//        S.s(Objects.hashCode(c2));
+//        S.s(c.equals(c2));
+
+        Set<String> list = new HashSet<>();
+        list.add("0");
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        list.add("4");
+//        S.s(list.subList(0, 2));
+//        S.s(list.subList(2, 3));
+//        S.s(list.subList(0, 5));
+//        S.s(subList(list, 0, 5));
+        S.s(">>>" + limitString("abcdefg", -1, 5));
+        S.s(">>>" + limitString("abcdefg", 3, 5));
+        S.s(">>>" + limitString("abcdefg", 7, 1));
+        S.s(">>>" + limitString("abcdefg", 10, 5));
+        S.s(">>>" + limitString("abcdefg", 12, 5));
+    }
+
+    public static String limitString(String content, int from, int limit) {
+        if (content == null || content.length() <= limit) {
+            return content;
+        } else {
+            int start = Math.max(0, Math.min(from, content.length()));
+            int end = Math.max(start, Math.min(start + limit, content.length()));
+            return content.substring(start, end);
+        }
+    }
+
+    public static <T1> List<T1> subList(Collection<T1> originList, int from, int to) {
+        if (originList == null || originList.size() == 0) {
+            return new ArrayList<>(0);
+        }
+        from = Math.max(0, Math.min(from, originList.size()));
+        to = Math.max(from, Math.min(to, originList.size()));
+        S.s("from:" + from + " to:" + to);
+        if (from == 0 && to == originList.size()) {
+            return new ArrayList<>(originList);
+        } else {
+            return new ArrayList<>(originList).subList(from, to);
+        }
     }
 }

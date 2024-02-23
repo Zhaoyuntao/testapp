@@ -1,11 +1,13 @@
 package com.zhaoyuntao.rename;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.management.AttributeList;
 
 /**
  * created by zhaoyuntao
@@ -13,6 +15,32 @@ import java.util.Map;
  * description:
  */
 class A {
+    static int a = 0;
+
+    {
+        System.out.println(" 1");
+    }
+
+    static {
+        System.out.println("static 1");
+    }
+
+    static int b = 0;
+    int bb = 13;
+
+    {
+        System.out.println(" 2");
+        bb = 1;
+    }
+
+    static {
+        System.out.println("static 2");
+    }
+
+    public A() {
+        System.out.println("A()");
+    }
+
     public static class B {
         private String name;
         private int number;
@@ -134,33 +162,86 @@ class A {
 //                super.s();
 //            }
 //        }.s();
-        int count = 100000000;
-        long time = System.currentTimeMillis();
-        C c;
-        for (int i = 0; i < count; i++) {
-            Constructor<C> constructor;
-            try {
-                constructor = C.class.getConstructor();
-                c = constructor.newInstance();
-            } catch (Throwable e) {
-                throw new RuntimeException(e);
-            }
-        }
-        System.out.println("new use:" + (System.currentTimeMillis() - time) + "ms");
-        time = System.currentTimeMillis();
-        Constructor<C> constructor = null;
-        try {
-            constructor = C.class.getConstructor();
-        } catch (Throwable e) {
-        }
-        for (int i = 0; i < count; i++) {
-            try {
-                c = constructor.newInstance();
-            } catch (Throwable e) {
-                throw new RuntimeException(e);
-            }
-        }
-//        c = null;
-        System.out.println("new use:" + (System.currentTimeMillis() - time) + "ms");
+//        int count = 100000000;
+//        long time = System.currentTimeMillis();
+//        C c;
+//        for (int i = 0; i < count; i++) {
+//            Constructor<C> constructor;
+//            try {
+//                constructor = C.class.getConstructor();
+//                c = constructor.newInstance();
+//            } catch (Throwable e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+//        System.out.println("new use:" + (System.currentTimeMillis() - time) + "ms");
+//        time = System.currentTimeMillis();
+//        Constructor<C> constructor = null;
+//        try {
+//            constructor = C.class.getConstructor();
+//        } catch (Throwable e) {
+//        }
+//        for (int i = 0; i < count; i++) {
+//            try {
+//                c = constructor.newInstance();
+//            } catch (Throwable e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+////        c = null;
+//        System.out.println("new use:" + (System.currentTimeMillis() - time) + "ms");
+//        int a =1;
+//        Object aa=a;
+//        System.out.println(""+(aa instanceof Integer));
+//        A aa = new A();
+//        System.out.println("a:" + a + " b:" + b + " bb:" + aa.bb);
+//        System.out.println("\\6");
+//        System.out.println("\\6".matches("\\\\6"));
+
+
+        Calendar c = Calendar.getInstance();
+        System.out.println(c.get(Calendar.MONTH));
+
+
+        System.out.println(c.get(Calendar.YEAR));
+
+        new ArrayList<>();
+
+//        set1(new G<List>());
+        set1(new G<ArrayList>());
+        set1(new G<AttributeList>());
+
+        set2(new G<List>());
+        set2(new G<ArrayList>());
+//        set2(new G<AttributeList>());
+
+//        G <? super ArrayList> g = new G<AttributeList>();
+        G<? super ArrayList> g2 = new G<List>();
+
+        G<? extends ArrayList> g3 = new G<AttributeList>();
+//        G <? extends ArrayList> g4 = new G<List>();
+
+//        set1(g);
+//        set2(g);
+
+    }
+
+    public void func1(String string) {
+
+    }
+
+    public <T> void func2(T t) {
+
+    }
+
+    public static class G<T> {
+    }
+
+    public static void set1(G<? extends ArrayList> g) {
+
+    }
+
+    public static void set2(G<? super ArrayList> g) {
+
     }
 }

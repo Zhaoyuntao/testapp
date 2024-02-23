@@ -84,10 +84,10 @@ public class Activity0 extends BaseActivity {
         zRouters.add(new ZRouter("roundFrame", Activity_99993_roundFrameLayout.class));
         zRouters.add(new ZRouter("url", Activity_99995_webURL.class));
         zRouters.add(new ZRouter("Dir", Activity_9997_dir.class));
-        zRouters.add(new ZRouter("notification", Activity_2_notification.class));
         zRouters.add(new ZRouter("Nest", Activity_998_reflection.class));
         zRouters.add(new ZRouter("textview", Activity_95_textview.class));
         zRouters.add(new ZRouter("sql", Activity_99994_Sql.class));
+        zRouters.add(new ZRouter("notification", Activity_2_notification.class));
 
         init(zRouters, savedInstanceState == null);
 

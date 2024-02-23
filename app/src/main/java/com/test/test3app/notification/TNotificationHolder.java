@@ -1,6 +1,7 @@
 package com.test.test3app.notification;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import java.util.ArrayList;
@@ -11,14 +12,19 @@ import java.util.List;
  * on 14/08/2023
  */
 class TNotificationHolder {
+    private final String channelId;
     private final NotificationCompat.Builder builder;
     private final NotificationCompat.MessagingStyle messageStyle;
     private final List<TNotificationItem> messages = new ArrayList<>();
-    private TNotificationItem item;
 
-    public TNotificationHolder(@NonNull NotificationCompat.Builder builder, @NonNull NotificationCompat.MessagingStyle messageStyle) {
+    public TNotificationHolder(@NonNull String channelId, @NonNull NotificationCompat.Builder builder, @NonNull NotificationCompat.MessagingStyle messageStyle) {
+        this.channelId = channelId;
         this.builder = builder;
         this.messageStyle = messageStyle;
+    }
+
+    public String getChannelId() {
+        return channelId;
     }
 
     public NotificationCompat.Builder getBuilder() {
@@ -37,13 +43,37 @@ class TNotificationHolder {
 
     public void addItem(@NonNull TNotificationItem item) {
         synchronized (messages) {
-            this.messages.add(item);
+            if (!this.messages.contains(item)) {
+                this.messages.add(item);
+            }
         }
-        this.item = item;
     }
 
-    @NonNull
+    public void removeItem(@NonNull String uuid) {
+        synchronized (messages) {
+            for (TNotificationItem item : messages) {
+                if (uuid.equals(item.getUuid())) {
+                    this.messages.remove(item);
+                    break;
+                }
+            }
+        }
+    }
+
+    public ArrayList<TNotificationItem> getAllItems() {
+        synchronized (messages) {
+            return new ArrayList<>(messages);
+        }
+    }
+
+    public void clear() {
+        synchronized (messages) {
+            messages.clear();
+        }
+    }
+
+    @Nullable
     public TNotificationItem getItem() {
-        return item;
+        return messages.size() == 0 ? null : messages.get(messages.size() - 1);
     }
 }

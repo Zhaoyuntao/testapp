@@ -1,9 +1,9 @@
 package com.test.test3app.notification.summary;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 
 import com.test.test3app.notification.TNotificationItem;
+
 
 /**
  * created by zhaoyuntao
@@ -11,7 +11,4 @@ import com.test.test3app.notification.TNotificationItem;
  */
 public interface NotificationSummary {
     CharSequence onGetSummary(@NonNull TNotificationItem item, int notificationCount, int messageCount);
-
-    @DrawableRes
-    int getSummaryIcon(@NonNull TNotificationItem item);
 }

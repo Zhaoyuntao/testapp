@@ -22,19 +22,22 @@ public class PatternUtils {
     /**
      * Email.
      */
-    public static final String PATTERN_EMAIL = "([a-z0-9A-Z-_\\.]+@[a-zA-Z0-9]+\\.[a-zA-Z]+)";
+    public static final String PATTERN_EMAIL = BPattern.AUTOLINK_EMAIL_ADDRESS_REGEX;
     /**
      * Phone number.
      */
-    public static final String PATTERN_PHONE_NUMBER = "((?<!(http:|\\d))([0-9]{1,3}[ \\-])?[0-9]{5,15}(?!( ?\\d)))";
+    public static final String PATTERN_PHONE_NUMBER = "((?<!(http:|\\d|\\+))(?:\\+?[0-9]{1,3}[ -]?)?([0-9][ -]?){5,12}(?!(\\d)))";
     public static final String PATTERN_MENTION = "(@\\u2068\\d+?\\u2068)";
-    private static final String WEB_URL_PREFIX = "((?i)(https?|ftp|git|afp|telnet|smb)://)";
-    private static final String WEB_URL_SUFFIX = "(\\.(?i)(cn|com|ae|ar|ai|us|ch|ca|br|es|xyz|net|top|tech|org|gov|edu|ink|int|mil|pub|mob|tv|cc|biz|red|coop|aero|io))";
-    private static final String WEB_URL_DOMAIN_NAME = "[a-zA-Z0-9_\\-]";
-    private static final String WEB_URL_PARAM = "[a-zA-Z0-9_\\-+=&?!@#$%^*():：'\";]";
-
     public static final String WEB_URL = LinkifyPort.WEB_URL_PATTERN;
-//    Pattern p = Pattern.compile(WEB_URL);
+    public static final String PATTERN_FILE_NUMBER = "^(.*)\\((\\d+)\\)$";
+    private static Pattern PATTERN_WEB_URL;
+
+    static {
+        try {
+            PATTERN_WEB_URL = Pattern.compile(WEB_URL);
+        } catch (Throwable ignore) {
+        }
+    }
 
 
     /**
